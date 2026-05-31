@@ -1,0 +1,28 @@
+site_name: AI Data Platform Study
+site_description: AI Data Platform & Local LLM Study
+theme:
+  name: material
+  language: ko
+
+nav:
+  - Home: index.md
+
+  - Roadmap:
+      - 학습 로드맵: roadmap/study-roadmap.md
+
+  - Study:
+      - AI Platform 개요: study/ai-platform.md
+      - Data Lakehouse: study/data-lakehouse.md
+      - Iceberg: study/iceberg.md
+      - Delta Lake: study/delta-lake.md
+
+  - Architecture:
+      - 전체 아키텍처: architecture/overall-architecture.md
+
+  - Lab:
+      - Local LLM 구축: lab/local-llm.md
+      - RAG 구축: lab/rag.md
+      - Agent 구축: lab/agent.md
+
+  - POC:
+      - PoC 결과: poc/result.md
