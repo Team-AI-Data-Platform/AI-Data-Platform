@@ -7,6 +7,9 @@ theme:
 nav:
   - Home: index.md
 
+  - Setting:
+      - MkDocs 문서 사이트 구축 가이드: setting/mkdocs_github_pages_guide.md
+      
   - Roadmap:
       - 학습 로드맵: roadmap/study-roadmap.md
 
