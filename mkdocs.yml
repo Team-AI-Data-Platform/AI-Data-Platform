@@ -20,6 +20,7 @@ nav:
       - 전체 아키텍처: architecture/overall-architecture.md
 
   - Lab:
+      - 구축 Guide : lab/guide.md
       - Local LLM 구축: lab/local-llm.md
       - RAG 구축: lab/rag.md
       - Agent 구축: lab/agent.md
