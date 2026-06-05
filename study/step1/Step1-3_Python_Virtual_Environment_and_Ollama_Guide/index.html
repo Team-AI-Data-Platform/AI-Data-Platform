@@ -14,6 +14,8 @@
         <link rel="prev" href="../local_llm_model_size_guide_detail/">
       
       
+        <link rel="next" href="../Step1-4_Open_WebUI_Docker_Guide/">
+      
       
         
       
@@ -691,42 +693,14 @@
   
   
     <li class="md-nav__item">
-      <a href="../ollama_guide.md" class="md-nav__link">
+      <a href="../Step1-4_Open_WebUI_Docker_Guide/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Ollama 이해
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../open_webui_guide.md" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Open WebUI 구축
+    Open WebUI 구축 및 Docker 이해 가이드
   
 
     
@@ -1181,17 +1155,21 @@ Gemma / Qwen</p>
 </code></pre></div>
 <hr />
 <h1 id="14">14. 내부 동작 구조</h1>
-<p>Python Program
-↓
-Ollama Python Library
-↓
-localhost:11434
-↓
-Ollama Server
-↓
-Gemma3 4B
-↓
-Response</p>
+<pre class="mermaid"><code>
+flowchart TD
+
+A[Python Program]
+
+--&gt; B[Ollama Python Library]
+
+B --&gt; C[localhost:11434]
+
+C --&gt; D[Ollama Server]
+
+D --&gt; E[Gemma3 4B]
+
+E --&gt; F[Response]
+</code></pre>
 <hr />
 <h1 id="15">15. 향후 활용</h1>
 <p>이후 단계에서 모두 사용됩니다.</p>
