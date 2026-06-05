@@ -18,7 +18,7 @@ nav:
 
 
   - Study:
-      - Step1 local LLM : study/ai-platform.md
+      - Step1 local LLM : study/step1_local_llm_setup_guide.md
       - Step2 RAG: study/data-lakehouse.md
       - Step3 Agent: study/iceberg.md
       - Step4 AI Data Platform: study/delta-lake.md
