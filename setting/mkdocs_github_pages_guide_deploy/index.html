@@ -1154,7 +1154,7 @@
 <h2 id="_1">개요</h2>
 <p>본 문서는 MkDocs와 GitHub Pages를 이용하여 문서를 배포하는 과정과 문서 수정 후 재배포하는 방법을 정리한 가이드이다.</p>
 <h2 id="_2">문서 수정 후 반영 절차</h2>
-<pre><code class="language-text">Markdown 수정
+<div class="highlight"><pre><span></span><code>Markdown 수정
     ↓
 Git Push
     ↓
@@ -1163,40 +1163,40 @@ MkDocs Build
 GitHub Pages 배포
     ↓
 웹 페이지 반영
-</code></pre>
+</code></pre></div>
 <hr />
 <h2 id="1">1. 문서 작성</h2>
 <p>예시</p>
-<pre><code class="language-text">docs/new-document.md
-</code></pre>
+<div class="highlight"><pre><span></span><code>docs/new-document.md
+</code></pre></div>
 <hr />
 <h2 id="2-mkdocsyml">2. mkdocs.yml 메뉴 등록</h2>
-<pre><code class="language-yaml">nav:
-  - Home: index.md
-  - 설치 가이드: install-guide.md
-  - 운영 가이드: operation-guide.md
-  - 신규 문서: new-document.md
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nt">nav</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Home</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">index.md</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">설치 가이드</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">install-guide.md</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">운영 가이드</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">operation-guide.md</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">신규 문서</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">new-document.md</span>
+</code></pre></div>
 <hr />
 <h2 id="3-github-push">3. GitHub Push</h2>
-<pre><code class="language-bash">git add .
-git commit -m &quot;신규 문서 추가&quot;
-git push origin main
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;신규 문서 추가&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div>
 <hr />
 <h2 id="4">4. 로컬 확인</h2>
-<pre><code class="language-bash">mkdocs serve
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>serve
+</code></pre></div>
 <p>브라우저 접속</p>
-<pre><code class="language-text">http://127.0.0.1:8000
-</code></pre>
+<div class="highlight"><pre><span></span><code>http://127.0.0.1:8000
+</code></pre></div>
 <hr />
 <h2 id="5-github-pages">5. GitHub Pages 배포</h2>
 <p>가장 중요한 명령어</p>
-<pre><code class="language-bash">mkdocs gh-deploy
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>gh-deploy
+</code></pre></div>
 <p>내부 동작</p>
-<pre><code class="language-text">docs/*.md
+<div class="highlight"><pre><span></span><code>docs/*.md
       ↓
 mkdocs build
       ↓
@@ -1205,38 +1205,38 @@ site/*.html
 gh-pages 브랜치 Push
       ↓
 GitHub Pages 반영
-</code></pre>
+</code></pre></div>
 <hr />
 <h2 id="6">6. 정적 사이트 생성만 수행</h2>
-<pre><code class="language-bash">mkdocs build
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>build
+</code></pre></div>
 <p>생성 결과</p>
-<pre><code class="language-text">site/
+<div class="highlight"><pre><span></span><code>site/
 ├── index.html
 ├── assets/
 └── ...
-</code></pre>
+</code></pre></div>
 <hr />
 <h2 id="_3">자주 사용하는 명령어</h2>
 <h3 id="_4">로컬 실행</h3>
-<pre><code class="language-bash">mkdocs serve
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>serve
+</code></pre></div>
 <h3 id="_5">정적 사이트 생성</h3>
-<pre><code class="language-bash">mkdocs build
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>build
+</code></pre></div>
 <h3 id="github-pages">GitHub Pages 배포</h3>
-<pre><code class="language-bash">mkdocs gh-deploy
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>gh-deploy
+</code></pre></div>
 <hr />
 <h2 id="_6">가장 많이 사용하는 작업 순서</h2>
-<pre><code class="language-bash">git add .
-git commit -m &quot;문서 수정&quot;
-git push origin main
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;문서 수정&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
 
-mkdocs serve
+mkdocs<span class="w"> </span>serve
 
-mkdocs gh-deploy
-</code></pre>
+mkdocs<span class="w"> </span>gh-deploy
+</code></pre></div>
 <hr />
 <h2 id="_7">문제 해결</h2>
 <h3 id="github-pages_1">GitHub에는 있는데 Pages에는 안 보임</h3>
@@ -1246,23 +1246,23 @@ mkdocs gh-deploy
 <li>GitHub Pages 재배포 안 함</li>
 </ul>
 <p>조치</p>
-<pre><code class="language-bash">mkdocs gh-deploy
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>gh-deploy
+</code></pre></div>
 <h3 id="_8">메뉴에 안 보임</h3>
 <p>원인</p>
 <ul>
 <li>mkdocs.yml nav 미등록</li>
 </ul>
 <p>조치</p>
-<pre><code class="language-yaml">nav:
-  - 신규 문서: new-document.md
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nt">nav</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">신규 문서</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">new-document.md</span>
+</code></pre></div>
 <hr />
 <h2 id="_9">결론</h2>
 <p>문서 수정 후 아래 두 명령어만 기억하면 된다.</p>
-<pre><code class="language-bash">git push origin main
-mkdocs gh-deploy
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+mkdocs<span class="w"> </span>gh-deploy
+</code></pre></div>
 
 
 

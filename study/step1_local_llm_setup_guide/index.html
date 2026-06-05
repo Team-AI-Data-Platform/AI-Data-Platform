@@ -1857,7 +1857,7 @@
 <hr />
 <h2 id="2">2. 전체 구성 개념</h2>
 <p>Local LLM은 간단히 말하면 ChatGPT처럼 동작하는 언어 모델을 클라우드가 아니라 내 컴퓨터에서 직접 실행하는 구조입니다.</p>
-<pre><code class="language-mermaid">flowchart LR
+<pre class="mermaid"><code>flowchart LR
     USER[사용자] --&gt; CLI[터미널 / 명령어]
     USER --&gt; WEBUI[Open WebUI]
     USER --&gt; API[REST API 호출]
@@ -1868,8 +1868,7 @@
 
     OLLAMA --&gt; MODEL[Local LLM Model]
     MODEL --&gt; CPU[CPU]
-    MODEL --&gt; GPU[GPU / Apple Silicon]
-</code></pre>
+    MODEL --&gt; GPU[GPU / Apple Silicon]</code></pre>
 <h3 id="_1">구성 요소 설명</h3>
 <table>
 <thead>
@@ -1966,11 +1965,11 @@ Step 1에서는 작은 모델로 성공 경험을 먼저 만드는 것이 중요
 </table>
 <p>최소 20GB 이상 여유 공간을 확보하는 것을 권장합니다.</p>
 <h3 id="macos-linux">macOS / Linux</h3>
-<pre><code class="language-bash">df -h
-</code></pre>
+<div class="highlight"><pre><span></span><code>df<span class="w"> </span>-h
+</code></pre></div>
 <h3 id="windows-powershell">Windows PowerShell</h3>
-<pre><code class="language-powershell">Get-PSDrive C
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">Get-PSDrive</span> <span class="n">C</span>
+</code></pre></div>
 <hr />
 <h2 id="4-ollama">4. Ollama 설치</h2>
 <p>Ollama는 로컬에서 모델을 실행하기 위한 핵심 도구입니다.</p>
@@ -1985,8 +1984,8 @@ Step 1에서는 작은 모델로 성공 경험을 먼저 만드는 것이 중요
 <li>설치 후 Ollama 앱 실행</li>
 <li>터미널을 열고 설치 확인</li>
 </ol>
-<pre><code class="language-bash">ollama --version
-</code></pre>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>--version
+</code></pre></div>
 <p>정상 설치되었다면 Ollama 버전이 출력됩니다.</p>
 <hr />
 <h2 id="42-windows">4.2 Windows 설치</h2>
@@ -1998,63 +1997,63 @@ Step 1에서는 작은 모델로 성공 경험을 먼저 만드는 것이 중요
 <li>PowerShell 또는 Windows Terminal 실행</li>
 <li>설치 확인</li>
 </ol>
-<pre><code class="language-powershell">ollama --version
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">ollama</span> <span class="p">-</span><span class="n">-version</span>
+</code></pre></div>
 <p>정상 설치되었다면 Ollama 버전이 출력됩니다.</p>
 <hr />
 <h2 id="43-linux">4.3 Linux 설치</h2>
 <p>Linux에서는 다음 명령으로 설치할 수 있습니다.</p>
-<pre><code class="language-bash">curl -fsSL https://ollama.com/install.sh | sh
-</code></pre>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://ollama.com/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+</code></pre></div>
 <p>설치 확인:</p>
-<pre><code class="language-bash">ollama --version
-</code></pre>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>--version
+</code></pre></div>
 <hr />
 <h2 id="5-ollama">5. Ollama 기본 동작 확인</h2>
 <p>설치가 완료되면 Ollama 서버가 백그라운드에서 실행됩니다.</p>
 <p>다음 명령으로 상태를 확인합니다.</p>
-<pre><code class="language-bash">ollama list
-</code></pre>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>list
+</code></pre></div>
 <p>처음 설치 직후에는 아직 받은 모델이 없기 때문에 빈 목록이 나올 수 있습니다.</p>
 <p>예시:</p>
-<pre><code class="language-bash">NAME    ID    SIZE    MODIFIED
-</code></pre>
+<div class="highlight"><pre><span></span><code>NAME<span class="w">    </span>ID<span class="w">    </span>SIZE<span class="w">    </span>MODIFIED
+</code></pre></div>
 <p>빈 목록이어도 정상입니다. 아직 모델을 다운로드하지 않았기 때문입니다.</p>
 <hr />
 <h2 id="6">6. 첫 번째 모델 실행</h2>
 <p>처음에는 가벼운 모델부터 실행합니다.</p>
 <p>권장 시작 모델:</p>
-<pre><code class="language-bash">ollama run gemma3:4b
-</code></pre>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>run<span class="w"> </span>gemma3:4b
+</code></pre></div>
 <p>처음 실행하면 모델을 자동으로 다운로드한 뒤 실행합니다.</p>
 <p>다운로드가 끝나면 프롬프트 입력 화면이 나타납니다.</p>
 <p>예시 질문:</p>
-<pre><code class="language-text">너는 지금 로컬에서 실행 중인 LLM이야. 간단히 자기소개해줘.
-</code></pre>
+<div class="highlight"><pre><span></span><code>너는 지금 로컬에서 실행 중인 LLM이야. 간단히 자기소개해줘.
+</code></pre></div>
 <p>정상적으로 답변이 나오면 Local LLM 실행 성공입니다.</p>
 <hr />
 <h2 id="7">7. 대화 종료 방법</h2>
 <p>Ollama 대화 모드에서 빠져나오려면 다음 중 하나를 입력합니다.</p>
-<pre><code class="language-text">/bye
-</code></pre>
+<div class="highlight"><pre><span></span><code>/bye
+</code></pre></div>
 <p>또는 키보드에서 다음을 누릅니다.</p>
-<pre><code class="language-text">Ctrl + D
-</code></pre>
+<div class="highlight"><pre><span></span><code>Ctrl + D
+</code></pre></div>
 <hr />
 <h2 id="8">8. 모델 목록 확인</h2>
 <p>현재 PC에 다운로드된 모델 목록을 확인합니다.</p>
-<pre><code class="language-bash">ollama list
-</code></pre>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>list
+</code></pre></div>
 <p>예시:</p>
-<pre><code class="language-text">NAME          ID              SIZE      MODIFIED
+<div class="highlight"><pre><span></span><code>NAME          ID              SIZE      MODIFIED
 gemma3:4b     xxxxxxxxxxxx    3.3 GB    5 minutes ago
-</code></pre>
+</code></pre></div>
 <hr />
 <h2 id="9">9. 추가 모델 설치</h2>
 <p>기본 테스트가 끝났다면 다른 모델도 테스트해볼 수 있습니다.</p>
 <h3 id="91">9.1 가벼운 테스트용</h3>
-<pre><code class="language-bash">ollama run gemma3:1b
-</code></pre>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>run<span class="w"> </span>gemma3:1b
+</code></pre></div>
 <p>장점:</p>
 <ul>
 <li>빠르게 실행됨</li>
@@ -2067,8 +2066,8 @@ gemma3:4b     xxxxxxxxxxxx    3.3 GB    5 minutes ago
 </ul>
 <hr />
 <h3 id="92">9.2 일반 실습용</h3>
-<pre><code class="language-bash">ollama run gemma3:4b
-</code></pre>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>run<span class="w"> </span>gemma3:4b
+</code></pre></div>
 <p>장점:</p>
 <ul>
 <li>처음 실습하기 좋은 균형형 모델</li>
@@ -2076,82 +2075,82 @@ gemma3:4b     xxxxxxxxxxxx    3.3 GB    5 minutes ago
 </ul>
 <hr />
 <h3 id="93">9.3 성능 비교용</h3>
-<pre><code class="language-bash">ollama run qwen3.5:4b
-</code></pre>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>run<span class="w"> </span>qwen3.5:4b
+</code></pre></div>
 <p>또는 사용 가능한 최신 Qwen 모델을 Ollama Library에서 확인한 후 실행합니다.</p>
-<pre><code class="language-bash">ollama run qwen3.6
-</code></pre>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>run<span class="w"> </span>qwen3.6
+</code></pre></div>
 <blockquote>
 <p>단, 큰 모델은 장비 성능에 따라 매우 느릴 수 있습니다. 처음에는 4B 이하 모델부터 시작하세요.</p>
 </blockquote>
 <hr />
 <h2 id="10">10. 모델 삭제</h2>
 <p>사용하지 않는 모델은 삭제할 수 있습니다.</p>
-<pre><code class="language-bash">ollama rm gemma3:4b
-</code></pre>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>rm<span class="w"> </span>gemma3:4b
+</code></pre></div>
 <p>삭제 후 확인:</p>
-<pre><code class="language-bash">ollama list
-</code></pre>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>list
+</code></pre></div>
 <hr />
 <h2 id="11-rest-api">11. REST API 호출 테스트</h2>
 <p>Ollama는 기본적으로 로컬 REST API를 제공합니다.</p>
 <p>기본 주소:</p>
-<pre><code class="language-text">http://localhost:11434
-</code></pre>
+<div class="highlight"><pre><span></span><code>http://localhost:11434
+</code></pre></div>
 <h3 id="111-api">11.1 모델 생성 API 호출</h3>
 <p>macOS / Linux:</p>
-<pre><code class="language-bash">curl http://localhost:11434/api/generate \
-  -d '{
-    &quot;model&quot;: &quot;gemma3:4b&quot;,
-    &quot;prompt&quot;: &quot;Local LLM이 무엇인지 초보자에게 설명해줘.&quot;,
-    &quot;stream&quot;: false
-  }'
-</code></pre>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:11434/api/generate<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;model&quot;: &quot;gemma3:4b&quot;,</span>
+<span class="s1">    &quot;prompt&quot;: &quot;Local LLM이 무엇인지 초보자에게 설명해줘.&quot;,</span>
+<span class="s1">    &quot;stream&quot;: false</span>
+<span class="s1">  }&#39;</span>
+</code></pre></div>
 <p>Windows PowerShell:</p>
-<pre><code class="language-powershell">$body = @{
-  model = &quot;gemma3:4b&quot;
-  prompt = &quot;Local LLM이 무엇인지 초보자에게 설명해줘.&quot;
-  stream = $false
-} | ConvertTo-Json
+<div class="highlight"><pre><span></span><code><span class="nv">$body</span> <span class="p">=</span> <span class="p">@{</span>
+  <span class="n">model</span> <span class="p">=</span> <span class="s2">&quot;gemma3:4b&quot;</span>
+  <span class="n">prompt</span> <span class="p">=</span> <span class="s2">&quot;Local LLM이 무엇인지 초보자에게 설명해줘.&quot;</span>
+  <span class="n">stream</span> <span class="p">=</span> <span class="nv">$false</span>
+<span class="p">}</span> <span class="p">|</span> <span class="nb">ConvertTo-Json</span>
 
-Invoke-RestMethod -Uri &quot;http://localhost:11434/api/generate&quot; -Method Post -Body $body -ContentType &quot;application/json&quot;
-</code></pre>
+<span class="nb">Invoke-RestMethod</span> <span class="n">-Uri</span> <span class="s2">&quot;http://localhost:11434/api/generate&quot;</span> <span class="n">-Method</span> <span class="n">Post</span> <span class="n">-Body</span> <span class="nv">$body</span> <span class="n">-ContentType</span> <span class="s2">&quot;application/json&quot;</span>
+</code></pre></div>
 <p>정상 동작하면 JSON 형태로 응답이 반환됩니다.</p>
 <hr />
 <h2 id="12-python">12. Python에서 호출하기</h2>
 <p>Python 개발에서 Ollama를 호출하려면 <code>ollama</code> Python 라이브러리를 사용할 수 있습니다.</p>
 <h3 id="121-python">12.1 Python 가상환경 생성</h3>
 <p>macOS / Linux:</p>
-<pre><code class="language-bash">mkdir local-llm-test
-cd local-llm-test
-python3 -m venv .venv
-source .venv/bin/activate
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>local-llm-test
+<span class="nb">cd</span><span class="w"> </span>local-llm-test
+python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+</code></pre></div>
 <p>Windows PowerShell:</p>
-<pre><code class="language-powershell">mkdir local-llm-test
-cd local-llm-test
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">mkdir</span> <span class="n">local-llm-test</span>
+<span class="nb">cd </span><span class="n">local-llm-test</span>
+<span class="n">python</span> <span class="n">-m</span> <span class="n">venv</span> <span class="p">.</span><span class="n">venv</span>
+<span class="p">.\.</span><span class="n">venv</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">Activate</span><span class="p">.</span><span class="n">ps1</span>
+</code></pre></div>
 <hr />
 <h3 id="122">12.2 라이브러리 설치</h3>
-<pre><code class="language-bash">pip install ollama
-</code></pre>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>ollama
+</code></pre></div>
 <hr />
 <h3 id="123-python">12.3 Python 예제 작성</h3>
 <p><code>ollama_test.py</code> 파일을 생성합니다.</p>
-<pre><code class="language-python">import ollama
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">ollama</span>
 
-response = ollama.generate(
-    model=&quot;gemma3:4b&quot;,
-    prompt=&quot;Local LLM을 사내 개발환경에서 활용하는 방법을 5줄로 설명해줘.&quot;
-)
+<span class="n">response</span> <span class="o">=</span> <span class="n">ollama</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gemma3:4b&quot;</span><span class="p">,</span>
+    <span class="n">prompt</span><span class="o">=</span><span class="s2">&quot;Local LLM을 사내 개발환경에서 활용하는 방법을 5줄로 설명해줘.&quot;</span>
+<span class="p">)</span>
 
-print(response[&quot;response&quot;])
-</code></pre>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;response&quot;</span><span class="p">])</span>
+</code></pre></div>
 <p>실행:</p>
-<pre><code class="language-bash">python ollama_test.py
-</code></pre>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>ollama_test.py
+</code></pre></div>
 <p>정상적으로 답변이 출력되면 Python 연동까지 성공입니다.</p>
 <hr />
 <h2 id="13-open-webui">13. Open WebUI 설치 선택 사항</h2>
@@ -2162,17 +2161,17 @@ print(response[&quot;response&quot;])
 <h2 id="131-docker-open-webui">13.1 Docker로 Open WebUI 실행</h2>
 <p>Docker Desktop이 설치되어 있어야 합니다.</p>
 <h3 id="macos-windows">macOS / Windows 공통</h3>
-<pre><code class="language-bash">docker run -d \
-  -p 3000:8080 \
-  --add-host=host.docker.internal:host-gateway \
-  -v open-webui:/app/backend/data \
-  --name open-webui \
-  --restart always \
-  ghcr.io/open-webui/open-webui:main
-</code></pre>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">3000</span>:8080<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--add-host<span class="o">=</span>host.docker.internal:host-gateway<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span>open-webui:/app/backend/data<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>open-webui<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--restart<span class="w"> </span>always<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ghcr.io/open-webui/open-webui:main
+</code></pre></div>
 <p>실행 후 브라우저에서 접속합니다.</p>
-<pre><code class="language-text">http://localhost:3000
-</code></pre>
+<div class="highlight"><pre><span></span><code>http://localhost:3000
+</code></pre></div>
 <p>최초 접속 시 관리자 계정을 생성합니다.</p>
 <hr />
 <h2 id="132-open-webui">13.2 Open WebUI에서 모델 선택</h2>
@@ -2184,15 +2183,15 @@ print(response[&quot;response&quot;])
 <li>질문 입력</li>
 </ol>
 <p>예시 질문:</p>
-<pre><code class="language-text">너는 지금 내 PC에서 실행되는 로컬 LLM이야. 현재 구조를 설명해줘.
-</code></pre>
+<div class="highlight"><pre><span></span><code>너는 지금 내 PC에서 실행되는 로컬 LLM이야. 현재 구조를 설명해줘.
+</code></pre></div>
 <p>답변이 나오면 Open WebUI 연결 성공입니다.</p>
 <hr />
 <h2 id="14">14. 자주 발생하는 문제와 해결 방법</h2>
 <h2 id="141-ollama">14.1 <code>ollama</code> 명령어를 찾을 수 없음</h2>
 <p>증상:</p>
-<pre><code class="language-text">command not found: ollama
-</code></pre>
+<div class="highlight"><pre><span></span><code>command not found: ollama
+</code></pre></div>
 <p>해결:</p>
 <ol>
 <li>Ollama가 설치되어 있는지 확인합니다.</li>
@@ -2212,8 +2211,8 @@ print(response[&quot;response&quot;])
 <ol>
 <li>작은 모델부터 받습니다.</li>
 </ol>
-<pre><code class="language-bash">ollama run gemma3:1b
-</code></pre>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>run<span class="w"> </span>gemma3:1b
+</code></pre></div>
 <ol>
 <li>회사망에서 막히면 개인망 또는 허용된 네트워크에서 테스트합니다.</li>
 <li>모델 다운로드 중 터미널을 종료하지 않습니다.</li>
@@ -2230,8 +2229,8 @@ print(response[&quot;response&quot;])
 <ol>
 <li>더 작은 모델을 사용합니다.</li>
 </ol>
-<pre><code class="language-bash">ollama run gemma3:1b
-</code></pre>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>run<span class="w"> </span>gemma3:1b
+</code></pre></div>
 <ol>
 <li>동시에 실행 중인 무거운 프로그램을 종료합니다.</li>
 <li>4B 모델에서 먼저 안정화한 후 8B 이상으로 확장합니다.</li>
@@ -2242,18 +2241,18 @@ print(response[&quot;response&quot;])
 <ol>
 <li>Ollama 모델이 설치되어 있는지 확인합니다.</li>
 </ol>
-<pre><code class="language-bash">ollama list
-</code></pre>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>list
+</code></pre></div>
 <ol>
 <li>Ollama가 실행 중인지 확인합니다.</li>
 </ol>
-<pre><code class="language-bash">ollama ps
-</code></pre>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>ps
+</code></pre></div>
 <ol>
 <li>Open WebUI 컨테이너를 재시작합니다.</li>
 </ol>
-<pre><code class="language-bash">docker restart open-webui
-</code></pre>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>restart<span class="w"> </span>open-webui
+</code></pre></div>
 <ol>
 <li>브라우저를 새로고침합니다.</li>
 </ol>
@@ -2309,21 +2308,21 @@ print(response[&quot;response&quot;])
 <hr />
 <h2 id="16-step-1">16. Step 1 완료 기준</h2>
 <p>Step 1은 다음 상태가 되면 완료입니다.</p>
-<pre><code class="language-text">내 PC에서 LLM 모델이 실행되고,
+<div class="highlight"><pre><span></span><code>내 PC에서 LLM 모델이 실행되고,
 터미널 또는 웹 UI에서 질문을 입력하면,
 인터넷 기반 ChatGPT가 아니라 로컬 모델이 직접 답변하는 상태
-</code></pre>
+</code></pre></div>
 <p>즉, 다음 명령이 정상 동작해야 합니다.</p>
-<pre><code class="language-bash">ollama run gemma3:4b
-</code></pre>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>run<span class="w"> </span>gemma3:4b
+</code></pre></div>
 <p>그리고 다음 API 호출이 정상 응답해야 합니다.</p>
-<pre><code class="language-bash">curl http://localhost:11434/api/generate \
-  -d '{
-    &quot;model&quot;: &quot;gemma3:4b&quot;,
-    &quot;prompt&quot;: &quot;테스트입니다.&quot;,
-    &quot;stream&quot;: false
-  }'
-</code></pre>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:11434/api/generate<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;model&quot;: &quot;gemma3:4b&quot;,</span>
+<span class="s1">    &quot;prompt&quot;: &quot;테스트입니다.&quot;,</span>
+<span class="s1">    &quot;stream&quot;: false</span>
+<span class="s1">  }&#39;</span>
+</code></pre></div>
 <hr />
 <h2 id="17">17. 다음 단계 예고</h2>
 <p>Step 1이 완료되면 다음 단계로 넘어갈 수 있습니다.</p>
@@ -2371,40 +2370,40 @@ print(response[&quot;response&quot;])
 <h2 id="19">19. 장관님 실습 추천 순서</h2>
 <p>장관님 장비 기준으로는 다음 순서가 좋습니다.</p>
 <h3 id="1-mac-mini-m2-pro">1차: Mac mini M2 Pro에서 실습</h3>
-<pre><code class="language-bash">ollama run gemma3:4b
-</code></pre>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>run<span class="w"> </span>gemma3:4b
+</code></pre></div>
 <p>성공 후:</p>
-<pre><code class="language-bash">ollama run qwen3.5:4b
-</code></pre>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>run<span class="w"> </span>qwen3.5:4b
+</code></pre></div>
 <h3 id="2-windows">2차: Windows 노트북에서 동일 실습</h3>
-<pre><code class="language-powershell">ollama run gemma3:4b
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">ollama</span> <span class="n">run</span> <span class="n">gemma3</span><span class="p">:</span><span class="n">4b</span>
+</code></pre></div>
 <p>성능이 느리면:</p>
-<pre><code class="language-powershell">ollama run gemma3:1b
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">ollama</span> <span class="n">run</span> <span class="n">gemma3</span><span class="p">:</span><span class="n">1b</span>
+</code></pre></div>
 <h3 id="3-open-webui">3차: Open WebUI 연결</h3>
-<pre><code class="language-bash">docker run -d \
-  -p 3000:8080 \
-  --add-host=host.docker.internal:host-gateway \
-  -v open-webui:/app/backend/data \
-  --name open-webui \
-  --restart always \
-  ghcr.io/open-webui/open-webui:main
-</code></pre>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">3000</span>:8080<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--add-host<span class="o">=</span>host.docker.internal:host-gateway<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span>open-webui:/app/backend/data<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>open-webui<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--restart<span class="w"> </span>always<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ghcr.io/open-webui/open-webui:main
+</code></pre></div>
 <p>브라우저 접속:</p>
-<pre><code class="language-text">http://localhost:3000
-</code></pre>
+<div class="highlight"><pre><span></span><code>http://localhost:3000
+</code></pre></div>
 <hr />
 <h1 id="_2">끝</h1>
 <p>이 문서는 GitHub 저장소의 <code>docs/</code> 폴더에 업로드한 뒤 MkDocs 메뉴에 연결해서 팀원들과 공유할 수 있습니다.</p>
 <p>예시 경로:</p>
-<pre><code class="language-text">docs/ai-data-platform/step1-local-llm-setup.md
-</code></pre>
+<div class="highlight"><pre><span></span><code>docs/ai-data-platform/step1-local-llm-setup.md
+</code></pre></div>
 <p>MkDocs <code>mkdocs.yml</code> 예시:</p>
-<pre><code class="language-yaml">nav:
-  - AI Data Platform:
-      - Step 1. Local LLM 구축: ai-data-platform/step1-local-llm-setup.md
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nt">nav</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">AI Data Platform</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step 1. Local LLM 구축</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ai-data-platform/step1-local-llm-setup.md</span>
+</code></pre></div>
 
 
 

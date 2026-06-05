@@ -1512,7 +1512,7 @@ macOS 기준으로 작성했으며, 팀원이 처음부터 따라 할 수 있도
 <hr />
 <h2 id="1">1. 전체 흐름 이해</h2>
 <p>MkDocs + GitHub Pages를 사용하면 다음과 같은 방식으로 문서 사이트를 운영할 수 있습니다.</p>
-<pre><code class="language-text">마크다운 문서 작성
+<div class="highlight"><pre><span></span><code>마크다운 문서 작성
         ↓
 MkDocs로 정적 웹사이트 생성
         ↓
@@ -1523,7 +1523,7 @@ mkdocs gh-deploy 실행
 gh-pages 브랜치에 웹사이트 결과물 배포
         ↓
 GitHub Pages URL로 웹에서 확인
-</code></pre>
+</code></pre></div>
 <p>일반적으로 저장소에는 두 종류의 내용이 관리됩니다.</p>
 <table>
 <thead>
@@ -1580,58 +1580,58 @@ GitHub Pages URL로 웹에서 확인
 </tbody>
 </table>
 <p>설치 여부는 터미널에서 아래 명령어로 확인합니다.</p>
-<pre><code class="language-bash">python3 --version
-pip3 --version
-git --version
-</code></pre>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>--version
+pip3<span class="w"> </span>--version
+git<span class="w"> </span>--version
+</code></pre></div>
 <p>예시:</p>
-<pre><code class="language-bash">Python 3.9.6
-pip 21.2.4
-git version 2.x.x
-</code></pre>
+<div class="highlight"><pre><span></span><code>Python<span class="w"> </span><span class="m">3</span>.9.6
+pip<span class="w"> </span><span class="m">21</span>.2.4
+git<span class="w"> </span>version<span class="w"> </span><span class="m">2</span>.x.x
+</code></pre></div>
 <hr />
 <h2 id="3-mkdocs">3. MkDocs 설치</h2>
 <h3 id="31">3.1 기본 설치</h3>
 <p>터미널에서 아래 명령어를 실행합니다.</p>
-<pre><code class="language-bash">python3 -m pip install mkdocs mkdocs-material
-</code></pre>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>mkdocs<span class="w"> </span>mkdocs-material
+</code></pre></div>
 <p>설치가 완료되면 다음 명령어로 확인합니다.</p>
-<pre><code class="language-bash">mkdocs --version
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>--version
+</code></pre></div>
 <p>정상이라면 아래와 비슷하게 출력됩니다.</p>
-<pre><code class="language-bash">mkdocs, version 1.6.1
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdocs,<span class="w"> </span>version<span class="w"> </span><span class="m">1</span>.6.1
+</code></pre></div>
 <hr />
 <h2 id="4-macos-mkdocs-command-not-found">4. macOS에서 <code>mkdocs: command not found</code>가 나오는 경우</h2>
 <p>macOS에서 사용자 영역에 Python 패키지가 설치되면 아래와 같은 메시지가 나올 수 있습니다.</p>
-<pre><code class="language-text">WARNING: The script mkdocs is installed in '/Users/사용자명/Library/Python/3.9/bin' which is not on PATH.
-</code></pre>
+<div class="highlight"><pre><span></span><code>WARNING: The script mkdocs is installed in &#39;/Users/사용자명/Library/Python/3.9/bin&#39; which is not on PATH.
+</code></pre></div>
 <p>이 경우 설치는 성공했지만, 터미널이 <code>mkdocs</code> 명령어 위치를 찾지 못하는 상태입니다.</p>
 <h3 id="41-path">4.1 PATH 추가</h3>
 <p>zsh를 사용하는 경우 아래 명령어를 실행합니다.</p>
-<pre><code class="language-bash">echo 'export PATH=&quot;$HOME/Library/Python/3.9/bin:$PATH&quot;' &gt;&gt; ~/.zshrc
-source ~/.zshrc
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=&quot;$HOME/Library/Python/3.9/bin:$PATH&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.zshrc
+<span class="nb">source</span><span class="w"> </span>~/.zshrc
+</code></pre></div>
 <p>다시 확인합니다.</p>
-<pre><code class="language-bash">mkdocs --version
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>--version
+</code></pre></div>
 <h3 id="42">4.2 임시 실행 방법</h3>
 <p>PATH를 설정하지 않고 바로 실행하려면 아래처럼 전체 경로로 실행할 수도 있습니다.</p>
-<pre><code class="language-bash">~/Library/Python/3.9/bin/mkdocs --version
-</code></pre>
+<div class="highlight"><pre><span></span><code>~/Library/Python/3.9/bin/mkdocs<span class="w"> </span>--version
+</code></pre></div>
 <hr />
 <h2 id="5-mkdocs">5. MkDocs 프로젝트 생성</h2>
 <p>문서 사이트를 만들 폴더로 이동한 뒤 프로젝트를 생성합니다.</p>
-<pre><code class="language-bash">mkdir my-docs
-cd my-docs
-mkdocs new .
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>my-docs
+<span class="nb">cd</span><span class="w"> </span>my-docs
+mkdocs<span class="w"> </span>new<span class="w"> </span>.
+</code></pre></div>
 <p>생성 후 폴더 구조는 다음과 같습니다.</p>
-<pre><code class="language-text">my-docs/
+<div class="highlight"><pre><span></span><code>my-docs/
 ├── docs/
 │   └── index.md
 └── mkdocs.yml
-</code></pre>
+</code></pre></div>
 <table>
 <thead>
 <tr>
@@ -1657,57 +1657,56 @@ mkdocs new .
 <hr />
 <h2 id="6">6. 로컬에서 문서 사이트 실행</h2>
 <p>아래 명령어를 실행합니다.</p>
-<pre><code class="language-bash">mkdocs serve
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>serve
+</code></pre></div>
 <p>정상 실행되면 아래와 비슷한 메시지가 표시됩니다.</p>
-<pre><code class="language-text">INFO    -  Building documentation...
+<div class="highlight"><pre><span></span><code>INFO    -  Building documentation...
 INFO    -  Documentation built in 0.XX seconds
-INFO    -  [16:00:00] Watching paths for changes: 'docs', 'mkdocs.yml'
+INFO    -  [16:00:00] Watching paths for changes: &#39;docs&#39;, &#39;mkdocs.yml&#39;
 INFO    -  [16:00:00] Serving on http://127.0.0.1:8000/
-</code></pre>
+</code></pre></div>
 <p>브라우저에서 아래 주소로 접속합니다.</p>
-<pre><code class="language-text">http://127.0.0.1:8000/
-</code></pre>
+<div class="highlight"><pre><span></span><code>http://127.0.0.1:8000/
+</code></pre></div>
 <p>문서를 수정하면 브라우저 화면이 자동으로 갱신됩니다.</p>
 <p>종료하려면 터미널에서 <code>Ctrl + C</code>를 누릅니다.</p>
 <hr />
 <h2 id="7-material">7. Material 테마 적용</h2>
 <p><code>mkdocs-material</code>을 설치했다면 <code>mkdocs.yml</code> 파일을 아래처럼 수정합니다.</p>
-<pre><code class="language-yaml">site_name: Project Documentation
+<div class="highlight"><pre><span></span><code><span class="nt">site_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Project Documentation</span>
 
-theme:
-  name: material
+<span class="nt">theme</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material</span>
 
-nav:
-  - Home: index.md
-</code></pre>
+<span class="nt">nav</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Home</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">index.md</span>
+</code></pre></div>
 <p>다시 실행합니다.</p>
-<pre><code class="language-bash">mkdocs serve
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>serve
+</code></pre></div>
 <p>화면이 Material 테마로 변경됩니다.</p>
 <hr />
 <h2 id="8">8. 문서 추가하기</h2>
 <p>예를 들어 설치 가이드 문서를 추가하려면 아래 파일을 생성합니다.</p>
-<pre><code class="language-text">docs/setup.md
-</code></pre>
+<div class="highlight"><pre><span></span><code>docs/setup.md
+</code></pre></div>
 <p>내용 예시:</p>
-<pre><code class="language-markdown"># 설치 가이드
+<p><div class="highlight"><pre><span></span><code><span class="gh"># 설치 가이드</span>
 
 이 문서는 프로젝트 설치 방법을 설명합니다.
 
-## 1. 사전 준비
+<span class="gu">## 1. 사전 준비</span>
 
-- Java
-- Git
-- IDE
+<span class="k">-</span><span class="w"> </span>Java
+<span class="k">-</span><span class="w"> </span>Git
+<span class="k">-</span><span class="w"> </span>IDE
 
-## 2. 설치 절차
+<span class="gu">## 2. 설치 절차</span>
 
 ```bash
 git clone &lt;repository-url&gt;
-</code></pre>
-<pre><code>
-그리고 `mkdocs.yml`에 메뉴를 추가합니다.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>그리고 `mkdocs.yml`에 메뉴를 추가합니다.
 
 ```yaml
 site_name: Project Documentation
@@ -1718,72 +1717,72 @@ theme:
 nav:
   - Home: index.md
   - 설치 가이드: setup.md
-</code></pre>
+</code></pre></div></p>
 <hr />
 <h2 id="9">9. 사이트 빌드 확인</h2>
 <p>로컬 서버 실행 전 또는 배포 전에 빌드가 정상적으로 되는지 확인합니다.</p>
-<pre><code class="language-bash">mkdocs build
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>build
+</code></pre></div>
 <p>정상 빌드되면 <code>site/</code> 폴더가 생성됩니다.</p>
-<pre><code class="language-text">my-docs/
+<div class="highlight"><pre><span></span><code>my-docs/
 ├── docs/
 ├── mkdocs.yml
 └── site/
-</code></pre>
+</code></pre></div>
 <p><code>site/</code> 폴더는 MkDocs가 만든 정적 웹사이트 결과물입니다.</p>
 <p>일반적으로 <code>site/</code> 폴더는 Git에 올리지 않습니다.</p>
 <p><code>.gitignore</code> 파일에 아래 내용을 추가합니다.</p>
-<pre><code class="language-gitignore">site/
-</code></pre>
+<div class="highlight"><pre><span></span><code>site/
+</code></pre></div>
 <hr />
 <h2 id="10-github">10. GitHub 저장소 생성</h2>
 <p>GitHub에서 새 Repository를 생성합니다.</p>
 <p>예시:</p>
-<pre><code class="language-text">Repository name: my-docs
+<div class="highlight"><pre><span></span><code>Repository name: my-docs
 Visibility: Public 또는 Private
-</code></pre>
+</code></pre></div>
 <p>GitHub Pages 사용 가능 여부는 조직/계정 정책에 따라 다를 수 있습니다.<br />
 일반적으로 Public 저장소에서는 GitHub Pages를 쉽게 사용할 수 있습니다.</p>
 <hr />
 <h2 id="11-github">11. 로컬 프로젝트를 GitHub에 업로드</h2>
 <p>현재 MkDocs 프로젝트 폴더에서 아래 명령어를 실행합니다.</p>
-<pre><code class="language-bash">git init
-git add .
-git commit -m &quot;Initial MkDocs documentation&quot;
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>init
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial MkDocs documentation&quot;</span>
+</code></pre></div>
 <p>GitHub 저장소 주소를 연결합니다.</p>
-<pre><code class="language-bash">git remote add origin https://github.com/&lt;GitHub계정&gt;/&lt;저장소명&gt;.git
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/&lt;GitHub계정&gt;/&lt;저장소명&gt;.git
+</code></pre></div>
 <p>예시:</p>
-<pre><code class="language-bash">git remote add origin https://github.com/company/my-docs.git
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/company/my-docs.git
+</code></pre></div>
 <p>기본 브랜치 이름을 <code>main</code>으로 맞춥니다.</p>
-<pre><code class="language-bash">git branch -M main
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>branch<span class="w"> </span>-M<span class="w"> </span>main
+</code></pre></div>
 <p>GitHub로 push 합니다.</p>
-<pre><code class="language-bash">git push -u origin main
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div>
 <hr />
 <h2 id="12-github-pages">12. GitHub Pages로 배포</h2>
 <p>MkDocs는 <code>gh-deploy</code> 명령어를 제공합니다.</p>
 <p>프로젝트 루트, 즉 <code>mkdocs.yml</code> 파일이 있는 위치에서 아래 명령어를 실행합니다.</p>
-<pre><code class="language-bash">mkdocs gh-deploy
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>gh-deploy
+</code></pre></div>
 <p>강제로 덮어쓰고 싶다면 아래처럼 실행할 수도 있습니다.</p>
-<pre><code class="language-bash">mkdocs gh-deploy --force
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>gh-deploy<span class="w"> </span>--force
+</code></pre></div>
 <p>이 명령어는 내부적으로 다음 작업을 수행합니다.</p>
-<pre><code class="language-text">1. mkdocs build 실행
+<div class="highlight"><pre><span></span><code>1. mkdocs build 실행
 2. site/ 폴더에 정적 웹사이트 생성
 3. gh-pages 브랜치 생성 또는 갱신
 4. gh-pages 브랜치를 GitHub에 push
-</code></pre>
+</code></pre></div>
 <p>배포가 완료되면 GitHub 저장소에 <code>gh-pages</code> 브랜치가 생깁니다.</p>
 <hr />
 <h2 id="13-github-pages">13. GitHub Pages 설정 확인</h2>
 <p>GitHub 저장소 화면에서 다음 경로로 이동합니다.</p>
-<pre><code class="language-text">Repository → Settings → Pages
-</code></pre>
+<div class="highlight"><pre><span></span><code>Repository → Settings → Pages
+</code></pre></div>
 <p>아래와 같이 설정합니다.</p>
 <table>
 <thead>
@@ -1809,34 +1808,34 @@ git commit -m &quot;Initial MkDocs documentation&quot;
 </table>
 <p>설정 후 저장합니다.</p>
 <p>잠시 기다리면 GitHub Pages 주소가 표시됩니다.</p>
-<pre><code class="language-text">https://&lt;GitHub계정&gt;.github.io/&lt;저장소명&gt;/
-</code></pre>
+<div class="highlight"><pre><span></span><code>https://&lt;GitHub계정&gt;.github.io/&lt;저장소명&gt;/
+</code></pre></div>
 <p>예시:</p>
-<pre><code class="language-text">https://company.github.io/my-docs/
-</code></pre>
+<div class="highlight"><pre><span></span><code>https://company.github.io/my-docs/
+</code></pre></div>
 <p>브라우저에서 해당 주소로 접속하면 MkDocs 문서 사이트를 확인할 수 있습니다.</p>
 <hr />
 <h2 id="14">14. 문서 수정 후 다시 배포하는 방법</h2>
 <p>문서를 수정한 뒤에는 아래 순서로 진행합니다.</p>
 <h3 id="141">14.1 로컬에서 확인</h3>
-<pre><code class="language-bash">mkdocs serve
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>serve
+</code></pre></div>
 <p>브라우저에서 확인합니다.</p>
-<pre><code class="language-text">http://127.0.0.1:8000/
-</code></pre>
+<div class="highlight"><pre><span></span><code>http://127.0.0.1:8000/
+</code></pre></div>
 <h3 id="142-github">14.2 원본 문서 GitHub 반영</h3>
-<pre><code class="language-bash">git add .
-git commit -m &quot;Update documentation&quot;
-git push
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Update documentation&quot;</span>
+git<span class="w"> </span>push
+</code></pre></div>
 <h3 id="143-github-pages">14.3 GitHub Pages 재배포</h3>
-<pre><code class="language-bash">mkdocs gh-deploy --force
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>gh-deploy<span class="w"> </span>--force
+</code></pre></div>
 <p>웹사이트 주소로 접속하여 변경사항을 확인합니다.</p>
 <hr />
 <h2 id="15">15. 권장 프로젝트 구조</h2>
 <p>팀 문서로 운영할 경우 아래 구조를 추천합니다.</p>
-<pre><code class="language-text">my-docs/
+<div class="highlight"><pre><span></span><code>my-docs/
 ├── docs/
 │   ├── index.md
 │   ├── guide/
@@ -1850,73 +1849,73 @@ git push
 │       └── architecture.png
 ├── mkdocs.yml
 └── .gitignore
-</code></pre>
+</code></pre></div>
 <p><code>mkdocs.yml</code> 예시:</p>
-<pre><code class="language-yaml">site_name: Project Documentation
-site_description: 프로젝트 개발 및 운영 문서
-site_author: Project Team
+<div class="highlight"><pre><span></span><code><span class="nt">site_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Project Documentation</span>
+<span class="nt">site_description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">프로젝트 개발 및 운영 문서</span>
+<span class="nt">site_author</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Project Team</span>
 
-theme:
-  name: material
-  language: ko
+<span class="nt">theme</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material</span>
+<span class="w">  </span><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ko</span>
 
-nav:
-  - Home: index.md
-  - 가이드:
-      - 설치 가이드: guide/setup.md
-      - 개발 가이드: guide/development.md
-      - 배포 가이드: guide/deployment.md
-  - 아키텍처:
-      - 개요: architecture/overview.md
-      - 시스템 구성: architecture/system-structure.md
+<span class="nt">nav</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Home</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">index.md</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">가이드</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">설치 가이드</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">guide/setup.md</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">개발 가이드</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">guide/development.md</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">배포 가이드</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">guide/deployment.md</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">아키텍처</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">개요</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">architecture/overview.md</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">시스템 구성</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">architecture/system-structure.md</span>
 
-markdown_extensions:
-  - admonition
-  - tables
-  - toc:
-      permalink: true
-  - pymdownx.highlight
-  - pymdownx.superfences
-</code></pre>
+<span class="nt">markdown_extensions</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admonition</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tables</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">toc</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">permalink</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pymdownx.highlight</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pymdownx.superfences</span>
+</code></pre></div>
 <hr />
 <h2 id="16">16. 이미지 넣는 방법</h2>
 <p>이미지는 보통 <code>docs/images/</code> 폴더에 저장합니다.</p>
 <p>예시:</p>
-<pre><code class="language-text">docs/images/system-architecture.png
-</code></pre>
+<div class="highlight"><pre><span></span><code>docs/images/system-architecture.png
+</code></pre></div>
 <p>마크다운 문서에서는 아래처럼 사용합니다.</p>
-<pre><code class="language-markdown">![시스템 구성도](../images/system-architecture.png)
-</code></pre>
+<div class="highlight"><pre><span></span><code>![<span class="nt">시스템 구성도</span>](<span class="na">../images/system-architecture.png</span>)
+</code></pre></div>
 <p><code>docs/index.md</code>에서 참조할 경우:</p>
-<pre><code class="language-markdown">![시스템 구성도](images/system-architecture.png)
-</code></pre>
+<div class="highlight"><pre><span></span><code>![<span class="nt">시스템 구성도</span>](<span class="na">images/system-architecture.png</span>)
+</code></pre></div>
 <p>문서 위치에 따라 상대 경로가 달라질 수 있으므로 주의합니다.</p>
 <hr />
 <h2 id="17">17. 자주 발생하는 오류와 해결 방법</h2>
 <h3 id="171-mkdocs-command-not-found">17.1 <code>mkdocs: command not found</code></h3>
 <p>원인:</p>
-<pre><code class="language-text">MkDocs는 설치되었지만 실행 경로가 PATH에 등록되지 않은 상태
-</code></pre>
+<div class="highlight"><pre><span></span><code>MkDocs는 설치되었지만 실행 경로가 PATH에 등록되지 않은 상태
+</code></pre></div>
 <p>해결:</p>
-<pre><code class="language-bash">echo 'export PATH=&quot;$HOME/Library/Python/3.9/bin:$PATH&quot;' &gt;&gt; ~/.zshrc
-source ~/.zshrc
-mkdocs --version
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=&quot;$HOME/Library/Python/3.9/bin:$PATH&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.zshrc
+<span class="nb">source</span><span class="w"> </span>~/.zshrc
+mkdocs<span class="w"> </span>--version
+</code></pre></div>
 <hr />
 <h3 id="172-mkdocsyml">17.2 <code>mkdocs.yml</code>을 찾을 수 없다는 오류</h3>
 <p>오류 예시:</p>
-<pre><code class="language-text">Config file 'mkdocs.yml' does not exist.
-</code></pre>
+<div class="highlight"><pre><span></span><code>Config file &#39;mkdocs.yml&#39; does not exist.
+</code></pre></div>
 <p>원인:</p>
-<pre><code class="language-text">mkdocs.yml 파일이 있는 프로젝트 루트에서 명령어를 실행하지 않음
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdocs.yml 파일이 있는 프로젝트 루트에서 명령어를 실행하지 않음
+</code></pre></div>
 <p>해결:</p>
-<pre><code class="language-bash">cd my-docs
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>my-docs
 ls
-</code></pre>
+</code></pre></div>
 <p><code>mkdocs.yml</code> 파일이 보이는 위치에서 다시 실행합니다.</p>
-<pre><code class="language-bash">mkdocs serve
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>serve
+</code></pre></div>
 <hr />
 <h3 id="173-github-pages-404">17.3 GitHub Pages 화면이 404로 나오는 경우</h3>
 <p>확인할 사항:</p>
@@ -1930,71 +1929,71 @@ ls
 <hr />
 <h3 id="174">17.4 수정했는데 웹사이트에 반영되지 않는 경우</h3>
 <p>확인할 사항:</p>
-<pre><code class="language-bash">git add .
-git commit -m &quot;Update documentation&quot;
-git push
-mkdocs gh-deploy --force
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Update documentation&quot;</span>
+git<span class="w"> </span>push
+mkdocs<span class="w"> </span>gh-deploy<span class="w"> </span>--force
+</code></pre></div>
 <p>그리고 브라우저 캐시 문제일 수 있으므로 강력 새로고침을 합니다.</p>
 <p>macOS Chrome 기준:</p>
-<pre><code class="language-text">Cmd + Shift + R
-</code></pre>
+<div class="highlight"><pre><span></span><code>Cmd + Shift + R
+</code></pre></div>
 <hr />
 <h3 id="175">17.5 권한 오류가 나는 경우</h3>
 <p>GitHub push 권한이 없거나 인증이 안 된 경우입니다.</p>
 <p>확인:</p>
-<pre><code class="language-bash">git remote -v
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>remote<span class="w"> </span>-v
+</code></pre></div>
 <p>GitHub 인증이 필요하면 Personal Access Token 또는 GitHub CLI 로그인이 필요할 수 있습니다.</p>
 <p>GitHub CLI 사용 시:</p>
-<pre><code class="language-bash">gh auth login
-</code></pre>
+<div class="highlight"><pre><span></span><code>gh<span class="w"> </span>auth<span class="w"> </span>login
+</code></pre></div>
 <hr />
 <h2 id="18">18. 팀원에게 공유할 기본 작업 순서</h2>
 <p>팀원이 문서를 수정할 때는 아래 순서만 기억하면 됩니다.</p>
-<pre><code class="language-bash">git pull
-mkdocs serve
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>pull
+mkdocs<span class="w"> </span>serve
+</code></pre></div>
 <p>문서 수정 후:</p>
-<pre><code class="language-bash">git add .
-git commit -m &quot;Update docs&quot;
-git push
-mkdocs gh-deploy --force
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Update docs&quot;</span>
+git<span class="w"> </span>push
+mkdocs<span class="w"> </span>gh-deploy<span class="w"> </span>--force
+</code></pre></div>
 <p>웹 확인:</p>
-<pre><code class="language-text">https://&lt;GitHub계정&gt;.github.io/&lt;저장소명&gt;/
-</code></pre>
+<div class="highlight"><pre><span></span><code>https://&lt;GitHub계정&gt;.github.io/&lt;저장소명&gt;/
+</code></pre></div>
 <hr />
 <h2 id="19">19. 최소 명령어 요약</h2>
 <p>처음 설치:</p>
-<pre><code class="language-bash">python3 -m pip install mkdocs mkdocs-material
-echo 'export PATH=&quot;$HOME/Library/Python/3.9/bin:$PATH&quot;' &gt;&gt; ~/.zshrc
-source ~/.zshrc
-mkdocs --version
-</code></pre>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>mkdocs<span class="w"> </span>mkdocs-material
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=&quot;$HOME/Library/Python/3.9/bin:$PATH&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.zshrc
+<span class="nb">source</span><span class="w"> </span>~/.zshrc
+mkdocs<span class="w"> </span>--version
+</code></pre></div>
 <p>프로젝트 생성:</p>
-<pre><code class="language-bash">mkdir my-docs
-cd my-docs
-mkdocs new .
-mkdocs serve
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>my-docs
+<span class="nb">cd</span><span class="w"> </span>my-docs
+mkdocs<span class="w"> </span>new<span class="w"> </span>.
+mkdocs<span class="w"> </span>serve
+</code></pre></div>
 <p>GitHub 업로드:</p>
-<pre><code class="language-bash">git init
-git add .
-git commit -m &quot;Initial MkDocs documentation&quot;
-git branch -M main
-git remote add origin https://github.com/&lt;GitHub계정&gt;/&lt;저장소명&gt;.git
-git push -u origin main
-</code></pre>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>init
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Initial MkDocs documentation&quot;</span>
+git<span class="w"> </span>branch<span class="w"> </span>-M<span class="w"> </span>main
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>https://github.com/&lt;GitHub계정&gt;/&lt;저장소명&gt;.git
+git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div>
 <p>Pages 배포:</p>
-<pre><code class="language-bash">mkdocs gh-deploy --force
-</code></pre>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>gh-deploy<span class="w"> </span>--force
+</code></pre></div>
 <p>GitHub Pages 설정:</p>
-<pre><code class="language-text">Repository → Settings → Pages
+<div class="highlight"><pre><span></span><code>Repository → Settings → Pages
 Source: Deploy from a branch
 Branch: gh-pages
 Folder: / (root)
-</code></pre>
+</code></pre></div>
 <hr />
 <h2 id="20">20. 참고 공식 문서</h2>
 <ul>
@@ -2006,10 +2005,10 @@ Folder: / (root)
 <h2 id="21">21. 마무리</h2>
 <p>MkDocs + GitHub Pages 방식은 프로젝트 문서, 개발 가이드, 설치 가이드, 아키텍처 문서를 팀 단위로 공유하기에 적합합니다.</p>
 <p>핵심은 아래 세 가지입니다.</p>
-<pre><code class="language-text">1. docs/ 폴더에 마크다운 문서를 작성한다.
+<div class="highlight"><pre><span></span><code>1. docs/ 폴더에 마크다운 문서를 작성한다.
 2. mkdocs serve로 로컬에서 확인한다.
 3. mkdocs gh-deploy --force로 GitHub Pages에 배포한다.
-</code></pre>
+</code></pre></div>
 <p>이 흐름만 익히면 GitHub 저장소를 기반으로 웹 문서 사이트를 쉽게 운영할 수 있습니다.</p>
 
 

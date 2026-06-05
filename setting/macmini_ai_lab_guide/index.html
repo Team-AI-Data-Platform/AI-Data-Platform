@@ -1719,7 +1719,7 @@
 </ul>
 <h3 id="_6">개선 방식</h3>
 <p>Mac Mini를 중앙 AI 서버로 구성</p>
-<pre><code class="language-text">                   +---------------------+
+<div class="highlight"><pre><span></span><code>                   +---------------------+
                    |     Mac Mini        |
                    |   M2 Pro / 32GB     |
                    +---------------------+
@@ -1736,7 +1736,7 @@
         |                     |                     |
     사용자1                사용자2               사용자3
    (Browser)            (Browser)           (Browser)
-</code></pre>
+</code></pre></div>
 <h3 id="_7">장점</h3>
 <ul>
 <li>실습 환경 표준화</li>
@@ -1813,7 +1813,7 @@
 <hr />
 <h2 id="5-ai-lab">5. AI LAB 아키텍처</h2>
 <h3 id="_11">전체 구조</h3>
-<pre><code class="language-text">사용자
+<div class="highlight"><pre><span></span><code>사용자
    |
 Open WebUI
    |
@@ -1825,9 +1825,9 @@ Agent Layer
 +----------------------+
    |
 응답 생성
-</code></pre>
+</code></pre></div>
 <h3 id="rag">RAG 구조</h3>
-<pre><code class="language-text">PDF / PPT / DOCX / Markdown
+<div class="highlight"><pre><span></span><code>PDF / PPT / DOCX / Markdown
               |
           Chunking
               |
@@ -1840,9 +1840,9 @@ Agent Layer
             LLM
               |
            답변
-</code></pre>
+</code></pre></div>
 <h3 id="agent">Agent 구조</h3>
-<pre><code class="language-text">사용자 요청
+<div class="highlight"><pre><span></span><code>사용자 요청
       |
     Agent
       |
@@ -1853,7 +1853,7 @@ Agent Layer
  +----+----+
       |
    LLM 답변
-</code></pre>
+</code></pre></div>
 <hr />
 <h2 id="6">6. 주요 솔루션</h2>
 <h3 id="ollama">Ollama</h3>
@@ -1901,8 +1901,8 @@ Agent Layer
 <hr />
 <h2 id="7">7. 스터디 실습 시나리오</h2>
 <h3 id="step-1-local-llm">STEP 1. Local LLM</h3>
-<pre><code class="language-bash">ollama run qwen3:8b
-</code></pre>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>run<span class="w"> </span>qwen3:8b
+</code></pre></div>
 <p>학습 내용</p>
 <ul>
 <li>LLM 개념</li>
@@ -1912,30 +1912,30 @@ Agent Layer
 </ul>
 <h3 id="step-2-rag">STEP 2. RAG</h3>
 <p>예시 질문</p>
-<pre><code class="language-text">한국장학재단 API 구축 관련 내용을 알려줘
-</code></pre>
+<div class="highlight"><pre><span></span><code>한국장학재단 API 구축 관련 내용을 알려줘
+</code></pre></div>
 <p>처리 과정</p>
-<pre><code class="language-text">질문
+<div class="highlight"><pre><span></span><code>질문
  ↓
 문서 검색
  ↓
 관련 내용 추출
  ↓
 LLM 답변 생성
-</code></pre>
+</code></pre></div>
 <h3 id="step-3-agent">STEP 3. Agent</h3>
 <p>예시</p>
-<pre><code class="language-text">장학재단 API 허브 구축 장표 초안 작성
-</code></pre>
+<div class="highlight"><pre><span></span><code>장학재단 API 허브 구축 장표 초안 작성
+</code></pre></div>
 <p>처리 과정</p>
-<pre><code class="language-text">문서 검색
+<div class="highlight"><pre><span></span><code>문서 검색
  ↓
 RFP 검색
  ↓
 유사 제안서 검색
  ↓
 초안 생성
-</code></pre>
+</code></pre></div>
 <h3 id="step-4-ai-data-platform">STEP 4. AI Data Platform</h3>
 <p>학습 대상</p>
 <ul>
@@ -1956,10 +1956,10 @@ RFP 검색
 <li>Kubernetes</li>
 </ul>
 <p>예시 API</p>
-<pre><code class="language-http">POST /ask
-POST /search
-POST /agent
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="err">POST /ask</span>
+<span class="err">POST /search</span>
+<span class="err">POST /agent</span>
+</code></pre></div>
 <hr />
 <h2 id="8">8. 최종 프로젝트</h2>
 <h3 id="ai">나만의 AI 비서 구축</h3>
@@ -1973,7 +1973,7 @@ POST /agent
 <li>장표 초안 생성</li>
 </ul>
 <h3 id="_12">목표 아키텍처</h3>
-<pre><code class="language-text">사용자
+<div class="highlight"><pre><span></span><code>사용자
   |
 Open WebUI
   |
@@ -1987,7 +1987,7 @@ Agent
 Ollama
   |
 Qwen3
-</code></pre>
+</code></pre></div>
 <hr />
 <h2 id="9">9. 향후 확장 방향</h2>
 <h3 id="_13">장비</h3>
