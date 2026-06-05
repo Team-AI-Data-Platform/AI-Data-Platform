@@ -32,7 +32,7 @@ nav:
         - LLM 모델 크기 완전 이해 가이드: study/step1/local_llm_model_size_guide_detail.md
         - Python 가상환경과 Ollama 연동 가이드: study/step1/Step1-3_Python_Virtual_Environment_and_Ollama_Guide.md
         - Open WebUI 구축 및 Docker 이해 가이드: study/step1/Step1-4_Open_WebUI_Docker_Guide.md
-        - Prompt 실습: study/step1/Step1-5_Prompt_Practice_Guide.md
+        - Prompt 실습 가이드: study/step1/Step1-5_Prompt_Practice_Guide.md
       - Step2 RAG: study/data-lakehouse.md
       - Step3 Agent: study/iceberg.md
       - Step4 AI Data Platform: study/delta-lake.md
