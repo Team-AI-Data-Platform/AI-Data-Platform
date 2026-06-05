@@ -417,17 +417,23 @@ python test_ollama.py
 
 # 14. 내부 동작 구조
 
-Python Program
-↓
-Ollama Python Library
-↓
-localhost:11434
-↓
-Ollama Server
-↓
-Gemma3 4B
-↓
-Response
+```mermaid
+
+flowchart TD
+
+A[Python Program]
+
+--> B[Ollama Python Library]
+
+B --> C[localhost:11434]
+
+C --> D[Ollama Server]
+
+D --> E[Gemma3 4B]
+
+E --> F[Response]
+
+```
 
 ---
 
