@@ -30,6 +30,7 @@ nav:
         - Local LLM 구축 가이드: study/step1/step1_local_llm_setup_guide.md
         - LLM 모델 크기 이해: study/step1/local_llm_model_size_guide.md
         - LLM 모델 크기 완전 이해 가이드: study/step1/local_llm_model_size_guide_detail.md
+        - Ollama python 연동 가이드: study/step1/ollama_python_guide.md
         - Ollama 이해: study/step1/ollama_guide.md
         - Open WebUI 구축: study/step1/open_webui_guide.md
         - Prompt 실습: study/step1/prompt_guide.md
