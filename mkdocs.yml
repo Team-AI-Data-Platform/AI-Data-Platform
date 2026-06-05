@@ -9,7 +9,9 @@ nav:
 
   - Setting:
       - MkDocs 문서 사이트 구축 가이드: setting/mkdocs_github_pages_guide.md
-      
+      - MkDocs 문서 사이트 구축 가이드(windows): setting/mkdocs_github_pages_guide_windows.md
+      - MkDocs 문서 Deploy 가이드: setting/mkdocs_github_pages_guide_deploy.md
+
   - Roadmap:
       - 학습 로드맵: roadmap/study-roadmap.md
 
