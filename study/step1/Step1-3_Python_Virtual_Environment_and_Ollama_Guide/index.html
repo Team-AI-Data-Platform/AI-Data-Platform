@@ -11,10 +11,8 @@
       
       
       
-        <link rel="prev" href="../step1_local_llm_setup_guide/">
+        <link rel="prev" href="../local_llm_model_size_guide_detail/">
       
-      
-        <link rel="next" href="../local_llm_model_size_guide_detail/">
       
       
         
@@ -25,7 +23,7 @@
     
     
       
-        <title>LLM 모델 크기 이해 - AI Data Platform Study</title>
+        <title>Python 가상환경과 Ollama 연동 가이드 - AI Data Platform Study</title>
       
     
     
@@ -66,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#local-llm-1b-4b-8b-14b-20b-32b" class="md-skip">
+        <a href="#step1-3-python-ollama" class="md-skip">
           콘텐츠로 이동
         </a>
       
@@ -102,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              LLM 모델 크기 이해
+              Python 가상환경과 Ollama 연동 가이드
             
           </span>
         </div>
@@ -596,37 +594,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    LLM 모델 크기 이해
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../local_llm_model_size_guide/" class="md-nav__link">
         
   
   
@@ -642,192 +613,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="목차">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      목차
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        개요
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#parameter" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        파라미터(Parameter)란?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        개발자 관점의 체감
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#spring-boot" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Spring Boot 질문 예시
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Spring Boot 질문 예시">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#4b" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4B 모델
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#8b" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8B 모델
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#14b" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        14B 모델
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32b" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        32B 모델
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        모델이 커질수록 필요한 자원
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        장관님 장비 기준
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="장관님 장비 기준">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mac-mini-m2-pro-32gb" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mac Mini M2 Pro 32GB
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#windows-ultra-7-255h-32gb" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Windows Ultra 7 255H / 32GB
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1 학습 순서
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        결론
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -865,10 +650,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../Step1-3_Python_Virtual_Environment_and_Ollama_Guide/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -884,6 +678,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -1120,180 +915,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      목차
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        개요
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#parameter" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        파라미터(Parameter)란?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        개발자 관점의 체감
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#spring-boot" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Spring Boot 질문 예시
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Spring Boot 질문 예시">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#4b" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4B 모델
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#8b" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        8B 모델
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#14b" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        14B 모델
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32b" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        32B 모델
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        모델이 커질수록 필요한 자원
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        장관님 장비 기준
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="장관님 장비 기준">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mac-mini-m2-pro-32gb" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mac Mini M2 Pro 32GB
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#windows-ultra-7-255h-32gb" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Windows Ultra 7 255H / 32GB
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1 학습 순서
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        결론
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -1309,159 +930,305 @@
 
 
 
-<h1 id="local-llm-1b-4b-8b-14b-20b-32b">Local LLM 모델 크기(1B, 4B, 8B, 14B, 20B, 32B) 이해하기</h1>
-<h2 id="_1">개요</h2>
-<p>Local LLM을 공부하다 보면 <code>gemma3:4b</code>, <code>qwen3:8b</code>, <code>qwen3:14b</code> 같은 모델명을 보게 됩니다.</p>
-<p>여기서 B는 Billion(10억)을 의미합니다.</p>
-<table>
-<thead>
-<tr>
-<th>표기</th>
-<th>의미</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1B</td>
-<td>10억 개 파라미터</td>
-</tr>
-<tr>
-<td>4B</td>
-<td>40억 개 파라미터</td>
-</tr>
-<tr>
-<td>8B</td>
-<td>80억 개 파라미터</td>
-</tr>
-<tr>
-<td>14B</td>
-<td>140억 개 파라미터</td>
-</tr>
-<tr>
-<td>20B</td>
-<td>200억 개 파라미터</td>
-</tr>
-<tr>
-<td>32B</td>
-<td>320억 개 파라미터</td>
-</tr>
-<tr>
-<td>70B</td>
-<td>700억 개 파라미터</td>
-</tr>
-</tbody>
-</table>
-<h2 id="parameter">파라미터(Parameter)란?</h2>
-<p>LLM의 파라미터는 모델이 학습을 통해 습득한 지식과 패턴을 저장하는 값입니다.</p>
-<p>쉽게 말하면 사람의 뇌 속 신경망 연결 정보와 비슷한 개념입니다.</p>
-<p>파라미터가 많을수록:</p>
+<h1 id="step1-3-python-ollama">Step1-3 Python 가상환경과 Ollama 연동 가이드</h1>
+<h1 id="_1">개요</h1>
+<p>본 문서는 Local LLM 구축 과정에서 Python 가상환경(Virtual Environment)을 이해하고,
+Ollama와 연동하는 방법을 설명합니다.</p>
+<p>대상 독자:</p>
 <ul>
-<li>더 많은 지식을 저장 가능</li>
-<li>더 복잡한 추론 가능</li>
-<li>더 자연스러운 답변 가능</li>
-<li>더 긴 문맥 이해 가능</li>
+<li>Python 초보자</li>
+<li>Local LLM 입문자</li>
+<li>RAG 구축 예정자</li>
+<li>Agent 구축 예정자</li>
 </ul>
-<p>반면:</p>
+<hr />
+<h1 id="1-python">1. 왜 Python 가상환경을 사용하는가?</h1>
+<p>예를 들어 하나의 PC에서 여러 프로젝트를 수행한다고 가정합니다.</p>
+<p>Project-A</p>
 <ul>
-<li>메모리 사용량 증가</li>
-<li>모델 크기 증가</li>
-<li>응답 속도 저하 가능</li>
+<li>Django 4.2</li>
 </ul>
-<h2 id="_2">개발자 관점의 체감</h2>
-<table>
-<thead>
-<tr>
-<th>모델 크기</th>
-<th>체감 수준</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1B~4B</td>
-<td>초급 개발자</td>
-</tr>
-<tr>
-<td>7B~14B</td>
-<td>경력 개발자</td>
-</tr>
-<tr>
-<td>20B~32B</td>
-<td>수석 개발자</td>
-</tr>
-<tr>
-<td>70B 이상</td>
-<td>전문 컨설턴트 수준</td>
-</tr>
-</tbody>
-</table>
-<h2 id="spring-boot">Spring Boot 질문 예시</h2>
-<p>질문:</p>
-<p>Spring Cloud Gateway와 WebFlux를 사용하여 API Gateway를 구성하는 방법은?</p>
-<h3 id="4b">4B 모델</h3>
-<p>기초적인 설명 위주</p>
-<h3 id="8b">8B 모델</h3>
-<p>설계 방향 설명 가능</p>
-<h3 id="14b">14B 모델</h3>
-<p>실무 수준 설명 가능</p>
-<h3 id="32b">32B 모델</h3>
-<p>아키텍처 수준 논의 가능</p>
-<h2 id="_3">모델이 커질수록 필요한 자원</h2>
-<table>
-<thead>
-<tr>
-<th>항목</th>
-<th>변화</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>다운로드 시간</td>
-<td>증가</td>
-</tr>
-<tr>
-<td>디스크 사용량</td>
-<td>증가</td>
-</tr>
-<tr>
-<td>메모리 사용량</td>
-<td>증가</td>
-</tr>
-<tr>
-<td>GPU 사용량</td>
-<td>증가</td>
-</tr>
-<tr>
-<td>답변 품질</td>
-<td>향상</td>
-</tr>
-</tbody>
-</table>
-<h2 id="_4">장관님 장비 기준</h2>
-<h3 id="mac-mini-m2-pro-32gb">Mac Mini M2 Pro 32GB</h3>
-<p>권장:</p>
+<p>Project-B</p>
 <ul>
-<li>gemma3:4b</li>
-<li>qwen3:8b</li>
-<li>qwen3:14b</li>
-<li>qwen3:32b</li>
+<li>Django 5.0</li>
 </ul>
-<h3 id="windows-ultra-7-255h-32gb">Windows Ultra 7 255H / 32GB</h3>
-<p>권장:</p>
+<p>Project-C</p>
 <ul>
-<li>gemma3:4b</li>
-<li>qwen3:8b</li>
-<li>qwen3:14b</li>
+<li>Flask</li>
 </ul>
-<h2 id="step-1">Step 1 학습 순서</h2>
-<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>run<span class="w"> </span>gemma3:4b
+<p>만약 모든 라이브러리를 전역(Global)으로 설치하면</p>
+<p>Project-A를 위해 설치한 라이브러리가
+Project-B에 영향을 줄 수 있습니다.</p>
+<p>즉</p>
+<p>Project-A 수정
+↓
+라이브러리 버전 변경
+↓
+Project-B 장애 발생</p>
+<p>상황이 생길 수 있습니다.</p>
+<p>그래서 Python은 프로젝트별 독립 환경을 제공하는
+Virtual Environment(가상환경)을 제공합니다.</p>
+<hr />
+<h1 id="2-virtual-environment">2. Virtual Environment란?</h1>
+<p>Virtual Environment는</p>
+<p>프로젝트 전용 Python 실행 환경입니다.</p>
+<p>쉽게 말하면</p>
+<p>하나의 Mac 안에</p>
+<ul>
+<li>Python-A</li>
+<li>Python-B</li>
+<li>Python-C</li>
+</ul>
+<p>를 별도로 만드는 것과 같습니다.</p>
+<p>장점</p>
+<ul>
+<li>프로젝트별 라이브러리 분리</li>
+<li>버전 충돌 방지</li>
+<li>운영 환경 재현 가능</li>
+<li>AI 프로젝트 관리 용이</li>
+</ul>
+<hr />
+<h1 id="3-venv">3. venv란?</h1>
+<p>venv는 Python이 기본 제공하는
+가상환경 생성 모듈입니다.</p>
+<p>명령어</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>run<span class="w"> </span>qwen3:8b
+<p>명령어 분석</p>
+<p>python3</p>
+<ul>
+<li>Python3 실행</li>
+</ul>
+<p>-m</p>
+<ul>
+<li>Python 모듈 실행</li>
+</ul>
+<p>venv</p>
+<ul>
+<li>가상환경 생성 모듈</li>
+</ul>
+<p>.venv</p>
+<ul>
+<li>생성될 가상환경 폴더명</li>
+</ul>
+<hr />
+<h1 id="4-venv">4. .venv는 무슨 의미인가?</h1>
+<p>사실 아래 모두 가능합니다.</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>aaa
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>run<span class="w"> </span>qwen3:14b
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>my-python
 </code></pre></div>
-<p>이후 Open WebUI를 연동하여 브라우저 기반 환경을 구성합니다.</p>
-<h2 id="_5">결론</h2>
-<p>AI 플랫폼 아키텍트 학습의 핵심은 가장 큰 모델을 사용하는 것이 아니라 Local LLM의 전체 구조를 이해하는 것입니다.</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>python-env
+</code></pre></div>
+<p>하지만 업계에서는</p>
+<div class="highlight"><pre><span></span><code>.venv
+</code></pre></div>
+<p>를 표준처럼 사용합니다.</p>
+<p>여기서</p>
+<div class="highlight"><pre><span></span><code>.
+</code></pre></div>
+<p>은 숨김(Hidden) 폴더 의미입니다.</p>
+<p>즉</p>
+<div class="highlight"><pre><span></span><code>.venv
+</code></pre></div>
+<p>는</p>
+<p>"숨김 처리된 Python 가상환경"</p>
+<p>이라는 의미입니다.</p>
+<hr />
+<h1 id="5">5. 가상환경 생성</h1>
+<p>명령어</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+</code></pre></div>
+<p>실행 후</p>
+<div class="highlight"><pre><span></span><code>AI-Data-Platform
+ ├── docs
+ ├── mkdocs.yml
+ └── .venv
+</code></pre></div>
+<p>생성됩니다.</p>
+<p>내부 구조</p>
+<div class="highlight"><pre><span></span><code>.venv
+ ├── bin
+ ├── include
+ ├── lib
+ └── pyvenv.cfg
+</code></pre></div>
+<hr />
+<h1 id="6-source-venvbinactivate">6. source .venv/bin/activate 의미</h1>
+<p>명령어</p>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+</code></pre></div>
+<p>이 명령이 가장 중요합니다.</p>
+<hr />
+<h2 id="source">source</h2>
+<p>현재 터미널 세션에 환경 설정을 반영합니다.</p>
+<hr />
+<h2 id="venvbinactivate">.venv/bin/activate</h2>
+<p>가상환경 활성화 스크립트입니다.</p>
+<hr />
+<p>실행 전</p>
+<div class="highlight"><pre><span></span><code>which<span class="w"> </span>python
+</code></pre></div>
+<p>예시</p>
+<div class="highlight"><pre><span></span><code>/opt/homebrew/bin/python3
+</code></pre></div>
+<hr />
+<p>실행 후</p>
+<div class="highlight"><pre><span></span><code>which<span class="w"> </span>python
+</code></pre></div>
+<p>결과</p>
+<div class="highlight"><pre><span></span><code>AI-Data-Platform/.venv/bin/python
+</code></pre></div>
+<p>즉</p>
+<p>Mac 기본 Python</p>
+<p>에서</p>
+<p>프로젝트 전용 Python</p>
+<p>으로 변경됩니다.</p>
+<hr />
+<h1 id="7-activate">7. 매번 activate 해야 하나?</h1>
+<p>답:</p>
+<p>예</p>
+<p>터미널을 새로 열 때마다 실행해야 합니다.</p>
+<p>예</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>AI-Data-Platform
+
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+</code></pre></div>
+<p>이유</p>
+<p>가상환경 활성화는</p>
+<p>현재 터미널 세션에만 적용되기 때문입니다.</p>
+<hr />
+<h1 id="8-deactivate">8. deactivate</h1>
+<p>가상환경 종료</p>
+<div class="highlight"><pre><span></span><code>deactivate
+</code></pre></div>
+<p>실행 전</p>
+<div class="highlight"><pre><span></span><code>(.venv)
+</code></pre></div>
+<p>실행 후</p>
+<div class="highlight"><pre><span></span><code>➜
+</code></pre></div>
+<p>다시 Mac 기본 Python 사용</p>
+<hr />
+<h1 id="9-pip">9. pip란?</h1>
+<p>pip는</p>
+<p>Python Package Manager</p>
+<p>입니다.</p>
+<p>Java의 Maven</p>
+<p>Node.js의 npm</p>
+<p>과 같은 역할입니다.</p>
+<p>예</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ollama
+</code></pre></div>
+<p>의 의미는</p>
+<p>ollama 라이브러리를 설치하라는 의미입니다.</p>
+<hr />
+<h1 id="10-pip-python-m-pip">10. 왜 pip 대신 python -m pip 를 사용하는가?</h1>
+<p>권장</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ollama
+</code></pre></div>
+<p>비권장</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>ollama
+</code></pre></div>
+<p>이유</p>
+<p>현재 활성화된 Python 환경의 pip를 사용하기 때문입니다.</p>
+<p>AI 프로젝트에서는</p>
+<p>python -m pip</p>
+<p>사용을 권장합니다.</p>
+<hr />
+<h1 id="11-ollama-python">11. Ollama Python 라이브러리 설치</h1>
+<p>명령어</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ollama
+</code></pre></div>
+<p>주의</p>
+<p>Ollama 서버 설치가 아닙니다.</p>
+<p>Python 프로그램에서 Ollama API를 호출하기 위한 라이브러리 설치입니다.</p>
+<p>구조</p>
+<p>Python Program
+↓
+Ollama Library
+↓
+Ollama Server
+↓
+Gemma / Qwen</p>
+<hr />
+<h1 id="12">12. 설치 확인</h1>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import ollama; print(&#39;ollama python library ok&#39;)&quot;</span>
+</code></pre></div>
+<p>결과</p>
+<div class="highlight"><pre><span></span><code>ollama python library ok
+</code></pre></div>
+<hr />
+<h1 id="13-python">13. 첫 번째 Python 예제</h1>
+<p>파일명</p>
+<p>test_ollama.py</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ollama</span><span class="w"> </span><span class="kn">import</span> <span class="n">chat</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s1">&#39;gemma3:4b&#39;</span><span class="p">,</span>
+    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;role&#39;</span><span class="p">:</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="s1">&#39;Local LLM이 무엇인지 설명해줘&#39;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="s1">&#39;content&#39;</span><span class="p">])</span>
+</code></pre></div>
+<p>실행</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>test_ollama.py
+</code></pre></div>
+<hr />
+<h1 id="14">14. 내부 동작 구조</h1>
+<p>Python Program
+↓
+Ollama Python Library
+↓
+localhost:11434
+↓
+Ollama Server
+↓
+Gemma3 4B
+↓
+Response</p>
+<hr />
+<h1 id="15">15. 향후 활용</h1>
+<p>이후 단계에서 모두 사용됩니다.</p>
+<p>Step1</p>
+<ul>
+<li>Local LLM</li>
+</ul>
+<p>Step2</p>
+<ul>
+<li>Open WebUI</li>
+</ul>
+<p>Step3</p>
+<ul>
+<li>RAG</li>
+</ul>
+<p>Step4</p>
+<ul>
+<li>Agent</li>
+</ul>
+<p>Step5</p>
+<ul>
+<li>AI Data Platform</li>
+</ul>
+<hr />
+<h1 id="_2">정리</h1>
+<p>필수 명령어</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ollama
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import ollama&quot;</span>
+</code></pre></div>
+<p>Local LLM 학습에서 Python 가상환경은 선택이 아니라 필수입니다.</p>
 
 
 
