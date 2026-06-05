@@ -7,28 +7,20 @@ theme:
 nav:
   - Home: index.md
 
+  - Roadmap:
+      - 학습 로드맵: roadmap/study-roadmap.md
+
   - Setting:
       - MkDocs 문서 사이트 구축 가이드: setting/mkdocs_github_pages_guide.md
       - MkDocs 문서 사이트 구축 가이드(windows): setting/mkdocs_github_pages_guide_windows.md
       - MkDocs 문서 Deploy 가이드: setting/mkdocs_github_pages_guide_deploy.md
 
-  - Roadmap:
-      - 학습 로드맵: roadmap/study-roadmap.md
+
 
   - Study:
-      - AI Platform 개요: study/ai-platform.md
-      - Data Lakehouse: study/data-lakehouse.md
-      - Iceberg: study/iceberg.md
-      - Delta Lake: study/delta-lake.md
+      - Step1 local LLM : study/ai-platform.md
+      - Step2 RAG: study/data-lakehouse.md
+      - Step3 Agent: study/iceberg.md
+      - Step4 AI Data Platform: study/delta-lake.md
+      - Step5 AI Serving Platform: study/delta-lake.md
 
-  - Architecture:
-      - 전체 아키텍처: architecture/overall-architecture.md
-
-  - Lab:
-      - 구축 Guide : lab/guide.md
-      - Local LLM 구축: lab/local-llm.md
-      - RAG 구축: lab/rag.md
-      - Agent 구축: lab/agent.md
-
-  - POC:
-      - PoC 결과: poc/result.md
