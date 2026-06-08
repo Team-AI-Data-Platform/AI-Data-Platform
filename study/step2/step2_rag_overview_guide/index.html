@@ -972,8 +972,8 @@
 <h1 id="step2-rag">Step2. RAG 구축 개요 가이드</h1>
 <h2 id="_1">문서 개요</h2>
 <p>본 문서는 AI Data Platform 스터디의 두 번째 단계인 <strong>RAG(Retrieval Augmented Generation)</strong> 구축에 대한 개요를 설명한다.</p>
-<p>Step1에서 Local LLM 환경을 구축하였다면, 이제는 단순한 대화형 AI를 넘어 <strong>회사 문서, 업무 지식, 프로젝트 산출물, 운영 매뉴얼 등을 학습한 AI 비서</strong>를 만드는 단계로 진입하게 된다.</p>
-<p>RAG는 현재 기업용 AI 시스템 구축 시 가장 많이 사용되는 핵심 기술이며, ChatGPT와 같은 범용 AI를 기업 내부 지식과 연결하는 대표적인 방법이다.</p>
+<p>Step1에서 Local LLM 환경을 구축하였다면, 이제는 단순한 대화형 AI를 넘어 회사 문서, 업무 지식, 프로젝트 산출물, 운영 매뉴얼 등을 기반으로 답변할 수 있는 <strong>기업형 AI 비서</strong>를 구축하는 단계로 진입하게 된다.</p>
+<p>RAG는 현재 기업용 AI 시스템 구축 시 가장 널리 사용되는 기술이며, ChatGPT와 같은 범용 LLM을 기업 내부 지식과 연결하는 가장 현실적인 방법이다.</p>
 <hr />
 <h1 id="1-rag">1. 왜 RAG가 필요한가?</h1>
 <h2 id="11-llm">1.1 LLM의 한계</h2>
@@ -981,7 +981,7 @@
 <p>예를 들어 아래와 같은 질문을 한다고 가정하자.</p>
 <div class="highlight"><pre><span></span><code>MicroServer Framework의 Runtime 모듈 구조를 설명해줘.
 </code></pre></div>
-<p>LLM은 인터넷에 공개되지 않은 내용을 알 수 없다.</p>
+<p>LLM은 인터넷에 공개되지 않은 정보를 알 수 없으며, 학습 시점 이후의 최신 정보도 알지 못한다.</p>
 <p>따라서 다음과 같은 문제가 발생한다.</p>
 <ul>
 <li>모르는 내용을 추측함</li>
@@ -994,22 +994,26 @@
 <p>실제 기업에서는 다음과 같은 문서들이 존재한다.</p>
 <ul>
 <li>개발 가이드</li>
-<li>사용자 매뉴얼</li>
-<li>운영 절차서</li>
+<li>운영 매뉴얼</li>
 <li>설계서</li>
 <li>제안서</li>
 <li>회의록</li>
 <li>정책 문서</li>
-<li>보안 규정</li>
+<li>표준 가이드</li>
 </ul>
-<p>따라서 기업 환경에서는 다음 구조가 필요하다.</p>
-<div class="highlight"><pre><span></span><code>LLM + 기업 내부 지식
-</code></pre></div>
-<p>이를 해결하기 위한 대표 기술이 RAG이다.</p>
+<p>따라서 기업 환경에서는 다음과 같은 구조가 필요하다.</p>
+<pre class="mermaid"><code>flowchart LR
+    DOC[기업 내부 문서]
+    LLM[LLM]
+    USER[사용자]
+
+    DOC --&gt; LLM
+    LLM --&gt; USER</code></pre>
+<p>이를 해결하기 위한 대표 기술이 바로 RAG이다.</p>
 <hr />
 <h1 id="2-rag">2. RAG란 무엇인가?</h1>
-<p>RAG는 Retrieval Augmented Generation의 약자이며,</p>
-<p>우리말로는 <strong>검색 증강 생성</strong>이라고 한다.</p>
+<p>RAG는 Retrieval Augmented Generation의 약자이다.</p>
+<p>우리말로는 "검색 증강 생성"이라고 한다.</p>
 <p>즉,</p>
 <blockquote>
 <p>질문과 관련된 문서를 먼저 검색한 후, 검색 결과를 기반으로 답변을 생성하는 기술</p>
@@ -1017,49 +1021,35 @@
 <p>이다.</p>
 <hr />
 <h1 id="3-rag">3. RAG 동작 원리</h1>
-<p>일반적인 LLM</p>
-<div class="highlight"><pre><span></span><code>질문
- ↓
-LLM
- ↓
-답변
-</code></pre></div>
-<p>RAG</p>
-<div class="highlight"><pre><span></span><code>질문
- ↓
-문서 검색
- ↓
-관련 문서 추출
- ↓
-LLM 전달
- ↓
-답변 생성
-</code></pre></div>
+<h2 id="llm">일반 LLM</h2>
+<pre class="mermaid"><code>flowchart LR
+    A[사용자 질문] --&gt; B[LLM]
+    B --&gt; C[답변 생성]</code></pre>
+<h2 id="rag">RAG</h2>
+<pre class="mermaid"><code>flowchart LR
+    A[사용자 질문] --&gt; B[Retriever]
+    B --&gt; C[Vector DB 검색]
+    C --&gt; D[관련 문서 추출]
+    D --&gt; E[LLM]
+    E --&gt; F[답변 생성]</code></pre>
 <hr />
 <h1 id="4-rag">4. RAG 아키텍처</h1>
-<div class="highlight"><pre><span></span><code>사용자
-  │
-  ▼
-질문 입력
-  │
-  ▼
-Retriever
-  │
-  ▼
-Vector DB
-  │
-  ▼
-관련 문서 검색
-  │
-  ▼
-LLM
-  │
-  ▼
-답변 생성
-</code></pre></div>
+<pre class="mermaid"><code>flowchart LR
+
+    USER[사용자]
+    RET[Retriever]
+    VDB[Vector DB]
+    LLM[Local LLM]
+    ANSWER[답변]
+
+    USER --&gt; RET
+    RET --&gt; VDB
+    VDB --&gt; RET
+    RET --&gt; LLM
+    LLM --&gt; ANSWER</code></pre>
 <hr />
 <h1 id="5-rag">5. RAG 구성 요소</h1>
-<h2 id="51-document">5.1 Document</h2>
+<h2 id="document">Document</h2>
 <p>AI가 참고할 원본 문서</p>
 <ul>
 <li>PDF</li>
@@ -1069,11 +1059,11 @@ LLM
 <li>Wiki</li>
 <li>Text</li>
 </ul>
-<h2 id="52-chunk">5.2 Chunk</h2>
-<p>문서를 검색 가능한 작은 단위로 분할한 데이터</p>
-<h2 id="53-embedding">5.3 Embedding</h2>
+<h2 id="chunk">Chunk</h2>
+<p>문서를 검색 가능한 단위로 분할한 데이터</p>
+<h2 id="embedding">Embedding</h2>
 <p>문장을 숫자 벡터로 변환하는 과정</p>
-<h2 id="54-vector-database">5.4 Vector Database</h2>
+<h2 id="vector-database">Vector Database</h2>
 <p>임베딩 데이터를 저장하는 저장소</p>
 <p>대표 솔루션</p>
 <ul>
@@ -1083,47 +1073,111 @@ LLM
 <li>Milvus</li>
 <li>PGVector</li>
 </ul>
-<h2 id="55-retriever">5.5 Retriever</h2>
+<h2 id="retriever">Retriever</h2>
 <p>질문과 가장 유사한 문서를 검색하는 모듈</p>
-<h2 id="56-llm">5.6 LLM</h2>
-<p>검색된 문서를 기반으로 최종 답변을 생성하는 모델</p>
+<h2 id="llm_1">LLM</h2>
+<p>검색된 문서를 기반으로 답변을 생성하는 모델</p>
+<hr />
+<h1 id="6-rag">6. RAG 구축 로드맵</h1>
+<p>AI Data Platform 스터디에서는 RAG를 다음 5단계로 학습한다.</p>
+<pre class="mermaid"><code>flowchart TD
+
+    S1[Step2-1&lt;br&gt;RAG 개요 및 아키텍처 이해]
+
+    S2[Step2-2&lt;br&gt;Vector DB 구축 및 문서 적재]
+
+    S3[Step2-3&lt;br&gt;첫 번째 RAG 구축]
+
+    S4[Step2-4&lt;br&gt;Open WebUI 연동]
+
+    S5[Step2-5&lt;br&gt;실전 사내 문서 RAG 구축]
+
+    S1 --&gt; S2
+    S2 --&gt; S3
+    S3 --&gt; S4
+    S4 --&gt; S5</code></pre>
+<hr />
+<h2 id="step2-1-rag">Step2-1. RAG 개요 및 아키텍처 이해</h2>
+<p>학습 내용</p>
 <ul>
-<li>Qwen3</li>
-<li>Gemma3</li>
-<li>Llama3</li>
-<li>DeepSeek</li>
+<li>RAG 개념</li>
+<li>LLM 한계</li>
+<li>Hallucination</li>
+<li>RAG 구성요소</li>
+<li>전체 아키텍처</li>
 </ul>
 <hr />
-<h1 id="6">6. 구축 단계</h1>
-<p>AI Data Platform 스터디에서는 다음 순서로 진행한다.</p>
-<h2 id="step2-1-rag">Step2-1. RAG 개념 이해</h2>
-<h2 id="step2-2-chromadb">Step2-2. ChromaDB 구축</h2>
-<h2 id="step2-3">Step2-3. 문서 수집</h2>
-<h2 id="step2-4-chunking">Step2-4. 문서 Chunking</h2>
-<h2 id="step2-5-embedding">Step2-5. Embedding 생성</h2>
-<h2 id="step2-6-vector-db">Step2-6. Vector DB 적재</h2>
-<h2 id="step2-7-retriever">Step2-7. Retriever 구축</h2>
-<h2 id="step2-8-llm">Step2-8. LLM 연동</h2>
-<h2 id="step2-9-open-webui">Step2-9. Open WebUI 연동</h2>
-<h2 id="step2-10-rag">Step2-10. 실전 RAG 구축</h2>
+<h2 id="step2-2-vector-db">Step2-2. Vector DB 구축 및 문서 적재</h2>
+<p>학습 내용</p>
+<ul>
+<li>ChromaDB 설치</li>
+<li>Embedding 이해</li>
+<li>Chunking 이해</li>
+<li>문서 적재</li>
+</ul>
+<hr />
+<h2 id="step2-3-rag">Step2-3. 첫 번째 RAG 구축</h2>
+<p>학습 내용</p>
+<div class="highlight"><pre><span></span><code>질문
+ ↓
+Retriever
+ ↓
+Vector DB
+ ↓
+LLM
+ ↓
+답변
+</code></pre></div>
+<p>Python 기반 RAG 구현</p>
+<hr />
+<h2 id="step2-4-open-webui">Step2-4. Open WebUI 연동</h2>
+<p>학습 내용</p>
+<pre class="mermaid"><code>flowchart TD
+
+    WEBUI[Open WebUI]
+    KB[Knowledge Base]
+    VDB[ChromaDB]
+    OLLAMA[Ollama]
+
+    WEBUI --&gt; KB
+    KB --&gt; VDB
+    VDB --&gt; OLLAMA</code></pre>
+<p>웹 기반 RAG 서비스 구축</p>
+<hr />
+<h2 id="step2-5-rag">Step2-5. 실전 사내 문서 RAG 구축</h2>
+<p>대상 문서</p>
+<ul>
+<li>AI Data Platform</li>
+<li>MicroServer</li>
+<li>운영 가이드</li>
+<li>제안서</li>
+<li>회의록</li>
+</ul>
+<p>고도화</p>
+<ul>
+<li>Metadata</li>
+<li>Hybrid Search</li>
+<li>검색 품질 개선</li>
+</ul>
 <hr />
 <h1 id="7">7. 최종 목표</h1>
-<div class="highlight"><pre><span></span><code>사내 문서
-   │
-   ▼
-Vector DB
-   │
-   ▼
-Retriever
-   │
-   ▼
-Local LLM
-   │
-   ▼
-Open WebUI
-</code></pre></div>
+<pre class="mermaid"><code>flowchart LR
+
+    DOC[사내 문서]
+
+    VDB[Vector DB]
+
+    RET[Retriever]
+
+    LLM[Local LLM]
+
+    WEBUI[Open WebUI]
+
+    DOC --&gt; VDB
+    VDB --&gt; RET
+    RET --&gt; LLM
+    LLM --&gt; WEBUI</code></pre>
 <p>사용자는 Open WebUI에서 질문만 하면 된다.</p>
-<p>예)</p>
 <div class="highlight"><pre><span></span><code>MicroServer 설치 절차 알려줘.
 </code></pre></div>
 <p>AI는 내부 문서를 검색한 후 정확한 답변을 제공한다.</p>
@@ -1140,28 +1194,22 @@ Open WebUI
 <li>AI Workflow</li>
 </ul>
 <p>의 기반 기술이 된다.</p>
-<div class="highlight"><pre><span></span><code>Local LLM
-   ↓
-RAG
-   ↓
-Agent
-   ↓
-AI Data Platform
-</code></pre></div>
-<hr />
-<h1 id="9">9. 다음 단계</h1>
-<p>다음 문서에서는</p>
-<p><strong>Step2-2 ChromaDB 구축 및 Vector DB 이해 가이드</strong></p>
-<p>를 진행한다.</p>
-<p>해당 단계에서는</p>
-<ul>
-<li>Vector DB 개념</li>
-<li>ChromaDB 설치</li>
-<li>Python 연동</li>
-<li>데이터 저장</li>
-<li>데이터 검색</li>
-</ul>
-<p>을 실습한다.</p>
+<pre class="mermaid"><code>flowchart TD
+
+    A[Step1 Local LLM]
+
+    B[Step2 RAG]
+
+    C[Step3 Agent]
+
+    D[Step4 AI Data Platform]
+
+    E[Step5 LLM Serving]
+
+    A --&gt; B
+    B --&gt; C
+    C --&gt; D
+    D --&gt; E</code></pre>
 
 
 
