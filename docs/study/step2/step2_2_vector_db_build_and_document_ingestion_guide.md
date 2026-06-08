@@ -506,32 +506,131 @@ pip list
 
 # 11. 실습 디렉터리 구조 만들기
 
-다음 구조로 실습 파일을 구성한다.
+이번 실습은 별도의 프로젝트를 생성하는 것이 아니라 현재 운영 중인 **AI-Data-Platform 저장소의 `labs/rag` 디렉터리 내부에서 진행한다.**
+
+실습 코드와 실습 데이터를 함께 관리하여 향후 Step2, Step3, Step4 과정까지 동일한 구조를 유지한다.
+
+---
+
+# 11. 실습 디렉터리 구조 만들기
+
+이번 실습은 별도의 프로젝트를 생성하는 것이 아니라 현재 운영 중인 **AI-Data-Platform 저장소의 `labs/rag` 디렉터리 내부에서 진행한다.**
+
+실습 코드와 실습 데이터를 함께 관리하여 향후 Step2, Step3, Step4 과정까지 동일한 구조를 유지한다.
+
+---
+
+## 11.1 실습 디렉터리 구조
 
 ```text
-rag-vector-db-lab/
- ├─ docs/
- │   └─ microserver_guide.md
- ├─ chroma_db/
- ├─ 01_create_sample_doc.py
- ├─ 02_load_and_chunk.py
- ├─ 03_insert_to_chroma.py
- └─ 04_search_chroma.py
+AI-Data-Platform
+│
+├─ docs
+│   └─ rag
+│       ├─ step2_1_rag_overview.md
+│       ├─ step2_2_vector_db_build.md
+│       ├─ step2_3_first_rag.md
+│       └─ ...
+│
+├─ labs
+│   └─ rag
+│       ├─ docs
+│       │   └─ microserver_guide.md
+│       │
+│       ├─ chroma_db
+│       │
+│       ├─ 01_create_sample_doc.py
+│       ├─ 02_load_and_chunk.py
+│       ├─ 03_insert_to_chroma.py
+│       └─ 04_search_chroma.py
+│
+├─ mkdocs.yml
+└─ README.md
 ```
 
-디렉터리 생성:
+---
+
+## 11.2 디렉터리 생성
+
+프로젝트 루트(`AI-Data-Platform`)에서 아래 명령을 실행한다.
 
 ```bash
-mkdir docs
-mkdir chroma_db
+mkdir -p labs/rag/docs
+mkdir -p labs/rag/chroma_db
+
+cd labs/rag
 ```
 
 ### 명령어 설명
 
 | 명령어 | 설명 |
-|---|---|
-| `mkdir docs` | 원본 문서를 저장할 폴더를 생성한다. |
-| `mkdir chroma_db` | ChromaDB 데이터가 저장될 폴더를 생성한다. |
+|---------|------|
+| `mkdir` | 디렉터리를 생성한다. |
+| `-p` | 상위 디렉터리가 존재하지 않아도 함께 생성한다. |
+| `labs/rag/docs` | 실습용 원본 문서를 저장하는 디렉터리이다. |
+| `labs/rag/chroma_db` | ChromaDB 데이터가 저장되는 디렉터리이다. |
+| `cd labs/rag` | RAG 실습 디렉터리로 이동한다. |
+
+---
+
+## 11.3 생성 결과 확인
+
+현재 위치를 확인한다.
+
+```bash
+pwd
+```
+
+예상 결과:
+
+```text
+~/workspace/AI-Data-Platform/labs/rag
+```
+
+디렉터리 목록 확인:
+
+```bash
+ls -al
+```
+
+예상 결과:
+
+```text
+docs/
+chroma_db/
+```
+
+---
+
+## 11.4 디렉터리 역할
+
+| 디렉터리 | 역할 |
+|----------|------|
+| `labs/rag/docs` | Vector DB에 적재할 원본 문서 저장 |
+| `labs/rag/chroma_db` | ChromaDB 데이터 저장 |
+| `labs/rag/*.py` | RAG 실습용 Python 코드 |
+| `docs/rag` | MkDocs 학습 문서 저장 |
+
+---
+
+## 11.5 왜 labs/rag 구조를 사용하는가?
+
+AI Data Platform 프로젝트에서는 문서와 실습 코드를 분리하여 관리한다.
+
+```text
+docs  → 학습 문서(MkDocs)
+
+labs  → 실습 코드 및 실험 환경
+```
+
+이 구조를 사용하면 다음과 같은 장점이 있다.
+
+- 학습 문서와 실습 코드를 분리할 수 있다.
+- GitHub를 통해 버전 관리를 일관되게 수행할 수 있다.
+- 팀원들이 동일한 디렉터리 구조를 사용할 수 있다.
+- Step3 Agent 실습 시 `labs/agent`로 자연스럽게 확장할 수 있다.
+- Step4 AI Data Platform 실습 시 `labs/platform`으로 확장할 수 있다.
+- 실습 결과물을 프로젝트 자산으로 축적할 수 있다.
 
 ---
 
