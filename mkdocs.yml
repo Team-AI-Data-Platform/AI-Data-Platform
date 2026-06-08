@@ -14,8 +14,7 @@ markdown_extensions:
 nav:
   - Home: index.md
 
-  - Roadmap:
-      - 학습 로드맵: roadmap/study-roadmap.md
+  - Roadmap: roadmap/study-roadmap.md
 
   - Setting:
       - MkDocs 문서 사이트 구축 가이드: setting/mkdocs_github_pages_guide.md
