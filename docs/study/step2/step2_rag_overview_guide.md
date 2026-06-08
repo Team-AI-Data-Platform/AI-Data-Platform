@@ -1,12 +1,13 @@
+
 # Step2. RAG 구축 개요 가이드
 
 ## 문서 개요
 
 본 문서는 AI Data Platform 스터디의 두 번째 단계인 **RAG(Retrieval Augmented Generation)** 구축에 대한 개요를 설명한다.
 
-Step1에서 Local LLM 환경을 구축하였다면, 이제는 단순한 대화형 AI를 넘어 **회사 문서, 업무 지식, 프로젝트 산출물, 운영 매뉴얼 등을 학습한 AI 비서**를 만드는 단계로 진입하게 된다.
+Step1에서 Local LLM 환경을 구축하였다면, 이제는 단순한 대화형 AI를 넘어 회사 문서, 업무 지식, 프로젝트 산출물, 운영 매뉴얼 등을 기반으로 답변할 수 있는 **기업형 AI 비서**를 구축하는 단계로 진입하게 된다.
 
-RAG는 현재 기업용 AI 시스템 구축 시 가장 많이 사용되는 핵심 기술이며, ChatGPT와 같은 범용 AI를 기업 내부 지식과 연결하는 대표적인 방법이다.
+RAG는 현재 기업용 AI 시스템 구축 시 가장 널리 사용되는 기술이며, ChatGPT와 같은 범용 LLM을 기업 내부 지식과 연결하는 가장 현실적인 방법이다.
 
 ---
 
@@ -22,7 +23,7 @@ Local LLM을 구축했다고 해서 모든 질문에 정확하게 답변할 수 
 MicroServer Framework의 Runtime 모듈 구조를 설명해줘.
 ```
 
-LLM은 인터넷에 공개되지 않은 내용을 알 수 없다.
+LLM은 인터넷에 공개되지 않은 정보를 알 수 없으며, 학습 시점 이후의 최신 정보도 알지 못한다.
 
 따라서 다음과 같은 문제가 발생한다.
 
@@ -38,29 +39,34 @@ LLM은 인터넷에 공개되지 않은 내용을 알 수 없다.
 실제 기업에서는 다음과 같은 문서들이 존재한다.
 
 - 개발 가이드
-- 사용자 매뉴얼
-- 운영 절차서
+- 운영 매뉴얼
 - 설계서
 - 제안서
 - 회의록
 - 정책 문서
-- 보안 규정
+- 표준 가이드
 
-따라서 기업 환경에서는 다음 구조가 필요하다.
+따라서 기업 환경에서는 다음과 같은 구조가 필요하다.
 
-```text
-LLM + 기업 내부 지식
+```mermaid
+flowchart LR
+    DOC[기업 내부 문서]
+    LLM[LLM]
+    USER[사용자]
+
+    DOC --> LLM
+    LLM --> USER
 ```
 
-이를 해결하기 위한 대표 기술이 RAG이다.
+이를 해결하기 위한 대표 기술이 바로 RAG이다.
 
 ---
 
 # 2. RAG란 무엇인가?
 
-RAG는 Retrieval Augmented Generation의 약자이며,
+RAG는 Retrieval Augmented Generation의 약자이다.
 
-우리말로는 **검색 증강 생성**이라고 한다.
+우리말로는 "검색 증강 생성"이라고 한다.
 
 즉,
 
@@ -72,61 +78,50 @@ RAG는 Retrieval Augmented Generation의 약자이며,
 
 # 3. RAG 동작 원리
 
-일반적인 LLM
+## 일반 LLM
 
-```text
-질문
- ↓
-LLM
- ↓
-답변
+```mermaid
+flowchart LR
+    A[사용자 질문] --> B[LLM]
+    B --> C[답변 생성]
 ```
 
-RAG
+## RAG
 
-```text
-질문
- ↓
-문서 검색
- ↓
-관련 문서 추출
- ↓
-LLM 전달
- ↓
-답변 생성
+```mermaid
+flowchart LR
+    A[사용자 질문] --> B[Retriever]
+    B --> C[Vector DB 검색]
+    C --> D[관련 문서 추출]
+    D --> E[LLM]
+    E --> F[답변 생성]
 ```
 
 ---
 
 # 4. RAG 아키텍처
 
-```text
-사용자
-  │
-  ▼
-질문 입력
-  │
-  ▼
-Retriever
-  │
-  ▼
-Vector DB
-  │
-  ▼
-관련 문서 검색
-  │
-  ▼
-LLM
-  │
-  ▼
-답변 생성
+```mermaid
+flowchart LR
+
+    USER[사용자]
+    RET[Retriever]
+    VDB[Vector DB]
+    LLM[Local LLM]
+    ANSWER[답변]
+
+    USER --> RET
+    RET --> VDB
+    VDB --> RET
+    RET --> LLM
+    LLM --> ANSWER
 ```
 
 ---
 
 # 5. RAG 구성 요소
 
-## 5.1 Document
+## Document
 
 AI가 참고할 원본 문서
 
@@ -137,15 +132,15 @@ AI가 참고할 원본 문서
 - Wiki
 - Text
 
-## 5.2 Chunk
+## Chunk
 
-문서를 검색 가능한 작은 단위로 분할한 데이터
+문서를 검색 가능한 단위로 분할한 데이터
 
-## 5.3 Embedding
+## Embedding
 
 문장을 숫자 벡터로 변환하는 과정
 
-## 5.4 Vector Database
+## Vector Database
 
 임베딩 데이터를 저장하는 저장소
 
@@ -157,68 +152,145 @@ AI가 참고할 원본 문서
 - Milvus
 - PGVector
 
-## 5.5 Retriever
+## Retriever
 
 질문과 가장 유사한 문서를 검색하는 모듈
 
-## 5.6 LLM
+## LLM
 
-검색된 문서를 기반으로 최종 답변을 생성하는 모델
-
-- Qwen3
-- Gemma3
-- Llama3
-- DeepSeek
+검색된 문서를 기반으로 답변을 생성하는 모델
 
 ---
 
-# 6. 구축 단계
+# 6. RAG 구축 로드맵
 
-AI Data Platform 스터디에서는 다음 순서로 진행한다.
+AI Data Platform 스터디에서는 RAG를 다음 5단계로 학습한다.
 
-## Step2-1. RAG 개념 이해
+```mermaid
+flowchart TD
 
-## Step2-2. ChromaDB 구축
+    S1[Step2-1<br>RAG 개요 및 아키텍처 이해]
 
-## Step2-3. 문서 수집
+    S2[Step2-2<br>Vector DB 구축 및 문서 적재]
 
-## Step2-4. 문서 Chunking
+    S3[Step2-3<br>첫 번째 RAG 구축]
 
-## Step2-5. Embedding 생성
+    S4[Step2-4<br>Open WebUI 연동]
 
-## Step2-6. Vector DB 적재
+    S5[Step2-5<br>실전 사내 문서 RAG 구축]
 
-## Step2-7. Retriever 구축
+    S1 --> S2
+    S2 --> S3
+    S3 --> S4
+    S4 --> S5
+```
 
-## Step2-8. LLM 연동
+---
 
-## Step2-9. Open WebUI 연동
+## Step2-1. RAG 개요 및 아키텍처 이해
 
-## Step2-10. 실전 RAG 구축
+학습 내용
+
+- RAG 개념
+- LLM 한계
+- Hallucination
+- RAG 구성요소
+- 전체 아키텍처
+
+---
+
+## Step2-2. Vector DB 구축 및 문서 적재
+
+학습 내용
+
+- ChromaDB 설치
+- Embedding 이해
+- Chunking 이해
+- 문서 적재
+
+---
+
+## Step2-3. 첫 번째 RAG 구축
+
+학습 내용
+
+```text
+질문
+ ↓
+Retriever
+ ↓
+Vector DB
+ ↓
+LLM
+ ↓
+답변
+```
+
+Python 기반 RAG 구현
+
+---
+
+## Step2-4. Open WebUI 연동
+
+학습 내용
+
+```mermaid
+flowchart TD
+
+    WEBUI[Open WebUI]
+    KB[Knowledge Base]
+    VDB[ChromaDB]
+    OLLAMA[Ollama]
+
+    WEBUI --> KB
+    KB --> VDB
+    VDB --> OLLAMA
+```
+
+웹 기반 RAG 서비스 구축
+
+---
+
+## Step2-5. 실전 사내 문서 RAG 구축
+
+대상 문서
+
+- AI Data Platform
+- MicroServer
+- 운영 가이드
+- 제안서
+- 회의록
+
+고도화
+
+- Metadata
+- Hybrid Search
+- 검색 품질 개선
 
 ---
 
 # 7. 최종 목표
 
-```text
-사내 문서
-   │
-   ▼
-Vector DB
-   │
-   ▼
-Retriever
-   │
-   ▼
-Local LLM
-   │
-   ▼
-Open WebUI
+```mermaid
+flowchart LR
+
+    DOC[사내 문서]
+
+    VDB[Vector DB]
+
+    RET[Retriever]
+
+    LLM[Local LLM]
+
+    WEBUI[Open WebUI]
+
+    DOC --> VDB
+    VDB --> RET
+    RET --> LLM
+    LLM --> WEBUI
 ```
 
 사용자는 Open WebUI에서 질문만 하면 된다.
-
-예)
 
 ```text
 MicroServer 설치 절차 알려줘.
@@ -243,32 +315,21 @@ RAG는 AI Data Platform의 핵심 구성요소이다.
 
 의 기반 기술이 된다.
 
-```text
-Local LLM
-   ↓
-RAG
-   ↓
-Agent
-   ↓
-AI Data Platform
+```mermaid
+flowchart TD
+
+    A[Step1 Local LLM]
+
+    B[Step2 RAG]
+
+    C[Step3 Agent]
+
+    D[Step4 AI Data Platform]
+
+    E[Step5 LLM Serving]
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
 ```
-
----
-
-# 9. 다음 단계
-
-다음 문서에서는
-
-**Step2-2 ChromaDB 구축 및 Vector DB 이해 가이드**
-
-를 진행한다.
-
-해당 단계에서는
-
-- Vector DB 개념
-- ChromaDB 설치
-- Python 연동
-- 데이터 저장
-- 데이터 검색
-
-을 실습한다.
