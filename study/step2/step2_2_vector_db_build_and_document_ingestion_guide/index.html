@@ -1632,19 +1632,45 @@ chroma_db/
 </table>
 <hr />
 <h1 id="11">11. 실습 디렉터리 구조 만들기</h1>
-<p>다음 구조로 실습 파일을 구성한다.</p>
-<div class="highlight"><pre><span></span><code>rag-vector-db-lab/
- ├─ docs/
- │   └─ microserver_guide.md
- ├─ chroma_db/
- ├─ 01_create_sample_doc.py
- ├─ 02_load_and_chunk.py
- ├─ 03_insert_to_chroma.py
- └─ 04_search_chroma.py
+<p>이번 실습은 별도의 프로젝트를 생성하는 것이 아니라 현재 운영 중인 <strong>AI-Data-Platform 저장소의 <code>labs/rag</code> 디렉터리 내부에서 진행한다.</strong></p>
+<p>실습 코드와 실습 데이터를 함께 관리하여 향후 Step2, Step3, Step4 과정까지 동일한 구조를 유지한다.</p>
+<hr />
+<h1 id="11_1">11. 실습 디렉터리 구조 만들기</h1>
+<p>이번 실습은 별도의 프로젝트를 생성하는 것이 아니라 현재 운영 중인 <strong>AI-Data-Platform 저장소의 <code>labs/rag</code> 디렉터리 내부에서 진행한다.</strong></p>
+<p>실습 코드와 실습 데이터를 함께 관리하여 향후 Step2, Step3, Step4 과정까지 동일한 구조를 유지한다.</p>
+<hr />
+<h2 id="111">11.1 실습 디렉터리 구조</h2>
+<div class="highlight"><pre><span></span><code>AI-Data-Platform
+│
+├─ docs
+│   └─ rag
+│       ├─ step2_1_rag_overview.md
+│       ├─ step2_2_vector_db_build.md
+│       ├─ step2_3_first_rag.md
+│       └─ ...
+│
+├─ labs
+│   └─ rag
+│       ├─ docs
+│       │   └─ microserver_guide.md
+│       │
+│       ├─ chroma_db
+│       │
+│       ├─ 01_create_sample_doc.py
+│       ├─ 02_load_and_chunk.py
+│       ├─ 03_insert_to_chroma.py
+│       └─ 04_search_chroma.py
+│
+├─ mkdocs.yml
+└─ README.md
 </code></pre></div>
-<p>디렉터리 생성:</p>
-<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>docs
-mkdir<span class="w"> </span>chroma_db
+<hr />
+<h2 id="112">11.2 디렉터리 생성</h2>
+<p>프로젝트 루트(<code>AI-Data-Platform</code>)에서 아래 명령을 실행한다.</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>labs/rag/docs
+mkdir<span class="w"> </span>-p<span class="w"> </span>labs/rag/chroma_db
+
+<span class="nb">cd</span><span class="w"> </span>labs/rag
 </code></pre></div>
 <h3 id="_11">명령어 설명</h3>
 <table>
@@ -1656,15 +1682,86 @@ mkdir<span class="w"> </span>chroma_db
 </thead>
 <tbody>
 <tr>
-<td><code>mkdir docs</code></td>
-<td>원본 문서를 저장할 폴더를 생성한다.</td>
+<td><code>mkdir</code></td>
+<td>디렉터리를 생성한다.</td>
 </tr>
 <tr>
-<td><code>mkdir chroma_db</code></td>
-<td>ChromaDB 데이터가 저장될 폴더를 생성한다.</td>
+<td><code>-p</code></td>
+<td>상위 디렉터리가 존재하지 않아도 함께 생성한다.</td>
+</tr>
+<tr>
+<td><code>labs/rag/docs</code></td>
+<td>실습용 원본 문서를 저장하는 디렉터리이다.</td>
+</tr>
+<tr>
+<td><code>labs/rag/chroma_db</code></td>
+<td>ChromaDB 데이터가 저장되는 디렉터리이다.</td>
+</tr>
+<tr>
+<td><code>cd labs/rag</code></td>
+<td>RAG 실습 디렉터리로 이동한다.</td>
 </tr>
 </tbody>
 </table>
+<hr />
+<h2 id="113">11.3 생성 결과 확인</h2>
+<p>현재 위치를 확인한다.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">pwd</span>
+</code></pre></div>
+<p>예상 결과:</p>
+<div class="highlight"><pre><span></span><code>~/workspace/AI-Data-Platform/labs/rag
+</code></pre></div>
+<p>디렉터리 목록 확인:</p>
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>-al
+</code></pre></div>
+<p>예상 결과:</p>
+<div class="highlight"><pre><span></span><code>docs/
+chroma_db/
+</code></pre></div>
+<hr />
+<h2 id="114">11.4 디렉터리 역할</h2>
+<table>
+<thead>
+<tr>
+<th>디렉터리</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>labs/rag/docs</code></td>
+<td>Vector DB에 적재할 원본 문서 저장</td>
+</tr>
+<tr>
+<td><code>labs/rag/chroma_db</code></td>
+<td>ChromaDB 데이터 저장</td>
+</tr>
+<tr>
+<td><code>labs/rag/*.py</code></td>
+<td>RAG 실습용 Python 코드</td>
+</tr>
+<tr>
+<td><code>docs/rag</code></td>
+<td>MkDocs 학습 문서 저장</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="115-labsrag">11.5 왜 labs/rag 구조를 사용하는가?</h2>
+<p>AI Data Platform 프로젝트에서는 문서와 실습 코드를 분리하여 관리한다.</p>
+<div class="highlight"><pre><span></span><code>docs  → 학습 문서(MkDocs)
+
+labs  → 실습 코드 및 실험 환경
+</code></pre></div>
+<p>이 구조를 사용하면 다음과 같은 장점이 있다.</p>
+<ul>
+<li>학습 문서와 실습 코드를 분리할 수 있다.</li>
+<li>GitHub를 통해 버전 관리를 일관되게 수행할 수 있다.</li>
+<li>팀원들이 동일한 디렉터리 구조를 사용할 수 있다.</li>
+<li>Step3 Agent 실습 시 <code>labs/agent</code>로 자연스럽게 확장할 수 있다.</li>
+<li>Step4 AI Data Platform 실습 시 <code>labs/platform</code>으로 확장할 수 있다.</li>
+<li>실습 결과물을 프로젝트 자산으로 축적할 수 있다.</li>
+</ul>
 <hr />
 <h1 id="12">12. 샘플 문서 생성</h1>
 <p>먼저 실습에 사용할 Markdown 문서를 생성한다.</p>
