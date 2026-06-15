@@ -468,6 +468,27 @@ source .venv/Scripts/activate
 
 정리하면, WSL/Linux에서는 `.venv/bin/activate`를 사용하고, Windows 환경에서는 `.venv/Scripts/activate` 또는 `.venv\Scripts\Activate.ps1`을 사용한다.
 
+
+!!! info "패키지 설치 권장 방식"
+
+    본 문서에서는 패키지 설치 시 `pip install` 대신
+
+    `python -m pip install` 사용을 권장한다.
+
+    ```bash
+
+    python -m pip install chromadb
+
+    ```
+
+    이 방식은 현재 실행 중인 Python 환경의 pip를 사용하므로
+
+    Python 실행 환경과 pip 실행 환경이 서로 달라지는 문제를 방지할 수 있다.
+
+    특히 가상환경(.venv)을 사용하는 경우
+
+    현재 활성화된 가상환경에 패키지가 설치되는 것을 보장할 수 있다.
+
 ---
 
 # 9. pip 업그레이드
@@ -501,7 +522,7 @@ python -m pip install --upgrade pip
 설치 명령:
 
 ```bash
-pip install chromadb sentence-transformers pypdf python-dotenv
+python -m pip install chromadb sentence-transformers pypdf python-dotenv
 ```
 
 ### 명령어 설명
@@ -516,7 +537,7 @@ pip install chromadb sentence-transformers pypdf python-dotenv
 설치된 패키지 확인:
 
 ```bash
-pip list
+python -m pip list
 ```
 
 ### 명령어 설명
@@ -1266,7 +1287,7 @@ ModuleNotFoundError: No module named 'chromadb'
 
 ```bash
 source .venv/bin/activate
-pip install chromadb
+python -m pip install chromadb
 ```
 
 ---
