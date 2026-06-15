@@ -1,0 +1,2868 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Data Platform & Local LLM Study">
+      
+      
+      
+      
+        <link rel="prev" href="../step2_4_open_webui_rag_integration_guide/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Step2-5. 실전 사내 문서 RAG 구축 - AI Data Platform Study</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#step2-5-rag" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href="../../.." title="AI Data Platform Study" class="md-header__button md-logo" aria-label="AI Data Platform Study" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Data Platform Study
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Step2-5. 실전 사내 문서 RAG 구축
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="AI Data Platform Study" class="md-nav__button md-logo" aria-label="AI Data Platform Study" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AI Data Platform Study
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../roadmap/study-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Setting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setting/mkdocs_github_pages_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MkDocs 문서 사이트 구축 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setting/mkdocs_github_pages_guide_windows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MkDocs 문서 사이트 구축 가이드(windows)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setting/mkdocs_github_pages_guide_deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MkDocs 문서 Deploy 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setting/macmini_ai_lab_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mac Mini 기반 AI LAB 구축 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Study
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Study
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step1 local LLM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Step1 local LLM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../step1/step1_local_llm_setup_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local LLM 구축 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../step1/local_llm_model_size_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM 모델 크기 이해
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../step1/local_llm_model_size_guide_detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM 모델 크기 완전 이해 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../step1/Step1-3_Python_Virtual_Environment_and_Ollama_Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python 가상환경과 Ollama 연동 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../step1/Step1-4_Open_WebUI_Docker_Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Open WebUI 구축 및 Docker 이해 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../step1/Step1-5_Prompt_Practice_Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prompt 실습 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2 RAG
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Step2 RAG
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step2_rag_overview_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-1. RAG 개요 및 아키텍처 이해
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step2_2_vector_db_build_and_document_ingestion_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-2. Vector DB 구축 및 문서 적재
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step2_3_first_rag_difference_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-3. RAG 질의응답 구현
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step2_4_open_webui_rag_integration_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-4. Open WebUI 연동
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-5. 실전 사내 문서 RAG 구축
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-5. 실전 사내 문서 RAG 구축
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 문서 작성 목적
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-step2-step2-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Step2 전체 흐름에서 Step2-5의 위치
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-step2-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Step2-5의 핵심 목표
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-markdown-rag-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 기존 Markdown RAG와 실전 사내 문서 RAG의 차이
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 실전 사내 문서 RAG 처리 흐름
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 문서 유형별 처리 전략
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#61-markdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Markdown 문서
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62-pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 PDF 문서
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#63-powerpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 PowerPoint 문서
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64-word" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Word 문서
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#65-excel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Excel 문서
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#66-hwp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 HWP 문서
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-ocr-ai-ocr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. OCR과 AI OCR 적용 기준
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-vision-llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Vision LLM 기반 문서 이해
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Metadata 설계
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Chunking 전략
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#101-markdown-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Markdown Chunking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#102-pdf-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 PDF Chunking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#103-ppt-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 PPT Chunking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#104-word-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 Word Chunking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#105-excel-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.5 Excel Chunking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. 권장 실습 디렉터리 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 권장 실습 파일 역할
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 실습 대상 문서 예시
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. 실습 흐름
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Python 라이브러리 예시
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-pptx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. PPTX 텍스트 추출 예시
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-docx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. DOCX 텍스트 추출 예시
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-xlsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. XLSX 텍스트 변환 예시
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-vector-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Vector DB 저장 데이터 예시
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. 검색 및 답변 예시
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-open-webui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. Open WebUI 연동 관점
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. 보안 및 거버넌스 고려사항
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-step2-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. Step2-5 완료 기준
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. 팀원 교육 시 강조할 내용
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#241-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24.1 기업 RAG의 핵심은 문서 전처리이다
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#242-vector-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24.2 Vector DB에는 원본 문서가 아니라 검색 가능한 지식 조각이 저장된다
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#243" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24.3 출처가 없는 답변은 실무에서 사용하기 어렵다
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#244" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24.4 모든 문서를 같은 방식으로 처리하면 안 된다
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. 다음 단계 예고
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../iceberg.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step3 Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../delta-lake.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step4 AI Data Platform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../delta-lake.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step5 AI Serving Platform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 문서 작성 목적
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-step2-step2-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Step2 전체 흐름에서 Step2-5의 위치
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-step2-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Step2-5의 핵심 목표
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-markdown-rag-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 기존 Markdown RAG와 실전 사내 문서 RAG의 차이
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 실전 사내 문서 RAG 처리 흐름
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 문서 유형별 처리 전략
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#61-markdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Markdown 문서
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62-pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 PDF 문서
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#63-powerpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 PowerPoint 문서
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64-word" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Word 문서
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#65-excel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Excel 문서
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#66-hwp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 HWP 문서
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-ocr-ai-ocr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. OCR과 AI OCR 적용 기준
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-vision-llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Vision LLM 기반 문서 이해
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Metadata 설계
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Chunking 전략
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#101-markdown-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Markdown Chunking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#102-pdf-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 PDF Chunking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#103-ppt-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 PPT Chunking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#104-word-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 Word Chunking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#105-excel-chunking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.5 Excel Chunking
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. 권장 실습 디렉터리 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 권장 실습 파일 역할
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 실습 대상 문서 예시
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. 실습 흐름
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Python 라이브러리 예시
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-pptx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. PPTX 텍스트 추출 예시
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-docx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. DOCX 텍스트 추출 예시
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-xlsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. XLSX 텍스트 변환 예시
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-vector-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Vector DB 저장 데이터 예시
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. 검색 및 답변 예시
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-open-webui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. Open WebUI 연동 관점
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. 보안 및 거버넌스 고려사항
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-step2-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. Step2-5 완료 기준
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. 팀원 교육 시 강조할 내용
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#241-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24.1 기업 RAG의 핵심은 문서 전처리이다
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#242-vector-db" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24.2 Vector DB에는 원본 문서가 아니라 검색 가능한 지식 조각이 저장된다
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#243" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24.3 출처가 없는 답변은 실무에서 사용하기 어렵다
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#244" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24.4 모든 문서를 같은 방식으로 처리하면 안 된다
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. 다음 단계 예고
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="step2-5-rag">Step2-5. 실전 사내 문서 RAG 구축 가이드</h1>
+<blockquote>
+<p>Markdown 기반 RAG 실습을 실제 기업 문서 기반 RAG 구조로 확장하기 위한 실무형 가이드</p>
+</blockquote>
+<hr />
+<h2 id="1">1. 문서 작성 목적</h2>
+<p>이 문서는 AI-Data-Platform 스터디의 Step2 RAG 과정 중 <strong>Step2-5. 실전 사내 문서 RAG 구축</strong> 단계를 설명하기 위한 가이드 문서이다.</p>
+<p>Step2-1에서는 RAG의 개념과 전체 아키텍처를 이해했고, Step2-2에서는 Markdown 문서를 ChromaDB에 적재하여 검색 가능한 구조를 만들었다. Step2-3에서는 검색된 문서를 Local LLM에 전달하여 첫 번째 RAG 질의응답을 구현했고, Step2-4에서는 Open WebUI와 연동하여 사용자가 웹 화면에서 RAG를 사용할 수 있는 구조를 확인하였다.</p>
+<p>Step2-5는 지금까지의 학습 내용을 실제 기업 문서 환경으로 확장하는 단계이다.</p>
+<p>기업 환경에서는 Markdown 문서만 사용하는 경우가 거의 없다. 실제 업무 문서는 대부분 다음과 같은 형태로 존재한다.</p>
+<div class="highlight"><pre><span></span><code>PDF
+PowerPoint(PPTX)
+Word(DOCX)
+Excel(XLSX)
+HWP
+이미지 문서
+스캔 문서
+제안서
+RFP
+업무 매뉴얼
+설계서
+회의자료
+보고서
+</code></pre></div>
+<p>따라서 Step2-5의 핵심 목적은 단순 텍스트 문서가 아니라 <strong>실제 사내 문서를 수집하고, 문서 유형별로 내용을 추출하고, Chunking과 Embedding을 수행하여 실무형 RAG 검색 및 답변 구조를 구축하는 것</strong>이다.</p>
+<hr />
+<h2 id="2-step2-step2-5">2. Step2 전체 흐름에서 Step2-5의 위치</h2>
+<div class="highlight"><pre><span></span><code>Step2-1. RAG 개요 및 아키텍처 이해
+        ↓
+Step2-2. Vector DB 구축 및 문서 적재
+        ↓
+Step2-3. RAG 질의응답 구현
+        ↓
+Step2-4. Open WebUI 연동
+        ↓
+Step2-5. 실전 사내 문서 RAG 구축
+</code></pre></div>
+<p>Step2-5는 Step2 과정의 최종 실습에 해당한다.</p>
+<p>앞 단계들이 RAG의 기본 구조를 이해하기 위한 작은 실습이었다면, Step2-5는 실제 프로젝트 문서를 대상으로 RAG를 구성하는 단계이다.</p>
+<hr />
+<h2 id="3-step2-5">3. Step2-5의 핵심 목표</h2>
+<p>Step2-5의 목표는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 실제 사내 문서를 RAG 대상으로 사용한다.
+2. 문서 유형별 텍스트 추출 방식을 이해한다.
+3. PDF, PPTX, DOCX, XLSX, HWP 문서를 처리하는 구조를 설계한다.
+4. OCR 또는 AI OCR이 필요한 문서를 구분한다.
+5. 슬라이드, 페이지, 시트 단위 Metadata를 설계한다.
+6. 문서 내용을 Chunk 단위로 분리한다.
+7. Chunk를 Embedding하여 Vector DB에 저장한다.
+8. 저장된 문서를 기반으로 RAG 질의응답을 수행한다.
+9. Open WebUI 또는 Python RAG 프로그램에서 결과를 검증한다.
+</code></pre></div>
+<p>한 문장으로 정리하면 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>실제 업무 문서를 RAG에 적재하고, 사용자가 문서 기반으로 질문할 수 있는 기업형 RAG 구조를 구축한다.
+</code></pre></div>
+<hr />
+<h2 id="4-markdown-rag-rag">4. 기존 Markdown RAG와 실전 사내 문서 RAG의 차이</h2>
+<p>Step2-2에서 사용한 Markdown 문서는 구조가 단순하다.</p>
+<div class="highlight"><pre><span></span><code>Markdown 문서
+   ↓
+텍스트 로딩
+   ↓
+Chunking
+   ↓
+Embedding
+   ↓
+Vector DB 저장
+</code></pre></div>
+<p>하지만 실제 사내 문서는 구조가 훨씬 복잡하다.</p>
+<div class="highlight"><pre><span></span><code>PDF / PPTX / DOCX / XLSX / HWP / 이미지
+   ↓
+문서 유형 판별
+   ↓
+문서별 Parser 선택
+   ↓
+텍스트 추출 또는 OCR 처리
+   ↓
+Metadata 생성
+   ↓
+Chunking
+   ↓
+Embedding
+   ↓
+Vector DB 저장
+   ↓
+RAG 질의응답
+</code></pre></div>
+<p>즉, Step2-5에서는 단순히 <code>텍스트를 읽어서 저장한다</code>가 아니라, <strong>문서 유형별 수집·분석·추출·정제·저장 구조</strong>를 함께 고려해야 한다.</p>
+<hr />
+<h2 id="5-rag">5. 실전 사내 문서 RAG 처리 흐름</h2>
+<pre class="mermaid"><code>flowchart TD
+
+    A[사내 문서 수집] --&gt; B[문서 유형 판별]
+
+    B --&gt; C1[PDF Parser]
+    B --&gt; C2[PPTX Parser]
+    B --&gt; C3[DOCX Parser]
+    B --&gt; C4[XLSX Parser]
+    B --&gt; C5[HWP Parser]
+    B --&gt; C6[Image / Scan OCR]
+
+    C1 --&gt; D[텍스트 추출]
+    C2 --&gt; D
+    C3 --&gt; D
+    C4 --&gt; D
+    C5 --&gt; D
+    C6 --&gt; D
+
+    D --&gt; E[텍스트 정제]
+    E --&gt; F[Metadata 생성]
+    F --&gt; G[Chunking]
+    G --&gt; H[Embedding]
+    H --&gt; I[(Vector DB)]
+    I --&gt; J[RAG 검색]
+    J --&gt; K[LLM 답변 생성]
+    K --&gt; L[사용자 답변]</code></pre>
+<p>위 구조에서 중요한 점은 Vector DB에 저장되는 대상이 원본 문서 파일 자체가 아니라는 점이다. Vector DB에는 보통 문서에서 추출한 텍스트 Chunk와 Metadata가 저장된다.</p>
+<hr />
+<h2 id="6">6. 문서 유형별 처리 전략</h2>
+<h2 id="61-markdown">6.1 Markdown 문서</h2>
+<p>Markdown 문서는 가장 단순한 처리 대상이다.</p>
+<div class="highlight"><pre><span></span><code>.md 파일
+   ↓
+텍스트 읽기
+   ↓
+제목 기준 또는 길이 기준 Chunking
+   ↓
+Embedding
+   ↓
+Vector DB 저장
+</code></pre></div>
+<p>Markdown 문서는 학습용 실습에 적합하다. 다만 실제 기업 문서에서는 Markdown보다 PDF, PPT, Word, Excel 문서가 훨씬 많이 사용된다.</p>
+<hr />
+<h2 id="62-pdf">6.2 PDF 문서</h2>
+<p>PDF는 기업 RAG에서 가장 많이 다루는 문서 형식이다.</p>
+<p>PDF는 크게 두 종류로 나눌 수 있다.</p>
+<div class="highlight"><pre><span></span><code>1. Text PDF
+   - 문서 내부에 텍스트가 포함되어 있는 PDF
+   - 텍스트 추출 가능
+
+2. Scan PDF
+   - 종이 문서를 스캔한 이미지형 PDF
+   - OCR 필요
+</code></pre></div>
+<p>Text PDF는 PDF Parser를 통해 텍스트를 추출할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>PDF
+   ↓
+페이지별 텍스트 추출
+   ↓
+페이지 번호 Metadata 생성
+   ↓
+Chunking
+   ↓
+Embedding
+</code></pre></div>
+<p>Scan PDF는 OCR 또는 AI OCR이 필요하다.</p>
+<div class="highlight"><pre><span></span><code>Scan PDF
+   ↓
+이미지 변환
+   ↓
+OCR / AI OCR
+   ↓
+텍스트 추출
+   ↓
+Chunking
+   ↓
+Embedding
+</code></pre></div>
+<p>PDF 문서는 페이지 번호가 매우 중요한 Metadata이다. 사용자가 답변 근거를 확인할 수 있도록 Vector DB에는 반드시 페이지 번호를 함께 저장하는 것이 좋다.</p>
+<hr />
+<h2 id="63-powerpoint">6.3 PowerPoint 문서</h2>
+<p>PPT 문서는 제안서, 보고서, 회의자료에서 매우 자주 사용된다.</p>
+<p>PPT 문서는 일반 텍스트 문서와 다르게 다음 요소가 섞여 있다.</p>
+<div class="highlight"><pre><span></span><code>텍스트 박스
+표
+도형
+SmartArt
+차트
+이미지
+아이콘
+슬라이드 노트
+</code></pre></div>
+<p>따라서 PPT 문서는 보통 <strong>슬라이드 단위</strong>로 처리한다.</p>
+<div class="highlight"><pre><span></span><code>PPTX
+   ↓
+슬라이드별 텍스트 추출
+   ↓
+슬라이드 번호 Metadata 생성
+   ↓
+슬라이드 단위 또는 문단 단위 Chunking
+   ↓
+Embedding
+   ↓
+Vector DB 저장
+</code></pre></div>
+<p>예를 들어 <code>proposal.pptx</code>의 4번 슬라이드에서 텍스트를 추출했다면 다음과 같은 Metadata를 함께 저장한다.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;file_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;proposal.pptx&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;document_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pptx&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;slide_no&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AI Platform Architecture&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>PPT 문서는 도형과 그림에 중요한 정보가 포함되어 있을 수 있다. 단순 텍스트 추출만으로 의미가 부족한 경우 다음 방식도 고려한다.</p>
+<div class="highlight"><pre><span></span><code>PPTX
+   ↓
+슬라이드 이미지 변환
+   ↓
+Vision LLM 또는 AI OCR
+   ↓
+슬라이드 내용 설명 생성
+   ↓
+Embedding
+</code></pre></div>
+<p>이 방식은 아키텍처 다이어그램, 업무 흐름도, 시스템 구성도처럼 시각 정보가 중요한 문서에서 유용하다.</p>
+<hr />
+<h2 id="64-word">6.4 Word 문서</h2>
+<p>Word 문서는 업무 매뉴얼, 설계서, 보고서 형태로 많이 사용된다.</p>
+<div class="highlight"><pre><span></span><code>DOCX
+   ↓
+제목 / 문단 / 표 추출
+   ↓
+Heading 기준 구조화
+   ↓
+Chunking
+   ↓
+Embedding
+</code></pre></div>
+<p>Word 문서는 제목 구조를 잘 활용하는 것이 중요하다.</p>
+<div class="highlight"><pre><span></span><code>1. 개요
+1.1 목적
+1.2 범위
+2. 시스템 구성
+2.1 아키텍처
+2.2 인터페이스
+</code></pre></div>
+<p>이러한 Heading 정보를 Metadata로 저장하면 검색 품질이 좋아진다.</p>
+<p>예시 Metadata는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;file_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;system_design.docx&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;document_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;docx&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;section&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.1 아키텍처&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;page_no&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="65-excel">6.5 Excel 문서</h2>
+<p>Excel 문서는 RAG에서 처리하기 까다로운 문서이다.</p>
+<p>Excel은 일반 문장보다 표 형태의 데이터가 많기 때문이다.</p>
+<div class="highlight"><pre><span></span><code>XLSX
+   ↓
+Sheet 단위 읽기
+   ↓
+행/열 구조 분석
+   ↓
+표를 설명 가능한 텍스트로 변환
+   ↓
+Chunking
+   ↓
+Embedding
+</code></pre></div>
+<p>예를 들어 다음과 같은 표가 있다고 가정한다.</p>
+<table>
+<thead>
+<tr>
+<th>업무영역</th>
+<th>기능</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>여신</td>
+<td>대출심사</td>
+<td>대출 신청 건에 대한 심사 처리</td>
+</tr>
+<tr>
+<td>수신</td>
+<td>계좌개설</td>
+<td>고객 계좌 신규 개설</td>
+</tr>
+</tbody>
+</table>
+<p>RAG에 저장할 때는 단순히 셀 값을 나열하는 것보다 다음처럼 문장형 텍스트로 변환하는 것이 좋다.</p>
+<div class="highlight"><pre><span></span><code>업무영역은 여신이고, 기능은 대출심사이다. 설명은 대출 신청 건에 대한 심사 처리이다.
+업무영역은 수신이고, 기능은 계좌개설이다. 설명은 고객 계좌 신규 개설이다.
+</code></pre></div>
+<p>Excel 문서는 Sheet 이름과 Row 번호를 Metadata로 저장하는 것이 중요하다.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;file_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;requirements.xlsx&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;document_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xlsx&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sheet_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;기능요건&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;row_no&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="66-hwp">6.6 HWP 문서</h2>
+<p>국내 공공·금융 프로젝트에서는 HWP 문서가 자주 사용된다.</p>
+<p>HWP는 Python에서 직접 처리하기가 상대적으로 까다롭다. 따라서 실무에서는 다음 방식 중 하나를 사용한다.</p>
+<div class="highlight"><pre><span></span><code>1. HWP → PDF 변환 후 처리
+2. HWP → DOCX 변환 후 처리
+3. HWP 전용 Parser 사용
+4. 문서 관리 시스템에서 텍스트 추출 API 활용
+</code></pre></div>
+<p>현실적인 실습 단계에서는 HWP를 직접 파싱하기보다 PDF로 변환한 뒤 처리하는 방식을 권장한다.</p>
+<div class="highlight"><pre><span></span><code>HWP
+   ↓
+PDF 변환
+   ↓
+PDF Parser 또는 OCR
+   ↓
+Chunking
+   ↓
+Embedding
+</code></pre></div>
+<hr />
+<h2 id="7-ocr-ai-ocr">7. OCR과 AI OCR 적용 기준</h2>
+<p>모든 문서에 OCR이 필요한 것은 아니다.</p>
+<p>OCR은 다음 경우에 필요하다.</p>
+<div class="highlight"><pre><span></span><code>스캔 PDF
+이미지 문서
+캡처 이미지
+도장 또는 서명이 포함된 문서
+텍스트 추출이 되지 않는 PDF
+</code></pre></div>
+<p>OCR이 필요 없는 경우는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>텍스트 PDF
+일반 DOCX
+일반 PPTX 텍스트 박스
+일반 XLSX 셀 데이터
+Markdown
+</code></pre></div>
+<p>AI OCR은 일반 OCR보다 문서 구조를 더 잘 이해할 수 있다. 특히 다음과 같은 문서에서 유용하다.</p>
+<div class="highlight"><pre><span></span><code>표가 많은 문서
+서식이 복잡한 신청서
+스캔 품질이 낮은 문서
+계약서
+제안요청서
+금융 업무 서식
+</code></pre></div>
+<hr />
+<h2 id="8-vision-llm">8. Vision LLM 기반 문서 이해</h2>
+<p>PPT나 PDF에는 텍스트만으로 이해하기 어려운 시각 정보가 많다.</p>
+<p>예를 들어 다음과 같은 자료는 단순 텍스트 추출만으로는 의미가 부족할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>시스템 아키텍처 다이어그램
+업무 흐름도
+조직도
+프로세스 맵
+화면 설계 이미지
+제안서 인포그래픽
+</code></pre></div>
+<p>이 경우 슬라이드나 페이지를 이미지로 변환한 뒤 Vision LLM에게 설명을 생성하게 할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>PPT/PDF
+   ↓
+페이지 또는 슬라이드 이미지 변환
+   ↓
+Vision LLM 분석
+   ↓
+이미지 설명 텍스트 생성
+   ↓
+Embedding
+   ↓
+Vector DB 저장
+</code></pre></div>
+<p>예를 들어 아키텍처 다이어그램이 포함된 슬라이드는 다음과 같이 설명 텍스트를 생성할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>이 슬라이드는 AI Data Platform의 전체 아키텍처를 설명한다. 사용자는 Web UI를 통해 질문을 입력하고, API Gateway를 거쳐 RAG Application으로 요청이 전달된다. RAG Application은 Vector DB에서 관련 문서를 검색한 뒤 Local LLM에 Context와 질문을 전달하여 답변을 생성한다.
+</code></pre></div>
+<p>이 설명문을 Vector DB에 저장하면, 사용자는 이미지 기반 슬라이드 내용도 검색할 수 있다.</p>
+<hr />
+<h2 id="9-metadata">9. Metadata 설계</h2>
+<p>실전 RAG에서 Metadata는 매우 중요하다.</p>
+<p>검색된 답변이 어느 문서의 어느 위치에서 나온 것인지 추적할 수 있어야 하기 때문이다.</p>
+<p>권장 Metadata 항목은 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>document_id</td>
+<td>문서 고유 ID</td>
+</tr>
+<tr>
+<td>file_name</td>
+<td>원본 파일명</td>
+</tr>
+<tr>
+<td>document_type</td>
+<td>문서 유형. 예: pdf, pptx, docx, xlsx, hwp</td>
+</tr>
+<tr>
+<td>page_no</td>
+<td>PDF 또는 Word 페이지 번호</td>
+</tr>
+<tr>
+<td>slide_no</td>
+<td>PPT 슬라이드 번호</td>
+</tr>
+<tr>
+<td>sheet_name</td>
+<td>Excel Sheet 이름</td>
+</tr>
+<tr>
+<td>row_no</td>
+<td>Excel Row 번호</td>
+</tr>
+<tr>
+<td>section</td>
+<td>문서 내 제목 또는 장절 정보</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>문서 등록일</td>
+</tr>
+<tr>
+<td>source_path</td>
+<td>원본 파일 경로</td>
+</tr>
+<tr>
+<td>chunk_index</td>
+<td>문서 내 Chunk 순번</td>
+</tr>
+<tr>
+<td>security_level</td>
+<td>문서 보안 등급</td>
+</tr>
+<tr>
+<td>project_name</td>
+<td>관련 프로젝트명</td>
+</tr>
+<tr>
+<td>department</td>
+<td>문서 작성 또는 관리 부서</td>
+</tr>
+</tbody>
+</table>
+<p>예시 Metadata는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;document_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;doc-2026-0001&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;file_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;KDB_Paperless_Proposal.pptx&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;document_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pptx&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;slide_no&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;section&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;전자문서관리 아키텍처&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;project_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;KDB Paperless&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;chunk_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;security_level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;internal&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Metadata가 잘 설계되어 있으면 다음과 같은 질문에 대응할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>KDB Paperless 제안서에서 AI OCR 관련 슬라이드 내용을 알려줘.
+전자문서관리 아키텍처가 설명된 페이지를 찾아줘.
+저축은행중앙회 제안서의 수신 업무 마이그레이션 내용을 요약해줘.
+</code></pre></div>
+<hr />
+<h2 id="10-chunking">10. Chunking 전략</h2>
+<p>문서 유형에 따라 Chunking 전략은 달라져야 한다.</p>
+<h2 id="101-markdown-chunking">10.1 Markdown Chunking</h2>
+<p>Markdown은 제목 기준 Chunking이 적합하다.</p>
+<div class="highlight"><pre><span></span><code># 제목
+## 중제목
+### 소제목
+</code></pre></div>
+<p>제목 단위로 내용을 나누면 문맥 유지에 유리하다.</p>
+<hr />
+<h2 id="102-pdf-chunking">10.2 PDF Chunking</h2>
+<p>PDF는 페이지 단위와 문단 단위를 함께 고려한다.</p>
+<div class="highlight"><pre><span></span><code>1차 기준: 페이지 번호
+2차 기준: 문단 또는 글자 수
+</code></pre></div>
+<p>너무 긴 페이지는 일정 길이로 다시 나누고, 너무 짧은 페이지는 앞뒤 문맥과 묶을 수 있다.</p>
+<hr />
+<h2 id="103-ppt-chunking">10.3 PPT Chunking</h2>
+<p>PPT는 슬라이드 단위 Chunking이 기본이다.</p>
+<div class="highlight"><pre><span></span><code>1개 슬라이드 = 1개 Chunk
+</code></pre></div>
+<p>다만 슬라이드 내용이 많으면 다음처럼 나눌 수 있다.</p>
+<div class="highlight"><pre><span></span><code>슬라이드 제목
+본문 내용
+표 내용
+이미지 설명
+발표자 노트
+</code></pre></div>
+<p>PPT는 슬라이드 번호가 답변 근거 추적에 중요하므로 반드시 Metadata로 저장한다.</p>
+<hr />
+<h2 id="104-word-chunking">10.4 Word Chunking</h2>
+<p>Word는 Heading 기준 Chunking이 적합하다.</p>
+<div class="highlight"><pre><span></span><code>1. 개요
+1.1 목적
+1.2 범위
+2. 시스템 구성
+</code></pre></div>
+<p>장절 구조를 Metadata로 저장하면 검색 결과의 신뢰도가 높아진다.</p>
+<hr />
+<h2 id="105-excel-chunking">10.5 Excel Chunking</h2>
+<p>Excel은 행 단위 또는 업무 항목 단위 Chunking이 적합하다.</p>
+<div class="highlight"><pre><span></span><code>1개 Row = 1개 Chunk
+</code></pre></div>
+<p>단, 단순 셀 나열이 아니라 행 데이터를 문장형으로 변환해서 저장하는 것이 좋다.</p>
+<hr />
+<h2 id="11">11. 권장 실습 디렉터리 구조</h2>
+<p>Step2-5에서는 다음과 같은 디렉터리 구조를 권장한다.</p>
+<div class="highlight"><pre><span></span><code>AI-Data-Platform/
+
+├─ docs/
+│  └─ study/
+│     └─ step2/
+│        └─ step2_5_enterprise_document_rag_guide.md
+│
+├─ labs/
+│  └─ rag/
+│     ├─ enterprise_docs/
+│     │  ├─ pdf/
+│     │  ├─ pptx/
+│     │  ├─ docx/
+│     │  ├─ xlsx/
+│     │  └─ hwp/
+│     │
+│     ├─ extracted_text/
+│     │  ├─ pdf/
+│     │  ├─ pptx/
+│     │  ├─ docx/
+│     │  └─ xlsx/
+│     │
+│     ├─ chroma_db/
+│     │
+│     ├─ 09_extract_pdf.py
+│     ├─ 10_extract_pptx.py
+│     ├─ 11_extract_docx.py
+│     ├─ 12_extract_xlsx.py
+│     ├─ 13_build_enterprise_chunks.py
+│     ├─ 14_insert_enterprise_docs_to_chroma.py
+│     └─ 15_enterprise_rag_search.py
+</code></pre></div>
+<hr />
+<h2 id="12">12. 권장 실습 파일 역할</h2>
+<table>
+<thead>
+<tr>
+<th>파일명</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>09_extract_pdf.py</td>
+<td>PDF 문서에서 페이지별 텍스트를 추출한다.</td>
+</tr>
+<tr>
+<td>10_extract_pptx.py</td>
+<td>PPTX 문서에서 슬라이드별 텍스트를 추출한다.</td>
+</tr>
+<tr>
+<td>11_extract_docx.py</td>
+<td>DOCX 문서에서 제목과 문단 텍스트를 추출한다.</td>
+</tr>
+<tr>
+<td>12_extract_xlsx.py</td>
+<td>XLSX 문서에서 Sheet와 Row 데이터를 추출한다.</td>
+</tr>
+<tr>
+<td>13_build_enterprise_chunks.py</td>
+<td>추출된 텍스트를 Chunk 단위로 정리한다.</td>
+</tr>
+<tr>
+<td>14_insert_enterprise_docs_to_chroma.py</td>
+<td>Chunk를 Embedding하여 ChromaDB에 저장한다.</td>
+</tr>
+<tr>
+<td>15_enterprise_rag_search.py</td>
+<td>사내 문서 기반 RAG 검색과 답변 생성을 수행한다.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="13">13. 실습 대상 문서 예시</h2>
+<p>AI-Data-Platform 프로젝트에서는 다음과 같은 실제 업무 문서를 실습 대상으로 사용할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>산업은행 Paperless 제안서
+저축은행중앙회 차세대 제안서
+MicroServer Framework 가이드
+RFP 요구사항 목록
+전자문서관리 IA 구조 문서
+API Hub 설계 문서
+Open WebUI 구축 가이드
+</code></pre></div>
+<p>실제 업무 문서를 사용할 경우 보안에 유의해야 한다. GitHub Public Repository에 올릴 문서는 반드시 민감정보, 고객명, 금액, 내부 인력 정보, 비공개 요구사항 등을 제거하거나 샘플 문서로 대체해야 한다.</p>
+<hr />
+<h2 id="14">14. 실습 흐름</h2>
+<p>Step2-5 실습은 다음 순서로 진행한다.</p>
+<div class="highlight"><pre><span></span><code>1. 실습용 사내 문서 준비
+2. 문서 유형별 디렉터리에 파일 저장
+3. 문서별 텍스트 추출 스크립트 실행
+4. 추출 결과 확인
+5. Chunk 생성
+6. Metadata 생성
+7. Embedding 수행
+8. ChromaDB 저장
+9. RAG 질의응답 실행
+10. 검색 결과와 답변 근거 확인
+</code></pre></div>
+<hr />
+<h2 id="15-python">15. Python 라이브러리 예시</h2>
+<p>Step2-5에서 사용할 수 있는 Python 라이브러리 예시는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>python-pptx
+pip<span class="w"> </span>install<span class="w"> </span>python-docx
+pip<span class="w"> </span>install<span class="w"> </span>openpyxl
+pip<span class="w"> </span>install<span class="w"> </span>pypdf
+pip<span class="w"> </span>install<span class="w"> </span>chromadb
+pip<span class="w"> </span>install<span class="w"> </span>sentence-transformers
+pip<span class="w"> </span>install<span class="w"> </span>requests
+</code></pre></div>
+<p>OCR이 필요한 경우 다음과 같은 도구를 검토할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>Tesseract OCR
+PaddleOCR
+Upstage Document AI
+Naver Clova OCR
+Google Document AI
+Azure Document Intelligence
+</code></pre></div>
+<p>실습 초기 단계에서는 OCR까지 바로 적용하기보다, 먼저 Text PDF, PPTX, DOCX, XLSX처럼 텍스트 추출이 가능한 문서부터 처리하는 것을 권장한다.</p>
+<hr />
+<h2 id="16-pptx">16. PPTX 텍스트 추출 예시</h2>
+<p>PPTX 문서는 <code>python-pptx</code>를 사용하여 슬라이드별 텍스트를 추출할 수 있다.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pptx</span><span class="w"> </span><span class="kn">import</span> <span class="n">Presentation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">pptx_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;enterprise_docs/pptx/sample_proposal.pptx&quot;</span><span class="p">)</span>
+<span class="n">presentation</span> <span class="o">=</span> <span class="n">Presentation</span><span class="p">(</span><span class="n">pptx_path</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">slide_no</span><span class="p">,</span> <span class="n">slide</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">presentation</span><span class="o">.</span><span class="n">slides</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">slide_texts</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">shape</span> <span class="ow">in</span> <span class="n">slide</span><span class="o">.</span><span class="n">shapes</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">):</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">text</span><span class="p">:</span>
+                <span class="n">slide_texts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+    <span class="n">slide_content</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">slide_texts</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[Slide </span><span class="si">{</span><span class="n">slide_no</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">slide_content</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+</code></pre></div>
+<p>이 코드는 PPTX 파일에서 슬라이드별 텍스트를 추출한다. 추출된 텍스트는 이후 Chunking과 Embedding의 입력으로 사용할 수 있다.</p>
+<hr />
+<h2 id="17-docx">17. DOCX 텍스트 추출 예시</h2>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">docx</span><span class="w"> </span><span class="kn">import</span> <span class="n">Document</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">docx_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;enterprise_docs/docx/system_design.docx&quot;</span><span class="p">)</span>
+<span class="n">document</span> <span class="o">=</span> <span class="n">Document</span><span class="p">(</span><span class="n">docx_path</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">paragraph</span> <span class="ow">in</span> <span class="n">document</span><span class="o">.</span><span class="n">paragraphs</span><span class="p">:</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">paragraph</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">text</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</code></pre></div>
+<p>Word 문서는 문단 단위로 텍스트를 추출할 수 있다. 실무에서는 Heading 스타일을 함께 읽어서 문서 구조를 보존하는 것이 좋다.</p>
+<hr />
+<h2 id="18-xlsx">18. XLSX 텍스트 변환 예시</h2>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">openpyxl</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_workbook</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">xlsx_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;enterprise_docs/xlsx/requirements.xlsx&quot;</span><span class="p">)</span>
+<span class="n">workbook</span> <span class="o">=</span> <span class="n">load_workbook</span><span class="p">(</span><span class="n">xlsx_path</span><span class="p">,</span> <span class="n">data_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">sheet</span> <span class="ow">in</span> <span class="n">workbook</span><span class="o">.</span><span class="n">worksheets</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[Sheet] </span><span class="si">{</span><span class="n">sheet</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">rows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">sheet</span><span class="o">.</span><span class="n">iter_rows</span><span class="p">(</span><span class="n">values_only</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rows</span><span class="p">:</span>
+        <span class="k">continue</span>
+
+    <span class="n">headers</span> <span class="o">=</span> <span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">row_no</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rows</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">start</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">header</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">headers</span><span class="p">,</span> <span class="n">row</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">header</span> <span class="ow">and</span> <span class="n">value</span><span class="p">:</span>
+                <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">header</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">values</span><span class="p">:</span>
+            <span class="n">row_text</span> <span class="o">=</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Row </span><span class="si">{</span><span class="n">row_no</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">row_text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>Excel은 행 데이터를 문장형 또는 Key-Value 형태로 변환한 뒤 Embedding하는 것이 좋다.</p>
+<hr />
+<h2 id="19-vector-db">19. Vector DB 저장 데이터 예시</h2>
+<p>실전 RAG에서 Vector DB에는 다음과 같은 구조로 데이터가 저장된다.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;KDB_Paperless_Proposal_slide_12_chunk_1&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;document&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;이 슬라이드는 KDB Paperless 업무환경 구축을 위한 전자문서관리 아키텍처를 설명한다...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;file_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;KDB_Paperless_Proposal.pptx&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;document_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pptx&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;slide_no&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;project_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;KDB Paperless&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;chunk_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>이렇게 저장하면 검색 결과에서 문서의 출처를 함께 확인할 수 있다.</p>
+<hr />
+<h2 id="20">20. 검색 및 답변 예시</h2>
+<p>질문 예시는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>KDB Paperless 제안서에서 전자문서관리 아키텍처의 핵심 구성요소를 설명해줘.
+</code></pre></div>
+<p>RAG 검색 결과는 다음과 같이 구성될 수 있다.</p>
+<div class="highlight"><pre><span></span><code>검색 문서 1
+- 파일명: KDB_Paperless_Proposal.pptx
+- 슬라이드: 12
+- 내용: 전자문서관리 시스템은 KUPID, AI OCR, ECM, Repository DB와 연계된다.
+
+검색 문서 2
+- 파일명: KDB_Paperless_Proposal.pptx
+- 슬라이드: 13
+- 내용: ECM은 전자문서 원본 저장과 콘텐츠 관리를 담당한다.
+</code></pre></div>
+<p>LLM 답변 예시는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>KDB Paperless 제안서에서 전자문서관리 아키텍처는 KUPID 통합단말, 전자문서관리 시스템, AI OCR, ECM, Repository DB로 구성됩니다. KUPID는 사용자 업무 진입점 역할을 하며, 전자문서관리 시스템은 문서 등록, 조회, 보관, 폐기 업무를 담당합니다. AI OCR은 이미지 또는 스캔 문서에서 텍스트를 추출하고, ECM은 전자문서 원본과 콘텐츠 저장소 역할을 수행합니다.
+</code></pre></div>
+<hr />
+<h2 id="21-open-webui">21. Open WebUI 연동 관점</h2>
+<p>Step2-5에서 구축한 사내 문서 RAG는 Open WebUI와 연동하여 사용할 수 있다.</p>
+<p>Open WebUI 관점에서는 다음 구조로 이해할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>사내 문서
+   ↓
+Knowledge Base 등록
+   ↓
+문서 Parsing
+   ↓
+Embedding
+   ↓
+Vector DB 저장
+   ↓
+Chat 화면에서 문서 기반 질의응답
+</code></pre></div>
+<p>다만 Open WebUI의 기본 문서 처리 기능만으로 모든 기업 문서를 완벽하게 처리하기는 어렵다. 복잡한 PPT, 스캔 PDF, HWP, 표 중심 Excel 문서는 별도 전처리 파이프라인을 구성한 뒤 Open WebUI 또는 별도 RAG API와 연동하는 방식이 더 적합할 수 있다.</p>
+<hr />
+<h2 id="22">22. 보안 및 거버넌스 고려사항</h2>
+<p>실전 사내 문서 RAG에서는 보안이 매우 중요하다.</p>
+<p>특히 금융, 공공, 대기업 프로젝트 문서는 다음 정보를 포함할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>고객사명
+사업금액
+제안 전략
+내부 인력 정보
+시스템 구성 정보
+보안 아키텍처
+계약 정보
+개인정보
+비공개 요구사항
+</code></pre></div>
+<p>따라서 실전 RAG를 구축할 때는 다음 사항을 반드시 고려해야 한다.</p>
+<div class="highlight"><pre><span></span><code>1. 문서 접근 권한 관리
+2. 문서 보안 등급 관리
+3. 사용자별 검색 권한 제어
+4. 개인정보 마스킹
+5. 원본 문서 저장 위치 관리
+6. Vector DB 접근 통제
+7. 로그 및 감사 추적
+8. 외부 LLM 사용 여부 검토
+9. On-Premise LLM 적용 검토
+</code></pre></div>
+<p>사내 문서 RAG는 편의성만 보고 구축하면 안 된다. 반드시 보안과 권한 체계를 함께 설계해야 한다.</p>
+<hr />
+<h2 id="23-step2-5">23. Step2-5 완료 기준</h2>
+<p>Step2-5는 다음 조건을 만족하면 완료로 판단한다.</p>
+<div class="highlight"><pre><span></span><code>1. Markdown 외의 실제 업무 문서를 준비했다.
+2. PDF, PPTX, DOCX, XLSX 중 최소 1개 이상 문서 유형을 처리했다.
+3. 문서에서 텍스트를 추출했다.
+4. 문서 출처 Metadata를 생성했다.
+5. 추출된 텍스트를 Chunk로 분리했다.
+6. Chunk를 Embedding하여 Vector DB에 저장했다.
+7. 사용자 질문으로 관련 문서를 검색했다.
+8. 검색 결과를 LLM 답변 생성에 활용했다.
+9. 답변과 함께 문서 출처를 확인할 수 있었다.
+</code></pre></div>
+<p>가장 중요한 완료 기준은 다음이다.</p>
+<div class="highlight"><pre><span></span><code>실제 업무 문서를 기반으로 질문하고, 답변의 근거가 되는 문서 출처를 확인할 수 있어야 한다.
+</code></pre></div>
+<hr />
+<h2 id="24">24. 팀원 교육 시 강조할 내용</h2>
+<h2 id="241-rag">24.1 기업 RAG의 핵심은 문서 전처리이다</h2>
+<p>RAG는 단순히 Vector DB에 문서를 넣는다고 완성되지 않는다.</p>
+<p>실제 품질은 다음 단계에서 결정된다.</p>
+<div class="highlight"><pre><span></span><code>문서 수집
+문서 유형 판별
+텍스트 추출
+OCR 처리
+Metadata 설계
+Chunking 전략
+Embedding 모델 선택
+검색 품질 평가
+Prompt 설계
+</code></pre></div>
+<p>특히 실무에서는 문서 전처리가 RAG 품질의 절반 이상을 좌우한다.</p>
+<hr />
+<h2 id="242-vector-db">24.2 Vector DB에는 원본 문서가 아니라 검색 가능한 지식 조각이 저장된다</h2>
+<p>Vector DB는 파일 서버가 아니다.</p>
+<p>Vector DB에는 보통 다음 정보가 저장된다.</p>
+<div class="highlight"><pre><span></span><code>Chunk 텍스트
+Embedding Vector
+Metadata
+</code></pre></div>
+<p>원본 문서는 별도의 파일 저장소, 문서관리시스템, ECM, NAS, Object Storage 등에 보관하고 Vector DB에는 검색 가능한 단위 정보와 원본 위치를 저장하는 것이 일반적이다.</p>
+<hr />
+<h2 id="243">24.3 출처가 없는 답변은 실무에서 사용하기 어렵다</h2>
+<p>기업 RAG에서는 답변 자체보다 답변의 근거가 중요하다.</p>
+<p>따라서 다음 정보가 함께 제공되어야 한다.</p>
+<div class="highlight"><pre><span></span><code>파일명
+페이지 번호
+슬라이드 번호
+Sheet 이름
+문서 제목
+등록일
+출처 경로
+</code></pre></div>
+<p>사용자가 답변을 신뢰하려면 원본 문서로 돌아가 확인할 수 있어야 한다.</p>
+<hr />
+<h2 id="244">24.4 모든 문서를 같은 방식으로 처리하면 안 된다</h2>
+<p>PDF, PPT, Word, Excel은 문서 구조가 다르다.</p>
+<p>따라서 Chunking과 Metadata 설계도 달라야 한다.</p>
+<div class="highlight"><pre><span></span><code>PDF: 페이지 중심
+PPT: 슬라이드 중심
+Word: 제목과 문단 중심
+Excel: Sheet와 Row 중심
+HWP: 변환 또는 전용 Parser 중심
+이미지: OCR 또는 Vision LLM 중심
+</code></pre></div>
+<hr />
+<h2 id="25">25. 다음 단계 예고</h2>
+<p>Step2-5를 완료하면 RAG의 기본 학습 단계가 마무리된다.</p>
+<p>이후 Step3에서는 AI Agent 구축 단계로 확장한다.</p>
+<p>Step3에서는 RAG가 단순 질의응답 기능을 넘어 다음과 같은 구조로 발전한다.</p>
+<div class="highlight"><pre><span></span><code>사용자 질문
+   ↓
+Agent 판단
+   ↓
+필요한 Tool 선택
+   ↓
+문서 검색
+   ↓
+API 호출
+   ↓
+데이터 분석
+   ↓
+답변 생성
+</code></pre></div>
+<p>즉, Step2에서는 문서 기반 답변을 만드는 RAG를 학습하고, Step3에서는 RAG와 Tool Calling을 결합한 AI Agent 구조로 확장한다.</p>
+<hr />
+<h1 id="_1">최종 정리</h1>
+<p>Step2-5는 AI-Data-Platform 프로젝트에서 RAG를 실제 업무 문서에 적용하는 단계이다.</p>
+<p>Step2-2에서는 Markdown 문서를 ChromaDB에 저장했고, Step2-3에서는 검색 결과를 LLM 답변 생성에 연결했으며, Step2-4에서는 Open WebUI를 통해 사용자가 웹 화면에서 RAG를 사용할 수 있는 구조를 확인했다.</p>
+<p>Step2-5에서는 이 구조를 실제 기업 문서 환경으로 확장한다.</p>
+<div class="highlight"><pre><span></span><code>PDF
+PPTX
+DOCX
+XLSX
+HWP
+이미지 문서
+스캔 문서
+</code></pre></div>
+<p>이러한 문서를 처리하려면 문서 유형별 Parser, OCR, AI OCR, Vision LLM, Metadata 설계, Chunking 전략이 필요하다.</p>
+<p>따라서 Step2-5의 핵심은 다음 한 문장으로 정리할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>실제 사내 문서를 수집·분석·추출·Chunking·Embedding하여, 문서 출처가 추적 가능한 실무형 RAG 질의응답 구조를 구축한다.
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
