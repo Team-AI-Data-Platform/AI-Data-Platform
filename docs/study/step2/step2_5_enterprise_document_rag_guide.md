@@ -1,0 +1,1088 @@
+# Step2-5. 실전 사내 문서 RAG 구축 가이드
+
+> Markdown 기반 RAG 실습을 실제 기업 문서 기반 RAG 구조로 확장하기 위한 실무형 가이드
+
+---
+
+## 1. 문서 작성 목적
+
+이 문서는 AI-Data-Platform 스터디의 Step2 RAG 과정 중 **Step2-5. 실전 사내 문서 RAG 구축** 단계를 설명하기 위한 가이드 문서이다.
+
+Step2-1에서는 RAG의 개념과 전체 아키텍처를 이해했고, Step2-2에서는 Markdown 문서를 ChromaDB에 적재하여 검색 가능한 구조를 만들었다. Step2-3에서는 검색된 문서를 Local LLM에 전달하여 첫 번째 RAG 질의응답을 구현했고, Step2-4에서는 Open WebUI와 연동하여 사용자가 웹 화면에서 RAG를 사용할 수 있는 구조를 확인하였다.
+
+Step2-5는 지금까지의 학습 내용을 실제 기업 문서 환경으로 확장하는 단계이다.
+
+기업 환경에서는 Markdown 문서만 사용하는 경우가 거의 없다. 실제 업무 문서는 대부분 다음과 같은 형태로 존재한다.
+
+```text
+PDF
+PowerPoint(PPTX)
+Word(DOCX)
+Excel(XLSX)
+HWP
+이미지 문서
+스캔 문서
+제안서
+RFP
+업무 매뉴얼
+설계서
+회의자료
+보고서
+```
+
+따라서 Step2-5의 핵심 목적은 단순 텍스트 문서가 아니라 **실제 사내 문서를 수집하고, 문서 유형별로 내용을 추출하고, Chunking과 Embedding을 수행하여 실무형 RAG 검색 및 답변 구조를 구축하는 것**이다.
+
+---
+
+## 2. Step2 전체 흐름에서 Step2-5의 위치
+
+```text
+Step2-1. RAG 개요 및 아키텍처 이해
+        ↓
+Step2-2. Vector DB 구축 및 문서 적재
+        ↓
+Step2-3. RAG 질의응답 구현
+        ↓
+Step2-4. Open WebUI 연동
+        ↓
+Step2-5. 실전 사내 문서 RAG 구축
+```
+
+Step2-5는 Step2 과정의 최종 실습에 해당한다.
+
+앞 단계들이 RAG의 기본 구조를 이해하기 위한 작은 실습이었다면, Step2-5는 실제 프로젝트 문서를 대상으로 RAG를 구성하는 단계이다.
+
+---
+
+## 3. Step2-5의 핵심 목표
+
+Step2-5의 목표는 다음과 같다.
+
+```text
+1. 실제 사내 문서를 RAG 대상으로 사용한다.
+2. 문서 유형별 텍스트 추출 방식을 이해한다.
+3. PDF, PPTX, DOCX, XLSX, HWP 문서를 처리하는 구조를 설계한다.
+4. OCR 또는 AI OCR이 필요한 문서를 구분한다.
+5. 슬라이드, 페이지, 시트 단위 Metadata를 설계한다.
+6. 문서 내용을 Chunk 단위로 분리한다.
+7. Chunk를 Embedding하여 Vector DB에 저장한다.
+8. 저장된 문서를 기반으로 RAG 질의응답을 수행한다.
+9. Open WebUI 또는 Python RAG 프로그램에서 결과를 검증한다.
+```
+
+한 문장으로 정리하면 다음과 같다.
+
+```text
+실제 업무 문서를 RAG에 적재하고, 사용자가 문서 기반으로 질문할 수 있는 기업형 RAG 구조를 구축한다.
+```
+
+---
+
+## 4. 기존 Markdown RAG와 실전 사내 문서 RAG의 차이
+
+Step2-2에서 사용한 Markdown 문서는 구조가 단순하다.
+
+```text
+Markdown 문서
+   ↓
+텍스트 로딩
+   ↓
+Chunking
+   ↓
+Embedding
+   ↓
+Vector DB 저장
+```
+
+하지만 실제 사내 문서는 구조가 훨씬 복잡하다.
+
+```text
+PDF / PPTX / DOCX / XLSX / HWP / 이미지
+   ↓
+문서 유형 판별
+   ↓
+문서별 Parser 선택
+   ↓
+텍스트 추출 또는 OCR 처리
+   ↓
+Metadata 생성
+   ↓
+Chunking
+   ↓
+Embedding
+   ↓
+Vector DB 저장
+   ↓
+RAG 질의응답
+```
+
+즉, Step2-5에서는 단순히 `텍스트를 읽어서 저장한다`가 아니라, **문서 유형별 수집·분석·추출·정제·저장 구조**를 함께 고려해야 한다.
+
+---
+
+## 5. 실전 사내 문서 RAG 처리 흐름
+
+```mermaid
+flowchart TD
+
+    A[사내 문서 수집] --> B[문서 유형 판별]
+
+    B --> C1[PDF Parser]
+    B --> C2[PPTX Parser]
+    B --> C3[DOCX Parser]
+    B --> C4[XLSX Parser]
+    B --> C5[HWP Parser]
+    B --> C6[Image / Scan OCR]
+
+    C1 --> D[텍스트 추출]
+    C2 --> D
+    C3 --> D
+    C4 --> D
+    C5 --> D
+    C6 --> D
+
+    D --> E[텍스트 정제]
+    E --> F[Metadata 생성]
+    F --> G[Chunking]
+    G --> H[Embedding]
+    H --> I[(Vector DB)]
+    I --> J[RAG 검색]
+    J --> K[LLM 답변 생성]
+    K --> L[사용자 답변]
+```
+
+위 구조에서 중요한 점은 Vector DB에 저장되는 대상이 원본 문서 파일 자체가 아니라는 점이다. Vector DB에는 보통 문서에서 추출한 텍스트 Chunk와 Metadata가 저장된다.
+
+---
+
+## 6. 문서 유형별 처리 전략
+
+## 6.1 Markdown 문서
+
+Markdown 문서는 가장 단순한 처리 대상이다.
+
+```text
+.md 파일
+   ↓
+텍스트 읽기
+   ↓
+제목 기준 또는 길이 기준 Chunking
+   ↓
+Embedding
+   ↓
+Vector DB 저장
+```
+
+Markdown 문서는 학습용 실습에 적합하다. 다만 실제 기업 문서에서는 Markdown보다 PDF, PPT, Word, Excel 문서가 훨씬 많이 사용된다.
+
+---
+
+## 6.2 PDF 문서
+
+PDF는 기업 RAG에서 가장 많이 다루는 문서 형식이다.
+
+PDF는 크게 두 종류로 나눌 수 있다.
+
+```text
+1. Text PDF
+   - 문서 내부에 텍스트가 포함되어 있는 PDF
+   - 텍스트 추출 가능
+
+2. Scan PDF
+   - 종이 문서를 스캔한 이미지형 PDF
+   - OCR 필요
+```
+
+Text PDF는 PDF Parser를 통해 텍스트를 추출할 수 있다.
+
+```text
+PDF
+   ↓
+페이지별 텍스트 추출
+   ↓
+페이지 번호 Metadata 생성
+   ↓
+Chunking
+   ↓
+Embedding
+```
+
+Scan PDF는 OCR 또는 AI OCR이 필요하다.
+
+```text
+Scan PDF
+   ↓
+이미지 변환
+   ↓
+OCR / AI OCR
+   ↓
+텍스트 추출
+   ↓
+Chunking
+   ↓
+Embedding
+```
+
+PDF 문서는 페이지 번호가 매우 중요한 Metadata이다. 사용자가 답변 근거를 확인할 수 있도록 Vector DB에는 반드시 페이지 번호를 함께 저장하는 것이 좋다.
+
+---
+
+## 6.3 PowerPoint 문서
+
+PPT 문서는 제안서, 보고서, 회의자료에서 매우 자주 사용된다.
+
+PPT 문서는 일반 텍스트 문서와 다르게 다음 요소가 섞여 있다.
+
+```text
+텍스트 박스
+표
+도형
+SmartArt
+차트
+이미지
+아이콘
+슬라이드 노트
+```
+
+따라서 PPT 문서는 보통 **슬라이드 단위**로 처리한다.
+
+```text
+PPTX
+   ↓
+슬라이드별 텍스트 추출
+   ↓
+슬라이드 번호 Metadata 생성
+   ↓
+슬라이드 단위 또는 문단 단위 Chunking
+   ↓
+Embedding
+   ↓
+Vector DB 저장
+```
+
+예를 들어 `proposal.pptx`의 4번 슬라이드에서 텍스트를 추출했다면 다음과 같은 Metadata를 함께 저장한다.
+
+```json
+{
+  "file_name": "proposal.pptx",
+  "document_type": "pptx",
+  "slide_no": 4,
+  "title": "AI Platform Architecture"
+}
+```
+
+PPT 문서는 도형과 그림에 중요한 정보가 포함되어 있을 수 있다. 단순 텍스트 추출만으로 의미가 부족한 경우 다음 방식도 고려한다.
+
+```text
+PPTX
+   ↓
+슬라이드 이미지 변환
+   ↓
+Vision LLM 또는 AI OCR
+   ↓
+슬라이드 내용 설명 생성
+   ↓
+Embedding
+```
+
+이 방식은 아키텍처 다이어그램, 업무 흐름도, 시스템 구성도처럼 시각 정보가 중요한 문서에서 유용하다.
+
+---
+
+## 6.4 Word 문서
+
+Word 문서는 업무 매뉴얼, 설계서, 보고서 형태로 많이 사용된다.
+
+```text
+DOCX
+   ↓
+제목 / 문단 / 표 추출
+   ↓
+Heading 기준 구조화
+   ↓
+Chunking
+   ↓
+Embedding
+```
+
+Word 문서는 제목 구조를 잘 활용하는 것이 중요하다.
+
+```text
+1. 개요
+1.1 목적
+1.2 범위
+2. 시스템 구성
+2.1 아키텍처
+2.2 인터페이스
+```
+
+이러한 Heading 정보를 Metadata로 저장하면 검색 품질이 좋아진다.
+
+예시 Metadata는 다음과 같다.
+
+```json
+{
+  "file_name": "system_design.docx",
+  "document_type": "docx",
+  "section": "2.1 아키텍처",
+  "page_no": 12
+}
+```
+
+---
+
+## 6.5 Excel 문서
+
+Excel 문서는 RAG에서 처리하기 까다로운 문서이다.
+
+Excel은 일반 문장보다 표 형태의 데이터가 많기 때문이다.
+
+```text
+XLSX
+   ↓
+Sheet 단위 읽기
+   ↓
+행/열 구조 분석
+   ↓
+표를 설명 가능한 텍스트로 변환
+   ↓
+Chunking
+   ↓
+Embedding
+```
+
+예를 들어 다음과 같은 표가 있다고 가정한다.
+
+| 업무영역 | 기능 | 설명 |
+|---|---|---|
+| 여신 | 대출심사 | 대출 신청 건에 대한 심사 처리 |
+| 수신 | 계좌개설 | 고객 계좌 신규 개설 |
+
+RAG에 저장할 때는 단순히 셀 값을 나열하는 것보다 다음처럼 문장형 텍스트로 변환하는 것이 좋다.
+
+```text
+업무영역은 여신이고, 기능은 대출심사이다. 설명은 대출 신청 건에 대한 심사 처리이다.
+업무영역은 수신이고, 기능은 계좌개설이다. 설명은 고객 계좌 신규 개설이다.
+```
+
+Excel 문서는 Sheet 이름과 Row 번호를 Metadata로 저장하는 것이 중요하다.
+
+```json
+{
+  "file_name": "requirements.xlsx",
+  "document_type": "xlsx",
+  "sheet_name": "기능요건",
+  "row_no": 15
+}
+```
+
+---
+
+## 6.6 HWP 문서
+
+국내 공공·금융 프로젝트에서는 HWP 문서가 자주 사용된다.
+
+HWP는 Python에서 직접 처리하기가 상대적으로 까다롭다. 따라서 실무에서는 다음 방식 중 하나를 사용한다.
+
+```text
+1. HWP → PDF 변환 후 처리
+2. HWP → DOCX 변환 후 처리
+3. HWP 전용 Parser 사용
+4. 문서 관리 시스템에서 텍스트 추출 API 활용
+```
+
+현실적인 실습 단계에서는 HWP를 직접 파싱하기보다 PDF로 변환한 뒤 처리하는 방식을 권장한다.
+
+```text
+HWP
+   ↓
+PDF 변환
+   ↓
+PDF Parser 또는 OCR
+   ↓
+Chunking
+   ↓
+Embedding
+```
+
+---
+
+## 7. OCR과 AI OCR 적용 기준
+
+모든 문서에 OCR이 필요한 것은 아니다.
+
+OCR은 다음 경우에 필요하다.
+
+```text
+스캔 PDF
+이미지 문서
+캡처 이미지
+도장 또는 서명이 포함된 문서
+텍스트 추출이 되지 않는 PDF
+```
+
+OCR이 필요 없는 경우는 다음과 같다.
+
+```text
+텍스트 PDF
+일반 DOCX
+일반 PPTX 텍스트 박스
+일반 XLSX 셀 데이터
+Markdown
+```
+
+AI OCR은 일반 OCR보다 문서 구조를 더 잘 이해할 수 있다. 특히 다음과 같은 문서에서 유용하다.
+
+```text
+표가 많은 문서
+서식이 복잡한 신청서
+스캔 품질이 낮은 문서
+계약서
+제안요청서
+금융 업무 서식
+```
+
+---
+
+## 8. Vision LLM 기반 문서 이해
+
+PPT나 PDF에는 텍스트만으로 이해하기 어려운 시각 정보가 많다.
+
+예를 들어 다음과 같은 자료는 단순 텍스트 추출만으로는 의미가 부족할 수 있다.
+
+```text
+시스템 아키텍처 다이어그램
+업무 흐름도
+조직도
+프로세스 맵
+화면 설계 이미지
+제안서 인포그래픽
+```
+
+이 경우 슬라이드나 페이지를 이미지로 변환한 뒤 Vision LLM에게 설명을 생성하게 할 수 있다.
+
+```text
+PPT/PDF
+   ↓
+페이지 또는 슬라이드 이미지 변환
+   ↓
+Vision LLM 분석
+   ↓
+이미지 설명 텍스트 생성
+   ↓
+Embedding
+   ↓
+Vector DB 저장
+```
+
+예를 들어 아키텍처 다이어그램이 포함된 슬라이드는 다음과 같이 설명 텍스트를 생성할 수 있다.
+
+```text
+이 슬라이드는 AI Data Platform의 전체 아키텍처를 설명한다. 사용자는 Web UI를 통해 질문을 입력하고, API Gateway를 거쳐 RAG Application으로 요청이 전달된다. RAG Application은 Vector DB에서 관련 문서를 검색한 뒤 Local LLM에 Context와 질문을 전달하여 답변을 생성한다.
+```
+
+이 설명문을 Vector DB에 저장하면, 사용자는 이미지 기반 슬라이드 내용도 검색할 수 있다.
+
+---
+
+## 9. Metadata 설계
+
+실전 RAG에서 Metadata는 매우 중요하다.
+
+검색된 답변이 어느 문서의 어느 위치에서 나온 것인지 추적할 수 있어야 하기 때문이다.
+
+권장 Metadata 항목은 다음과 같다.
+
+| 항목 | 설명 |
+|---|---|
+| document_id | 문서 고유 ID |
+| file_name | 원본 파일명 |
+| document_type | 문서 유형. 예: pdf, pptx, docx, xlsx, hwp |
+| page_no | PDF 또는 Word 페이지 번호 |
+| slide_no | PPT 슬라이드 번호 |
+| sheet_name | Excel Sheet 이름 |
+| row_no | Excel Row 번호 |
+| section | 문서 내 제목 또는 장절 정보 |
+| created_at | 문서 등록일 |
+| source_path | 원본 파일 경로 |
+| chunk_index | 문서 내 Chunk 순번 |
+| security_level | 문서 보안 등급 |
+| project_name | 관련 프로젝트명 |
+| department | 문서 작성 또는 관리 부서 |
+
+예시 Metadata는 다음과 같다.
+
+```json
+{
+  "document_id": "doc-2026-0001",
+  "file_name": "KDB_Paperless_Proposal.pptx",
+  "document_type": "pptx",
+  "slide_no": 12,
+  "section": "전자문서관리 아키텍처",
+  "project_name": "KDB Paperless",
+  "chunk_index": 3,
+  "security_level": "internal"
+}
+```
+
+Metadata가 잘 설계되어 있으면 다음과 같은 질문에 대응할 수 있다.
+
+```text
+KDB Paperless 제안서에서 AI OCR 관련 슬라이드 내용을 알려줘.
+전자문서관리 아키텍처가 설명된 페이지를 찾아줘.
+저축은행중앙회 제안서의 수신 업무 마이그레이션 내용을 요약해줘.
+```
+
+---
+
+## 10. Chunking 전략
+
+문서 유형에 따라 Chunking 전략은 달라져야 한다.
+
+## 10.1 Markdown Chunking
+
+Markdown은 제목 기준 Chunking이 적합하다.
+
+```text
+# 제목
+## 중제목
+### 소제목
+```
+
+제목 단위로 내용을 나누면 문맥 유지에 유리하다.
+
+---
+
+## 10.2 PDF Chunking
+
+PDF는 페이지 단위와 문단 단위를 함께 고려한다.
+
+```text
+1차 기준: 페이지 번호
+2차 기준: 문단 또는 글자 수
+```
+
+너무 긴 페이지는 일정 길이로 다시 나누고, 너무 짧은 페이지는 앞뒤 문맥과 묶을 수 있다.
+
+---
+
+## 10.3 PPT Chunking
+
+PPT는 슬라이드 단위 Chunking이 기본이다.
+
+```text
+1개 슬라이드 = 1개 Chunk
+```
+
+다만 슬라이드 내용이 많으면 다음처럼 나눌 수 있다.
+
+```text
+슬라이드 제목
+본문 내용
+표 내용
+이미지 설명
+발표자 노트
+```
+
+PPT는 슬라이드 번호가 답변 근거 추적에 중요하므로 반드시 Metadata로 저장한다.
+
+---
+
+## 10.4 Word Chunking
+
+Word는 Heading 기준 Chunking이 적합하다.
+
+```text
+1. 개요
+1.1 목적
+1.2 범위
+2. 시스템 구성
+```
+
+장절 구조를 Metadata로 저장하면 검색 결과의 신뢰도가 높아진다.
+
+---
+
+## 10.5 Excel Chunking
+
+Excel은 행 단위 또는 업무 항목 단위 Chunking이 적합하다.
+
+```text
+1개 Row = 1개 Chunk
+```
+
+단, 단순 셀 나열이 아니라 행 데이터를 문장형으로 변환해서 저장하는 것이 좋다.
+
+---
+
+## 11. 권장 실습 디렉터리 구조
+
+Step2-5에서는 다음과 같은 디렉터리 구조를 권장한다.
+
+```text
+AI-Data-Platform/
+
+├─ docs/
+│  └─ study/
+│     └─ step2/
+│        └─ step2_5_enterprise_document_rag_guide.md
+│
+├─ labs/
+│  └─ rag/
+│     ├─ enterprise_docs/
+│     │  ├─ pdf/
+│     │  ├─ pptx/
+│     │  ├─ docx/
+│     │  ├─ xlsx/
+│     │  └─ hwp/
+│     │
+│     ├─ extracted_text/
+│     │  ├─ pdf/
+│     │  ├─ pptx/
+│     │  ├─ docx/
+│     │  └─ xlsx/
+│     │
+│     ├─ chroma_db/
+│     │
+│     ├─ 09_extract_pdf.py
+│     ├─ 10_extract_pptx.py
+│     ├─ 11_extract_docx.py
+│     ├─ 12_extract_xlsx.py
+│     ├─ 13_build_enterprise_chunks.py
+│     ├─ 14_insert_enterprise_docs_to_chroma.py
+│     └─ 15_enterprise_rag_search.py
+```
+
+---
+
+## 12. 권장 실습 파일 역할
+
+| 파일명 | 역할 |
+|---|---|
+| 09_extract_pdf.py | PDF 문서에서 페이지별 텍스트를 추출한다. |
+| 10_extract_pptx.py | PPTX 문서에서 슬라이드별 텍스트를 추출한다. |
+| 11_extract_docx.py | DOCX 문서에서 제목과 문단 텍스트를 추출한다. |
+| 12_extract_xlsx.py | XLSX 문서에서 Sheet와 Row 데이터를 추출한다. |
+| 13_build_enterprise_chunks.py | 추출된 텍스트를 Chunk 단위로 정리한다. |
+| 14_insert_enterprise_docs_to_chroma.py | Chunk를 Embedding하여 ChromaDB에 저장한다. |
+| 15_enterprise_rag_search.py | 사내 문서 기반 RAG 검색과 답변 생성을 수행한다. |
+
+---
+
+## 13. 실습 대상 문서 예시
+
+AI-Data-Platform 프로젝트에서는 다음과 같은 실제 업무 문서를 실습 대상으로 사용할 수 있다.
+
+```text
+산업은행 Paperless 제안서
+저축은행중앙회 차세대 제안서
+MicroServer Framework 가이드
+RFP 요구사항 목록
+전자문서관리 IA 구조 문서
+API Hub 설계 문서
+Open WebUI 구축 가이드
+```
+
+실제 업무 문서를 사용할 경우 보안에 유의해야 한다. GitHub Public Repository에 올릴 문서는 반드시 민감정보, 고객명, 금액, 내부 인력 정보, 비공개 요구사항 등을 제거하거나 샘플 문서로 대체해야 한다.
+
+---
+
+## 14. 실습 흐름
+
+Step2-5 실습은 다음 순서로 진행한다.
+
+```text
+1. 실습용 사내 문서 준비
+2. 문서 유형별 디렉터리에 파일 저장
+3. 문서별 텍스트 추출 스크립트 실행
+4. 추출 결과 확인
+5. Chunk 생성
+6. Metadata 생성
+7. Embedding 수행
+8. ChromaDB 저장
+9. RAG 질의응답 실행
+10. 검색 결과와 답변 근거 확인
+```
+
+---
+
+## 15. Python 라이브러리 예시
+
+Step2-5에서 사용할 수 있는 Python 라이브러리 예시는 다음과 같다.
+
+```bash
+pip install python-pptx
+pip install python-docx
+pip install openpyxl
+pip install pypdf
+pip install chromadb
+pip install sentence-transformers
+pip install requests
+```
+
+OCR이 필요한 경우 다음과 같은 도구를 검토할 수 있다.
+
+```text
+Tesseract OCR
+PaddleOCR
+Upstage Document AI
+Naver Clova OCR
+Google Document AI
+Azure Document Intelligence
+```
+
+실습 초기 단계에서는 OCR까지 바로 적용하기보다, 먼저 Text PDF, PPTX, DOCX, XLSX처럼 텍스트 추출이 가능한 문서부터 처리하는 것을 권장한다.
+
+---
+
+## 16. PPTX 텍스트 추출 예시
+
+PPTX 문서는 `python-pptx`를 사용하여 슬라이드별 텍스트를 추출할 수 있다.
+
+```python
+from pptx import Presentation
+from pathlib import Path
+
+pptx_path = Path("enterprise_docs/pptx/sample_proposal.pptx")
+presentation = Presentation(pptx_path)
+
+for slide_no, slide in enumerate(presentation.slides, start=1):
+    slide_texts = []
+
+    for shape in slide.shapes:
+        if hasattr(shape, "text"):
+            text = shape.text.strip()
+            if text:
+                slide_texts.append(text)
+
+    slide_content = "\n".join(slide_texts)
+
+    print(f"[Slide {slide_no}]")
+    print(slide_content)
+    print("-" * 50)
+```
+
+이 코드는 PPTX 파일에서 슬라이드별 텍스트를 추출한다. 추출된 텍스트는 이후 Chunking과 Embedding의 입력으로 사용할 수 있다.
+
+---
+
+## 17. DOCX 텍스트 추출 예시
+
+```python
+from docx import Document
+from pathlib import Path
+
+docx_path = Path("enterprise_docs/docx/system_design.docx")
+document = Document(docx_path)
+
+for paragraph in document.paragraphs:
+    text = paragraph.text.strip()
+    if text:
+        print(text)
+```
+
+Word 문서는 문단 단위로 텍스트를 추출할 수 있다. 실무에서는 Heading 스타일을 함께 읽어서 문서 구조를 보존하는 것이 좋다.
+
+---
+
+## 18. XLSX 텍스트 변환 예시
+
+```python
+from openpyxl import load_workbook
+from pathlib import Path
+
+xlsx_path = Path("enterprise_docs/xlsx/requirements.xlsx")
+workbook = load_workbook(xlsx_path, data_only=True)
+
+for sheet in workbook.worksheets:
+    print(f"[Sheet] {sheet.title}")
+
+    rows = list(sheet.iter_rows(values_only=True))
+    if not rows:
+        continue
+
+    headers = rows[0]
+
+    for row_no, row in enumerate(rows[1:], start=2):
+        values = []
+
+        for header, value in zip(headers, row):
+            if header and value:
+                values.append(f"{header}: {value}")
+
+        if values:
+            row_text = ", ".join(values)
+            print(f"Row {row_no}: {row_text}")
+```
+
+Excel은 행 데이터를 문장형 또는 Key-Value 형태로 변환한 뒤 Embedding하는 것이 좋다.
+
+---
+
+## 19. Vector DB 저장 데이터 예시
+
+실전 RAG에서 Vector DB에는 다음과 같은 구조로 데이터가 저장된다.
+
+```json
+{
+  "id": "KDB_Paperless_Proposal_slide_12_chunk_1",
+  "document": "이 슬라이드는 KDB Paperless 업무환경 구축을 위한 전자문서관리 아키텍처를 설명한다...",
+  "metadata": {
+    "file_name": "KDB_Paperless_Proposal.pptx",
+    "document_type": "pptx",
+    "slide_no": 12,
+    "project_name": "KDB Paperless",
+    "chunk_index": 1
+  }
+}
+```
+
+이렇게 저장하면 검색 결과에서 문서의 출처를 함께 확인할 수 있다.
+
+---
+
+## 20. 검색 및 답변 예시
+
+질문 예시는 다음과 같다.
+
+```text
+KDB Paperless 제안서에서 전자문서관리 아키텍처의 핵심 구성요소를 설명해줘.
+```
+
+RAG 검색 결과는 다음과 같이 구성될 수 있다.
+
+```text
+검색 문서 1
+- 파일명: KDB_Paperless_Proposal.pptx
+- 슬라이드: 12
+- 내용: 전자문서관리 시스템은 KUPID, AI OCR, ECM, Repository DB와 연계된다.
+
+검색 문서 2
+- 파일명: KDB_Paperless_Proposal.pptx
+- 슬라이드: 13
+- 내용: ECM은 전자문서 원본 저장과 콘텐츠 관리를 담당한다.
+```
+
+LLM 답변 예시는 다음과 같다.
+
+```text
+KDB Paperless 제안서에서 전자문서관리 아키텍처는 KUPID 통합단말, 전자문서관리 시스템, AI OCR, ECM, Repository DB로 구성됩니다. KUPID는 사용자 업무 진입점 역할을 하며, 전자문서관리 시스템은 문서 등록, 조회, 보관, 폐기 업무를 담당합니다. AI OCR은 이미지 또는 스캔 문서에서 텍스트를 추출하고, ECM은 전자문서 원본과 콘텐츠 저장소 역할을 수행합니다.
+```
+
+---
+
+## 21. Open WebUI 연동 관점
+
+Step2-5에서 구축한 사내 문서 RAG는 Open WebUI와 연동하여 사용할 수 있다.
+
+Open WebUI 관점에서는 다음 구조로 이해할 수 있다.
+
+```text
+사내 문서
+   ↓
+Knowledge Base 등록
+   ↓
+문서 Parsing
+   ↓
+Embedding
+   ↓
+Vector DB 저장
+   ↓
+Chat 화면에서 문서 기반 질의응답
+```
+
+다만 Open WebUI의 기본 문서 처리 기능만으로 모든 기업 문서를 완벽하게 처리하기는 어렵다. 복잡한 PPT, 스캔 PDF, HWP, 표 중심 Excel 문서는 별도 전처리 파이프라인을 구성한 뒤 Open WebUI 또는 별도 RAG API와 연동하는 방식이 더 적합할 수 있다.
+
+---
+
+## 22. 보안 및 거버넌스 고려사항
+
+실전 사내 문서 RAG에서는 보안이 매우 중요하다.
+
+특히 금융, 공공, 대기업 프로젝트 문서는 다음 정보를 포함할 수 있다.
+
+```text
+고객사명
+사업금액
+제안 전략
+내부 인력 정보
+시스템 구성 정보
+보안 아키텍처
+계약 정보
+개인정보
+비공개 요구사항
+```
+
+따라서 실전 RAG를 구축할 때는 다음 사항을 반드시 고려해야 한다.
+
+```text
+1. 문서 접근 권한 관리
+2. 문서 보안 등급 관리
+3. 사용자별 검색 권한 제어
+4. 개인정보 마스킹
+5. 원본 문서 저장 위치 관리
+6. Vector DB 접근 통제
+7. 로그 및 감사 추적
+8. 외부 LLM 사용 여부 검토
+9. On-Premise LLM 적용 검토
+```
+
+사내 문서 RAG는 편의성만 보고 구축하면 안 된다. 반드시 보안과 권한 체계를 함께 설계해야 한다.
+
+---
+
+## 23. Step2-5 완료 기준
+
+Step2-5는 다음 조건을 만족하면 완료로 판단한다.
+
+```text
+1. Markdown 외의 실제 업무 문서를 준비했다.
+2. PDF, PPTX, DOCX, XLSX 중 최소 1개 이상 문서 유형을 처리했다.
+3. 문서에서 텍스트를 추출했다.
+4. 문서 출처 Metadata를 생성했다.
+5. 추출된 텍스트를 Chunk로 분리했다.
+6. Chunk를 Embedding하여 Vector DB에 저장했다.
+7. 사용자 질문으로 관련 문서를 검색했다.
+8. 검색 결과를 LLM 답변 생성에 활용했다.
+9. 답변과 함께 문서 출처를 확인할 수 있었다.
+```
+
+가장 중요한 완료 기준은 다음이다.
+
+```text
+실제 업무 문서를 기반으로 질문하고, 답변의 근거가 되는 문서 출처를 확인할 수 있어야 한다.
+```
+
+---
+
+## 24. 팀원 교육 시 강조할 내용
+
+## 24.1 기업 RAG의 핵심은 문서 전처리이다
+
+RAG는 단순히 Vector DB에 문서를 넣는다고 완성되지 않는다.
+
+실제 품질은 다음 단계에서 결정된다.
+
+```text
+문서 수집
+문서 유형 판별
+텍스트 추출
+OCR 처리
+Metadata 설계
+Chunking 전략
+Embedding 모델 선택
+검색 품질 평가
+Prompt 설계
+```
+
+특히 실무에서는 문서 전처리가 RAG 품질의 절반 이상을 좌우한다.
+
+---
+
+## 24.2 Vector DB에는 원본 문서가 아니라 검색 가능한 지식 조각이 저장된다
+
+Vector DB는 파일 서버가 아니다.
+
+Vector DB에는 보통 다음 정보가 저장된다.
+
+```text
+Chunk 텍스트
+Embedding Vector
+Metadata
+```
+
+원본 문서는 별도의 파일 저장소, 문서관리시스템, ECM, NAS, Object Storage 등에 보관하고 Vector DB에는 검색 가능한 단위 정보와 원본 위치를 저장하는 것이 일반적이다.
+
+---
+
+## 24.3 출처가 없는 답변은 실무에서 사용하기 어렵다
+
+기업 RAG에서는 답변 자체보다 답변의 근거가 중요하다.
+
+따라서 다음 정보가 함께 제공되어야 한다.
+
+```text
+파일명
+페이지 번호
+슬라이드 번호
+Sheet 이름
+문서 제목
+등록일
+출처 경로
+```
+
+사용자가 답변을 신뢰하려면 원본 문서로 돌아가 확인할 수 있어야 한다.
+
+---
+
+## 24.4 모든 문서를 같은 방식으로 처리하면 안 된다
+
+PDF, PPT, Word, Excel은 문서 구조가 다르다.
+
+따라서 Chunking과 Metadata 설계도 달라야 한다.
+
+```text
+PDF: 페이지 중심
+PPT: 슬라이드 중심
+Word: 제목과 문단 중심
+Excel: Sheet와 Row 중심
+HWP: 변환 또는 전용 Parser 중심
+이미지: OCR 또는 Vision LLM 중심
+```
+
+---
+
+## 25. 다음 단계 예고
+
+Step2-5를 완료하면 RAG의 기본 학습 단계가 마무리된다.
+
+이후 Step3에서는 AI Agent 구축 단계로 확장한다.
+
+Step3에서는 RAG가 단순 질의응답 기능을 넘어 다음과 같은 구조로 발전한다.
+
+```text
+사용자 질문
+   ↓
+Agent 판단
+   ↓
+필요한 Tool 선택
+   ↓
+문서 검색
+   ↓
+API 호출
+   ↓
+데이터 분석
+   ↓
+답변 생성
+```
+
+즉, Step2에서는 문서 기반 답변을 만드는 RAG를 학습하고, Step3에서는 RAG와 Tool Calling을 결합한 AI Agent 구조로 확장한다.
+
+---
+
+# 최종 정리
+
+Step2-5는 AI-Data-Platform 프로젝트에서 RAG를 실제 업무 문서에 적용하는 단계이다.
+
+Step2-2에서는 Markdown 문서를 ChromaDB에 저장했고, Step2-3에서는 검색 결과를 LLM 답변 생성에 연결했으며, Step2-4에서는 Open WebUI를 통해 사용자가 웹 화면에서 RAG를 사용할 수 있는 구조를 확인했다.
+
+Step2-5에서는 이 구조를 실제 기업 문서 환경으로 확장한다.
+
+```text
+PDF
+PPTX
+DOCX
+XLSX
+HWP
+이미지 문서
+스캔 문서
+```
+
+이러한 문서를 처리하려면 문서 유형별 Parser, OCR, AI OCR, Vision LLM, Metadata 설계, Chunking 전략이 필요하다.
+
+따라서 Step2-5의 핵심은 다음 한 문장으로 정리할 수 있다.
+
+```text
+실제 사내 문서를 수집·분석·추출·Chunking·Embedding하여, 문서 출처가 추적 가능한 실무형 RAG 질의응답 구조를 구축한다.
+```
+

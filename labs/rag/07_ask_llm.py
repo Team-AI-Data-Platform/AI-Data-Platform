@@ -22,7 +22,7 @@ import urllib.error
 
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-OLLAMA_MODEL = "qwen3:8b"
+OLLAMA_MODEL = "qwen3:4b"
 
 
 def ask_llm(prompt: str, model: str = OLLAMA_MODEL) -> str:
