@@ -1,1 +1,26 @@
 site/
+# Python
+
+__pycache__/
+
+*.pyc
+
+# Virtual Environment
+
+.venv/
+
+# ChromaDB
+
+chroma_db/
+
+# macOS
+
+.DS_Store
+
+# VSCode
+
+.vscode/
+
+# IntelliJ
+
+.idea/
