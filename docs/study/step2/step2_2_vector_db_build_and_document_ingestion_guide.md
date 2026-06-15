@@ -190,33 +190,215 @@ Python 3.11.x
 
 ---
 
-# 7. 프로젝트 디렉터리 생성
+# 7. 프로젝트 디렉터리 구성
 
-먼저 RAG 실습용 작업 디렉터리를 생성한다.
+이번 실습은 별도의 독립 프로젝트를 만드는 것이 아니라 현재 운영 중인 **AI-Data-Platform GitHub 저장소 내부에서 진행한다.**
+
+문서와 실습 코드를 함께 관리하면 다음과 같은 장점이 있다.
+
+- 학습 문서와 실습 코드를 함께 관리할 수 있다.
+- GitHub를 통해 버전관리가 가능하다.
+- 팀원들과 동일한 환경을 공유할 수 있다.
+- Step3 Agent, Step4 AI Data Platform 단계까지 동일한 구조를 유지할 수 있다.
+- 실습 결과를 프로젝트 자산으로 축적할 수 있다.
+
+---
+
+## 7.1 권장 디렉터리 구조
+
+```mermaid
+flowchart TD
+
+    ROOT["AI-Data-Platform"]
+
+    DOCS["docs<br/>MkDocs 문서"]
+
+    RAGDOC["docs/rag<br/>RAG 가이드"]
+
+    LABS["labs<br/>실습 프로젝트"]
+
+    RAG["labs/rag<br/>RAG 실습"]
+
+    SOURCE["docs<br/>원본 문서"]
+
+    CHROMA["chroma_db<br/>Vector DB 저장소"]
+
+    PYTHON["Python 실습 코드"]
+
+    ROOT --> DOCS
+    ROOT --> LABS
+
+    DOCS --> RAGDOC
+
+    LABS --> RAG
+
+    RAG --> SOURCE
+    RAG --> CHROMA
+    RAG --> PYTHON
+```
+
+---
+
+### 실제 디렉터리 예시
+
+```text
+AI-Data-Platform
+│
+├─ docs
+│   └─ rag
+│       ├─ step2_1_rag_overview.md
+│       ├─ step2_2_vector_db_build.md
+│       ├─ step2_3_first_rag.md
+│       ├─ step2_4_openwebui_rag.md
+│       └─ step2_5_enterprise_rag.md
+│
+├─ labs
+│   └─ rag
+│       ├─ docs
+│       │   └─ microserver_guide.md
+│       ├─ chroma_db
+│       ├─ 02_load_and_chunk.py
+│       ├─ 03_insert_to_chroma.py
+│       └─ 04_search_chroma.py
+│
+├─ mkdocs.yml
+├─ README.md
+└─ .gitignore
+```
+
+---
+
+## 7.2 디렉터리 설명
+
+| 디렉터리 | 설명 |
+|----------|------|
+| docs | MkDocs 문서 저장소 |
+| docs/rag | RAG 학습 문서 |
+| labs | 실습 코드 저장소 |
+| labs/rag | RAG 실습 프로젝트 |
+| labs/rag/docs | 원본 문서 저장 |
+| labs/rag/chroma_db | ChromaDB 데이터 저장 |
+| mkdocs.yml | MkDocs 설정 파일 |
+| .gitignore | Git 제외 설정 파일 |
+
+---
+
+## 7.3 실습 디렉터리 생성
+
+프로젝트 루트(`AI-Data-Platform`)에서 아래 명령을 실행한다.
 
 ```bash
-mkdir rag-vector-db-lab
-cd rag-vector-db-lab
+mkdir -p labs/rag/docs
+mkdir -p labs/rag/chroma_db
+
+cd labs/rag
 ```
 
 ### 명령어 설명
 
 | 명령어 | 설명 |
-|---|---|
-| `mkdir rag-vector-db-lab` | `rag-vector-db-lab`이라는 새 폴더를 생성한다. |
-| `cd rag-vector-db-lab` | 생성한 폴더로 이동한다. |
+|----------|------|
+| mkdir | 디렉터리 생성 |
+| -p | 상위 디렉터리가 없어도 함께 생성 |
+| labs/rag/docs | 원본 문서 저장 디렉터리 |
+| labs/rag/chroma_db | ChromaDB 저장 디렉터리 |
+| cd labs/rag | 실습 디렉터리 이동 |
 
-현재 위치 확인:
+---
+
+## 7.4 현재 위치 확인
 
 ```bash
 pwd
 ```
 
+실행 결과 예시
+
+```text
+~/workspace/AI-Data-Platform/labs/rag
+```
+
 ### 명령어 설명
 
 | 명령어 | 설명 |
-|---|---|
-| `pwd` | 현재 작업 중인 디렉터리 경로를 출력한다. |
+|----------|------|
+| pwd | 현재 작업 중인 디렉터리 경로를 출력한다. |
+
+---
+
+## 7.5 .gitignore 설정
+
+실습 과정에서 생성되는 가상환경 및 ChromaDB 데이터는 GitHub에 업로드하지 않는다.
+
+프로젝트 루트의 `.gitignore` 파일에 아래 내용을 추가한다.
+
+```gitignore
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# ChromaDB
+chroma_db/
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+```
+
+### 왜 Git에 올리지 않는가?
+
+#### .venv
+
+Python 가상환경 디렉터리이다.
+
+- 수백 MB ~ 수 GB 크기의 라이브러리가 저장될 수 있다.
+- 개발자 PC마다 환경이 다르다.
+- Git으로 관리할 대상이 아니다.
+
+#### chroma_db
+
+ChromaDB의 실제 저장 데이터가 위치한다.
+
+저장되는 데이터 예시
+
+- Embedding 데이터
+- Vector 데이터
+- 실습 데이터
+
+실습을 반복할수록 크기가 계속 증가하므로 Git 저장소에는 포함하지 않는다.
+
+---
+
+## 7.6 최종 목표
+
+Step2 과정이 완료되면 아래와 같은 구조가 완성된다.
+
+```mermaid
+flowchart LR
+
+    DOCS["docs<br/>MkDocs 문서"]
+
+    LABS["labs<br/>실습 코드"]
+
+    RAG["labs/rag<br/>RAG 구축"]
+
+    DOCS --> RAG
+    LABS --> RAG
+```
+
+문서는 `docs`에서 관리하고,
+
+실습 코드는 `labs`에서 관리하는 구조를 유지한다.
+
+이 구조는 향후 다음 단계까지 그대로 확장할 수 있다.
+
+- Step3 Agent 구축
+- Step4 AI Data Platform 구축
+- Step5 LLM Serving 구축
 
 ---
 
@@ -240,6 +422,8 @@ python3 -m venv .venv
 
 가상환경 활성화:
 
+Linux 또는 WSL 환경에서는 다음 명령어로 가상환경을 활성화한다.
+
 ```bash
 source .venv/bin/activate
 ```
@@ -257,11 +441,32 @@ source .venv/bin/activate
 (.venv)
 ```
 
-Windows PowerShell에서는 다음 명령을 사용한다.
+Windows 환경에서 가상환경 활성화
+
+Windows에서 가상환경을 생성하면 .venv 디렉터리 안에 bin 폴더가 생성되지 않고, 대신 Scripts 폴더가 생성된다.
+
+따라서 Windows PowerShell에서는 다음 명령어를 사용한다.
 
 ```powershell
 .venv\Scripts\Activate.ps1
 ```
+
+Git Bash를 사용하는 경우에는 다음 명령어를 사용한다.
+
+```bash
+source .venv/Scripts/activate
+```
+
+즉, 환경에 따라 가상환경 활성화 경로가 다르다.
+
+| 환경 | 활성화 명령어 |
+|---|---|
+| Linux / WSL | `source .venv/bin/activate` |
+| Windows PowerShell | `.venv\Scripts\Activate.ps1` |
+| Windows Git Bash | `source .venv/Scripts/activate` |
+| Windows CMD | `.venv\Scripts\activate.bat` |
+
+정리하면, WSL/Linux에서는 `.venv/bin/activate`를 사용하고, Windows 환경에서는 `.venv/Scripts/activate` 또는 `.venv\Scripts\Activate.ps1`을 사용한다.
 
 ---
 
@@ -324,32 +529,131 @@ pip list
 
 # 11. 실습 디렉터리 구조 만들기
 
-다음 구조로 실습 파일을 구성한다.
+이번 실습은 별도의 프로젝트를 생성하는 것이 아니라 현재 운영 중인 **AI-Data-Platform 저장소의 `labs/rag` 디렉터리 내부에서 진행한다.**
+
+실습 코드와 실습 데이터를 함께 관리하여 향후 Step2, Step3, Step4 과정까지 동일한 구조를 유지한다.
+
+---
+
+# 11. 실습 디렉터리 구조 만들기
+
+이번 실습은 별도의 프로젝트를 생성하는 것이 아니라 현재 운영 중인 **AI-Data-Platform 저장소의 `labs/rag` 디렉터리 내부에서 진행한다.**
+
+실습 코드와 실습 데이터를 함께 관리하여 향후 Step2, Step3, Step4 과정까지 동일한 구조를 유지한다.
+
+---
+
+## 11.1 실습 디렉터리 구조
 
 ```text
-rag-vector-db-lab/
- ├─ docs/
- │   └─ microserver_guide.md
- ├─ chroma_db/
- ├─ 01_create_sample_doc.py
- ├─ 02_load_and_chunk.py
- ├─ 03_insert_to_chroma.py
- └─ 04_search_chroma.py
+AI-Data-Platform
+│
+├─ docs
+│   └─ rag
+│       ├─ step2_1_rag_overview.md
+│       ├─ step2_2_vector_db_build.md
+│       ├─ step2_3_first_rag.md
+│       └─ ...
+│
+├─ labs
+│   └─ rag
+│       ├─ docs
+│       │   └─ microserver_guide.md
+│       │
+│       ├─ chroma_db
+│       │
+│       ├─ 01_create_sample_doc.py
+│       ├─ 02_load_and_chunk.py
+│       ├─ 03_insert_to_chroma.py
+│       └─ 04_search_chroma.py
+│
+├─ mkdocs.yml
+└─ README.md
 ```
 
-디렉터리 생성:
+---
+
+## 11.2 디렉터리 생성
+
+프로젝트 루트(`AI-Data-Platform`)에서 아래 명령을 실행한다.
 
 ```bash
-mkdir docs
-mkdir chroma_db
+mkdir -p labs/rag/docs
+mkdir -p labs/rag/chroma_db
+
+cd labs/rag
 ```
 
 ### 명령어 설명
 
 | 명령어 | 설명 |
-|---|---|
-| `mkdir docs` | 원본 문서를 저장할 폴더를 생성한다. |
-| `mkdir chroma_db` | ChromaDB 데이터가 저장될 폴더를 생성한다. |
+|---------|------|
+| `mkdir` | 디렉터리를 생성한다. |
+| `-p` | 상위 디렉터리가 존재하지 않아도 함께 생성한다. |
+| `labs/rag/docs` | 실습용 원본 문서를 저장하는 디렉터리이다. |
+| `labs/rag/chroma_db` | ChromaDB 데이터가 저장되는 디렉터리이다. |
+| `cd labs/rag` | RAG 실습 디렉터리로 이동한다. |
+
+---
+
+## 11.3 생성 결과 확인
+
+현재 위치를 확인한다.
+
+```bash
+pwd
+```
+
+예상 결과:
+
+```text
+~/workspace/AI-Data-Platform/labs/rag
+```
+
+디렉터리 목록 확인:
+
+```bash
+ls -al
+```
+
+예상 결과:
+
+```text
+docs/
+chroma_db/
+```
+
+---
+
+## 11.4 디렉터리 역할
+
+| 디렉터리 | 역할 |
+|----------|------|
+| `labs/rag/docs` | Vector DB에 적재할 원본 문서 저장 |
+| `labs/rag/chroma_db` | ChromaDB 데이터 저장 |
+| `labs/rag/*.py` | RAG 실습용 Python 코드 |
+| `docs/rag` | MkDocs 학습 문서 저장 |
+
+---
+
+## 11.5 왜 labs/rag 구조를 사용하는가?
+
+AI Data Platform 프로젝트에서는 문서와 실습 코드를 분리하여 관리한다.
+
+```text
+docs  → 학습 문서(MkDocs)
+
+labs  → 실습 코드 및 실험 환경
+```
+
+이 구조를 사용하면 다음과 같은 장점이 있다.
+
+- 학습 문서와 실습 코드를 분리할 수 있다.
+- GitHub를 통해 버전 관리를 일관되게 수행할 수 있다.
+- 팀원들이 동일한 디렉터리 구조를 사용할 수 있다.
+- Step3 Agent 실습 시 `labs/agent`로 자연스럽게 확장할 수 있다.
+- Step4 AI Data Platform 실습 시 `labs/platform`으로 확장할 수 있다.
+- 실습 결과물을 프로젝트 자산으로 축적할 수 있다.
 
 ---
 

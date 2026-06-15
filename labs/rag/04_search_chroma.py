@@ -8,7 +8,8 @@ MODEL_NAME = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
 
 def main():
-    query = "MicroServer에서 Maven 멀티모듈 구조는 어떻게 되어 있어?"
+    #query = "MicroServer에서 Maven 멀티모듈 구조는 어떻게 되어 있어?"
+    query = "API Gateway는 어떤 역할을 해?"
 
     model = SentenceTransformer(MODEL_NAME)
     query_embedding = model.encode([query]).tolist()[0]
