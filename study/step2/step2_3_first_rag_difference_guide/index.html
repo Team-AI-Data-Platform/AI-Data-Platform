@@ -11,7 +11,7 @@
       
       
       
-        <link rel="prev" href="../step2_2_vector_db_build_and_document_ingestion_guide/">
+        <link rel="prev" href="../step2_2_sentence_transformer_embedding_guide/">
       
       
         <link rel="next" href="../step2_4_open_webui_rag_integration_guide/">
@@ -927,6 +927,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../step2_2_sentence_transformer_embedding_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-2-1. 임베딩 모델 이해
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1175,6 +1203,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="6.5 코드 설명">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embedding 모델 이해
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1986,6 +2031,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="6.5 코드 설명">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Embedding 모델 이해
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2847,6 +2909,13 @@ collection.query(query_embeddings=...) 호출
     <span class="n">print_search_results</span><span class="p">(</span><span class="n">user_query</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="65">6.5 코드 설명</h3>
+<h4 id="embedding">Embedding 모델 이해</h4>
+<p>본 실습에서는 SentenceTransformer를 사용하여 문서를 벡터로 변환한다.
+SentenceTransformer가 무엇인지, 왜 Embedding이 필요한지,
+Vector DB와 어떤 관계가 있는지에 대해서는 별도의 가이드를 참고한다.</p>
+<ul>
+<li><a href="../step2_2_sentence_transformer_embedding_guide/">SentenceTransformer와 Embedding 이해</a></li>
+</ul>
 <p><code>COLLECTION_NAME</code>은 Step2-2에서 문서를 저장할 때 사용한 컬렉션명과 동일해야 한다. 예제에서는 <code>microserver_docs</code>를 사용한다. 이 값이 03번 파일과 다르면 검색 대상 컬렉션을 찾지 못한다.</p>
 <p><code>MODEL_NAME</code>은 03번에서 문서 Chunk를 Embedding할 때 사용한 모델명과 동일해야 한다. 예제에서는 다국어 처리가 가능한 <code>sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2</code> 모델을 사용한다.</p>
 <p><code>find_chroma_path()</code> 함수는 ChromaDB 저장 경로를 찾기 위한 보완 함수이다. 03번 파일에서 <code>CHROMA_PATH = "chroma_db"</code>처럼 상대 경로를 사용하면, 명령을 어디에서 실행했는지에 따라 실제 DB 생성 위치가 달라질 수 있다. 예를 들어 <code>cd labs/rag</code> 후 실행하면 <code>labs/rag/chroma_db</code>가 생성되고, 프로젝트 루트에서 실행하면 루트 아래 <code>chroma_db</code>가 생성될 수 있다. 따라서 05번 파일은 자주 사용되는 후보 경로를 순서대로 확인하도록 구성했다.</p>

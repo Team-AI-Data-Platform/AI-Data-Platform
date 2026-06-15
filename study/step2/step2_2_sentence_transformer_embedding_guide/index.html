@@ -1,0 +1,2212 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Data Platform & Local LLM Study">
+      
+      
+      
+      
+        <link rel="prev" href="../step2_2_vector_db_build_and_document_ingestion_guide/">
+      
+      
+        <link rel="next" href="../step2_3_first_rag_difference_guide/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Step2-2-1. 임베딩 모델 이해 - AI Data Platform Study</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#step2-2-sentencetransformer-embedding" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="AI Data Platform Study" class="md-header__button md-logo" aria-label="AI Data Platform Study" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Data Platform Study
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Step2-2-1. 임베딩 모델 이해
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../roadmap/study-roadmap/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Roadmap
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../setting/mkdocs_github_pages_guide/" class="md-tabs__link">
+          
+  
+  
+  Setting
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../step1/step1_local_llm_setup_guide/" class="md-tabs__link">
+          
+  
+  
+  Study
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="AI Data Platform Study" class="md-nav__button md-logo" aria-label="AI Data Platform Study" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AI Data Platform Study
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../roadmap/study-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Setting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setting/mkdocs_github_pages_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MkDocs 문서 사이트 구축 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setting/mkdocs_github_pages_guide_windows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MkDocs 문서 사이트 구축 가이드(windows)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setting/mkdocs_github_pages_guide_deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MkDocs 문서 Deploy 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setting/macmini_ai_lab_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mac Mini 기반 AI LAB 구축 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Study
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Study
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step1 local LLM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Step1 local LLM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../step1/step1_local_llm_setup_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local LLM 구축 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../step1/local_llm_model_size_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM 모델 크기 이해
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../step1/local_llm_model_size_guide_detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM 모델 크기 완전 이해 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../step1/Step1-3_Python_Virtual_Environment_and_Ollama_Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python 가상환경과 Ollama 연동 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../step1/Step1-4_Open_WebUI_Docker_Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Open WebUI 구축 및 Docker 이해 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../step1/Step1-5_Prompt_Practice_Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prompt 실습 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2 RAG
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Step2 RAG
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step2_rag_overview_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-1. RAG 개요 및 아키텍처 이해
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step2_2_vector_db_build_and_document_ingestion_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-2. Vector DB 구축 및 문서 적재
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-2-1. 임베딩 모델 이해
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-2-1. 임베딩 모델 이해
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 문서 작성 목적
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-step2-2-sentencetransformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Step2-2에서 SentenceTransformer가 등장하는 위치
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Embedding이란 무엇인가?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Embedding이란 무엇인가?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 문장을 숫자로 표현하는 기술
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Embedding이 필요한 이유
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-sentencetransformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. SentenceTransformer란 무엇인가?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-sentencetransformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 간단한 SentenceTransformer 예제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 간단한 SentenceTransformer 예제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 패키지 설치
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 문장 Embedding 생성 예제
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-step2-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Step2-2에서 사용한 모델
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Step2-2에서 사용한 모델">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 이 모델을 선택한 이유
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-chromadb-embedding-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 왜 ChromaDB 자동 Embedding 대신 직접 Embedding을 만들었는가?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 왜 ChromaDB 자동 Embedding 대신 직접 Embedding을 만들었는가?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-1-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 방식 1. Embedding을 직접 생성해서 저장
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-2-chromadb-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 방식 2. ChromaDB가 자동으로 Embedding 생성
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-ai-data-platform-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 AI-Data-Platform 실습에서 직접 Embedding 방식을 선택한 이유
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 문서 적재와 검색에서 같은 모델을 사용해야 하는 이유
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-chromadb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. ChromaDB에는 무엇이 저장되는가?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-vector-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Vector Search는 어떻게 동작하는가?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-step2-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Step2-2 실습 코드와의 연결
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 실습 관점에서 기억해야 할 핵심 원칙
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 실무에서는 어떤 Embedding 모델을 사용하는가?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-mermaid-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Mermaid로 보는 Embedding 처리 흐름
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-mkdocs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. MkDocs 반영 위치 제안
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step2_3_first_rag_difference_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-3. RAG 질의응답 구현
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step2_4_open_webui_rag_integration_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-4. Open WebUI 연동
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step2_5_enterprise_document_rag_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-5. 실전 사내 문서 RAG 구축
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../iceberg.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step3 Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../delta-lake.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step4 AI Data Platform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../delta-lake.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step5 AI Serving Platform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 문서 작성 목적
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-step2-2-sentencetransformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Step2-2에서 SentenceTransformer가 등장하는 위치
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Embedding이란 무엇인가?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Embedding이란 무엇인가?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 문장을 숫자로 표현하는 기술
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Embedding이 필요한 이유
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-sentencetransformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. SentenceTransformer란 무엇인가?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-sentencetransformer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 간단한 SentenceTransformer 예제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. 간단한 SentenceTransformer 예제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 패키지 설치
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 문장 Embedding 생성 예제
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-step2-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Step2-2에서 사용한 모델
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Step2-2에서 사용한 모델">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 이 모델을 선택한 이유
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-chromadb-embedding-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 왜 ChromaDB 자동 Embedding 대신 직접 Embedding을 만들었는가?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. 왜 ChromaDB 자동 Embedding 대신 직접 Embedding을 만들었는가?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-1-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 방식 1. Embedding을 직접 생성해서 저장
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-2-chromadb-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 방식 2. ChromaDB가 자동으로 Embedding 생성
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-ai-data-platform-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 AI-Data-Platform 실습에서 직접 Embedding 방식을 선택한 이유
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 문서 적재와 검색에서 같은 모델을 사용해야 하는 이유
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-chromadb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. ChromaDB에는 무엇이 저장되는가?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-vector-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Vector Search는 어떻게 동작하는가?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-step2-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Step2-2 실습 코드와의 연결
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 실습 관점에서 기억해야 할 핵심 원칙
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 실무에서는 어떤 Embedding 모델을 사용하는가?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-mermaid-embedding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Mermaid로 보는 Embedding 처리 흐름
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-mkdocs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. MkDocs 반영 위치 제안
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="step2-2-sentencetransformer-embedding">Step2-2 보충. SentenceTransformer와 Embedding 이해 가이드</h1>
+<blockquote>
+<p>문서를 Vector DB에 저장하기 전에 왜 Embedding이 필요한지, SentenceTransformer가 어떤 역할을 하는지 이해하기 위한 Step2-2 보충 학습 문서</p>
+</blockquote>
+<hr />
+<h2 id="1">1. 문서 작성 목적</h2>
+<p>이 문서는 AI-Data-Platform 스터디의 Step2 RAG 과정 중 <strong>Step2-2. Vector DB 구축 및 문서 적재</strong>를 보완하기 위한 가이드 문서이다.</p>
+<p>Step2-2에서는 Markdown 문서를 읽고, 문서를 Chunk 단위로 나눈 뒤, 각 Chunk를 Embedding으로 변환하여 ChromaDB에 저장하였다. 이 과정에서 <code>SentenceTransformer</code>를 사용했는데, 처음 RAG를 학습하는 입장에서는 다음과 같은 질문이 생길 수 있다.</p>
+<div class="highlight"><pre><span></span><code>SentenceTransformer가 무엇인가?
+왜 문서를 숫자로 변환해야 하는가?
+Embedding은 무엇인가?
+왜 ChromaDB에 텍스트를 그대로 저장하지 않고 Embedding을 저장하는가?
+Step2-2 실습에서 왜 SentenceTransformer를 선택했는가?
+</code></pre></div>
+<p>본 문서는 위 질문에 답하기 위해 작성되었다.</p>
+<hr />
+<h2 id="2-step2-2-sentencetransformer">2. Step2-2에서 SentenceTransformer가 등장하는 위치</h2>
+<p>Step2-2의 전체 처리 흐름은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>문서 준비
+ ↓
+문서 로딩
+ ↓
+Chunk 분리
+ ↓
+Embedding 생성
+ ↓
+ChromaDB 저장
+ ↓
+Vector Search 테스트
+</code></pre></div>
+<p>이 중 <code>SentenceTransformer</code>는 아래 단계에서 사용된다.</p>
+<div class="highlight"><pre><span></span><code>Chunk 분리
+ ↓
+SentenceTransformer
+ ↓
+Embedding Vector 생성
+ ↓
+ChromaDB 저장
+</code></pre></div>
+<p>즉, SentenceTransformer는 문서 Chunk를 Vector DB에 저장할 수 있는 숫자 벡터로 변환하는 역할을 한다.</p>
+<hr />
+<h2 id="3-embedding">3. Embedding이란 무엇인가?</h2>
+<h3 id="31">3.1 문장을 숫자로 표현하는 기술</h3>
+<p>컴퓨터는 사람이 이해하는 자연어 문장을 그대로 의미적으로 비교하지 못한다. 예를 들어 다음 세 문장을 보자.</p>
+<div class="highlight"><pre><span></span><code>문장 1: 마이크로서비스의 장점은 독립 배포이다.
+문장 2: MSA는 서비스별로 개별 배포가 가능하다.
+문장 3: 오늘 점심은 김치찌개를 먹었다.
+</code></pre></div>
+<p>사람이 보면 문장 1과 문장 2는 비슷한 의미라는 것을 쉽게 알 수 있다.</p>
+<div class="highlight"><pre><span></span><code>문장 1 ≒ 문장 2
+</code></pre></div>
+<p>그러나 컴퓨터가 이 의미적 유사성을 계산하려면 문장을 숫자로 변환해야 한다.</p>
+<p>예를 들어 다음과 같이 표현할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>문장 1 → [0.123, 0.567, 0.891, ...]
+문장 2 → [0.121, 0.564, 0.887, ...]
+문장 3 → [0.912, 0.123, 0.456, ...]
+</code></pre></div>
+<p>이처럼 문장, 문단, 문서 Chunk를 숫자 배열로 변환한 것을 <strong>Embedding Vector</strong>라고 한다.</p>
+<hr />
+<h3 id="32-embedding">3.2 Embedding이 필요한 이유</h3>
+<p>Embedding을 사용하면 문장 간 의미적 거리를 계산할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>문장 1과 문장 2는 의미가 비슷하므로 벡터 거리가 가깝다.
+문장 1과 문장 3은 의미가 다르므로 벡터 거리가 멀다.
+</code></pre></div>
+<p>이 원리를 이용하면 사용자의 질문과 가장 의미적으로 가까운 문서 Chunk를 찾을 수 있다.</p>
+<div class="highlight"><pre><span></span><code>사용자 질문
+ ↓
+질문 Embedding 생성
+ ↓
+문서 Chunk Embedding과 비교
+ ↓
+가장 유사한 문서 Top-K 검색
+</code></pre></div>
+<p>RAG에서 Vector DB 검색이 가능한 이유가 바로 이 Embedding 때문이다.</p>
+<hr />
+<h2 id="4-sentencetransformer">4. SentenceTransformer란 무엇인가?</h2>
+<p><code>SentenceTransformer</code>는 문장 또는 문단을 Embedding Vector로 변환하는 Python 라이브러리이자 모델 사용 방식이다.</p>
+<p>정확히는 <code>sentence-transformers</code> 패키지를 통해 제공되며, Transformer 기반 언어 모델을 사용하여 자연어 문장의 의미를 벡터로 변환한다.</p>
+<div class="highlight"><pre><span></span><code>문장
+ ↓
+SentenceTransformer 모델
+ ↓
+Embedding Vector
+</code></pre></div>
+<p>예를 들어 다음 문장을 입력하면,</p>
+<div class="highlight"><pre><span></span><code>마이크로서비스의 장점은 무엇인가?
+</code></pre></div>
+<p>SentenceTransformer는 이 문장을 다음과 같은 숫자 배열로 변환한다.</p>
+<div class="highlight"><pre><span></span><code>[0.021, -0.145, 0.338, 0.902, ...]
+</code></pre></div>
+<p>이 숫자 배열은 문장의 의미를 표현한다.</p>
+<hr />
+<h2 id="5-sentencetransformer">5. 간단한 SentenceTransformer 예제</h2>
+<h3 id="51">5.1 패키지 설치</h3>
+<p>Step2-2 실습에서 SentenceTransformer를 사용하려면 다음 패키지가 필요하다.</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>sentence-transformers
+</code></pre></div>
+<p>ChromaDB까지 함께 사용하는 경우 다음과 같이 설치할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>chromadb<span class="w"> </span>sentence-transformers
+</code></pre></div>
+<hr />
+<h3 id="52-embedding">5.2 문장 Embedding 생성 예제</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sentence_transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SentenceTransformer</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s2">&quot;paraphrase-multilingual-MiniLM-L12-v2&quot;</span><span class="p">)</span>
+
+<span class="n">sentence</span> <span class="o">=</span> <span class="s2">&quot;마이크로서비스의 장점은 무엇인가?&quot;</span>
+<span class="n">embedding</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">embedding</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">embedding</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">embedding</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+</code></pre></div>
+<p>실행 결과는 환경에 따라 다르지만 대략 다음과 같은 형태이다.</p>
+<div class="highlight"><pre><span></span><code>&lt;class &#39;numpy.ndarray&#39;&gt;
+384
+[ 0.0123 -0.0456  0.0789  0.1023 -0.0345]
+</code></pre></div>
+<p>여기서 <code>384</code>는 Embedding Vector의 차원 수를 의미한다. 즉, 하나의 문장이 384개의 숫자로 표현된 것이다.</p>
+<hr />
+<h2 id="6-step2-2">6. Step2-2에서 사용한 모델</h2>
+<p>Step2-2 실습에서는 다음 모델을 사용했다.</p>
+<div class="highlight"><pre><span></span><code><span class="n">MODEL_NAME</span> <span class="o">=</span> <span class="s2">&quot;paraphrase-multilingual-MiniLM-L12-v2&quot;</span>
+</code></pre></div>
+<p>이 모델은 SentenceTransformer 계열의 다국어 지원 모델이다.</p>
+<h3 id="61">6.1 이 모델을 선택한 이유</h3>
+<p>AI-Data-Platform 실습에서는 한국어 문서를 다룰 가능성이 높다. 따라서 영어만 지원하는 모델보다는 한국어를 포함한 다국어 모델을 사용하는 것이 적합하다.</p>
+<p><code>paraphrase-multilingual-MiniLM-L12-v2</code>를 선택한 이유는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>한국어를 포함한 다국어 문장 처리 가능
+모델 크기가 비교적 작아 로컬 PC에서 실행 가능
+Mac 환경에서도 실습 가능
+속도가 비교적 빠름
+RAG 입문 실습에 적합
+</code></pre></div>
+<p>즉, 이 모델은 최고의 성능을 목표로 선택한 것이 아니라, 학습용 RAG 실습에서 원리를 이해하기 좋고 로컬 환경에서 부담 없이 실행하기 위해 선택한 모델이다.</p>
+<hr />
+<h2 id="7-chromadb-embedding-embedding">7. 왜 ChromaDB 자동 Embedding 대신 직접 Embedding을 만들었는가?</h2>
+<p>ChromaDB는 Embedding을 처리하는 방식이 크게 두 가지가 있다.</p>
+<hr />
+<h3 id="71-1-embedding">7.1 방식 1. Embedding을 직접 생성해서 저장</h3>
+<p>Step2-2 실습에서 사용한 방식이다.</p>
+<div class="highlight"><pre><span></span><code><span class="n">model</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s2">&quot;paraphrase-multilingual-MiniLM-L12-v2&quot;</span><span class="p">)</span>
+
+<span class="n">embedding</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">chunk_text</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="n">collection</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="n">chunk_id</span><span class="p">],</span>
+    <span class="n">documents</span><span class="o">=</span><span class="p">[</span><span class="n">chunk_text</span><span class="p">],</span>
+    <span class="n">embeddings</span><span class="o">=</span><span class="p">[</span><span class="n">embedding</span><span class="p">],</span>
+    <span class="n">metadatas</span><span class="o">=</span><span class="p">[</span><span class="n">metadata</span><span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>이 방식에서는 다음 과정이 코드에 명확히 드러난다.</p>
+<div class="highlight"><pre><span></span><code>문서 Chunk
+ ↓
+SentenceTransformer
+ ↓
+Embedding Vector
+ ↓
+ChromaDB 저장
+</code></pre></div>
+<p>장점은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Embedding이 언제 생성되는지 명확히 알 수 있다.
+문서 적재 과정의 원리를 이해하기 좋다.
+검색 시에도 동일한 모델을 사용해야 한다는 점을 학습할 수 있다.
+향후 다른 Embedding 모델로 교체하는 구조를 이해하기 쉽다.
+</code></pre></div>
+<hr />
+<h3 id="72-2-chromadb-embedding">7.2 방식 2. ChromaDB가 자동으로 Embedding 생성</h3>
+<p>ChromaDB의 Embedding Function을 설정해두면 문서를 저장할 때 ChromaDB가 자동으로 Embedding을 생성할 수도 있다.</p>
+<div class="highlight"><pre><span></span><code><span class="n">collection</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="n">chunk_id</span><span class="p">],</span>
+    <span class="n">documents</span><span class="o">=</span><span class="p">[</span><span class="n">chunk_text</span><span class="p">],</span>
+    <span class="n">metadatas</span><span class="o">=</span><span class="p">[</span><span class="n">metadata</span><span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>이 방식은 코드가 간단하다. 그러나 학습 관점에서는 Embedding 생성 과정이 내부에 숨겨진다.</p>
+<p>단점은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Embedding 개념을 직접 이해하기 어렵다.
+문서 적재와 검색 모델의 일치 여부를 놓치기 쉽다.
+Vector DB가 모든 것을 자동으로 처리한다고 오해할 수 있다.
+</code></pre></div>
+<hr />
+<h3 id="73-ai-data-platform-embedding">7.3 AI-Data-Platform 실습에서 직접 Embedding 방식을 선택한 이유</h3>
+<p>AI-Data-Platform 스터디의 목표는 단순히 도구를 사용하는 것이 아니라, AI 플랫폼을 설계하고 구축할 수 있는 역량을 확보하는 것이다.</p>
+<p>따라서 Step2-2에서는 편리함보다 구조 이해를 우선했다.</p>
+<div class="highlight"><pre><span></span><code>문서를 직접 Chunk로 나눈다.
+Chunk를 직접 Embedding으로 변환한다.
+Embedding Vector를 직접 ChromaDB에 저장한다.
+질문도 같은 모델로 Embedding하여 검색한다.
+</code></pre></div>
+<p>이 과정을 직접 경험해야 RAG의 핵심 구조를 정확히 이해할 수 있다.</p>
+<hr />
+<h2 id="8">8. 문서 적재와 검색에서 같은 모델을 사용해야 하는 이유</h2>
+<p>Step2-2에서 문서를 Embedding할 때 사용한 모델과 Step2-3에서 질문을 Embedding할 때 사용하는 모델은 동일해야 한다.</p>
+<p>예를 들어 문서를 다음 모델로 저장했다고 가정한다.</p>
+<div class="highlight"><pre><span></span><code><span class="n">SentenceTransformer</span><span class="p">(</span><span class="s2">&quot;paraphrase-multilingual-MiniLM-L12-v2&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>그런데 검색할 때 다른 모델로 질문을 Embedding하면 문제가 생길 수 있다.</p>
+<div class="highlight"><pre><span></span><code>문서 Embedding 공간과 질문 Embedding 공간이 달라진다.
+벡터 거리 계산의 의미가 흐려진다.
+검색 품질이 떨어진다.
+경우에 따라 차원 수가 달라 오류가 발생할 수 있다.
+</code></pre></div>
+<p>따라서 RAG에서는 다음 원칙이 중요하다.</p>
+<div class="highlight"><pre><span></span><code>문서를 적재할 때 사용한 Embedding 모델과
+질문을 검색할 때 사용한 Embedding 모델은 동일하게 맞춘다.
+</code></pre></div>
+<p>이 원칙 때문에 Step2-3의 <code>05_search_documents.py</code>에서도 Step2-2의 <code>03_insert_to_chroma.py</code>와 동일한 SentenceTransformer 모델을 사용해야 한다.</p>
+<hr />
+<h2 id="9-chromadb">9. ChromaDB에는 무엇이 저장되는가?</h2>
+<p>ChromaDB에는 보통 다음 정보가 함께 저장된다.</p>
+<div class="highlight"><pre><span></span><code>id: Chunk를 구분하는 고유 ID
+embedding: Chunk의 의미를 표현하는 벡터
+metadata: 파일명, Chunk 번호, 문서 유형 등 부가 정보
+document: 원문 텍스트 Chunk
+</code></pre></div>
+<p>예시는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microserver_guide_chunk_001&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;document&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MicroServer Framework는 Spring Boot 기반의 MSA 플랫폼이다.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;embedding&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">0.123</span><span class="p">,</span><span class="w"> </span><span class="mf">0.456</span><span class="p">,</span><span class="w"> </span><span class="mf">0.789</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;source&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;microserver_guide.md&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;chunk_index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>검색 시에는 사용자의 질문도 Embedding으로 변환한 뒤, 저장된 문서 Embedding과 거리를 비교한다.</p>
+<hr />
+<h2 id="10-vector-search">10. Vector Search는 어떻게 동작하는가?</h2>
+<p>Vector Search는 질문 벡터와 문서 벡터 사이의 거리를 계산하여 가장 가까운 문서를 찾는 방식이다.</p>
+<div class="highlight"><pre><span></span><code>질문: MicroServer의 주요 구성요소는 무엇인가?
+ ↓
+질문 Embedding 생성
+ ↓
+ChromaDB에 저장된 문서 Embedding들과 비교
+ ↓
+가장 가까운 문서 Top-K 반환
+</code></pre></div>
+<p>예를 들어 ChromaDB에 100개의 Chunk가 저장되어 있다면, 질문과 의미적으로 가장 가까운 순서대로 정렬한 뒤 상위 몇 개를 가져온다.</p>
+<div class="highlight"><pre><span></span><code>1위: API Gateway 관련 Chunk
+2위: Eureka 관련 Chunk
+3위: Monitoring 관련 Chunk
+4위: Config Server 관련 Chunk
+...
+</code></pre></div>
+<p>이때 상위 몇 개를 가져올지 정하는 값이 Top-K이다.</p>
+<div class="highlight"><pre><span></span><code><span class="n">search_documents</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div>
+<p>위 코드는 질문과 가장 유사한 문서 3개를 가져오라는 의미이다.</p>
+<hr />
+<h2 id="11-step2-2">11. Step2-2 실습 코드와의 연결</h2>
+<p>Step2-2의 <code>03_insert_to_chroma.py</code>는 다음과 같은 역할을 한다.</p>
+<div class="highlight"><pre><span></span><code>Chunk 파일 또는 Chunk 목록을 읽는다.
+SentenceTransformer 모델을 로딩한다.
+각 Chunk를 Embedding Vector로 변환한다.
+ChromaDB 컬렉션에 document, embedding, metadata를 저장한다.
+</code></pre></div>
+<p>핵심 구조는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">sentence_transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SentenceTransformer</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s2">&quot;paraphrase-multilingual-MiniLM-L12-v2&quot;</span><span class="p">)</span>
+
+<span class="n">embedding</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">chunk_text</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="n">collection</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+    <span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="n">chunk_id</span><span class="p">],</span>
+    <span class="n">documents</span><span class="o">=</span><span class="p">[</span><span class="n">chunk_text</span><span class="p">],</span>
+    <span class="n">embeddings</span><span class="o">=</span><span class="p">[</span><span class="n">embedding</span><span class="p">],</span>
+    <span class="n">metadatas</span><span class="o">=</span><span class="p">[</span><span class="n">metadata</span><span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>이 구조를 이해하면 Step2-3의 검색 코드도 자연스럽게 이해할 수 있다.</p>
+<div class="highlight"><pre><span></span><code><span class="n">query_embedding</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">question</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
+    <span class="n">query_embeddings</span><span class="o">=</span><span class="p">[</span><span class="n">query_embedding</span><span class="p">],</span>
+    <span class="n">n_results</span><span class="o">=</span><span class="n">top_k</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>즉, Step2-2에서는 문서를 Embedding하고, Step2-3에서는 질문을 Embedding한다.</p>
+<div class="highlight"><pre><span></span><code>Step2-2: 문서 Chunk → Embedding → 저장
+Step2-3: 사용자 질문 → Embedding → 검색
+</code></pre></div>
+<hr />
+<h2 id="12">12. 실습 관점에서 기억해야 할 핵심 원칙</h2>
+<p>Step2-2와 Step2-3을 진행할 때 다음 원칙을 기억해야 한다.</p>
+<div class="highlight"><pre><span></span><code>1. LLM은 문서를 그대로 검색하지 않는다.
+2. 문서는 먼저 Embedding Vector로 변환되어야 한다.
+3. 질문도 Embedding Vector로 변환되어야 한다.
+4. Vector DB는 질문 벡터와 문서 벡터의 거리를 비교한다.
+5. 문서 적재와 질문 검색에는 동일한 Embedding 모델을 사용하는 것이 좋다.
+6. SentenceTransformer는 문장과 문서를 Embedding Vector로 변환하는 도구이다.
+</code></pre></div>
+<hr />
+<h2 id="13-embedding">13. 실무에서는 어떤 Embedding 모델을 사용하는가?</h2>
+<p>Step2-2에서는 학습 편의성을 위해 <code>paraphrase-multilingual-MiniLM-L12-v2</code>를 사용했다. 그러나 실무 RAG에서는 데이터 특성, 언어, 성능 요구사항에 따라 다양한 Embedding 모델을 사용할 수 있다.</p>
+<p>예시는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>BGE-M3
+E5-Multilingual
+Nomic Embed
+OpenAI Embedding
+Voyage Embedding
+Cohere Embed
+</code></pre></div>
+<p>기업형 RAG에서는 다음 기준으로 모델을 선택한다.</p>
+<div class="highlight"><pre><span></span><code>한국어 검색 성능
+도메인 문서 검색 품질
+로컬 실행 가능 여부
+GPU 필요 여부
+응답 속도
+비용
+보안 정책
+라이선스
+</code></pre></div>
+<p>AI-Data-Platform 프로젝트에서는 Step2 단계에서 SentenceTransformer로 원리를 학습하고, 이후 Step2-5 실전 사내 문서 RAG나 Step5 LLM Serving 단계에서 더 고성능 Embedding 모델로 확장할 수 있다.</p>
+<hr />
+<h2 id="14-mermaid-embedding">14. Mermaid로 보는 Embedding 처리 흐름</h2>
+<pre class="mermaid"><code>flowchart TD
+    A[원본 문서] --&gt; B[문서 로딩]
+    B --&gt; C[Chunk 분리]
+    C --&gt; D[SentenceTransformer]
+    D --&gt; E[Embedding Vector 생성]
+    E --&gt; F[(ChromaDB 저장)]
+
+    Q[사용자 질문] --&gt; R[SentenceTransformer]
+    R --&gt; S[질문 Embedding 생성]
+    S --&gt; T[(ChromaDB Vector Search)]
+    F --&gt; T
+    T --&gt; U[Top-K 문서 반환]</code></pre>
+<hr />
+<h2 id="15-mkdocs">15. MkDocs 반영 위치 제안</h2>
+<p>이 문서는 Step2-2의 보충 문서이므로 다음 위치에 두는 것을 추천한다.</p>
+<div class="highlight"><pre><span></span><code>docs/study/step2/step2_2_sentence_transformer_embedding_guide.md
+</code></pre></div>
+<p><code>mkdocs.yml</code>에는 다음과 같이 반영할 수 있다.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Study</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step2 RAG</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step2-1. RAG 개요 및 아키텍처 이해</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">study/step2/step2_rag_overview_guide.md</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step2-2. Vector DB 구축 및 문서 적재</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">study/step2/step2_2_vector_db_build_and_document_ingestion_guide.md</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step2-2 보충. SentenceTransformer와 Embedding 이해</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">study/step2/step2_2_sentence_transformer_embedding_guide.md</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step2-3. RAG 질의응답 구현</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">study/step2/step2_3_rag_qa_implementation_guide.md</span>
+</code></pre></div>
+<hr />
+<h1 id="_1">최종 정리</h1>
+<p>SentenceTransformer는 문장 또는 문서 Chunk를 Embedding Vector로 변환하는 도구이다.</p>
+<p>Step2-2에서 SentenceTransformer를 사용한 이유는 문서를 의미 기반으로 검색할 수 있도록 벡터로 변환하기 위해서이다.</p>
+<div class="highlight"><pre><span></span><code>문서 Chunk
+ ↓
+SentenceTransformer
+ ↓
+Embedding Vector
+ ↓
+ChromaDB 저장
+</code></pre></div>
+<p>그리고 Step2-3에서는 사용자의 질문도 동일한 SentenceTransformer 모델로 Embedding한 뒤, ChromaDB에 저장된 문서 벡터와 비교하여 관련 문서를 검색한다.</p>
+<div class="highlight"><pre><span></span><code>사용자 질문
+ ↓
+SentenceTransformer
+ ↓
+질문 Embedding Vector
+ ↓
+ChromaDB 검색
+ ↓
+Top-K 문서 반환
+</code></pre></div>
+<p>따라서 RAG를 이해하기 위해서는 단순히 ChromaDB를 사용하는 것뿐 아니라, 문장과 문서를 벡터로 변환하는 Embedding 개념을 반드시 이해해야 한다.</p>
+<p>AI-Data-Platform 프로젝트에서 Step2-2는 바로 이 Embedding 기반 검색 구조를 직접 구축해보는 단계이다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "search.share", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
