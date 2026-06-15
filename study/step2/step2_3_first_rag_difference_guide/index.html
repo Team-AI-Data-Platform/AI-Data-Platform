@@ -1807,7 +1807,7 @@
 
 
 
-<h1 id="step2-3-rag">Step2-3. 첫 번째 RAG 구축 가이드</h1>
+<h1 id="step2-3-rag">Step2-3. RAG 질의응답 구현</h1>
 <h2 id="step2-2-step2-3">Step2-2와 Step2-3의 차이점 이해</h2>
 <hr />
 <h2 id="1">1. 문서 작성 목적</h2>
@@ -1920,29 +1920,39 @@ LLM 답변 생성
 <hr />
 <h2 id="42-step2-3">4.2 Step2-3의 처리 흐름</h2>
 <p>Step2-3의 전체 흐름은 다음과 같다.</p>
-<div class="highlight"><pre><span></span><code>사용자 질문 입력
-        │
-        ▼
-질문 Embedding 생성
-        │
-        ▼
-ChromaDB 유사도 검색
-        │
-        ▼
-관련 문서 Top-K 추출
-        │
-        ▼
-검색 결과를 Context로 구성
-        │
-        ▼
-Question + Context 기반 Prompt 생성
-        │
-        ▼
-Ollama Local LLM 호출
-        │
-        ▼
-최종 답변 생성
-</code></pre></div>
+<pre class="mermaid"><code>
+sequenceDiagram
+
+    participant User as 사용자
+
+    participant App as RAG Application
+
+    participant Embed as Embedding Model
+
+    participant DB as Chroma DB
+
+    participant LLM as LLM
+
+    User-&gt;&gt;App: 질문 입력
+
+    App-&gt;&gt;Embed: 질문 임베딩 생성
+
+    Embed--&gt;&gt;App: 질문 벡터 반환
+
+    App-&gt;&gt;DB: 유사 문서 검색
+
+    DB--&gt;&gt;App: Top-K 문서 반환
+
+    App-&gt;&gt;App: Context 생성
+
+    App-&gt;&gt;App: Prompt 구성
+
+    App-&gt;&gt;LLM: 질문 + 검색 문서 전달
+
+    LLM--&gt;&gt;App: 답변 생성
+
+    App--&gt;&gt;User: 최종 답변 반환
+</code></pre>
 <p>Step2-2와 비교했을 때 Step2-3에서 새롭게 추가되는 핵심은 다음이다.</p>
 <div class="highlight"><pre><span></span><code>검색 결과를 Prompt에 넣는다.
 Prompt를 LLM에게 전달한다.
