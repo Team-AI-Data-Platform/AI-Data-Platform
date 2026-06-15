@@ -1738,6 +1738,17 @@ chroma_db/
 </tbody>
 </table>
 <p>정리하면, WSL/Linux에서는 <code>.venv/bin/activate</code>를 사용하고, Windows 환경에서는 <code>.venv/Scripts/activate</code> 또는 <code>.venv\Scripts\Activate.ps1</code>을 사용한다.</p>
+<div class="admonition info">
+<p class="admonition-title">패키지 설치 권장 방식</p>
+<p>본 문서에서는 패키지 설치 시 <code>pip install</code> 대신</p>
+<p><code>python -m pip install</code> 사용을 권장한다.</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>chromadb
+</code></pre></div>
+<p>이 방식은 현재 실행 중인 Python 환경의 pip를 사용하므로</p>
+<p>Python 실행 환경과 pip 실행 환경이 서로 달라지는 문제를 방지할 수 있다.</p>
+<p>특히 가상환경(.venv)을 사용하는 경우</p>
+<p>현재 활성화된 가상환경에 패키지가 설치되는 것을 보장할 수 있다.</p>
+</div>
 <hr />
 <h1 id="9-pip">9. pip 업그레이드</h1>
 <p>라이브러리 설치 전에 pip를 최신 버전으로 갱신한다.</p>
@@ -1780,7 +1791,7 @@ chroma_db/
 <li><code>python-dotenv</code> : 환경변수 관리용</li>
 </ul>
 <p>설치 명령:</p>
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>chromadb<span class="w"> </span>sentence-transformers<span class="w"> </span>pypdf<span class="w"> </span>python-dotenv
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>chromadb<span class="w"> </span>sentence-transformers<span class="w"> </span>pypdf<span class="w"> </span>python-dotenv
 </code></pre></div>
 <h3 id="_9">명령어 설명</h3>
 <table>
@@ -1810,7 +1821,7 @@ chroma_db/
 </tbody>
 </table>
 <p>설치된 패키지 확인:</p>
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>list
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>list
 </code></pre></div>
 <h3 id="_10">명령어 설명</h3>
 <table>
@@ -2629,7 +2640,7 @@ MicroServer는 여러 개의 Maven 모듈로 구성된다.
 </ul>
 <p>해결:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
-pip<span class="w"> </span>install<span class="w"> </span>chromadb
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>chromadb
 </code></pre></div>
 <hr />
 <h2 id="232-python">23.2 Python 명령어가 동작하지 않는 경우</h2>
