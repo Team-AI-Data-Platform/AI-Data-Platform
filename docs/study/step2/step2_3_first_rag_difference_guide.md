@@ -187,75 +187,200 @@ labs/rag/
 
 `05_search_documents.py`는 Step2-3의 검색 기능을 담당한다. 사용자의 질문을 입력받아 ChromaDB에 질의하고, 질문과 의미적으로 유사한 문서 Chunk를 Top-K 방식으로 반환한다.
 
-이 파일은 Step2-2의 `04_search_chroma.py`와 유사하지만, 단순 테스트 출력용이 아니라 이후 RAG 파이프라인에서 재사용할 수 있도록 `search_documents()` 함수로 검색 기능을 분리했다는 점이 중요하다.
+이번 파일은 Step2-2의 `03_insert_to_chroma.py`와 반드시 연관해서 이해해야 한다. `03_insert_to_chroma.py`는 ChromaDB에 문서를 저장할 때 Chroma의 기본 Embedding Function을 사용하는 방식이 아니라, `SentenceTransformer` 모델로 문서 Chunk의 Embedding을 직접 생성한 뒤 `collection.add(..., embeddings=...)` 방식으로 저장한다.
 
-### 6.2 주요 처리 내용
+따라서 `05_search_documents.py`에서도 동일한 방식으로 사용자 질문을 직접 Embedding한 뒤 `query_embeddings`를 사용하여 검색해야 한다. 만약 `query_texts` 방식으로 검색하면 ChromaDB 컬렉션에 Embedding Function이 연결되어 있지 않은 경우 오류가 발생할 수 있다.
+
+### 6.2 03번 실습파일과의 관계
+
+Step2-2의 `03_insert_to_chroma.py` 처리 방식은 다음과 같다.
 
 ```text
-1. ChromaDB PersistentClient를 생성한다.
-2. microserver_docs 컬렉션을 가져온다.
-3. 사용자 질문을 기준으로 유사 문서를 검색한다.
-4. 검색 결과를 rank, document, metadata, distance 형태로 정리한다.
-5. 정리된 검색 결과 목록을 반환한다.
+문서 Chunk 목록
+ ↓
+SentenceTransformer 모델 로딩
+ ↓
+각 Chunk를 Embedding Vector로 변환
+ ↓
+collection.add() 호출 시 embeddings 직접 저장
+ ↓
+ChromaDB 컬렉션에 문서, 메타데이터, Embedding 저장
 ```
 
-### 6.3 소스 코드
+Step2-3의 `05_search_documents.py`는 이 구조에 맞춰 다음 방식으로 검색한다.
+
+```text
+사용자 질문
+ ↓
+03번과 동일한 SentenceTransformer 모델 로딩
+ ↓
+질문을 Embedding Vector로 변환
+ ↓
+collection.query(query_embeddings=...) 호출
+ ↓
+유사 문서 Top-K 반환
+```
+
+즉, 03번과 05번은 같은 Embedding 모델을 사용해야 한다. 문서를 저장할 때 사용한 벡터 공간과 질문을 검색할 때 사용하는 벡터 공간이 같아야 의미 기반 검색이 정상적으로 동작한다.
+
+### 6.3 주요 처리 내용
+
+```text
+1. ChromaDB 저장 경로를 찾는다.
+2. microserver_docs 컬렉션을 가져온다.
+3. 컬렉션이 없으면 새로 만들지 않고 오류를 발생시킨다.
+4. 03_insert_to_chroma.py와 동일한 SentenceTransformer 모델을 로딩한다.
+5. 사용자 질문을 Embedding Vector로 변환한다.
+6. query_embeddings 방식으로 ChromaDB에 검색 요청을 보낸다.
+7. 검색 결과를 rank, document, metadata, distance 형태로 정리한다.
+8. 정리된 검색 결과 목록을 반환한다.
+```
+
+### 6.4 소스 코드
 
 ```python
 """
 Step2-3. RAG 질의응답 구현 - 05_search_documents.py
 
 역할:
-- 사용자의 질문을 Chroma Vector DB에 질의한다.
-- 질문과 의미적으로 유사한 문서 조각을 검색한다.
+- Step2-2의 03_insert_to_chroma.py에서 저장한 ChromaDB 컬렉션을 조회한다.
+- 사용자의 질문을 03번 파일과 동일한 SentenceTransformer 모델로 임베딩한다.
+- 질문 임베딩과 유사한 문서 Chunk를 ChromaDB에서 검색한다.
 
-실행 예시:
+중요:
+- 03_insert_to_chroma.py는 collection.add() 호출 시 embeddings를 직접 저장한다.
+- 따라서 05_search_documents.py도 query_texts 방식보다 query_embeddings 방식으로 검색하는 것이 안전하다.
+- ChromaDB 경로도 실행 위치에 따라 달라질 수 있으므로 여러 후보 경로를 확인한다.
+
+실행 위치 권장:
+    cd labs/rag
+    python 05_search_documents.py
+
+또는 프로젝트 루트에서:
     python labs/rag/05_search_documents.py
 """
 
+from __future__ import annotations
+
 from pathlib import Path
+from typing import Any
 
 import chromadb
-from chromadb.utils import embedding_functions
+from sentence_transformers import SentenceTransformer
 
 
-# 프로젝트 루트 기준 경로
-BASE_DIR = Path(__file__).resolve().parent
-CHROMA_DB_DIR = BASE_DIR / "chroma_db"
+# 03_insert_to_chroma.py와 반드시 동일해야 하는 설정값
 COLLECTION_NAME = "microserver_docs"
-EMBEDDING_MODEL_NAME = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+MODEL_NAME = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
 
-def get_collection():
-    """Chroma DB 컬렉션을 가져온다."""
-    embedding_function = embedding_functions.SentenceTransformerEmbeddingFunction(
-        model_name=EMBEDDING_MODEL_NAME
+def find_chroma_path() -> Path:
+    """
+    ChromaDB 저장 경로를 찾는다.
+
+    03_insert_to_chroma.py에는 CHROMA_PATH = "chroma_db"로 되어 있다.
+    이 값은 '명령을 실행한 현재 위치'를 기준으로 해석된다.
+
+    예를 들어,
+    1) cd labs/rag 후 python 03_insert_to_chroma.py 실행
+       -> labs/rag/chroma_db 생성
+
+    2) 프로젝트 루트에서 python labs/rag/03_insert_to_chroma.py 실행
+       -> 프로젝트 루트/chroma_db 생성
+
+    따라서 05번 파일에서는 자주 사용되는 후보 경로를 순서대로 확인한다.
+    """
+    script_dir = Path(__file__).resolve().parent
+    current_dir = Path.cwd()
+
+    candidate_paths = [
+        script_dir / "chroma_db",      # labs/rag/chroma_db
+        current_dir / "chroma_db",    # 현재 실행 위치/chroma_db
+        script_dir.parent / "chroma_db",
+        script_dir.parent.parent / "chroma_db",
+    ]
+
+    for path in candidate_paths:
+        if path.exists() and path.is_dir():
+            return path
+
+    checked_paths = "\n".join(f"- {path}" for path in candidate_paths)
+
+    raise FileNotFoundError(
+        "ChromaDB 디렉터리를 찾을 수 없습니다.\n\n"
+        "먼저 03_insert_to_chroma.py를 실행해서 문서를 ChromaDB에 적재해야 합니다.\n\n"
+        "확인한 경로:\n"
+        f"{checked_paths}"
     )
 
-    client = chromadb.PersistentClient(path=str(CHROMA_DB_DIR))
 
-    collection = client.get_or_create_collection(
-        name=COLLECTION_NAME,
-        embedding_function=embedding_function,
-    )
+def get_collection(chroma_path: Path):
+    """
+    ChromaDB 컬렉션을 가져온다.
+
+    여기서는 get_or_create_collection()이 아니라 get_collection()을 사용한다.
+    이유는 Step2-3 검색 실습에서는 이미 03번에서 생성된 컬렉션이 있어야 하기 때문이다.
+
+    만약 컬렉션이 없다면 새로 만들지 않고 오류를 발생시켜
+    '03번 실습이 먼저 실행되지 않았다'는 사실을 명확하게 알 수 있게 한다.
+    """
+    client = chromadb.PersistentClient(path=str(chroma_path))
+
+    try:
+        collection = client.get_collection(name=COLLECTION_NAME)
+    except Exception as exc:
+        raise RuntimeError(
+            f"ChromaDB에서 컬렉션을 찾을 수 없습니다: {COLLECTION_NAME}\n\n"
+            "먼저 아래 순서로 Step2-2 실습을 실행했는지 확인하세요.\n"
+            "1. python 01_create_sample_doc.py\n"
+            "2. python 02_load_and_chunk.py\n"
+            "3. python 03_insert_to_chroma.py\n\n"
+            f"현재 ChromaDB 경로: {chroma_path}"
+        ) from exc
 
     return collection
 
 
-def search_documents(query: str, top_k: int = 3):
-    """질문과 유사한 문서를 Vector DB에서 검색한다."""
-    collection = get_collection()
+def search_documents(query: str, top_k: int = 3) -> list[dict[str, Any]]:
+    """
+    질문과 유사한 문서 Chunk를 검색한다.
+
+    처리 순서:
+    1. ChromaDB 경로 확인
+    2. microserver_docs 컬렉션 조회
+    3. 03번과 동일한 임베딩 모델 로딩
+    4. 사용자 질문을 벡터로 변환
+    5. ChromaDB에서 유사 문서 Top-K 검색
+    """
+    if not query or not query.strip():
+        raise ValueError("검색 질문이 비어 있습니다.")
+
+    chroma_path = find_chroma_path()
+    collection = get_collection(chroma_path)
+
+    total_count = collection.count()
+    if total_count == 0:
+        raise RuntimeError(
+            f"컬렉션은 존재하지만 저장된 문서가 없습니다: {COLLECTION_NAME}\n"
+            "03_insert_to_chroma.py 실행 결과를 다시 확인하세요."
+        )
+
+    model = SentenceTransformer(MODEL_NAME)
+    query_embedding = model.encode([query]).tolist()
+
+    n_results = min(top_k, total_count)
 
     results = collection.query(
-        query_texts=[query],
-        n_results=top_k,
+        query_embeddings=query_embedding,
+        n_results=n_results,
+        include=["documents", "metadatas", "distances"],
     )
 
     documents = results.get("documents", [[]])[0]
     metadatas = results.get("metadatas", [[]])[0]
     distances = results.get("distances", [[]])[0]
 
-    searched_docs = []
+    searched_docs: list[dict[str, Any]] = []
 
     for index, document in enumerate(documents):
         searched_docs.append(
@@ -270,35 +395,79 @@ def search_documents(query: str, top_k: int = 3):
     return searched_docs
 
 
-if __name__ == "__main__":
-    user_query = "MicroServer 프레임워크의 주요 구성요소는 무엇인가?"
+def print_search_results(query: str, docs: list[dict[str, Any]]) -> None:
+    """검색 결과를 실습자가 보기 쉬운 형태로 출력한다."""
+    print("[사용자 질문]")
+    print(query)
 
-    print("사용자 질문:")
-    print(user_query)
-    print("\n검색 결과:")
-
-    docs = search_documents(user_query, top_k=3)
+    print("\n[검색 결과]")
+    if not docs:
+        print("검색 결과가 없습니다.")
+        return
 
     for doc in docs:
         print("=" * 80)
         print(f"순위: {doc['rank']}")
         print(f"거리: {doc['distance']}")
         print(f"메타데이터: {doc['metadata']}")
-        print("문서 내용:")
+        print("-" * 80)
         print(doc["document"])
+
+
+if __name__ == "__main__":
+    user_query = "MicroServer 프레임워크의 주요 구성요소는 무엇인가?"
+
+    results = search_documents(user_query, top_k=3)
+    print_search_results(user_query, results)
 ```
 
-### 6.4 코드 설명
+### 6.5 코드 설명
 
-`BASE_DIR`은 현재 파일이 위치한 `labs/rag` 디렉터리를 기준으로 경로를 계산한다. 이를 통해 실행 위치가 조금 달라져도 `chroma_db` 경로를 안정적으로 찾을 수 있다.
+`COLLECTION_NAME`은 Step2-2에서 문서를 저장할 때 사용한 컬렉션명과 동일해야 한다. 예제에서는 `microserver_docs`를 사용한다. 이 값이 03번 파일과 다르면 검색 대상 컬렉션을 찾지 못한다.
 
-`COLLECTION_NAME`은 Step2-2에서 문서를 저장할 때 사용한 컬렉션명과 동일해야 한다. 이 값이 다르면 기존에 저장한 문서를 찾지 못하고 새로운 빈 컬렉션이 만들어질 수 있다.
+`MODEL_NAME`은 03번에서 문서 Chunk를 Embedding할 때 사용한 모델명과 동일해야 한다. 예제에서는 다국어 처리가 가능한 `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` 모델을 사용한다.
 
-`EMBEDDING_MODEL_NAME`은 Step2-2에서 문서 적재 시 사용한 Embedding 모델과 동일하게 맞추는 것이 좋다. 문서 적재와 검색에 사용하는 Embedding 모델이 다르면 검색 품질이 떨어질 수 있다.
+`find_chroma_path()` 함수는 ChromaDB 저장 경로를 찾기 위한 보완 함수이다. 03번 파일에서 `CHROMA_PATH = "chroma_db"`처럼 상대 경로를 사용하면, 명령을 어디에서 실행했는지에 따라 실제 DB 생성 위치가 달라질 수 있다. 예를 들어 `cd labs/rag` 후 실행하면 `labs/rag/chroma_db`가 생성되고, 프로젝트 루트에서 실행하면 루트 아래 `chroma_db`가 생성될 수 있다. 따라서 05번 파일은 자주 사용되는 후보 경로를 순서대로 확인하도록 구성했다.
 
-`search_documents()` 함수는 최종 RAG 흐름에서 재사용되는 핵심 함수이다. 이 함수는 검색 결과를 단순 문자열로 반환하지 않고, 순위, 문서 내용, 메타데이터, 거리 값을 함께 담은 Dictionary 목록으로 반환한다.
+`get_collection()` 함수는 `get_or_create_collection()`이 아니라 `get_collection()`을 사용한다. Step2-3은 이미 Step2-2에서 저장한 문서를 검색하는 단계이므로, 컬렉션이 없을 때 새 컬렉션을 자동 생성하면 안 된다. 새 빈 컬렉션이 만들어지면 오류는 없어 보이지만 실제 검색 결과가 나오지 않아 원인을 파악하기 어려워진다.
 
----
+`search_documents()` 함수는 사용자 질문을 받아 실제 검색을 수행하는 핵심 함수이다. 먼저 ChromaDB 경로와 컬렉션을 확인하고, 저장된 문서 수를 확인한다. 이후 03번과 동일한 `SentenceTransformer` 모델로 질문을 벡터로 변환하고, `collection.query(query_embeddings=...)` 방식으로 검색한다.
+
+`print_search_results()` 함수는 실습자가 검색 결과를 쉽게 확인할 수 있도록 출력 형식을 정리한 함수이다. 순위, 거리값, 메타데이터, 문서 내용을 함께 출력하므로 검색이 정상적으로 수행되었는지 확인하기 좋다.
+
+### 6.6 실행 방법
+
+`labs/rag` 디렉터리에서 실행하는 것을 권장한다.
+
+```bash
+cd labs/rag
+python 05_search_documents.py
+```
+
+프로젝트 루트에서도 실행할 수 있다.
+
+```bash
+python labs/rag/05_search_documents.py
+```
+
+정상 실행되면 사용자 질문과 함께 ChromaDB에서 검색된 문서 Chunk가 출력된다.
+
+### 6.7 주의사항
+
+이 파일은 Step2-2의 `03_insert_to_chroma.py` 실행이 완료되어 있어야 정상 동작한다. 만약 ChromaDB 디렉터리나 컬렉션을 찾을 수 없다는 오류가 발생하면 먼저 아래 순서로 Step2-2 실습을 다시 실행한다.
+
+```bash
+cd labs/rag
+python 01_create_sample_doc.py
+python 02_load_and_chunk.py
+python 03_insert_to_chroma.py
+```
+
+또한 `sentence-transformers` 패키지가 설치되어 있어야 한다.
+
+```bash
+pip install sentence-transformers chromadb
+```
 
 ## 7. 실습 파일 2: 06_build_prompt.py
 
@@ -762,14 +931,14 @@ COLLECTION_NAME 일치 여부
 
 ### 13.2 Embedding 모델 오류
 
-증상은 `SentenceTransformerEmbeddingFunction` 초기화 과정에서 오류가 발생하는 것이다.
+증상은 `SentenceTransformer` 모델 로딩 또는 질문 Embedding 생성 과정에서 오류가 발생하는 것이다.
 
 확인 사항은 다음과 같다.
 
 ```text
 sentence-transformers 설치 여부
 인터넷 연결 또는 모델 캐시 여부
-Step2-2와 Step2-3의 Embedding 모델명 일치 여부
+Step2-2의 03_insert_to_chroma.py와 Step2-3의 05_search_documents.py 모델명 일치 여부
 ```
 
 필요 시 다음 명령으로 패키지를 설치한다.
@@ -778,7 +947,32 @@ Step2-2와 Step2-3의 Embedding 모델명 일치 여부
 pip install sentence-transformers chromadb
 ```
 
-### 13.3 Ollama 연결 오류
+### 13.3 query_texts 관련 오류
+
+03번 실습파일에서 Embedding을 직접 생성하여 저장한 경우, 05번 검색 파일에서도 질문 Embedding을 직접 생성한 뒤 `query_embeddings`로 검색하는 것이 안전하다.
+
+다음과 같은 방식은 컬렉션에 Embedding Function이 연결되어 있지 않은 경우 오류가 발생할 수 있다.
+
+```python
+collection.query(
+    query_texts=[query],
+    n_results=top_k,
+)
+```
+
+이번 가이드의 05번 파일은 아래 방식으로 수정되어 있다.
+
+```python
+query_embedding = model.encode([query]).tolist()
+
+results = collection.query(
+    query_embeddings=query_embedding,
+    n_results=n_results,
+    include=["documents", "metadatas", "distances"],
+)
+```
+
+### 13.4 Ollama 연결 오류
 
 증상은 `Ollama 서버에 연결할 수 없습니다.` 메시지가 출력되는 것이다.
 
