@@ -422,6 +422,8 @@ python3 -m venv .venv
 
 가상환경 활성화:
 
+Linux 또는 WSL 환경에서는 다음 명령어로 가상환경을 활성화한다.
+
 ```bash
 source .venv/bin/activate
 ```
@@ -439,11 +441,32 @@ source .venv/bin/activate
 (.venv)
 ```
 
-Windows PowerShell에서는 다음 명령을 사용한다.
+Windows 환경에서 가상환경 활성화
+
+Windows에서 가상환경을 생성하면 .venv 디렉터리 안에 bin 폴더가 생성되지 않고, 대신 Scripts 폴더가 생성된다.
+
+따라서 Windows PowerShell에서는 다음 명령어를 사용한다.
 
 ```powershell
 .venv\Scripts\Activate.ps1
 ```
+
+Git Bash를 사용하는 경우에는 다음 명령어를 사용한다.
+
+```bash
+source .venv/Scripts/activate
+```
+
+즉, 환경에 따라 가상환경 활성화 경로가 다르다.
+
+| 환경 | 활성화 명령어 |
+|---|---|
+| Linux / WSL | `source .venv/bin/activate` |
+| Windows PowerShell | `.venv\Scripts\Activate.ps1` |
+| Windows Git Bash | `source .venv/Scripts/activate` |
+| Windows CMD | `.venv\Scripts\activate.bat` |
+
+정리하면, WSL/Linux에서는 `.venv/bin/activate`를 사용하고, Windows 환경에서는 `.venv/Scripts/activate` 또는 `.venv\Scripts\Activate.ps1`을 사용한다.
 
 ---
 
