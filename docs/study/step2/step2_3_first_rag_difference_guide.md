@@ -1,4 +1,4 @@
-# Step2-3. 첫 번째 RAG 구축 가이드  
+# Step2-3. RAG 질의응답 구현  
 ## Step2-2와 Step2-3의 차이점 이해
 
 ---
@@ -172,29 +172,40 @@ LLM 답변 생성
 
 Step2-3의 전체 흐름은 다음과 같다.
 
-```text
-사용자 질문 입력
-        │
-        ▼
-질문 Embedding 생성
-        │
-        ▼
-ChromaDB 유사도 검색
-        │
-        ▼
-관련 문서 Top-K 추출
-        │
-        ▼
-검색 결과를 Context로 구성
-        │
-        ▼
-Question + Context 기반 Prompt 생성
-        │
-        ▼
-Ollama Local LLM 호출
-        │
-        ▼
-최종 답변 생성
+```mermaid
+
+sequenceDiagram
+
+    participant User as 사용자
+
+    participant App as RAG Application
+
+    participant Embed as Embedding Model
+
+    participant DB as Chroma DB
+
+    participant LLM as LLM
+
+    User->>App: 질문 입력
+
+    App->>Embed: 질문 임베딩 생성
+
+    Embed-->>App: 질문 벡터 반환
+
+    App->>DB: 유사 문서 검색
+
+    DB-->>App: Top-K 문서 반환
+
+    App->>App: Context 생성
+
+    App->>App: Prompt 구성
+
+    App->>LLM: 질문 + 검색 문서 전달
+
+    LLM-->>App: 답변 생성
+
+    App-->>User: 최종 답변 반환
+
 ```
 
 Step2-2와 비교했을 때 Step2-3에서 새롭게 추가되는 핵심은 다음이다.
