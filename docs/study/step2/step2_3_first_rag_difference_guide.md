@@ -423,6 +423,16 @@ if __name__ == "__main__":
 
 ### 6.5 코드 설명
 
+#### Embedding 모델 이해
+
+본 실습에서는 SentenceTransformer를 사용하여 문서를 벡터로 변환한다.
+SentenceTransformer가 무엇인지, 왜 Embedding이 필요한지,
+Vector DB와 어떤 관계가 있는지에 대해서는 별도의 가이드를 참고한다.
+
+- [SentenceTransformer와 Embedding 이해](step2_2_sentence_transformer_embedding_guide.md)
+
+
+
 `COLLECTION_NAME`은 Step2-2에서 문서를 저장할 때 사용한 컬렉션명과 동일해야 한다. 예제에서는 `microserver_docs`를 사용한다. 이 값이 03번 파일과 다르면 검색 대상 컬렉션을 찾지 못한다.
 
 `MODEL_NAME`은 03번에서 문서 Chunk를 Embedding할 때 사용한 모델명과 동일해야 한다. 예제에서는 다국어 처리가 가능한 `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` 모델을 사용한다.
