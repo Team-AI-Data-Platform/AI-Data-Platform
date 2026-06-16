@@ -41,7 +41,12 @@ SourceTree 화면은 크게 다음 영역으로 나뉜다.
 ### 2.2 상단 버튼 영역
 
 상단 버튼은 Git에서 자주 쓰는 작업을 실행하는 영역이다.
-
+<figure markdown>
+![Architecture](images/settings/sourcetree_01_top_screen.png){ width="90%" }
+<figcaption>
+그림 1. SourceTree 상단 버튼 영역 구조
+</figcaption>
+</figure>
 | SourceTree 버튼 | Git 명령어 | 의미 |
 |---|---|---|
 | 커밋 | `git commit` | 변경 내용을 로컬 저장소에 기록 |
@@ -56,7 +61,12 @@ SourceTree 화면은 크게 다음 영역으로 나뉜다.
 ### 2.3 중앙 그래프 영역
 
 중앙의 그래프는 커밋 이력과 브랜치 흐름을 보여준다.
-
+<figure markdown>
+![Architecture](images/settings/sourcetree_01_center_screen.png){ width="90%" }
+<figcaption>
+그림 1. SourceTree 중앙 그래프 영역 구조
+</figcaption>
+</figure>
 - 파란 점: 커밋 하나
 - 선: 커밋 간 연결 관계
 - `main`: 현재 로컬 브랜치 위치
