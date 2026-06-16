@@ -19,10 +19,18 @@ Step2-3. RAG 질의응답 구현 - 05_search_documents.py
     python labs/rag/05_search_documents.py
 """
 
+
+# 타입 힌트를 지연 평가(Lazy Evaluation)하여
+# 순환 참조 및 자기 자신(Self Reference) 타입 선언을 가능하게 함
 from __future__ import annotations
 
-from pathlib import Path
+# 다양한 타입(str, int, list, dict 등)을 허용하는 범용 타입 힌트
+# 주로 JSON, API 응답, Metadata 처리 시 사용
 from typing import Any
+
+# 파일 및 디렉터리 경로를 객체 형태로 다루기 위한 표준 라이브러리
+from pathlib import Path
+
 
 import chromadb
 from sentence_transformers import SentenceTransformer
@@ -49,28 +57,96 @@ def find_chroma_path() -> Path:
 
     따라서 05번 파일에서는 자주 사용되는 후보 경로를 순서대로 확인한다.
     """
+
+
+    # __file__ : 현재 실행 중인 Python 파일 경로(Python이 자동으로 제공하는 특수 변수이다.)
+    # resolve() : 절대 경로로 변환
+    # parent : 파일이 포함된 디렉터리 추출
+    # 예) /labs/rag/05_search_documents.py -> /labs/rag
     script_dir = Path(__file__).resolve().parent
+    print(f"script_dir : {script_dir}")
+
+    # 현재 터미널에서 실행 중인 작업 디렉터리
+    # (Current Working Directory)
+    # 현재 터미널이 위치한 작업 디렉터리(CWD)를 가져온다.
     current_dir = Path.cwd()
 
+
+
+    # ChromaDB 데이터가 저장되어 있을 가능성이 있는 경로 후보 목록을 만든다.
+    # 실행 위치가 달라져도 chroma_db 디렉터리를 찾을 수 있도록
+    # 여러 위치를 후보로 등록한다.
     candidate_paths = [
         script_dir / "chroma_db",      # labs/rag/chroma_db
-        current_dir / "chroma_db",    # 현재 실행 위치/chroma_db
+        current_dir / "chroma_db",     # 현재 실행 위치/chroma_db
         script_dir.parent / "chroma_db",
         script_dir.parent.parent / "chroma_db",
     ]
 
+
+    # 후보 경로를 순서대로 확인한다.
+    # path.exists() : 해당 경로가 실제로 존재하는지 확인
+    # path.is_dir() : 해당 경로가 파일이 아니라 디렉터리인지 확인
+    # 둘 다 만족하는 첫 번째 경로를 ChromaDB 경로로 사용한다.
     for path in candidate_paths:
         if path.exists() and path.is_dir():
+
+            # 존재하는 chroma_db 디렉터리를 찾으면 즉시 반환한다.
+            # return 이 실행되면 함수가 종료되므로 아래 예외 처리(raise)는 실행되지 않는다.
             return path
 
+
+    # 위 후보 경로 중 어느 곳에서도 chroma_db 디렉터리를 찾지 못한 경우,
+    # 확인했던 경로 목록을 에러 메시지에 표시하기 위해 문자열로 만든다.
+    # 예)
+    # - /Users/.../labs/rag/chroma_db
+    # - /Users/.../AI-Data-Platform/chroma_db
+
+    ######################################################
+    # Python의 Generator Expression 문법
+    ######################################################
+    # Python은 Java와 다르게 "반복문"보다 "결과식"을 먼저 작성한다.
+    # 형식:
+    # 결과식 for 변수 in 컬렉션
+    # 예)
+    # f"- {path}" for path in candidate_paths
+    # 위 코드는 candidate_paths를 하나씩 순회하면서
+    # 각 path를 "- 경로명" 형태의 문자열로 변환한다.
+    # Java로 생각하면 아래와 비슷하다.
+    #
+    # for (Path path : candidatePaths) {
+    #     result.add("- " + path);
+    # }
+    #
+    # 이후 join()이 생성된 문자열들을 줄바꿈(\n)으로 연결한다.
     checked_paths = "\n".join(f"- {path}" for path in candidate_paths)
 
+
+
+
+    # ChromaDB 디렉터리를 찾지 못한 경우 예외(Exception)를 발생시킨다.
+    # raise 는 Java의 throw 와 동일한 개념이다.
+    # 현재 함수 실행을 즉시 중단하고 호출한 곳으로 오류를 전달한다.
+    # FileNotFoundError 는 파일 또는 디렉터리를 찾지 못했을 때 사용하는
+    # Python의 내장 예외 클래스이다.
+    # checked_paths 에는 실제로 확인한 경로 목록이 저장되어 있으며,
+    # 오류 발생 시 어떤 경로들을 검사했는지 사용자에게 알려준다.
+    # 예)
+    # ChromaDB 디렉터리를 찾을 수 없습니다.
+    # 먼저 03_insert_to_chroma.py를 실행해서 문서를 ChromaDB에 적재해야 합니다.
+    # 확인한 경로:
+    # - /labs/rag/chroma_db
+    # - /project/chroma_db
     raise FileNotFoundError(
         "ChromaDB 디렉터리를 찾을 수 없습니다.\n\n"
         "먼저 03_insert_to_chroma.py를 실행해서 문서를 ChromaDB에 적재해야 합니다.\n\n"
         "확인한 경로:\n"
         f"{checked_paths}"
     )
+
+
+
+
 
 
 def get_collection(chroma_path: Path):
