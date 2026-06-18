@@ -119,6 +119,18 @@ def find_chroma_path() -> Path:
     # }
     #
     # 이후 join()이 생성된 문자열들을 줄바꿈(\n)으로 연결한다.
+    ######################################################
+    # join() : 문자열 목록을 지정한 구분자로 연결한다.
+    ######################################################
+    # 형식: "구분자".join(문자열목록)
+    # 예)
+    # ",".join(["A", "B", "C"])
+    # 결과: "A,B,C"
+    # "\n".join(["A", "B", "C"])
+    # 결과:
+    # A
+    # B
+    # C
     checked_paths = "\n".join(f"- {path}" for path in candidate_paths)
 
 
@@ -159,11 +171,131 @@ def get_collection(chroma_path: Path):
     만약 컬렉션이 없다면 새로 만들지 않고 오류를 발생시켜
     '03번 실습이 먼저 실행되지 않았다'는 사실을 명확하게 알 수 있게 한다.
     """
+
+
+
+
+    # ChromaDB 서버(로컬 DB)에 연결하기 위한 클라이언트를 생성한다.
+    # 현재 실습은 메모리 DB가 아닌 디스크에 저장된 ChromaDB를 사용한다.
+    # 따라서 이전 실습(03_insert_to_chroma.py)에서 생성한
+    # chroma_db 디렉터리의 데이터를 읽어야 한다.
+    # chroma_path는 Path 객체이므로 str()을 이용하여 문자열로 변환한다.
+    ######################################################
+    # chromadb.PersistentClient()
+    ######################################################
+    # ChromaDB의 영속성(Persistent) 클라이언트를 생성한다.
+    # 형식:
+    # chromadb.PersistentClient(path="DB경로")
+    # 역할:
+    # - 지정된 디렉터리의 ChromaDB 데이터 로드
+    # - 컬렉션 조회
+    # - 벡터 저장
+    # - 벡터 검색
+    # Java로 비유:
+    # DataSource 생성 또는 DB Connection 생성과 비슷한 개념
+    # 예)
+    # client = chromadb.PersistentClient(path="./chroma_db")
+    # chroma_path는 Path 객체(pathlib.Path)이다.
+    ######################################################
+    # str()
+    ######################################################
+    # PersistentClient()는 문자열(str) 형태의 경로를 사용하므로
+    # str()을 이용하여 Path 객체를 문자열 경로로 변환한다.
+    # 객체를 문자열(String)로 변환한다.
+    # 형식:
+    # str(객체)
+    # 예)
+    # chroma_path = Path("/tmp/chroma_db")
+    # str(chroma_path)
+    # 결과: "/tmp/chroma_db"
+    #
+    # Java:
+    # object.toString()
+    #
+    # 변환 전:
+    # Path("/tmp/chroma_db")
+    #
+    # 변환 후:
+    # "/tmp/chroma_db"
     client = chromadb.PersistentClient(path=str(chroma_path))
 
+
+
     try:
+
+
+
+        # 지정한 이름의 컬렉션(Collection)을 가져온다.
+        # ChromaDB의 Collection은 RDBMS의 Table과 비슷한 개념이다.
+        # Step2-2 실습의 03_insert_to_chroma.py 에서
+        # 생성한 컬렉션을 다시 가져오는 단계이다.
+        #
+        ######################################################
+        # get_collection()
+        ######################################################
+        # 지정한 이름의 컬렉션 객체를 가져온다.
+        #
+        # Collection은 RDBMS의 Table과 비슷한 개념이다.
+        # get_collection()은 데이터를 조회하는 것이 아니라,
+        # 기존에 생성된 컬렉션을 다루기 위한 객체를 가져온다.
+        #
+        # 이후 collection 객체를 통해
+        # 문서 검색(query)
+        # 문서 추가(add)
+        # 문서 삭제(delete)
+        # 등의 작업을 수행할 수 있다.
+        #
+        # 형식:
+        # client.get_collection(name="컬렉션명")
+        #
+        # 특징:
+        # - 컬렉션이 존재하면 반환
+        # - 컬렉션이 없으면 예외 발생
+        # - 새 컬렉션을 생성하지 않음
+        #
+        # get_or_create_collection() 과의 차이
+        #
+        # get_collection()
+        # -> 없으면 오류 발생
+        #
+        # get_or_create_collection()
+        # -> 없으면 자동 생성
+        #
+        # 현재 실습은 "검색" 단계이므로
+        # 컬렉션이 반드시 존재해야 한다.
+        # 따라서 get_collection()을 사용한다.
+        #
+        # Java로 비유:
+        # 이미 생성된 테이블 객체 또는 Repository를 가져오는 개념에 가깝다.
+        # 데이터를 조회하는(select) 작업은 이후
+        # collection.query() 호출 시 수행된다.
         collection = client.get_collection(name=COLLECTION_NAME)
+
+
     except Exception as exc:
+
+
+        # ChromaDB 내부 예외를 사용자 친화적인 예외로 변환한다.
+        ######################################################
+        # raise
+        ######################################################
+        # 예외(Exception)를 발생시킨다.
+        # Java:
+        # throw new RuntimeException(...)
+        ######################################################
+        # RuntimeError
+        ######################################################
+        # 실행 중(Runtime)에 발생한 오류를 표현하는 예외 클래스
+        ######################################################
+        # from exc
+        ######################################################
+        # 예외 체이닝(Exception Chaining)
+        # 원래 발생한 예외(exc)를 보존하면서
+        # 새로운 예외(RuntimeError)를 발생시킨다.
+        #
+        # Java:
+        # throw new RuntimeException(message, cause)
+        #
         raise RuntimeError(
             f"ChromaDB에서 컬렉션을 찾을 수 없습니다: {COLLECTION_NAME}\n\n"
             "먼저 아래 순서로 Step2-2 실습을 실행했는지 확인하세요.\n"
@@ -174,6 +306,11 @@ def get_collection(chroma_path: Path):
         ) from exc
 
     return collection
+
+
+
+
+
 
 
 def search_documents(query: str, top_k: int = 3) -> list[dict[str, Any]]:
@@ -187,8 +324,31 @@ def search_documents(query: str, top_k: int = 3) -> list[dict[str, Any]]:
     4. 사용자 질문을 벡터로 변환
     5. ChromaDB에서 유사 문서 Top-K 검색
     """
+
+
+
+    # 검색 질문이 비어있는지 확인한다.
+    ######################################################
+    # not query
+    ######################################################
+    # -> None 또는 ""(빈 문자열) 검사
+    #
+    ######################################################
+    # query.strip()
+    ######################################################
+    # -> 문자열 앞뒤 공백 제거
+    #
+    # 예)
+    # ""
+    # " "
+    # "    "
+    # 위와 같은 입력은 검색할 의미가 없으므로 오류를 발생시킨다.
     if not query or not query.strip():
         raise ValueError("검색 질문이 비어 있습니다.")
+
+
+
+
 
     chroma_path = find_chroma_path()
     collection = get_collection(chroma_path)
