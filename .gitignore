@@ -1,26 +1,53 @@
+# =========================
+# MkDocs
+# =========================
+
 site/
+
+# =========================
 # Python
+# =========================
 
 __pycache__/
-
 *.pyc
+*.pyo
 
+# =========================
 # Virtual Environment
+# =========================
 
 .venv/
+venv/
 
-# ChromaDB
+# =========================
+# RAG Generated Data
+# =========================
 
-chroma_db/
+labs/rag/chroma_db/*
+!labs/rag/chroma_db/.gitkeep
 
+labs/rag/extracted_text/*
+!labs/rag/extracted_text/.gitkeep
+
+labs/rag/enterprise_chunks/*
+!labs/rag/enterprise_chunks/.gitkeep
+
+# =========================
 # macOS
+# =========================
 
 .DS_Store
 
+# =========================
 # VSCode
+# =========================
 
 .vscode/
 
+# =========================
 # IntelliJ
+# =========================
 
 .idea/
+
+*.iml
