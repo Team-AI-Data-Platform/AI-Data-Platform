@@ -44,7 +44,7 @@ nav:
       - MkDocs 배포:
           setting/mkdocs_github_pages_guide_deploy.md
 
-  - Study:
+  - AI Lab:
       - Step1 local LLM : 
         - Local LLM 구축 가이드: study/step1/step1_local_llm_setup_guide.md
         - LLM 모델 크기 이해: study/step1/local_llm_model_size_guide.md
