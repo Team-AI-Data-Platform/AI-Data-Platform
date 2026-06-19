@@ -1,0 +1,2625 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Data Platform & Local LLM Study">
+      
+      
+      
+      
+        <link rel="prev" href="../step2_5a_practice_guide/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Step2-5B. Open WebUI Knowledge 구축 - AI Data Platform Study</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#step2-5b-open-webui-knowledge" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="AI Data Platform Study" class="md-header__button md-logo" aria-label="AI Data Platform Study" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Data Platform Study
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Step2-5B. Open WebUI Knowledge 구축
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../roadmap/study-roadmap/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Roadmap
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../setting/mkdocs_github_pages_guide/" class="md-tabs__link">
+          
+  
+  
+  Setting
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../step1/step1_local_llm_setup_guide/" class="md-tabs__link">
+          
+  
+  
+  Study
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="AI Data Platform Study" class="md-nav__button md-logo" aria-label="AI Data Platform Study" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AI Data Platform Study
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../roadmap/study-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Setting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Setting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setting/mkdocs_github_pages_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MkDocs 문서 사이트 구축 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setting/mkdocs_github_pages_guide_windows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MkDocs 문서 사이트 구축 가이드(windows)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setting/mkdocs_github_pages_guide_deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MkDocs 문서 Deploy 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setting/macmini_ai_lab_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mac Mini 기반 AI LAB 구축 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setting/sourcetree_github_usage_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SourceTree 기반 GitHub 사용 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Study
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Study
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step1 local LLM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Step1 local LLM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../step1/step1_local_llm_setup_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Local LLM 구축 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../step1/local_llm_model_size_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM 모델 크기 이해
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../step1/local_llm_model_size_guide_detail/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LLM 모델 크기 완전 이해 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../step1/Step1-3_Python_Virtual_Environment_and_Ollama_Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python 가상환경과 Ollama 연동 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../step1/Step1-4_Open_WebUI_Docker_Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Open WebUI 구축 및 Docker 이해 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../step1/Step1-5_Prompt_Practice_Guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prompt 실습 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2 RAG
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Step2 RAG
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step2_rag_overview_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-1. RAG 개요 및 아키텍처 이해
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step2_2_vector_db_build_and_document_ingestion_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-2. Vector DB 구축 및 문서 적재
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step2_2_sentence_transformer_embedding_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-2-1. 임베딩 모델 이해
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step2_3_first_rag_difference_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-3. RAG 질의응답 구현
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step2_4_open_webui_rag_integration_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-4. Open WebUI 연동
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step2_5_enterprise_document_rag_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-5. 실전 사내 문서 RAG 구축
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_7" id="__nav_4_2_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-5. 실전 사내 문서 RAG
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Step2-5. 실전 사내 문서 RAG
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step2_5_enterprise_document_rag_guide_summary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    개요 및 아키텍처
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step2_5a_enterprise_ingestion_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-5A. 문서 전처리 파이프라인
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step2_5a_practice_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-5A. 실습파일 사용 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-5B. Open WebUI Knowledge 구축
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step2-5B. Open WebUI Knowledge 구축
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 문서 작성 목적
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-step2-5a-step2-5b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Step2-5A와 Step2-5B의 차이
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-open-webui-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Open WebUI Knowledge 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 실습 전제 조건
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 실습용 문서 준비
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-open-webui-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Open WebUI Knowledge 생성 절차
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Open WebUI Knowledge 생성 절차">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-open-webui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Open WebUI 접속
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Knowledge 메뉴 이동
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Knowledge 생성
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 문서 업로드
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 문서 처리 상태 확인
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-chat-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Chat 화면에서 Knowledge 사용
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Chat 화면에서 Knowledge 사용">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 모델 선택
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Knowledge 연결
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 테스트 질문 입력
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 답변 검증 방법
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 권장 프롬프트
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-open-webui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Open WebUI 방식의 장점
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-open-webui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Open WebUI 방식의 한계
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 실무 권장 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 테스트 시나리오
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. 테스트 시나리오">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.1 기본 요약 테스트
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.2 근거 기반 질문 테스트
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3 문서에 없는 질문 테스트
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.4 출처 확인 테스트
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. 문제 해결 가이드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. 문제 해결 가이드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1 문서 업로드가 안 되는 경우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.2 답변이 문서와 무관한 경우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143-pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3 PDF 내용이 검색되지 않는 경우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144-ppt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.4 PPT 내용이 부정확한 경우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#145-excel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.5 Excel 내용이 이상하게 검색되는 경우
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. 완료 기준
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. 최종 정리
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../iceberg.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step3 Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../delta-lake.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step4 AI Data Platform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../delta-lake.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step5 AI Serving Platform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 문서 작성 목적
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-step2-5a-step2-5b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Step2-5A와 Step2-5B의 차이
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-open-webui-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Open WebUI Knowledge 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 실습 전제 조건
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 실습용 문서 준비
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-open-webui-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Open WebUI Knowledge 생성 절차
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Open WebUI Knowledge 생성 절차">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-open-webui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Open WebUI 접속
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Knowledge 메뉴 이동
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Knowledge 생성
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 문서 업로드
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 문서 처리 상태 확인
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-chat-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Chat 화면에서 Knowledge 사용
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Chat 화면에서 Knowledge 사용">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 모델 선택
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Knowledge 연결
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 테스트 질문 입력
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 답변 검증 방법
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 권장 프롬프트
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-open-webui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Open WebUI 방식의 장점
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-open-webui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Open WebUI 방식의 한계
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 실무 권장 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 테스트 시나리오
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. 테스트 시나리오">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.1 기본 요약 테스트
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.2 근거 기반 질문 테스트
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3 문서에 없는 질문 테스트
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.4 출처 확인 테스트
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. 문제 해결 가이드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. 문제 해결 가이드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.1 문서 업로드가 안 되는 경우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.2 답변이 문서와 무관한 경우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143-pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.3 PDF 내용이 검색되지 않는 경우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144-ppt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.4 PPT 내용이 부정확한 경우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#145-excel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14.5 Excel 내용이 이상하게 검색되는 경우
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. 완료 기준
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. 최종 정리
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="step2-5b-open-webui-knowledge">Step2-5B. Open WebUI Knowledge 구축 가이드</h1>
+<blockquote>
+<p>Open WebUI의 Knowledge 기능을 사용하여 사내 문서를 등록하고 문서 기반 질의응답을 수행하는 실습 문서</p>
+</blockquote>
+<hr />
+<h2 id="1">1. 문서 작성 목적</h2>
+<p>이 문서는 Step2-5의 하위 실습인 <strong>Step2-5B. Open WebUI Knowledge 구축</strong>을 설명한다.</p>
+<p>Step2-5A에서는 Python 코드로 문서 전처리 파이프라인을 직접 구현했다. PDF, PPTX, DOCX, XLSX 문서를 읽고 텍스트를 추출한 뒤 Chunking, Embedding, ChromaDB 저장, RAG 검색까지 수행했다.</p>
+<p>Step2-5B에서는 관점을 바꾼다. 이번에는 개발자가 내부 코드를 직접 실행하는 것이 아니라, 사용자가 Open WebUI 화면에서 Knowledge를 만들고 문서를 업로드한 뒤 Chat 화면에서 문서 기반 질문을 수행하는 흐름을 실습한다.</p>
+<p>즉, Step2-5B의 목적은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Open WebUI를 사용하여 사내 문서를 Knowledge로 등록하고,
+Local LLM과 연결하여 문서 기반 질의응답을 수행하는 방법을 이해한다.
+</code></pre></div>
+<hr />
+<h2 id="2-step2-5a-step2-5b">2. Step2-5A와 Step2-5B의 차이</h2>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>Step2-5A</th>
+<th>Step2-5B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>관점</td>
+<td>개발자 내부 구조</td>
+<td>사용자 활용 구조</td>
+</tr>
+<tr>
+<td>주요 도구</td>
+<td>Python, ChromaDB, SentenceTransformer, Ollama</td>
+<td>Open WebUI, Ollama, Knowledge</td>
+</tr>
+<tr>
+<td>실습 방식</td>
+<td>코드 실행</td>
+<td>웹 화면 조작</td>
+</tr>
+<tr>
+<td>목적</td>
+<td>Parser, Chunking, Embedding 이해</td>
+<td>Knowledge 등록과 질의응답 경험</td>
+</tr>
+<tr>
+<td>장점</td>
+<td>내부 동작을 정확히 이해 가능</td>
+<td>빠르게 사용자 경험 확인 가능</td>
+</tr>
+<tr>
+<td>한계</td>
+<td>화면 기반 사용성은 부족</td>
+<td>복잡한 문서 전처리는 제한적일 수 있음</td>
+</tr>
+</tbody>
+</table>
+<p>두 방식은 경쟁 관계가 아니라 보완 관계이다. 실무에서는 Open WebUI를 바로 사용할 수도 있지만, 문서 품질이 복잡하거나 보안·권한·Metadata 설계가 중요한 경우 별도의 전처리 파이프라인이 필요하다.</p>
+<hr />
+<h2 id="3-open-webui-knowledge">3. Open WebUI Knowledge 구조</h2>
+<p>Open WebUI Knowledge는 사용자가 문서를 업로드하고, 해당 문서를 기반으로 Chat에서 질문할 수 있게 해주는 기능이다.</p>
+<p>기본 흐름은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>문서 업로드
+   ↓
+문서 Parser 처리
+   ↓
+텍스트 추출
+   ↓
+Chunking
+   ↓
+Embedding
+   ↓
+Vector DB 저장
+   ↓
+Chat에서 Knowledge 선택
+   ↓
+문서 기반 답변 생성
+</code></pre></div>
+<p>사용자 입장에서는 단순히 문서를 업로드하고 질문하는 것처럼 보이지만, 내부적으로는 Step2-5A에서 코드로 구현했던 것과 유사한 RAG 파이프라인이 동작한다.</p>
+<hr />
+<h2 id="4">4. 실습 전제 조건</h2>
+<p>이 실습을 진행하려면 다음 환경이 준비되어 있어야 한다.</p>
+<div class="highlight"><pre><span></span><code>1. Ollama 설치 완료
+2. Local LLM 모델 다운로드 완료
+3. Open WebUI 실행 완료
+4. 브라우저에서 Open WebUI 접속 가능
+5. 테스트용 문서 준비
+</code></pre></div>
+<p>예를 들어 Ollama 모델은 다음과 같이 준비할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>pull<span class="w"> </span>llama3.1:8b
+</code></pre></div>
+<p>Open WebUI는 Step1-4에서 Docker 기반으로 구축한 환경을 사용한다.</p>
+<hr />
+<h2 id="5">5. 실습용 문서 준비</h2>
+<p>처음부터 실제 고객사 문서를 업로드하지 말고, 테스트용 샘플 문서를 사용하는 것이 좋다.</p>
+<p>권장 테스트 문서는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 내부 교육용 PDF
+2. 샘플 업무 매뉴얼 DOCX
+3. RAG 실습용 Markdown 문서
+4. 개인정보가 제거된 제안서 샘플
+5. 보안 정보가 제거된 아키텍처 설명 문서
+</code></pre></div>
+<p>주의할 점은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. Public GitHub에 올릴 문서는 반드시 민감정보를 제거한다.
+2. 고객사명, 금액, 인력정보, 계정정보, 서버 IP는 제거한다.
+3. 실제 RFP나 제안서는 비식별화 후 사용한다.
+4. 개인정보가 포함된 문서는 실습에 사용하지 않는다.
+</code></pre></div>
+<hr />
+<h2 id="6-open-webui-knowledge">6. Open WebUI Knowledge 생성 절차</h2>
+<h3 id="61-open-webui">6.1 Open WebUI 접속</h3>
+<p>브라우저에서 Open WebUI에 접속한다.</p>
+<p>일반적으로 로컬 Docker 환경에서는 다음 주소를 사용한다.</p>
+<div class="highlight"><pre><span></span><code>http://localhost:3000
+</code></pre></div>
+<p>환경에 따라 포트가 다를 수 있으므로, 본인이 Docker 실행 시 지정한 포트를 확인한다.</p>
+<hr />
+<h3 id="62-knowledge">6.2 Knowledge 메뉴 이동</h3>
+<p>Open WebUI 화면에서 Knowledge 또는 Workspace의 Knowledge 메뉴로 이동한다.</p>
+<p>화면 구성은 Open WebUI 버전에 따라 조금씩 다를 수 있지만, 일반적으로 다음 흐름이다.</p>
+<div class="highlight"><pre><span></span><code>좌측 메뉴
+   ↓
+Workspace 또는 Admin 영역
+   ↓
+Knowledge
+   ↓
+Create Knowledge
+</code></pre></div>
+<hr />
+<h3 id="63-knowledge">6.3 Knowledge 생성</h3>
+<p>새 Knowledge를 생성한다.</p>
+<p>예시는 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>예시</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td><code>AI Data Platform Step2-5 Enterprise RAG</code></td>
+</tr>
+<tr>
+<td>Description</td>
+<td><code>사내 문서 기반 RAG 실습용 Knowledge</code></td>
+</tr>
+<tr>
+<td>Visibility</td>
+<td>개인 실습이면 Private, 팀 실습이면 공유 정책에 맞게 설정</td>
+</tr>
+</tbody>
+</table>
+<p>이름은 나중에 Chat 화면에서 찾기 쉬워야 한다. 프로젝트명, 단계명, 문서 유형을 포함하면 관리가 편하다.</p>
+<hr />
+<h3 id="64">6.4 문서 업로드</h3>
+<p>Knowledge에 테스트 문서를 업로드한다.</p>
+<p>권장 순서는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 먼저 TXT 또는 MD 문서 업로드
+2. 그 다음 DOCX 문서 업로드
+3. 그 다음 PDF 문서 업로드
+4. 마지막으로 PPTX 또는 복잡한 문서 테스트
+</code></pre></div>
+<p>단순한 문서부터 테스트해야 문제가 생겼을 때 원인을 찾기 쉽다. 처음부터 복잡한 제안서 PPTX나 스캔 PDF를 올리면 Parser 문제인지, Embedding 문제인지, 모델 답변 문제인지 구분하기 어렵다.</p>
+<hr />
+<h3 id="65">6.5 문서 처리 상태 확인</h3>
+<p>문서를 업로드하면 Open WebUI가 문서를 처리한다.</p>
+<p>처리 단계에서 다음 문제가 발생할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>1. 파일 업로드 실패
+2. 문서 텍스트 추출 실패
+3. Embedding 실패
+4. 파일 크기 초과
+5. 지원하지 않는 문서 형식
+6. Docker 볼륨 또는 권한 문제
+</code></pre></div>
+<p>문서 처리가 완료되면 Knowledge 목록에서 해당 파일이 정상 등록되었는지 확인한다.</p>
+<hr />
+<h2 id="7-chat-knowledge">7. Chat 화면에서 Knowledge 사용</h2>
+<h3 id="71">7.1 모델 선택</h3>
+<p>Chat 화면에서 사용할 Local LLM 모델을 선택한다.</p>
+<p>예시는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>llama3.1:8b
+qwen2.5:7b
+mistral
+gemma
+</code></pre></div>
+<p>처음 실습에서는 이미 Step1에서 정상 동작을 확인한 모델을 사용하는 것이 좋다.</p>
+<hr />
+<h3 id="72-knowledge">7.2 Knowledge 연결</h3>
+<p>Chat 화면에서 방금 생성한 Knowledge를 선택한다.</p>
+<p>일반적인 흐름은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Chat 화면
+   ↓
+Knowledge 선택 또는 #Knowledge 호출
+   ↓
+질문 입력
+   ↓
+문서 기반 답변 확인
+</code></pre></div>
+<p>Open WebUI 버전에 따라 Knowledge를 선택하는 방식이 다를 수 있다. 어떤 버전에서는 대화 설정에서 Knowledge를 선택하고, 어떤 버전에서는 <code>#</code> 또는 첨부 메뉴를 통해 Knowledge를 연결한다.</p>
+<hr />
+<h3 id="73">7.3 테스트 질문 입력</h3>
+<p>문서를 기반으로 질문한다.</p>
+<p>예시는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>이 문서의 핵심 내용을 요약해줘.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>전자금융 장애 대응 절차를 알려줘.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>이 문서에서 아키텍처 구성요소를 정리해줘.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>문서에 나온 주요 시스템과 역할을 표로 정리해줘.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>근거 문서 기준으로만 답변하고, 문서에 없으면 없다고 말해줘.
+</code></pre></div>
+<p>마지막 질문처럼 답변 기준을 명확히 주는 것이 중요하다. RAG에서는 모델이 일반 지식으로 추측하지 않도록 지시하는 습관이 필요하다.</p>
+<hr />
+<h2 id="8">8. 답변 검증 방법</h2>
+<p>Open WebUI에서 문서 기반 답변이 생성되면 다음 기준으로 검증한다.</p>
+<div class="highlight"><pre><span></span><code>1. 질문과 관련된 문서 내용이 검색되었는가?
+2. 답변이 문서 내용과 일치하는가?
+3. 문서에 없는 내용을 추측하지 않았는가?
+4. 출처 또는 Citation을 확인할 수 있는가?
+5. 같은 질문을 반복했을 때 답변 품질이 안정적인가?
+6. 문서 일부만 근거로 과도하게 일반화하지 않았는가?
+</code></pre></div>
+<p>실무에서는 답변이 그럴듯한지보다 <strong>근거가 맞는지</strong>가 더 중요하다.</p>
+<hr />
+<h2 id="9">9. 권장 프롬프트</h2>
+<p>Open WebUI에서 Knowledge 기반 질의응답을 할 때는 다음과 같은 프롬프트를 사용할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>업로드된 Knowledge 문서만 근거로 답변해줘.
+문서에 없는 내용은 추측하지 말고 &quot;문서에서 확인되지 않습니다&quot;라고 말해줘.
+답변 마지막에는 참고한 문서명이나 근거 위치를 요약해줘.
+</code></pre></div>
+<p>조금 더 실무적으로 작성하면 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>너는 사내 문서 기반 RAG 어시스턴트다.
+반드시 Knowledge에 등록된 문서 내용만 근거로 답변한다.
+근거가 부족하면 부족하다고 명확히 말한다.
+답변은 업무 담당자가 바로 이해할 수 있도록 정리한다.
+가능하면 항목별로 정리하고, 마지막에 참고 근거를 표시한다.
+</code></pre></div>
+<hr />
+<h2 id="10-open-webui">10. Open WebUI 방식의 장점</h2>
+<p>Open WebUI Knowledge 방식의 장점은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 웹 화면에서 문서를 쉽게 업로드할 수 있다.
+2. 별도 Python 코드를 작성하지 않아도 RAG를 체험할 수 있다.
+3. Local LLM과 쉽게 연결할 수 있다.
+4. 팀원이 같은 UI로 테스트할 수 있다.
+5. Chat 기반으로 사용자 경험을 빠르게 검증할 수 있다.
+</code></pre></div>
+<p>이 방식은 교육과 PoC에 매우 적합하다. 특히 RAG 개념을 모르는 팀원에게 문서 기반 질의응답을 보여줄 때 효과적이다.</p>
+<hr />
+<h2 id="11-open-webui">11. Open WebUI 방식의 한계</h2>
+<p>Open WebUI는 편리하지만 모든 기업 문서를 완벽하게 처리하지는 못한다.</p>
+<p>주의해야 할 문서 유형은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 표가 복잡한 Excel 문서
+2. 도형과 이미지 중심의 PPT 제안서
+3. 스캔 PDF
+4. HWP 문서
+5. 화면 캡처가 많은 설계서
+6. 아키텍처 다이어그램 중심 문서
+7. 표 병합이 많은 요구사항 정의서
+</code></pre></div>
+<p>이런 문서는 단순 Parser로 텍스트를 뽑으면 의미가 깨질 수 있다. 예를 들어 PPT 아키텍처 그림은 텍스트 박스만 추출하면 전체 구조를 이해하기 어렵고, Excel 요구사항 표는 셀 병합 때문에 Row 의미가 깨질 수 있다.</p>
+<p>이 경우에는 Step2-5A의 전처리 파이프라인을 사용하여 문서를 미리 정제하는 것이 좋다.</p>
+<hr />
+<h2 id="12">12. 실무 권장 구조</h2>
+<p>실무에서는 Open WebUI만 단독으로 사용하는 것보다, 전처리 파이프라인과 함께 사용하는 구조가 더 안정적이다.</p>
+<div class="highlight"><pre><span></span><code>원본 사내 문서
+   ↓
+문서 전처리 파이프라인
+   - PDF Parser
+   - PPTX Parser
+   - DOCX Parser
+   - XLSX Parser
+   - OCR
+   - Vision LLM 설명 생성
+   - Metadata 생성
+   ↓
+정제된 텍스트 또는 Markdown 생성
+   ↓
+Open WebUI Knowledge 등록
+   ↓
+사용자 Chat 질의응답
+</code></pre></div>
+<p>이 구조의 장점은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 복잡한 문서를 사전에 정제할 수 있다.
+2. Metadata 품질을 통제할 수 있다.
+3. 보안 필터링과 개인정보 마스킹을 적용할 수 있다.
+4. Open WebUI에는 검증된 문서만 등록할 수 있다.
+5. 사용자 경험은 Open WebUI로 제공하면서 내부 품질은 파이프라인으로 관리할 수 있다.
+</code></pre></div>
+<hr />
+<h2 id="13">13. 테스트 시나리오</h2>
+<h3 id="131">13.1 기본 요약 테스트</h3>
+<div class="highlight"><pre><span></span><code>이 Knowledge 문서의 전체 내용을 5개 항목으로 요약해줘.
+</code></pre></div>
+<p>검증 포인트는 문서 전체 주제를 제대로 파악하는지 확인하는 것이다.</p>
+<h3 id="132">13.2 근거 기반 질문 테스트</h3>
+<div class="highlight"><pre><span></span><code>문서에 정의된 전자금융 장애 대응 절차를 단계별로 설명해줘.
+</code></pre></div>
+<p>검증 포인트는 문서에 있는 내용을 근거로 답변하는지 확인하는 것이다.</p>
+<h3 id="133">13.3 문서에 없는 질문 테스트</h3>
+<div class="highlight"><pre><span></span><code>이 문서에 없는 시스템의 운영 비용을 알려줘.
+</code></pre></div>
+<p>정상적인 RAG 답변은 추측하지 않고 문서에서 확인되지 않는다고 말해야 한다.</p>
+<h3 id="134">13.4 출처 확인 테스트</h3>
+<div class="highlight"><pre><span></span><code>답변 근거가 된 문서명과 위치를 함께 알려줘.
+</code></pre></div>
+<p>실무에서는 출처 확인이 매우 중요하다. 답변 내용이 맞더라도 출처를 확인할 수 없으면 업무에 활용하기 어렵다.</p>
+<hr />
+<h2 id="14">14. 문제 해결 가이드</h2>
+<h3 id="141">14.1 문서 업로드가 안 되는 경우</h3>
+<p>다음을 확인한다.</p>
+<div class="highlight"><pre><span></span><code>1. 파일 크기가 너무 크지 않은가?
+2. Open WebUI Docker 컨테이너가 정상 실행 중인가?
+3. 브라우저 세션이 만료되지 않았는가?
+4. 지원하지 않는 확장자인가?
+5. Docker 볼륨 권한 문제가 있는가?
+</code></pre></div>
+<h3 id="142">14.2 답변이 문서와 무관한 경우</h3>
+<p>다음을 확인한다.</p>
+<div class="highlight"><pre><span></span><code>1. Knowledge가 Chat에 제대로 연결되었는가?
+2. 질문이 너무 일반적이지 않은가?
+3. 문서 처리가 완료되었는가?
+4. 문서 텍스트 추출이 정상적으로 되었는가?
+5. 모델이 Knowledge보다 일반 지식으로 답변하고 있지 않은가?
+</code></pre></div>
+<p>질문에 다음 문장을 추가하면 개선될 수 있다.</p>
+<div class="highlight"><pre><span></span><code>Knowledge 문서에 있는 내용만 근거로 답변해줘.
+</code></pre></div>
+<h3 id="143-pdf">14.3 PDF 내용이 검색되지 않는 경우</h3>
+<p>PDF가 스캔 문서일 수 있다. 스캔 PDF는 내부 텍스트가 없으므로 일반 Parser로 추출되지 않는다. 이 경우 OCR 처리가 필요하다.</p>
+<h3 id="144-ppt">14.4 PPT 내용이 부정확한 경우</h3>
+<p>PPT는 도형, 이미지, SmartArt, 차트에 정보가 들어 있는 경우가 많다. 기본 텍스트 추출만으로는 의미가 부족할 수 있다. 중요한 슬라이드는 이미지로 변환한 뒤 Vision LLM이나 OCR로 설명 텍스트를 생성하는 방식을 검토한다.</p>
+<h3 id="145-excel">14.5 Excel 내용이 이상하게 검색되는 경우</h3>
+<p>Excel은 병합 셀, 다중 헤더, 숨김 행, 수식 때문에 의미가 깨질 수 있다. 요구사항 정의서나 기능 목록은 Sheet와 Row 단위로 문장형 텍스트를 생성한 뒤 Knowledge에 등록하는 것이 좋다.</p>
+<hr />
+<h2 id="15">15. 완료 기준</h2>
+<p>다음 조건을 만족하면 Step2-5B 실습을 완료한 것으로 판단한다.</p>
+<div class="highlight"><pre><span></span><code>1. Open WebUI에 접속했다.
+2. Knowledge를 새로 생성했다.
+3. 테스트 문서를 업로드했다.
+4. 문서 처리 상태를 확인했다.
+5. Chat 화면에서 Knowledge를 연결했다.
+6. 문서 기반 질문을 입력했다.
+7. 답변 내용이 문서 근거와 일치하는지 확인했다.
+8. 문서에 없는 질문에 대해 추측하지 않는지 확인했다.
+9. Citation 또는 근거 문서 정보를 확인했다.
+10. Open WebUI 방식의 장점과 한계를 이해했다.
+</code></pre></div>
+<hr />
+<h2 id="16">16. 최종 정리</h2>
+<p>Step2-5B는 Open WebUI를 사용하여 사내 문서 RAG를 사용자 관점에서 실습하는 단계이다.</p>
+<p>Step2-5A가 개발자 관점의 내부 파이프라인이라면, Step2-5B는 실제 사용자가 문서를 올리고 질문하는 활용 방식이다.</p>
+<p>실무에서는 두 방식을 함께 이해해야 한다.</p>
+<div class="highlight"><pre><span></span><code>Step2-5A
+문서 전처리 파이프라인으로 품질을 만든다.
+
+Step2-5B
+Open WebUI Knowledge로 사용성을 검증한다.
+</code></pre></div>
+<p>이 구조를 이해하면 이후 Step3 Agent 단계에서 RAG 검색 결과를 Tool Calling, API 호출, 업무 자동화와 결합하는 구조로 자연스럽게 확장할 수 있다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "search.highlight", "search.share", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
