@@ -70,6 +70,7 @@ nav:
               - 문서 전처리 파이프라인: study/step2/step2_5a_enterprise_ingestion_guide.md
               - 실습파일 사용 가이드: study/step2/step2_5a_practice_guide.md
               - Open WebUI Knowledge 구축: study/step2/step2_5b_openwebui_enterprise_knowledge_guide.md
+              - AI OCR / Vision LLM: study/step2/step2_5c_ai_ocr_vision_llm_document_understanding_guide.md
       - Step 3 Agent 만들기 :
           - Agent 개요: study/iceberg.md
       - Step 4 AI Data Platform:
