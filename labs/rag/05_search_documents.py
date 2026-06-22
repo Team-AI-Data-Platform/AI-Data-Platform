@@ -350,44 +350,570 @@ def search_documents(query: str, top_k: int = 3) -> list[dict[str, Any]]:
 
 
 
+    # ChromaDB 컬렉션 조회
     chroma_path = find_chroma_path()
     collection = get_collection(chroma_path)
 
+    # 현재 저장된 문서 수 확인
     total_count = collection.count()
+
+    # 문서가 하나도 없으면 검색을 진행할 수 없음
     if total_count == 0:
         raise RuntimeError(
             f"컬렉션은 존재하지만 저장된 문서가 없습니다: {COLLECTION_NAME}\n"
             "03_insert_to_chroma.py 실행 결과를 다시 확인하세요."
         )
 
-    model = SentenceTransformer(MODEL_NAME)
-    query_embedding = model.encode([query]).tolist()
 
+
+
+    # 03_insert_to_chroma.py에서 문서 Chunk를 저장할 때 사용한 것과 동일한 임베딩 모델을 로딩한다.
+    # 문서와 질문은 같은 모델로 벡터화해야 서로 의미 비교가 가능하다.
+    ######################################################
+    # SentenceTransformer()
+    ######################################################
+    # 문장 임베딩(Sentence Embedding) 모델을 로딩한다.
+    # 자연어 문장을 AI가 이해할 수 있는
+    # 벡터(Vector) 형태로 변환하기 위해 사용한다.
+    # RAG에서는 문서와 사용자 질문을 동일한 모델로
+    # 벡터화해야 의미 기반 유사도 검색이 가능하다.
+    # Parameter
+    #   model_name : str
+    #       사용할 임베딩 모델명
+    #       예) "BAAI/bge-m3"
+    #           "sentence-transformers/all-MiniLM-L6-v2"
+    # Return
+    #   SentenceTransformer
+    #       문장을 벡터로 변환할 수 있는
+    #       임베딩 모델 객체를 반환한다.
+    # Example
+    #   model = SentenceTransformer(MODEL_NAME)
+    ######################################################
+    model = SentenceTransformer(MODEL_NAME)
+    # print(type(model))
+    # <class 'sentence_transformers.SentenceTransformer'>
+
+
+
+
+
+    ######################################################
+    # encode()
+    ######################################################
+    # 입력한 문장을 임베딩 벡터(Vector)로 변환한다.
+    # 자연어 문장은 AI가 직접 비교하거나 계산할 수 없기 때문에 의미를 포함한 숫자 배열 형태로 변환해야 한다.
+    # encode()는 입력 문장의 의미를 분석하여 수백~수천 차원의 벡터를 생성한다.
+    # 생성된 벡터는 Vector DB에 저장된 문서 벡터와 유사도(Similarity) 비교를 수행하는데 사용된다.
+    # RAG에서는 사용자의 질문을 벡터로 변환한 후 문서 벡터와 비교하여 관련 문서를 검색한다.
+    #
+    # Parameter
+    #   sentences : str | list[str]
+    #       벡터로 변환할 문장 또는 문장 목록
+    #       예)
+    #       "RAG란 무엇인가?"
+    #       또는
+    #       [
+    #           "RAG란 무엇인가?",
+    #           "Vector DB란 무엇인가?"
+    #       ]
+    # Return Type
+    #   numpy.ndarray
+    #
+    # Return Value
+    #   입력 문장에 대한 임베딩 벡터
+    #   예)
+    #   [
+    #       [0.1234, -0.5678, 0.9876, ...]
+    #   ]
+    #   벡터의 차원 수는 사용한 모델에 따라 달라진다.
+    #   (예: 384차원, 768차원, 1024차원 등)
+    # Example
+    #   query_embedding = model.encode([query])
+    ######################################################
+    #query_embedding = model.encode([query])
+    #print(type(query_embedding)) #<class 'numpy.ndarray'>
+    query_embedding = model.encode([query]).tolist()
+    print(type(query_embedding)) # <class 'list'>
+
+    #(참고)
+    ######################################################
+    # numpy.ndarray
+    ######################################################
+    # NumPy 라이브러리에서 제공하는 다차원 배열(Array) 객체이다.
+    # ndarray는 Numerical Python Array의 약자이다.
+    # 일반 Python의 list보다 메모리 사용량이 적고 수치 계산 성능이 매우 뛰어나기 때문에
+    # AI, 머신러닝, 데이터 분석 분야에서 표준처럼 사용된다.
+    #
+    # SentenceTransformer.encode()의 결과도 numpy.ndarray 타입으로 반환된다.
+    #
+    # Example
+    #   embeddings = model.encode(["RAG란 무엇인가?"])
+    #
+    #   type(embeddings)
+    #   -> numpy.ndarray
+    #
+    # Example Value
+    #   array([
+    #       [0.1234, -0.5678, 0.9876, ...]
+    #   ])
+    #
+    # 특징
+    #   - 다차원 배열 지원
+    #   - 빠른 수치 계산
+    #   - 벡터 연산 지원
+    #   - AI/머신러닝 라이브러리와 높은 호환성
+    #
+    # Python List와 비교
+    #   List
+    #       [1, 2, 3]
+    #   ndarray
+    #       array([1, 2, 3])
+    #
+    # RAG에서는
+    #   문서 벡터와 질문 벡터를 저장하고
+    #   유사도 계산을 수행하기 위해 자주 사용된다.
+    ######################################################
+
+
+
+
+
+
+    ######################################################
+    # min()
+    ######################################################
+    # 검색 결과 개수를 결정한다. 
+    # 사용자가 요청한 top_k 값과 실제 저장된 문서 개수(total_count)를 비교하여 더 작은 값을 반환한다.
+    # 문서가 3개밖에 없는데
+    # top_k=10으로 검색하면 오류가 발생할 수 있으므로
+    # 안전하게 검색 개수를 제한한다.
+    # Parameter
+    #   x : int
+    #       비교할 첫 번째 값
+    #   y : int
+    #       비교할 두 번째 값
+    # Return Type
+    #   int
+    # Return Value
+    #   두 값 중 더 작은 값
+    # Example
+    #   min(10, 3)
+    #   -> 3
+    ######################################################
     n_results = min(top_k, total_count)
 
+
+    ######################################################
+    # query()
+    ######################################################
+    # Vector DB에서 유사한 문서를 검색한다.
+    #
+    # 사용자의 질문 벡터(query_embedding)와 저장된 문서 벡터를 비교하여 가장 유사한 문서를 조회한다.
+    # 내부적으로 코사인 유사도(Cosine Similarity) 또는 벡터 거리 계산을 수행한다.
+    # RAG 검색의 핵심 기능이다.
+    # Parameter
+    #   query_embeddings : list[list[float]]
+    #       검색 기준이 되는 질문 벡터
+    #   n_results : int
+    #       반환할 검색 결과 개수
+    #   include : list[str]
+    #       함께 조회할 데이터 항목
+    #       documents
+    #           저장된 문서 내용
+    #       metadatas
+    #           문서 메타데이터
+    #       distances
+    #           질문과 문서 간 거리값
+    #
+    # Return Type
+    #   dict
+    #
+    # Return Value
+    #   검색 결과 정보
+    #
+    #   예)
+    #   {
+    #       "documents": [...],
+    #       "metadatas": [...],
+    #       "distances": [...]
+    #   }
+    #
+    # Example
+    #   results = collection.query(
+    #       query_embeddings=query_embedding,
+    #       n_results=3
+    #   )
+    ######################################################
     results = collection.query(
-        query_embeddings=query_embedding,
-        n_results=n_results,
+        query_embeddings=query_embedding,  # 사용자 질문을 encode()로 변환한 임베딩 벡터
+        n_results=n_results,               # 조회할 최대 결과 건수
+        #################################################
+        # include 옵션 설명
+        #################################################
+        # documents
+        #   검색된 문서 본문 반환
+        #
+        # metadatas
+        #   문서 저장 시 등록한 메타데이터 반환
+        #   예) 파일명, 문서유형, 생성일 등
+        #
+        # distances
+        #   질문 벡터와 문서 벡터 사이의 거리값 반환
+        #
+        #   거리값이 작을수록 유사도가 높다.
+        #
+        #   예)
+        #       0.12  -> 매우 유사
+        #       0.35  -> 유사
+        #       0.80  -> 관련성 낮음
         include=["documents", "metadatas", "distances"],
     )
 
+    ######################################################
+    # include
+    ######################################################
+    # - 기능:
+    #   query() 실행 시
+    #   검색 결과에 어떤 정보를 포함하여 반환할지 지정한다.
+    # - 역할:
+    #   ChromaDB는 검색 결과로 IDs, Documents, Metadata, Distance, Embedding 등의
+    #   다양한 정보를 반환할 수 있다.
+    #   include는 이 중 어떤 항목을 가져올지 선택하는 옵션이다.
+    #
+    #   필요한 데이터만 조회하여
+    #   메모리 사용량과 응답 크기를 줄일 수 있다.
+    #
+    # - 파라미터:
+    #
+    #   include=[
+    #       "documents",
+    #       "metadatas",
+    #       "distances"
+    #   ]
+    #
+    #   1. documents
+    #      검색된 문서(Chunk) 내용 반환
+    #   2. metadatas
+    #      문서 저장 시 함께 저장한 메타데이터 반환
+    #      예)
+    #      {
+    #          "source": "guide.md",
+    #          "chunk_id": 5
+    #      }
+    #
+    #   3. distances
+    #      질문 벡터와 문서 벡터 간의 거리값(Distance) 반환
+    #      값이 작을수록 유사도가 높다.
+    # - 추가 가능 옵션:   "embeddings"
+    #   저장된 임베딩 벡터 반환
+    # - 파라미터 타입:   list[str]
+    # - 리턴 타입:  dict
+    # - 실제 반환 예시:
+    #   {
+    #       "ids": [
+    #           ["1", "2", "3"]
+    #       ],
+    #       "documents": [
+    #           [
+    #               "문서1 내용",
+    #               "문서2 내용",
+    #               "문서3 내용"
+    #           ]
+    #       ],
+    #       "metadatas": [
+    #           [
+    #               {
+    #                   "source": "guide.md"
+    #               },
+    #               {
+    #                   "source": "guide.md"
+    #               },
+    #               {
+    #                   "source": "manual.md"
+    #               }
+    #           ]
+    #       ],
+    #
+    #       "distances": [
+    #           [
+    #               0.11,
+    #               0.18,
+    #               0.24
+    #           ]
+    #       ]
+    #   }
+    #
+    # - 현재 코드 의미:
+    #
+    #   include=[
+    #       "documents",
+    #       "metadatas",
+    #       "distances"
+    #   ]
+    #
+    #   검색된 문서 내용,
+    #   문서 메타데이터,
+    #   문서 유사도 정보를 함께 조회한다.
+
+
+
+
+
+    # results 딕셔너리에서 검색된 문서(Document) 목록을 가져온다.
+    ######################################################
+    # get()
+    ######################################################
+    # - 기능:
+    #   딕셔너리에서 지정한 Key의 값을 조회한다.
+    #
+    # - 역할:
+    #   "documents" Key가 존재하면 해당 값을 반환하고,
+    #   존재하지 않으면 기본값([[]])을 반환한다.
+    #
+    # - 파라미터:
+    #   1. "documents"
+    #      조회할 Key 이름
+    #
+    #   2. [[]]
+    #      Key가 없을 경우 반환할 기본값(Default Value)
+    #
+    # - 리턴 타입:
+    #   list
+    #
+    # - 실제 반환 예시:
+    #   [
+    #       [
+    #           "문서1 내용",
+    #           "문서2 내용",
+    #           "문서3 내용"
+    #       ]
+    #   ]
+    #
+    # [0]의 의미:
+    # ChromaDB query 결과는
+    # 여러 개 Query를 동시에 처리할 수 있도록
+    # 항상 2차원 배열(List[List]) 형태로 반환된다.
+    #
+    # 현재는 Query가 1개이므로
+    # 첫 번째 결과만 꺼내기 위해 [0] 사용
+    #
+    # 최종 결과:
+    # [
+    #     "문서1 내용",
+    #     "문서2 내용",
+    #     "문서3 내용"
+    # ]
     documents = results.get("documents", [[]])[0]
+
+
+    # 검색된 문서의 Metadata 목록을 가져온다.
+    #
+    # include=["metadatas"] 로 요청한 결과
+    #
+    # 최종 결과 예시:
+    # [
+    #     {"source": "guide.md", "page": 1},
+    #     {"source": "guide.md", "page": 2},
+    #     {"source": "manual.md", "page": 5}
+    # ]
     metadatas = results.get("metadatas", [[]])[0]
+
+
+    # 검색된 문서와 질문 간 거리(Distance) 값을 가져온다.
+    #
+    # include=["distances"] 로 요청한 결과
+    #
+    # Distance 의미:
+    # - 값이 작을수록 유사도 높음
+    # - 값이 클수록 유사도 낮음
+    #
+    # 최종 결과 예시:
+    # [
+    #     0.12,
+    #     0.18,
+    #     0.31
+    # ]
     distances = results.get("distances", [[]])[0]
 
+
+
+
+
+    ######################################################
+    # searched_docs
+    ######################################################
+    # - 기능 및 역할:
+    #   ChromaDB 검색 결과에서 분리되어 있는
+    #   documents, metadatas, distances 목록을 하나의 구조로 합친다.
+    #   최종적으로 화면 출력이나 LLM 프롬프트 생성에 사용하기 쉬운
+    #   list[dict] 형태의 검색 결과 목록을 만든다.
+    # - 타입:   list[dict[str, Any]]
+    # - 초기값:   빈 리스트 []
+    # - 최종 저장 형태:
+    #   [
+    #       {
+    #           "rank": 1,
+    #           "document": "검색된 문서 내용",
+    #           "metadata": {"source": "guide.md"},
+    #           "distance": 0.12
+    #       },
+    #       {
+    #           "rank": 2,
+    #           "document": "검색된 문서 내용",
+    #           "metadata": {"source": "manual.md"},
+    #           "distance": 0.18
+    #       }
+    #   ]
     searched_docs: list[dict[str, Any]] = []
 
+
     for index, document in enumerate(documents):
+    ######################################################
+    # enumerate()
+    ######################################################
+    # - 기능 및 역할:
+    #   반복문에서 리스트의 값과 함께 현재 순번(index)을 같이 가져온다.
+    #   일반 for문은 document 값만 가져오지만,
+    #   enumerate()를 사용하면 index와 document를 함께 사용할 수 있다.
+    # - 파라미터: documents (반복 대상 리스트)
+    #   예)
+    #   [
+    #       "문서1 내용",
+    #       "문서2 내용",
+    #       "문서3 내용"
+    #   ]
+    # - 리턴 타입:
+    #   enumerate 객체
+    # - 리턴값:
+    #   반복 시 다음과 같이 index와 값이 함께 반환된다.
+    #
+    #   첫 번째 반복:
+    #   index = 0
+    #   document = "문서1 내용"
+    #
+    #   두 번째 반복:
+    #   index = 1
+    #   document = "문서2 내용"
+    #
+    #   세 번째 반복:
+    #   index = 2
+    #   document = "문서3 내용"
+    #
+    # - 현재 코드 의미:
+    #   documents 목록을 순서대로 반복하면서
+    #   각 문서의 위치(index)와 문서 내용(document)을 함께 가져온다.
+
+
         searched_docs.append(
+        ######################################################
+        # append()
+        ######################################################
+        # - 기능 및 역할:   리스트의 마지막에 새로운 값을 추가한다.
+        #   여기서는 searched_docs 리스트에
+        #   검색 결과 1건을 dict 형태로 만들어 추가한다.
+        # - 파라미터:
+        #   {
+        #       "rank": index + 1,
+        #       "document": document,
+        #       "metadata": metadatas[index] if index < len(metadatas) else {},
+        #       "distance": distances[index] if index < len(distances) else None,
+        #   }
+        #   searched_docs 리스트에 추가할 dict 객체
+        # - 리턴 타입:  None
+        # - 리턴값:
+        #   append() 함수는 값을 반환하지 않는다.
+        #   대신 searched_docs 리스트 자체가 변경된다.
+        # - 현재 코드 의미:
+        #   검색된 문서 1건에 대해
+        #   순위, 문서 내용, 메타데이터, 거리값을 하나의 dict로 묶어서
+        #   searched_docs 리스트에 추가한다.
+
             {
+                
                 "rank": index + 1,
+                ######################################################
+                # rank
+                ######################################################
+                # - 기능 및 역할:
+                #   검색 결과의 순위를 저장한다.
+                #   index는 0부터 시작하므로
+                #   사용자가 보기 쉬운 순위로 만들기 위해 index + 1을 사용한다.
+                # - 값 예시:
+                #   index = 0 -> rank = 1
+                #   index = 1 -> rank = 2
+                #   index = 2 -> rank = 3
+
+
+                
                 "document": document,
+                ######################################################
+                # document
+                ######################################################
+                # - 기능 및 역할:
+                #   현재 반복 중인 검색 문서 내용을 저장한다.
+                #   ChromaDB에서 include=["documents"]로 조회한
+                #   문서 Chunk 내용이다.
+                # - 값 예시:
+                #
+                #   "Spring Boot에서 JWT 인증은 ..."
+
+                
                 "metadata": metadatas[index] if index < len(metadatas) else {},
+                ######################################################
+                # metadata
+                ######################################################
+                # - 기능 및 역할:
+                #   현재 문서에 대응되는 메타데이터를 저장한다.
+                #   metadatas[index]를 사용하여
+                #   현재 document와 같은 순번의 metadata를 가져온다.
+                #   단, metadatas 목록 길이가 documents보다 짧을 수 있으므로
+                #   index < len(metadatas) 조건으로 안전하게 확인한다.
+                # - 파라미터 및 조건: index < len(metadatas)
+                #   현재 index가 metadatas 리스트 범위 안에 있는지 확인한다.
+                # - 리턴 타입: dict
+                # - 리턴값:
+                #   조건이 True이면:
+                #   metadatas[index]
+                #   예)
+                #   {
+                #       "source": "guide.md",
+                #       "chunk_id": 3
+                #   }
+                #
+                #   조건이 False이면:   {}
+                #   즉, metadata가 없을 경우 빈 dict를 저장한다.
+
+                
                 "distance": distances[index] if index < len(distances) else None,
+                ######################################################
+                # distance
+                ######################################################
+                # - 기능 및 역할:
+                #   현재 문서에 대응되는 거리값을 저장한다.
+                #   distances[index]를 사용하여 현재 document와 같은 순번의 distance 값을 가져온다.
+                #   단, distances 목록 길이가 documents보다 짧을 수 있으므로
+                #   index < len(distances) 조건으로 안전하게 확인한다.
+                # - 파라미터 및 조건:   index < len(distances)
+                #   현재 index가 distances 리스트 범위 안에 있는지 확인한다.
+                # - 리턴 타입:   float 또는 None
+                # - 리턴값:
+                #   조건이 True이면:   distances[index]
+                #   예)   0.1234
+                #   조건이 False이면:   None
+                #   즉, distance가 없을 경우 None을 저장한다.
+                # - 참고:
+                #   ChromaDB의 distance는 일반적으로
+                #   값이 작을수록 질문과 문서가 더 유사하다는 의미이다.
             }
         )
 
     return searched_docs
+
+
+
+
+
+
 
 
 def print_search_results(query: str, docs: list[dict[str, Any]]) -> None:
