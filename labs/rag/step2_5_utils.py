@@ -80,9 +80,25 @@ def find_files(directory: Path, extensions: tuple[str, ...]) -> list[Path]:
         return []
 
     results: list[Path] = []
+
+    #(ext.lower() for ext in extensions)를
+    # Generator Expression(제너레이터 표현식) 이라고 한다.
+    # 파이썬 에서는 [x.lower() for x in extensions] 게 하면 리스트가 만들어지고
+    # (x.lower() for x in extensions) 게 쓰면 제너레이터가 만들어 진다.
+    #   tuple(...)     tuple() 함수가 값을 하나씩 꺼냄     튜플로 변환
+    ### 함수의 유일한 인자로 제너레이터를 넘길 때는 바깥 괄호를 생략할 수 있다.
     lower_extensions = tuple(ext.lower() for ext in extensions)
 
+    ##############################################################
+    # pathlib.Path.rglob()
+    ##############################################################
+    # 현재 디렉토리부터 시작해서 하위 폴더를 전부 재귀적으로 탐색하면서 파일을 찾는다.
+    # 
+    # cf) glob() 와 차이 :: 현재 폴더만 검색
     for path in directory.rglob("*"):
+        
+        # path.suffix :: Path 객체가 제공하는 속성(property)
+        # -->파일의 확장자를 반환한다.
         if path.is_file() and path.suffix.lower() in lower_extensions:
             results.append(path)
 
