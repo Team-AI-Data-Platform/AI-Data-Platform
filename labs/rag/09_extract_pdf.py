@@ -22,6 +22,8 @@ from step2_5_utils import clean_text, find_files, stable_id, write_jsonl, print_
 
 
 def extract_pdf_files() -> list[dict]:
+
+    ## 실습에 필요한 디렉토리들을 (없는경우) 미리 생성함.
     ensure_directories()
 
     pdf_dir = ENTERPRISE_DOCS_DIR / "pdf"
@@ -30,6 +32,7 @@ def extract_pdf_files() -> list[dict]:
     records: list[dict] = []
 
     for pdf_path in pdf_files:
+        print(f"11==========> pdf_path :: {pdf_path}")
         try:
             reader = PdfReader(str(pdf_path))
         except Exception as exc:

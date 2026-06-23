@@ -20,6 +20,19 @@ __pycache__/
 venv/
 
 # =========================
+# RAG Original Documents
+# =========================
+labs/rag/enterprise_docs/pdf/*
+labs/rag/enterprise_docs/pptx/*
+labs/rag/enterprise_docs/xlsx/*
+labs/rag/enterprise_docs/docx/*
+!labs/rag/enterprise_docs/.gitkeep
+!labs/rag/enterprise_docs/pdf/.gitkeep
+!labs/rag/enterprise_docs/pptx/.gitkeep
+!labs/rag/enterprise_docs/xlsx/.gitkeep
+!labs/rag/enterprise_docs/docx/.gitkeep
+
+# =========================
 # RAG Generated Data
 # =========================
 

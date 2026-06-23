@@ -6,6 +6,7 @@ Step2-5A 실습 공통 설정 파일
 
 from pathlib import Path
 
+#__file__ :: “현재 실행 중인 파이썬 파일 자신의 경로” 를 알려주는 파이썬 내장 특수 변수다.#
 BASE_DIR = Path(__file__).resolve().parent
 
 ENTERPRISE_DOCS_DIR = BASE_DIR / "enterprise_docs"
@@ -27,6 +28,8 @@ SEARCH_TOP_K = 5
 
 def ensure_directories() -> None:
     """실습에 필요한 디렉터리를 생성한다."""
+    #parents=True ==> 부모디렉토리 까지 자동 생성.
+    #exist_ok=True ==> 이미 존재하면 그대로 사용
     EXTRACTED_TEXT_DIR.mkdir(parents=True, exist_ok=True)
     CHUNKS_DIR.mkdir(parents=True, exist_ok=True)
     CHROMA_DB_DIR.mkdir(parents=True, exist_ok=True)
