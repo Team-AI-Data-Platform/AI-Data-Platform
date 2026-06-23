@@ -99,10 +99,16 @@ def find_files(directory: Path, extensions: tuple[str, ...]) -> list[Path]:
         
         # path.suffix :: Path 객체가 제공하는 속성(property)
         # -->파일의 확장자를 반환한다.
+        # in 연산자 :: in 연산자는 어떤 값이 컬렉션(list, tuple, set, dict 등) 안에 포함되어 있는지 검사하는 연산자이다.
         if path.is_file() and path.suffix.lower() in lower_extensions:
             results.append(path)
 
     return sorted(results)
+
+
+
+
+
 
 
 def split_text(text: str, chunk_size: int, overlap: int) -> list[str]:
