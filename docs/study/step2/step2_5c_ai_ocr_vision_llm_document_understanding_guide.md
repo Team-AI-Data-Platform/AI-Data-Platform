@@ -392,15 +392,15 @@ should_use_vision = (
 should_use_vision = USE_VISION_LLM
 ```
 
-### 7.8 `11_extract_pdf_vision.py`와의 연결
+### 7.8 `09_extract_pdf_vision.py`와의 연결
 
-Vision 모델 설치와 Ollama 서버 연결 확인이 끝나면, 전체 PDF 처리 파일인 `11_extract_pdf_vision.py`를 실행한다.
+Vision 모델 설치와 Ollama 서버 연결 확인이 끝나면, 전체 PDF 처리 파일인 `09_extract_pdf_vision.py`를 실행한다.
 
 ```text
 09_extract_pdf.py
 = 일반 PDF 텍스트 추출 전용
 
-11_extract_pdf_vision.py
+09_extract_pdf_vision.py
 = PDF 전체 페이지를 대상으로 Parser + PNG 렌더링 + Vision LLM 병합 처리
 ```
 
@@ -411,7 +411,7 @@ Vision 모델 설치와 Ollama 서버 연결 확인이 끝나면, 전체 PDF 처
 python 09_extract_pdf.py
 
 # 2. 전체 PDF Vision 처리
-python 11_extract_pdf_vision.py
+python 09_extract_pdf_vision.py
 ```
 
 전체 처리 결과는 다음 경로에 저장하도록 구성한다.
