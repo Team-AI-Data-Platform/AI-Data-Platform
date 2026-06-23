@@ -1505,10 +1505,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#78-11_extract_pdf_visionpy" class="md-nav__link">
+  <a href="#78-09_extract_pdf_visionpy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7.8 11_extract_pdf_vision.py와의 연결
+        7.8 09_extract_pdf_vision.py와의 연결
       
     </span>
   </a>
@@ -2763,10 +2763,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#78-11_extract_pdf_visionpy" class="md-nav__link">
+  <a href="#78-09_extract_pdf_visionpy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7.8 11_extract_pdf_vision.py와의 연결
+        7.8 09_extract_pdf_vision.py와의 연결
       
     </span>
   </a>
@@ -3727,12 +3727,12 @@ ollama<span class="w"> </span>list
 <div class="highlight"><pre><span></span><code><span class="c1"># 특정 문서의 모든 페이지를 비교 분석할 때</span>
 <span class="n">should_use_vision</span> <span class="o">=</span> <span class="n">USE_VISION_LLM</span>
 </code></pre></div>
-<h3 id="78-11_extract_pdf_visionpy">7.8 <code>11_extract_pdf_vision.py</code>와의 연결</h3>
-<p>Vision 모델 설치와 Ollama 서버 연결 확인이 끝나면, 전체 PDF 처리 파일인 <code>11_extract_pdf_vision.py</code>를 실행한다.</p>
+<h3 id="78-09_extract_pdf_visionpy">7.8 <code>09_extract_pdf_vision.py</code>와의 연결</h3>
+<p>Vision 모델 설치와 Ollama 서버 연결 확인이 끝나면, 전체 PDF 처리 파일인 <code>09_extract_pdf_vision.py</code>를 실행한다.</p>
 <div class="highlight"><pre><span></span><code>09_extract_pdf.py
 = 일반 PDF 텍스트 추출 전용
 
-11_extract_pdf_vision.py
+09_extract_pdf_vision.py
 = PDF 전체 페이지를 대상으로 Parser + PNG 렌더링 + Vision LLM 병합 처리
 </code></pre></div>
 <p>권장 실행 순서는 다음과 같다.</p>
@@ -3740,7 +3740,7 @@ ollama<span class="w"> </span>list
 python<span class="w"> </span>09_extract_pdf.py
 
 <span class="c1"># 2. 전체 PDF Vision 처리</span>
-python<span class="w"> </span>11_extract_pdf_vision.py
+python<span class="w"> </span>09_extract_pdf_vision.py
 </code></pre></div>
 <p>전체 처리 결과는 다음 경로에 저장하도록 구성한다.</p>
 <div class="highlight"><pre><span></span><code>extracted_text/
