@@ -81,13 +81,21 @@ def find_files(directory: Path, extensions: tuple[str, ...]) -> list[Path]:
 
     results: list[Path] = []
 
+
+    ##############################################################
+    #제너레이터 표현식
+    ##############################################################
     #(ext.lower() for ext in extensions)를
     # Generator Expression(제너레이터 표현식) 이라고 한다.
+    ### cf) 함수의 유일한 인자로 제너레이터를 넘길 때는 바깥 괄호를 생략할 수 있다.
+
     # 파이썬 에서는 [x.lower() for x in extensions] 게 하면 리스트가 만들어지고
     # (x.lower() for x in extensions) 게 쓰면 제너레이터가 만들어 진다.
-    #   tuple(...)     tuple() 함수가 값을 하나씩 꺼냄     튜플로 변환
-    ### 함수의 유일한 인자로 제너레이터를 넘길 때는 바깥 괄호를 생략할 수 있다.
+    #   tuple(...)  ::   tuple() 함수가 값을 하나씩 꺼냄  -->   튜플로 변환
     lower_extensions = tuple(ext.lower() for ext in extensions)
+
+
+
 
     ##############################################################
     # pathlib.Path.rglob()
@@ -104,6 +112,64 @@ def find_files(directory: Path, extensions: tuple[str, ...]) -> list[Path]:
             results.append(path)
 
     return sorted(results)
+    ############################################################
+    # Python 내장 함수 sorted()
+    ############################################################
+    # 역할
+    #   컬렉션(list, tuple, set, dict 등)의 데이터를 정렬하여
+    #   새로운 리스트(List)를 반환한다.
+    #
+    # 특징
+    #   - 기본 정렬은 오름차순(ascending)이다.
+    #   - 원본 데이터는 변경하지 않는다.
+    #   - 항상 새로운 리스트를 생성하여 반환한다.
+    #   - 문자열은 사전순으로 정렬된다.
+    #   - Path 객체는 경로 문자열 기준으로 정렬된다.
+    #
+    # 주요 파라미터
+    #
+    # iterable
+    #   정렬할 대상 컬렉션
+    #
+    #   예)
+    #   sorted([3, 1, 2])
+    #   sorted(("c", "a", "b"))
+    #
+    # key
+    #   정렬 기준을 지정하는 함수
+    #
+    #   예)
+    #   sorted(users, key=lambda x: x.name)
+    #
+    # reverse
+    #   True : 내림차순 정렬
+    #   False : 오름차순 정렬(기본값)
+    #
+    #   예)
+    #   sorted(numbers, reverse=True)
+    #
+    # 반환값(Return)
+    #
+    #   정렬된 새로운 List 객체 반환
+    #
+    #   예)
+    #   numbers = [3, 1, 2]
+    #   result = sorted(numbers)
+    #
+    #   result
+    #   [1, 2, 3]
+    #
+    # 함수 시그니처
+    #
+    #   sorted(
+    #       iterable,
+    #       *,
+    #       key=None,
+    #       reverse=False
+    #   ) -> list
+    #
+    ############################################################
+    
 
 
 
