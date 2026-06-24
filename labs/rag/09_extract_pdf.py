@@ -201,7 +201,7 @@ def main() -> None:
 
     # 추출된 record 목록을 JSON 파일로 저장한다.
     # 반환값 count는 실제 저장된 record 개수이다.
-    count = write_json(output_path, records)
+    count = write_jsonl(output_path, records)
 
     # 처리 결과를 화면에 요약 출력한다.
     print_record_summary("PDF 텍스트 추출 완료", count, output_path)

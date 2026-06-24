@@ -35,11 +35,29 @@ def clean_text(text: str) -> str:
 
 def stable_id(*parts: Any) -> str:
     """
-    입력값을 기반으로 항상 동일한 ID를 생성한다.
-    Vector DB에 저장할 문서 ID로 사용한다.
+    입력값을 조합하여 항상 동일한 고유 ID를 생성한다.
+
+    동일한 입력값이 들어오면 항상 동일한 ID가 생성되며,다른 입력값이 들어오면 다른 ID가 생성된다.
+
+    주로 문서 ID, Chunk ID 등 Vector DB에 저장할 고유 식별자(Primary Key) 생성에 사용한다.
+
+    처리 방식:
+        1. 입력값(parts)을 문자열로 변환
+        2. "|" 구분자로 하나의 문자열 생성
+        3. SHA1 해시값 생성
+        4. 40자리 Hex 문자열 반환
+    예시:
+        stable_id("guide.pdf", "pdf")
+        ↓
+        "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3"
+    참고:
+        Python의 hash() 함수는 실행 시마다 결과가 달라질 수 있으므로 영구 저장용 ID로 사용하기 어렵다.
+        이 함수는 SHA1 해시를 사용하여 프로그램을 재실행해도 동일한 ID를 보장한다.
     """
     raw = "|".join(str(part) for part in parts)
     return hashlib.sha1(raw.encode("utf-8")).hexdigest()
+
+
 
 
 def write_jsonl(path: Path, records: Iterable[dict[str, Any]]) -> int:
@@ -58,8 +76,28 @@ def write_jsonl(path: Path, records: Iterable[dict[str, Any]]) -> int:
     return count
 
 
+
+
+
+
 def read_jsonl(path: Path) -> list[dict[str, Any]]:
-    """JSONL 파일을 읽어서 dict 목록으로 반환한다."""
+    """
+    JSONL 파일을 읽어 Python dict 목록으로 반환한다.
+
+    JSONL은 한 줄에 하나의 JSON 객체가 저장된 파일 형식이다.
+    이 함수는 파일을 한 줄씩 읽고, 각 줄을 json.loads()로 파싱하여
+    Python dict 객체로 변환한 뒤 records 리스트에 담아 반환한다.
+
+    파일이 존재하지 않으면 오류를 발생시키지 않고 빈 리스트를 반환한다.
+
+    파라미터:
+        path:
+            읽을 JSONL 파일 경로
+
+    리턴값:
+        list[dict[str, Any]]:
+            JSONL 각 줄을 dict로 변환한 문서 목록
+    """
     if not path.exists():
         return []
 
@@ -179,10 +217,59 @@ def find_files(directory: Path, extensions: tuple[str, ...]) -> list[Path]:
 
 def split_text(text: str, chunk_size: int, overlap: int) -> list[str]:
     """
-    긴 텍스트를 Chunk 단위로 분리한다.
+    긴 문서를 여러 개의 Chunk로 분할한다.
 
-    단순 글자 수 기준 Chunking이다.
-    실무에서는 문단, 제목, 페이지, 슬라이드, 표 구조를 함께 고려하는 것이 좋다.
+    RAG에서는 문서 전체를 하나의 Embedding으로 생성하지 않고,
+    일정 크기의 Chunk로 분할한 후 Chunk 단위로 Embedding을 생성한다.
+
+    이 함수는 단순 글자 수(Character) 기준으로 문서를 분할하며,
+    Chunk 경계에서 문맥(Context)이 끊어지는 것을 방지하기 위해
+    overlap 크기만큼 이전 Chunk의 내용을 다음 Chunk에 중복 포함한다.
+
+    처리 순서:
+        1. 텍스트 정제(clean_text)
+        2. chunk_size 단위로 텍스트 분할
+        3. overlap 만큼 이전 내용 중복 포함
+        4. Chunk 목록 반환
+
+    예시:
+
+        원본 텍스트:
+            ABCDEFGHIJKLMNOP
+
+        chunk_size = 8
+        overlap = 2
+
+        결과:
+            ABCDEFGH
+                  GHIJKLMN
+                        MNOP
+
+    파라미터:
+        text:
+            분할할 원본 문서
+
+        chunk_size:
+            Chunk 하나의 최대 크기
+
+        overlap:
+            Chunk 간 중복 포함할 크기
+
+    리턴값:
+        list[str]
+            분할된 Chunk 목록
+
+    참고:
+        현재는 단순 문자 수 기준 Chunking을 사용한다.
+
+        실무에서는 다음과 같은 구조 기반 Chunking을 함께 고려한다.
+
+        - 문단 단위 Chunking
+        - 제목(Header) 기반 Chunking
+        - 페이지 단위 Chunking
+        - 슬라이드 단위 Chunking
+        - 표(Table) 단위 Chunking
+        - Semantic Chunking
     """
     text = clean_text(text)
 
