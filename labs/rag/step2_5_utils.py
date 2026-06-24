@@ -62,15 +62,124 @@ def stable_id(*parts: Any) -> str:
 
 def write_jsonl(path: Path, records: Iterable[dict[str, Any]]) -> int:
     """
-    JSONL 파일을 저장한다.
-    한 줄에 하나의 JSON 객체를 기록한다.
+    문서 목록을 JSONL 파일로 저장한다.
+
+    JSONL(JSON Lines)은 한 줄에 하나의 JSON 객체를 저장하는 형식이다.
+
+    이 함수는 전달받은 records 데이터를 순회하면서
+    각 dict 객체를 JSON 문자열로 변환한 후
+    한 줄씩 파일에 기록한다.
+
+    저장 방식:
+        - 파일이 없으면 새로 생성
+        - 파일이 이미 존재하면 기존 내용을 모두 삭제하고
+          새로 작성(Overwrite)
+
+    예시:
+
+        입력 데이터:
+
+        [
+            {"id": "1", "text": "문서1"},
+            {"id": "2", "text": "문서2"}
+        ]
+
+        저장 결과:
+
+        {"id":"1","text":"문서1"}
+        {"id":"2","text":"문서2"}
+
+    파라미터:
+        path:
+            저장할 JSONL 파일 경로
+
+        records:
+            저장할 문서 목록
+            (Iterable[dict[str, Any]])
+
+    리턴값:
+        int
+            저장된 JSON 객체 수
+
+    참고:
+        Append(추가 저장) 방식이 아니라
+        Overwrite(전체 덮어쓰기) 방식이다.
+
+        Append 방식으로 저장하려면
+        path.open("a") 모드를 사용해야 한다.
     """
     path.parent.mkdir(parents=True, exist_ok=True)
     count = 0
 
+
+    # JSONL 파일을 쓰기(write) 모드로 연다.
+    # with:
+    #   파일 사용이 끝나면 자동으로 close() 수행
+    #   (예외 발생 시에도 자동 종료)
+    # "w":
+    #   Write 모드
+    #   - 파일이 없으면 새로 생성
+    #   - 파일이 있으면 기존 내용 삭제 후 새로 작성
+    # encoding="utf-8":
+    #   한글이 깨지지 않도록 UTF-8 인코딩 사용
+    # as f:
+    #   열린 파일 객체를 f 변수로 참조
     with path.open("w", encoding="utf-8") as f:
         for record in records:
+
+            # dict 객체(record)를 JSON 문자열로 변환한 후 줄바꿈(\n)을 추가하여 JSONL 형식으로 저장한다.
+            # ensure_ascii=False:
+            #   한글을 \uXXXX 형태가 아닌 실제 한글로 저장
+            # "\n":
+            #   JSONL 규격에 맞게 한 줄에 JSON 객체 1개 저장
+            # 예)
+            #   {"id":"1","text":"문서1"}
+            #   {"id":"2","text":"문서2"}
+            # write():
+            #   생성된 문자열을 파일에 기록
             f.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+            ##############################
+            # json.dumps()
+            ##############################
+            # 기능:
+            #   Python 객체(dict, list 등)를 JSON 문자열(String)로 변환한다.
+            #
+            # 역할:
+            #   파일 저장 또는 네트워크 전송이 가능하도록
+            #   Python 객체를 JSON 형식으로 직렬화(Serialize)한다.
+            #
+            # 파라미터:
+            #   record
+            #     - JSON으로 변환할 Python 객체
+            #
+            #   ensure_ascii=False
+            #     - 한글을 유니코드(\uXXXX)로 변환하지 않고
+            #       실제 한글로 저장한다.
+            #
+            # 리턴값:
+            #   str
+            #     - JSON 형식 문자열
+            #
+            # 예)
+            #
+            # 입력:
+            #   {
+            #       "id": "1",
+            #       "text": "문서1"
+            #   }
+            #
+            # 결과:
+            #   '{"id":"1","text":"문서1"}'
+            #
+            # 참고:
+            #   json.loads()
+            #     JSON 문자열 → Python 객체
+            #
+            #   json.dumps()
+            #     Python 객체 → JSON 문자열
+            ##############################
+
             count += 1
 
     return count
