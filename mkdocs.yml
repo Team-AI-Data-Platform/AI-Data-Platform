@@ -73,6 +73,7 @@ nav:
               - AI OCR / Vision LLM: study/step2/step2_5c_ai_ocr_vision_llm_document_understanding_guide.md
       - Step 3 Agent 만들기 :
           - Agent 개요: study/iceberg.md
+          - MCP 개념 및 구축: study/mcp.md
       - Step 4 AI Data Platform:
           - AI Data Platform 개요: study/delta-lake.md
       - Step 5 AI Serving Platform:
