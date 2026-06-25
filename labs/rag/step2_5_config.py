@@ -19,7 +19,8 @@ COLLECTION_NAME = "enterprise_docs"
 EMBEDDING_MODEL_NAME = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
 OLLAMA_BASE_URL = "http://localhost:11434"
-OLLAMA_MODEL_NAME = "llama3.1:8b"
+OLLAMA_MODEL_NAME = "gemma3:4b"
+#OLLAMA_MODEL_NAME = "llama3.1:8b"
 
 CHUNK_SIZE = 900
 CHUNK_OVERLAP = 150
