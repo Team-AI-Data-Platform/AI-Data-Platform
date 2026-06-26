@@ -166,19 +166,47 @@ Admin → Knowledge
 
 ---
 
-### 6.3 Knowledge 생성
+### 6.3 Knowledge(지식 기반) 생성
 
-새 Knowledge를 생성한다.
+우측 상단의 **새 지식 기반** 버튼을 클릭하여 새로운 Knowledge를 생성한다.
 
-예시는 다음과 같다.
+Open WebUI의 버전에 따라 입력 화면은 조금씩 다를 수 있으며, 최신 버전에서는 아래와 같이 질문 형태의 UI를 제공한다.
 
-| 항목 | 예시 |
-|---|---|
-| Name | `AI Data Platform Step2-5 Enterprise RAG` |
-| Description | `사내 문서 기반 RAG 실습용 Knowledge` |
-| Visibility | 개인 실습이면 Private, 팀 실습이면 공유 정책에 맞게 설정 |
+<figure markdown>
+![Knowledge 생성](../images/step2/knowledge_create.png){ .img-border width="90%" }
+<figcaption>
+그림 2. Open WebUI 한글 화면의 지식 기반 생성 화면
+</figcaption>
+</figure>
 
-이름은 나중에 Chat 화면에서 찾기 쉬워야 한다. 프로젝트명, 단계명, 문서 유형을 포함하면 관리가 편하다.
+입력 항목은 다음과 같다.
+
+| 화면 항목 | 입력 예시 | 설명 |
+|---|---|---|
+| **어떤 작업을 하고 계신가요?** | `AI Data Platform Step2-5 Enterprise RAG` | 지식 기반(Knowledge)의 이름이다. 프로젝트명이나 용도를 포함하면 관리하기 쉽다. |
+| **무엇을 성취하고 싶으신가요?** | `사내 문서 기반 RAG 실습용 Knowledge` | 해당 Knowledge의 목적이나 설명을 입력한다. |
+| **공개 범위** | `비공개` | 개인 실습은 **비공개**를 권장한다. 팀에서 함께 사용할 경우 조직 정책에 맞게 공개 범위를 설정한다. |
+| **접근 목록** | 기본값 유지 | 특정 사용자 또는 그룹과 공유해야 하는 경우에만 추가한다. |
+
+> **Tip**
+>
+> Open WebUI는 버전에 따라 **Name**, **Description**, **Visibility** 형태로 표시되는 경우도 있고,
+> 최신 버전처럼 **질문 형태(어떤 작업을 하고 계신가요?, 무엇을 성취하고 싶으신가요?)** 로 표시되는 경우도 있다.
+>
+> 항목의 이름은 다르지만 의미는 동일하다.
+
+Knowledge 이름은 나중에 Chat 화면에서 선택하게 되므로, 다음과 같은 규칙으로 작성하는 것을 권장한다.
+
+```text
+프로젝트명 + 단계 + 문서 유형
+
+예)
+AI Data Platform Step2-5 Enterprise RAG
+AI Data Platform API Guide
+전자금융 업무 매뉴얼
+```
+
+모든 입력을 완료한 후 **지식 생성** 버튼을 클릭하여 Knowledge를 생성한다.
 
 ---
 
