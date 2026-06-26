@@ -1308,6 +1308,50 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        처리 완료 화면
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        디렉터리 업로드의 장점
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        문서 처리 중 발생할 수 있는 문제
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        정상 등록 여부 확인
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1341,6 +1385,39 @@
     <span class="md-ellipsis">
       
         7.2 Knowledge 연결
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat 화면
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Knowledge 연결
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        버전에 따른 차이
       
     </span>
   </a>
@@ -2105,6 +2182,50 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        처리 완료 화면
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        디렉터리 업로드의 장점
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        문서 처리 중 발생할 수 있는 문제
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        정상 등록 여부 확인
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2138,6 +2259,39 @@
     <span class="md-ellipsis">
       
         7.2 Knowledge 연결
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat 화면
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Knowledge 연결
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        버전에 따른 차이
       
     </span>
   </a>
@@ -2685,16 +2839,120 @@ AI Data Platform 실습에서도 먼저 파일 업로드 방식으로 RAG를 구
 </blockquote>
 <hr />
 <h3 id="65">6.5 문서 처리 상태 확인</h3>
-<p>문서를 업로드하면 Open WebUI가 문서를 처리한다.</p>
-<p>처리 단계에서 다음 문제가 발생할 수 있다.</p>
-<div class="highlight"><pre><span></span><code>1. 파일 업로드 실패
-2. 문서 텍스트 추출 실패
-3. Embedding 실패
-4. 파일 크기 초과
-5. 지원하지 않는 문서 형식
-6. Docker 볼륨 또는 권한 문제
+<p>Knowledge에 문서를 업로드하면 Open WebUI는 단순히 파일을 저장하는 것이 아니라, AI가 검색할 수 있도록 여러 단계를 자동으로 수행한다.</p>
+<p>처리 과정은 일반적으로 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>문서 업로드
+      │
+      ▼
+파일 저장
+      │
+      ▼
+문서 Parser 실행
+      │
+      ▼
+텍스트 추출
+      │
+      ▼
+Chunk 분할
+      │
+      ▼
+Embedding 생성
+      │
+      ▼
+Vector DB 저장
+      │
+      ▼
+Knowledge 등록 완료
 </code></pre></div>
-<p>문서 처리가 완료되면 Knowledge 목록에서 해당 파일이 정상 등록되었는지 확인한다.</p>
+<p>즉, 업로드가 완료되었다고 해서 바로 사용할 수 있는 것은 아니며, 내부적으로 문서 파싱과 임베딩 생성이 정상적으로 완료되어야 AI가 해당 문서를 검색할 수 있다.</p>
+<hr />
+<h3 id="_2">처리 완료 화면</h3>
+<p>아래는 프로젝트 전체 디렉터리를 업로드한 후 정상적으로 처리된 화면이다.</p>
+<blockquote>
+<p>예제에서는 개별 파일을 하나씩 업로드한 것이 아니라 <strong>프로젝트 디렉터리 전체를 업로드</strong>하였다.</p>
+<p>Open WebUI는 디렉터리 내부의 지원 가능한 문서를 자동으로 탐색하여 Knowledge에 등록한다.</p>
+</blockquote>
+<figure>
+<p><img alt="Knowledge 문서 업로드 완료" class="img-border" src="../../images/step2/knowledge_upload_result.png" width="95%" /></p>
+<figcaption>
+그림 12. 프로젝트 디렉터리를 업로드한 후 Knowledge에 정상 등록된 화면 (총 163개 파일)
+</figcaption>
+</figure>
+<p>위 화면에서 확인할 수 있는 내용은 다음과 같다.</p>
+<ul>
+<li>
+<p><strong>① Knowledge 이름</strong><br />
+  현재 선택된 Knowledge(예: <em>AI Data Platform Step2-5 Enterprise RAG</em>)를 확인할 수 있다.</p>
+</li>
+<li>
+<p><strong>② 등록된 전체 파일 수</strong><br />
+  우측 상단에는 현재 Knowledge에 등록된 전체 문서 개수가 표시된다. 본 실습에서는 <strong>163개의 파일</strong>이 정상 등록된 것을 확인할 수 있다.</p>
+</li>
+<li>
+<p><strong>③ 문서 검색 기능</strong><br />
+  검색창을 이용하여 등록된 문서를 파일명 기준으로 빠르게 검색할 수 있다.</p>
+</li>
+<li>
+<p><strong>④ 업로드된 파일 목록</strong><br />
+  디렉터리 내부의 문서들이 목록 형태로 표시되며, 파일명과 크기를 함께 확인할 수 있다.</p>
+</li>
+<li>
+<p><strong>⑤ 등록 정보 확인</strong><br />
+  각 문서별 등록 시간과 작성자 정보를 확인할 수 있어 관리가 편리하다.</p>
+</li>
+<li>
+<p><strong>⑥ 추가 업로드 기능</strong><br />
+  우측 상단의 <strong>+</strong> 버튼을 이용하여 새로운 파일이나 디렉터리를 추가로 업로드할 수 있다.</p>
+</li>
+</ul>
+<p>문서가 모두 정상 처리되면 해당 Knowledge는 AI의 검색(Retrieval) 대상으로 즉시 사용할 수 있다.</p>
+<blockquote>
+<p><strong>참고</strong></p>
+<p>화면에 HTML, CSS, JavaScript 파일 등이 함께 등록되어 있는 것은 프로젝트 디렉터리 전체를 업로드했기 때문이다.
+실제 Enterprise RAG에서는 일반적으로 <strong>PDF, DOCX, PPTX, XLSX, TXT, Markdown</strong> 등의 업무 문서만 업로드하는 것을 권장한다.</p>
+</blockquote>
+<hr />
+<h3 id="_3">디렉터리 업로드의 장점</h3>
+<p>기업에서는 문서가 수백~수천 개 존재하는 경우가 대부분이다.</p>
+<p>매번 파일을 하나씩 업로드하는 것은 매우 비효율적이므로, 일반적으로는 프로젝트 폴더 또는 문서 저장소를 한 번에 업로드하여 관리한다.</p>
+<p>디렉터리 업로드의 장점은 다음과 같다.</p>
+<ul>
+<li>여러 문서를 한 번에 등록할 수 있다.</li>
+<li>프로젝트 전체 문서를 일괄 관리할 수 있다.</li>
+<li>신규 문서를 쉽게 추가할 수 있다.</li>
+<li>대량의 문서에 대한 RAG 구축이 편리하다.</li>
+</ul>
+<hr />
+<h3 id="_4">문서 처리 중 발생할 수 있는 문제</h3>
+<p>문서를 처리하는 과정에서는 다음과 같은 문제가 발생할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>1. 파일 업로드 실패
+2. 문서 Parser 오류
+3. 텍스트 추출 실패
+4. Embedding 생성 실패
+5. 파일 크기 제한 초과
+6. 지원하지 않는 문서 형식
+7. 암호화(PDF 암호 등) 문서
+8. Docker Volume 또는 권한 문제
+9. 디스크 공간 부족
+10. 메모리 부족(OOM)
+</code></pre></div>
+<p>특히 기업 환경에서는 <strong>스캔 PDF</strong>, <strong>암호화된 문서</strong>, <strong>손상된 파일</strong> 때문에 Parsing이 실패하는 경우가 자주 발생한다.</p>
+<hr />
+<h3 id="_5">정상 등록 여부 확인</h3>
+<p>문서 업로드 후에는 반드시 다음 사항을 확인한다.</p>
+<ul>
+<li>업로드한 문서 개수가 정상적으로 등록되었는가</li>
+<li>누락된 파일은 없는가</li>
+<li>오류가 발생한 파일은 없는가</li>
+<li>필요한 문서가 검색되는가</li>
+<li>질문 시 해당 문서가 실제로 참조되는가</li>
+</ul>
+<p>단순히 파일이 목록에 보인다고 해서 모든 과정이 완료된 것은 아니다.</p>
+<p>실제 질문을 수행하여 해당 문서가 검색(Retrieval)되고 답변 생성에 활용되는지까지 확인해야 Knowledge 구성이 정상적으로 완료된 것이다.</p>
+<blockquote>
+<p><strong>실무 Tip</strong></p>
+<p>대량의 문서를 업로드한 후에는 먼저 대표 문서를 하나 선택하여 검색이 정상적으로 수행되는지 확인한 뒤, 전체 문서를 테스트하는 것이 문제를 빠르게 발견하는 데 도움이 된다.</p>
+</blockquote>
 <hr />
 <h2 id="7-chat-knowledge">7. Chat 화면에서 Knowledge 사용</h2>
 <h3 id="71">7.1 모델 선택</h3>
@@ -2708,17 +2966,109 @@ gemma
 <p>처음 실습에서는 이미 Step1에서 정상 동작을 확인한 모델을 사용하는 것이 좋다.</p>
 <hr />
 <h3 id="72-knowledge">7.2 Knowledge 연결</h3>
-<p>Chat 화면에서 방금 생성한 Knowledge를 선택한다.</p>
+<p>문서를 업로드했다고 해서 모든 채팅에서 자동으로 해당 문서를 사용하는 것은 아니다.</p>
+<p>질문하기 전에 <strong>현재 채팅에 사용할 Knowledge를 연결</strong>해야 한다.</p>
+<p>Open WebUI 버전에 따라 연결 방법은 조금씩 다르지만, 최신 버전에서는 <strong>채팅 입력창의 첨부 메뉴(+)</strong> 를 이용하는 방식이 가장 일반적이다.</p>
 <p>일반적인 흐름은 다음과 같다.</p>
-<div class="highlight"><pre><span></span><code>Chat 화면
-   ↓
-Knowledge 선택 또는 #Knowledge 호출
-   ↓
+<div class="highlight"><pre><span></span><code>새 채팅 시작
+      │
+      ▼
+채팅 입력창의 + 버튼 선택
+      │
+      ▼
+Knowledge 선택
+      │
+      ▼
 질문 입력
-   ↓
-문서 기반 답변 확인
+      │
+      ▼
+Knowledge 기반 RAG 검색
+      │
+      ▼
+문서 기반 답변 생성
 </code></pre></div>
-<p>Open WebUI 버전에 따라 Knowledge를 선택하는 방식이 다를 수 있다. 어떤 버전에서는 대화 설정에서 Knowledge를 선택하고, 어떤 버전에서는 <code>#</code> 또는 첨부 메뉴를 통해 Knowledge를 연결한다.</p>
+<hr />
+<h3 id="chat">Chat 화면</h3>
+<p>아래는 Open WebUI의 기본 Chat 화면이다.</p>
+<figure>
+<p><img alt="Open WebUI Chat 화면" class="img-border" src="../../images/step2/chat_screen.png" width="95%" /></p>
+<figcaption>
+그림 16. Open WebUI 기본 Chat 화면
+</figcaption>
+</figure>
+<p>위 화면에서 확인할 수 있는 주요 기능은 다음과 같다.</p>
+<ul>
+<li>
+<p><strong>① 모델 선택</strong><br />
+  상단에서 사용할 LLM(Gemma, Qwen, Llama 등)을 선택한다.</p>
+</li>
+<li>
+<p><strong>② 질문 입력 영역</strong><br />
+  AI에게 질문을 입력하는 영역이다.</p>
+</li>
+<li>
+<p><strong>③ 첨부 메뉴(+)</strong><br />
+  파일, 이미지, Knowledge 등을 현재 채팅에 연결할 수 있다.</p>
+</li>
+<li>
+<p><strong>④ 음성 입력</strong><br />
+  음성으로 질문을 입력할 수 있다.</p>
+</li>
+<li>
+<p><strong>⑤ 전송 버튼</strong><br />
+  질문을 AI에게 전송한다.</p>
+</li>
+</ul>
+<hr />
+<h3 id="knowledge">Knowledge 연결</h3>
+<p>현재 버전(Open WebUI 0.6.x 기준)에서는 채팅 입력창 왼쪽의 <strong>+ 버튼</strong>을 클릭하면 다양한 첨부 기능이 나타난다.</p>
+<figure>
+<p><img alt="Open WebUI Chat 화면" class="img-border" src="../../images/step2/chat_knoledge_select.png" width="95%" /></p>
+<figcaption>
+그림 16. 지식기반 선택 화면
+</figcaption>
+</figure>
+<p>여기에서 <strong>Knowledge</strong>를 선택한 후 앞에서 생성한 Knowledge를 연결한다.</p>
+<div class="highlight"><pre><span></span><code>+ 버튼
+   │
+   ├─ File
+   ├─ Image
+   ├─ Knowledge
+   └─ ...
+</code></pre></div>
+<p>Knowledge가 연결되면 이후의 질문은 해당 Knowledge를 우선 검색(Retrieval)한 후 LLM이 답변을 생성한다.</p>
+<hr />
+<h3 id="_6">버전에 따른 차이</h3>
+<p>Open WebUI는 버전에 따라 UI가 자주 변경된다.</p>
+<p>대표적인 방식은 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>버전</th>
+<th>Knowledge 연결 방식</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>초기 버전</td>
+<td>Chat 설정에서 Knowledge 선택</td>
+</tr>
+<tr>
+<td>일부 버전</td>
+<td><code>#Knowledge</code> 명령 사용</td>
+</tr>
+<tr>
+<td>최신 버전(권장)</td>
+<td>채팅 입력창의 <strong>+</strong> 메뉴에서 Knowledge 선택</td>
+</tr>
+</tbody>
+</table>
+<p>따라서 화면 구성이 조금 다르더라도 <strong>현재 채팅에 Knowledge를 연결한 후 질문을 수행한다</strong>는 개념은 동일하다.</p>
+<blockquote>
+<p><strong>참고</strong></p>
+<p>첨부한 화면은 아직 Knowledge를 연결하기 전의 기본 Chat 화면이다. 다음 단계에서 <strong>+ 버튼을 눌러 Knowledge를 연결</strong>한 후 질문을 수행하면 업로드한 문서를 기반으로 RAG 검색이 이루어진다.</p>
+</blockquote>
+<hr />
 <hr />
 <h3 id="73">7.3 테스트 질문 입력</h3>
 <p>문서를 기반으로 질문한다.</p>
