@@ -60,6 +60,7 @@ nav:
       - Step 2 RAG 구축:
           - 개념 이해:
               - RAG 개요 및 아키텍처 이해: study/step2/step2_rag_overview_guide.md
+              - Knowledge 개념과 RAG 데이터 흐름 이해: study/step2/step2_1_knowledge_and_rag_data_flow_guide.md
               - 임베딩 모델 이해: study/step2/step2_2_sentence_transformer_embedding_guide.md
           - 기본 구축:
               - Vector DB 구축 및 문서 적재: study/step2/step2_2_vector_db_build_and_document_ingestion_guide.md
