@@ -1262,7 +1262,7 @@
   <a href="#63-knowledge" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6.3 Knowledge 생성
+        6.3 Knowledge(지식 기반) 생성
       
     </span>
   </a>
@@ -2042,7 +2042,7 @@
   <a href="#63-knowledge" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6.3 Knowledge 생성
+        6.3 Knowledge(지식 기반) 생성
       
     </span>
   </a>
@@ -2500,32 +2500,62 @@ Admin → Knowledge
 본 가이드에서는 <strong>Knowledge = 지식 기반</strong>으로 동일한 의미이며, 이후 문서에서도 두 용어를 함께 사용한다.</p>
 </blockquote>
 <hr />
-<h3 id="63-knowledge">6.3 Knowledge 생성</h3>
-<p>새 Knowledge를 생성한다.</p>
-<p>예시는 다음과 같다.</p>
+<h3 id="63-knowledge">6.3 Knowledge(지식 기반) 생성</h3>
+<p>우측 상단의 <strong>새 지식 기반</strong> 버튼을 클릭하여 새로운 Knowledge를 생성한다.</p>
+<p>Open WebUI의 버전에 따라 입력 화면은 조금씩 다를 수 있으며, 최신 버전에서는 아래와 같이 질문 형태의 UI를 제공한다.</p>
+<figure>
+<p><img alt="Knowledge 생성" class="img-border" src="../../images/step2/knowledge_create.png" width="90%" /></p>
+<figcaption>
+그림 2. Open WebUI 한글 화면의 지식 기반 생성 화면
+</figcaption>
+</figure>
+<p>입력 항목은 다음과 같다.</p>
 <table>
 <thead>
 <tr>
-<th>항목</th>
-<th>예시</th>
+<th>화면 항목</th>
+<th>입력 예시</th>
+<th>설명</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Name</td>
+<td><strong>어떤 작업을 하고 계신가요?</strong></td>
 <td><code>AI Data Platform Step2-5 Enterprise RAG</code></td>
+<td>지식 기반(Knowledge)의 이름이다. 프로젝트명이나 용도를 포함하면 관리하기 쉽다.</td>
 </tr>
 <tr>
-<td>Description</td>
+<td><strong>무엇을 성취하고 싶으신가요?</strong></td>
 <td><code>사내 문서 기반 RAG 실습용 Knowledge</code></td>
+<td>해당 Knowledge의 목적이나 설명을 입력한다.</td>
 </tr>
 <tr>
-<td>Visibility</td>
-<td>개인 실습이면 Private, 팀 실습이면 공유 정책에 맞게 설정</td>
+<td><strong>공개 범위</strong></td>
+<td><code>비공개</code></td>
+<td>개인 실습은 <strong>비공개</strong>를 권장한다. 팀에서 함께 사용할 경우 조직 정책에 맞게 공개 범위를 설정한다.</td>
+</tr>
+<tr>
+<td><strong>접근 목록</strong></td>
+<td>기본값 유지</td>
+<td>특정 사용자 또는 그룹과 공유해야 하는 경우에만 추가한다.</td>
 </tr>
 </tbody>
 </table>
-<p>이름은 나중에 Chat 화면에서 찾기 쉬워야 한다. 프로젝트명, 단계명, 문서 유형을 포함하면 관리가 편하다.</p>
+<blockquote>
+<p><strong>Tip</strong></p>
+<p>Open WebUI는 버전에 따라 <strong>Name</strong>, <strong>Description</strong>, <strong>Visibility</strong> 형태로 표시되는 경우도 있고,
+최신 버전처럼 <strong>질문 형태(어떤 작업을 하고 계신가요?, 무엇을 성취하고 싶으신가요?)</strong> 로 표시되는 경우도 있다.</p>
+<p>항목의 이름은 다르지만 의미는 동일하다.</p>
+</blockquote>
+<p>Knowledge 이름은 나중에 Chat 화면에서 선택하게 되므로, 다음과 같은 규칙으로 작성하는 것을 권장한다.</p>
+<div class="highlight"><pre><span></span><code>프로젝트명 + 단계 + 문서 유형
+
+예)
+AI Data Platform Step2-5 Enterprise RAG
+AI Data Platform API Guide
+전자금융 업무 매뉴얼
+</code></pre></div>
+<p>모든 입력을 완료한 후 <strong>지식 생성</strong> 버튼을 클릭하여 Knowledge를 생성한다.</p>
 <hr />
 <h3 id="64">6.4 문서 업로드</h3>
 <p>Knowledge에 테스트 문서를 업로드한다.</p>
