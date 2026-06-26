@@ -129,19 +129,40 @@ http://localhost:3000
 
 ### 6.2 Knowledge 메뉴 이동
 
-Open WebUI 화면에서 Knowledge 또는 Workspace의 Knowledge 메뉴로 이동한다.
+Open WebUI 화면에서 **Knowledge(지식 기반)** 메뉴로 이동한다.
 
-화면 구성은 Open WebUI 버전에 따라 조금씩 다를 수 있지만, 일반적으로 다음 흐름이다.
+Open WebUI는 버전이나 언어(Language) 설정에 따라 메뉴명이 조금씩 다를 수 있다.
+
+- 영어 UI : **Knowledge**
+- 한글 UI : **지식 기반**
+
+또한 일부 버전에서는 **Workspace** 또는 **관리(Admin)** 메뉴 아래에 위치할 수도 있다.
+
+일반적인 이동 경로는 다음과 같다.
 
 ```text
 좌측 메뉴
-   ↓
-Workspace 또는 Admin 영역
-   ↓
-Knowledge
-   ↓
-Create Knowledge
+    ↓
+Knowledge(지식 기반)
+    또는
+Workspace → Knowledge
+    또는
+Admin → Knowledge
+    ↓
+새 지식 기반(Create Knowledge)
 ```
+
+<figure markdown>
+![Knowledge 화면](../images/step2/knowledge_screen.png){width="90%" }
+<figcaption>
+그림 1. Open WebUI 한글 화면에서는 <strong>Knowledge</strong>가 <strong>지식 기반</strong>으로 표시된다.
+</figcaption>
+</figure>
+
+> **Tip**
+>
+> Open WebUI의 버전에 따라 메뉴 위치와 명칭이 조금씩 달라질 수 있다.
+> 본 가이드에서는 **Knowledge = 지식 기반**으로 동일한 의미이며, 이후 문서에서도 두 용어를 함께 사용한다.
 
 ---
 

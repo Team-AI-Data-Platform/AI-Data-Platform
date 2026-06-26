@@ -13,6 +13,9 @@ theme:
     - content.code.copy
     - content.code.annotate
 
+extra_css:
+  - study/css/extra.css
+
 markdown_extensions:
   - attr_list
   - md_in_html
