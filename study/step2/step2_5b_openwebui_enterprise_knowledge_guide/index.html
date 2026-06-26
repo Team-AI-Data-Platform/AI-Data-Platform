@@ -48,6 +48,8 @@
       
     
     
+      <link rel="stylesheet" href="../../css/extra.css">
+    
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -2468,16 +2470,35 @@ Chat에서 Knowledge 선택
 <p>환경에 따라 포트가 다를 수 있으므로, 본인이 Docker 실행 시 지정한 포트를 확인한다.</p>
 <hr />
 <h3 id="62-knowledge">6.2 Knowledge 메뉴 이동</h3>
-<p>Open WebUI 화면에서 Knowledge 또는 Workspace의 Knowledge 메뉴로 이동한다.</p>
-<p>화면 구성은 Open WebUI 버전에 따라 조금씩 다를 수 있지만, 일반적으로 다음 흐름이다.</p>
+<p>Open WebUI 화면에서 <strong>Knowledge(지식 기반)</strong> 메뉴로 이동한다.</p>
+<p>Open WebUI는 버전이나 언어(Language) 설정에 따라 메뉴명이 조금씩 다를 수 있다.</p>
+<ul>
+<li>영어 UI : <strong>Knowledge</strong></li>
+<li>한글 UI : <strong>지식 기반</strong></li>
+</ul>
+<p>또한 일부 버전에서는 <strong>Workspace</strong> 또는 <strong>관리(Admin)</strong> 메뉴 아래에 위치할 수도 있다.</p>
+<p>일반적인 이동 경로는 다음과 같다.</p>
 <div class="highlight"><pre><span></span><code>좌측 메뉴
-   ↓
-Workspace 또는 Admin 영역
-   ↓
-Knowledge
-   ↓
-Create Knowledge
+    ↓
+Knowledge(지식 기반)
+    또는
+Workspace → Knowledge
+    또는
+Admin → Knowledge
+    ↓
+새 지식 기반(Create Knowledge)
 </code></pre></div>
+<figure>
+<p><img alt="Knowledge 화면" src="../../images/step2/knowledge_screen.png" width="90%" /></p>
+<figcaption>
+그림 1. Open WebUI 한글 화면에서는 <strong>Knowledge</strong>가 <strong>지식 기반</strong>으로 표시된다.
+</figcaption>
+</figure>
+<blockquote>
+<p><strong>Tip</strong></p>
+<p>Open WebUI의 버전에 따라 메뉴 위치와 명칭이 조금씩 달라질 수 있다.
+본 가이드에서는 <strong>Knowledge = 지식 기반</strong>으로 동일한 의미이며, 이후 문서에서도 두 용어를 함께 사용한다.</p>
+</blockquote>
 <hr />
 <h3 id="63-knowledge">6.3 Knowledge 생성</h3>
 <p>새 Knowledge를 생성한다.</p>
