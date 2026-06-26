@@ -1278,6 +1278,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="6.4 문서 업로드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        권장 업로드 순서
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2058,6 +2075,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="6.4 문서 업로드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        권장 업로드 순서
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2558,14 +2592,97 @@ AI Data Platform API Guide
 <p>모든 입력을 완료한 후 <strong>지식 생성</strong> 버튼을 클릭하여 Knowledge를 생성한다.</p>
 <hr />
 <h3 id="64">6.4 문서 업로드</h3>
-<p>Knowledge에 테스트 문서를 업로드한다.</p>
-<p>권장 순서는 다음과 같다.</p>
-<div class="highlight"><pre><span></span><code>1. 먼저 TXT 또는 MD 문서 업로드
-2. 그 다음 DOCX 문서 업로드
-3. 그 다음 PDF 문서 업로드
-4. 마지막으로 PPTX 또는 복잡한 문서 테스트
+<p>Knowledge를 생성하면 아래와 같은 화면이 나타난다.</p>
+<p>우측 상단의 <strong><code>+</code>(추가)</strong> 버튼을 클릭하면 문서를 추가하는 메뉴가 열린다.</p>
+<figure>
+<p><img alt="Knowledge 문서 업로드" class="img-border" src="../images/step2/knowledge_upload_menu.png" width="90%" /></p>
+<figcaption>
+그림 3. Open WebUI 지식 기반(Knowledge)의 문서 추가 메뉴
+</figcaption>
+</figure>
+<p>최신 Open WebUI에서는 문서를 추가하는 방법을 여러 가지 제공한다.</p>
+<table>
+<thead>
+<tr>
+<th>메뉴</th>
+<th>설명</th>
+<th>권장 여부</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>파일 업로드</strong></td>
+<td>로컬 PC에 있는 문서를 업로드한다.</td>
+<td>⭐ 권장</td>
+</tr>
+<tr>
+<td><strong>디렉터리 업로드</strong></td>
+<td>폴더 전체를 업로드한다.</td>
+<td>대량 문서 등록 시 사용</td>
+</tr>
+<tr>
+<td><strong>디렉터리 연동</strong></td>
+<td>특정 디렉터리를 Knowledge와 연결한다.</td>
+<td>운영 환경에서 사용</td>
+</tr>
+<tr>
+<td><strong>웹페이지 추가</strong></td>
+<td>웹페이지(URL)를 Knowledge로 등록한다.</td>
+<td>필요 시 사용</td>
+</tr>
+<tr>
+<td><strong>글 추가</strong></td>
+<td>직접 텍스트를 입력하여 문서를 생성한다.</td>
+<td>간단한 테스트용</td>
+</tr>
+<tr>
+<td><strong>New directory</strong></td>
+<td>Knowledge 내부에 폴더를 생성한다.</td>
+<td>문서 분류용</td>
+</tr>
+</tbody>
+</table>
+<p>이번 실습에서는 <strong>파일 업로드</strong>를 사용한다.</p>
+<hr />
+<h4 id="_1">권장 업로드 순서</h4>
+<p>처음에는 복잡한 문서보다 단순한 문서부터 테스트하는 것이 좋다.</p>
+<div class="highlight"><pre><span></span><code>1. TXT 또는 Markdown(.md)
+        ↓
+2. Word(.docx)
+        ↓
+3. PDF
+        ↓
+4. PowerPoint(.pptx)
+        ↓
+5. 스캔 PDF, 이미지 기반 문서
 </code></pre></div>
-<p>단순한 문서부터 테스트해야 문제가 생겼을 때 원인을 찾기 쉽다. 처음부터 복잡한 제안서 PPTX나 스캔 PDF를 올리면 Parser 문제인지, Embedding 문제인지, 모델 답변 문제인지 구분하기 어렵다.</p>
+<p>단순한 문서부터 테스트하면 문제가 발생했을 때 원인을 쉽게 파악할 수 있다.</p>
+<p>예를 들어,</p>
+<ul>
+<li>TXT가 정상 검색된다.</li>
+<li>DOCX도 정상 검색된다.</li>
+<li>PDF에서만 오류가 발생한다.</li>
+</ul>
+<p>이 경우 PDF Parser 또는 PDF 자체의 문제일 가능성이 높다.</p>
+<p>반대로 처음부터 제안서 PPT나 스캔 PDF를 업로드하면 다음 중 어느 부분에서 문제가 발생했는지 판단하기 어렵다.</p>
+<ul>
+<li>문서 Parser 문제</li>
+<li>OCR 문제</li>
+<li>Chunk 분할 문제</li>
+<li>Embedding 생성 문제</li>
+<li>Vector DB 저장 문제</li>
+<li>검색(Retrieval) 문제</li>
+<li>Local LLM 답변 문제</li>
+</ul>
+<p>따라서 <strong>단순한 문서 → 복잡한 문서</strong> 순서로 테스트하는 것이 가장 효율적이다.</p>
+<hr />
+<blockquote>
+<p><strong>Tip</strong></p>
+<p>Open WebUI는 버전에 따라 메뉴 구성은 조금씩 다를 수 있지만,
+가장 많이 사용하는 업로드 방식은 <strong>파일 업로드(File Upload)</strong> 이다.
+AI Data Platform 실습에서도 먼저 파일 업로드 방식으로 RAG를 구축한 후,
+이후 단계에서 디렉터리 연동이나 웹페이지 등록 등 다양한 Knowledge 구축 방법을 살펴볼 예정이다.</p>
+</blockquote>
 <hr />
 <h3 id="65">6.5 문서 처리 상태 확인</h3>
 <p>문서를 업로드하면 Open WebUI가 문서를 처리한다.</p>
