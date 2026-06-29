@@ -1,0 +1,1606 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Data Platform & Local LLM Study">
+      
+      
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Step3. AI Agent 연구학습 가이드 - AI Data Platform Study</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#step3-ai-agent" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="AI Data Platform Study" class="md-header__button md-logo" aria-label="AI Data Platform Study" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Data Platform Study
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Step3. AI Agent 연구학습 가이드
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../roadmap/study-roadmap/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Roadmap
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../setting/github_team_repository_practice_guide_revised/" class="md-tabs__link">
+          
+  
+  
+  시작하기
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../setting/macmini_ai_lab_guide/" class="md-tabs__link">
+          
+  
+  
+  개발환경
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../setting/mkdocs_github_pages_guide/" class="md-tabs__link">
+          
+  
+  
+  문서관리
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../step1/step1_local_llm_setup_guide/" class="md-tabs__link">
+          
+  
+  
+  AI Lab
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="AI Data Platform Study" class="md-nav__button md-logo" aria-label="AI Data Platform Study" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AI Data Platform Study
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../roadmap/study-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../setting/github_team_repository_practice_guide_revised/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    시작하기
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../setting/macmini_ai_lab_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    개발환경
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../setting/mkdocs_github_pages_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    문서관리
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../step1/step1_local_llm_setup_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 문서 목적
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-step3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Step3 학습 방향
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-step3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Step3 전체 목차
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-part" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Part 구성
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="step3-ai-agent">Step3. AI Agent 연구학습 가이드</h1>
+<blockquote>
+<p>AI DATA Platform 연구 프로젝트<br />
+Step3. AI Agent 학습 과정 설계 문서<br />
+작성일: 2026-06-29</p>
+</blockquote>
+<hr />
+<h2 id="1">1. 문서 목적</h2>
+<p>이 문서는 AI DATA Platform 연구 프로젝트의 <strong>Step3. AI Agent 학습 과정</strong>을 정의하기 위한 가이드 문서이다.</p>
+<p>Step1에서는 Local LLM 실행 환경을 구축했고, Step2에서는 RAG 기반 문서 검색과 LLM 연계를 실습했다.<br />
+Step3부터는 LLM이 단순히 답변을 생성하는 수준을 넘어, <strong>목표를 이해하고, 필요한 도구를 선택하고, 실행 결과를 바탕으로 다음 행동을 결정하는 AI Agent 구조</strong>를 학습한다.</p>
+<p>이번 Step3의 목표는 단순한 예제 구현이 아니다.<br />
+최종적으로는 사내 시스템, 문서 저장소, 데이터베이스, 업무 API, 파일 시스템, RAG, MCP, Workflow, Multi Agent를 연결할 수 있는 <strong>Enterprise AI Agent Platform 아키텍처</strong>를 이해하고 직접 설계할 수 있는 수준까지 가는 것이다.</p>
+<hr />
+<h2 id="2-step3">2. Step3 학습 방향</h2>
+<p>Step3는 다음 세 가지 관점을 함께 다룬다.</p>
+<div class="highlight"><pre><span></span><code>1. 개념 이해
+   - Agent가 왜 필요한가?
+   - ReAct, Planning, Tool Calling, Memory는 어떤 문제를 해결하는가?
+
+2. Python 실습
+   - 단일 Agent 구현
+   - Tool Calling 구현
+   - Memory 구현
+   - Workflow 기반 Agent 구현
+   - MCP Client/Server 연동 실습
+
+3. Enterprise 아키텍처
+   - 사내 시스템 연동
+   - 보안과 권한
+   - Agent Gateway
+   - MCP 기반 도구 표준화
+   - Multi Agent 협업 구조
+</code></pre></div>
+<p>기존 RAG 단계가 <strong>문서를 찾아 답변하는 AI</strong>를 만드는 과정이었다면, Step3는 <strong>업무를 수행하는 AI</strong>를 만드는 과정이다.</p>
+<hr />
+<h2 id="3-step3">3. Step3 전체 목차</h2>
+<p>아래 목차는 MkDocs의 <code>nav</code> 구조에 반영할 수 있도록 설계한다.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step3. AI Agent</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Part1. AI Agent 기초</span><span class="p">:</span>
+
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step3-1. AI Agent 개요</span><span class="p">:</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">study/step3/step3_1_ai_agent_overview_guide.md</span>
+
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step3-2. ReAct와 Tool Calling</span><span class="p">:</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">study/step3/step3_2_react_and_tool_calling_guide.md</span>
+
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step3-3. 첫 번째 AI Agent 구현</span><span class="p">:</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">study/step3/step3_3_first_ai_agent_guide.md</span>
+
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step3-4. Agent Memory와 상태 관리</span><span class="p">:</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">study/step3/step3_4_agent_memory_guide.md</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Part2. AI Agent 심화</span><span class="p">:</span>
+
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step3-5. Workflow Agent(LangGraph)</span><span class="p">:</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">study/step3/step3_5_langgraph_workflow_agent_guide.md</span>
+
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step3-6. MCP 아키텍처 이해</span><span class="p">:</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">study/step3/step3_6_mcp_architecture_guide.md</span>
+
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step3-7. MCP 기반 외부 시스템 연동</span><span class="p">:</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">study/step3/step3_7_mcp_practice_guide.md</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Part3. Enterprise AI Agent</span><span class="p">:</span>
+
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step3-8. Multi Agent 협업</span><span class="p">:</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">study/step3/step3_8_multi_agent_guide.md</span>
+
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step3-9. Enterprise AI Agent Platform</span><span class="p">:</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">study/step3/step3_9_enterprise_ai_agent_platform_guide.md</span>
+</code></pre></div>
+<hr />
+<h2 id="4-part">4. Part 구성</h2>
+<p>Step3는 크게 세 개의 Part로 구성한다.</p>
+<div class="highlight"><pre><span></span><code>Step3. AI Agent
+│
+├─ Part1. AI Agent 기초
+│   ├─ Step3-1. AI Agent 개요
+│   ├─ Step3-2. ReAct와 Tool Calling
+│   ├─ Step3-3. 첫 번째 AI Agent 구현
+│   └─ Step3-4. Agent Memory와 상태 관리
+│
+├─ Part2. AI Agent 심화
+│   ├─ Step3-5. Workflow Agent(LangGraph)
+│   ├─ Step3-6. MCP 아키텍처 이해
+│   └─ Step3-7. MCP 기반 외부 시스템 연동
+│
+└─ Part3. Enterprise AI Agent
+    ├─ Step3-8. Multi Agent 협업
+    └─ Step3-9. Enterprise AI Agent Platform
+</code></pre></div>
+<hr />
+<h1 id="part1-ai-agent">Part1. AI Agent 기초</h1>
+<p>Part1에서는 AI Agent의 기본 개념과 동작 원리를 학습한다.</p>
+<p>이 단계에서는 아직 복잡한 프레임워크보다 <strong>Agent가 어떤 방식으로 생각하고 행동하는지</strong>를 이해하는 것이 중요하다.</p>
+<hr />
+<h2 id="step3-1-ai-agent">Step3-1. AI Agent 개요</h2>
+<h3 id="_1">문서 경로</h3>
+<div class="highlight"><pre><span></span><code>docs/study/step3/step3_1_ai_agent_overview_guide.md
+</code></pre></div>
+<h3 id="_2">학습 목표</h3>
+<p>이 문서에서는 AI Agent의 개념과 등장 배경을 학습한다.</p>
+<p>기존 LLM은 사용자의 질문에 대해 답변을 생성하는 역할을 주로 수행한다.<br />
+하지만 AI Agent는 사용자의 목표를 이해한 뒤, 필요한 작업을 나누고, 적절한 도구를 선택하고, 실행 결과를 확인하면서 다음 행동을 결정한다.</p>
+<h3 id="_3">핵심 내용</h3>
+<div class="highlight"><pre><span></span><code>1. AI Agent란 무엇인가?
+2. 기존 LLM과 Agent의 차이
+3. Chatbot, RAG, Agent의 차이
+4. Agent의 기본 구성 요소
+5. Agent의 동작 흐름
+6. Agent가 필요한 업무 사례
+7. Enterprise Agent의 개념
+</code></pre></div>
+<h3 id="_4">주요 설명 포인트</h3>
+<p>AI Agent는 단순히 답변을 잘하는 모델이 아니다.<br />
+Agent는 다음 요소를 함께 가진 시스템이다.</p>
+<div class="highlight"><pre><span></span><code>LLM
++ 목표 이해
++ 계획 수립
++ 도구 선택
++ 도구 실행
++ 결과 검증
++ 반복 수행
+</code></pre></div>
+<p>예를 들어 사용자가 다음과 같이 요청했다고 가정한다.</p>
+<div class="highlight"><pre><span></span><code>&quot;지난주 장애 내용을 정리해서 보고서 초안을 만들어줘.&quot;
+</code></pre></div>
+<p>일반 LLM은 보고서 양식을 설명할 수는 있지만, 실제 장애 이력을 조회하거나 파일을 읽거나 보고서를 생성하지는 못한다.</p>
+<p>반면 Agent는 다음과 같은 절차를 수행할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>1. 장애 이력 조회
+2. 관련 로그 또는 문서 검색
+3. 장애 유형 분류
+4. 원인과 조치 내용 요약
+5. 보고서 초안 생성
+</code></pre></div>
+<h3 id="_5">실습 방향</h3>
+<p>이 단계에서는 아직 복잡한 코드를 작성하지 않고, Agent의 동작 방식을 그림과 의사코드로 이해한다.</p>
+<hr />
+<h2 id="step3-2-react-tool-calling">Step3-2. ReAct와 Tool Calling</h2>
+<h3 id="_6">문서 경로</h3>
+<div class="highlight"><pre><span></span><code>docs/study/step3/step3_2_react_and_tool_calling_guide.md
+</code></pre></div>
+<h3 id="_7">학습 목표</h3>
+<p>이 문서에서는 Agent의 핵심 동작 방식인 <strong>ReAct</strong>와 <strong>Tool Calling</strong>을 학습한다.</p>
+<p>ReAct는 Reasoning과 Acting을 결합한 방식이다.<br />
+즉, Agent가 생각만 하는 것이 아니라 생각한 내용을 바탕으로 행동하고, 행동 결과를 다시 관찰하여 다음 판단을 수행하는 구조이다.</p>
+<p>Tool Calling은 LLM이 외부 도구를 직접 호출할 수 있도록 하는 방식이다.<br />
+예를 들어 계산기, 파일 읽기, 검색, 데이터베이스 조회, API 호출 등을 LLM이 필요에 따라 사용할 수 있게 한다.</p>
+<h3 id="_8">핵심 내용</h3>
+<div class="highlight"><pre><span></span><code>1. ReAct란 무엇인가?
+2. Reasoning과 Acting의 차이
+3. Thought / Action / Observation 구조
+4. Tool Calling 개념
+5. Tool Schema의 역할
+6. 도구 선택 기준
+7. Tool Calling과 Function Calling의 관계
+8. 잘못된 도구 호출을 방지하는 방법
+</code></pre></div>
+<h3 id="react">ReAct 기본 흐름</h3>
+<div class="highlight"><pre><span></span><code>사용자 질문
+   ↓
+Thought: 무엇을 해야 하는지 판단
+   ↓
+Action: 필요한 도구 선택
+   ↓
+Observation: 도구 실행 결과 확인
+   ↓
+Thought: 결과를 보고 다음 행동 판단
+   ↓
+Final Answer: 최종 답변
+</code></pre></div>
+<h3 id="_9">예시</h3>
+<div class="highlight"><pre><span></span><code>질문:
+&quot;12,500원의 상품을 17개 구매하면 총액이 얼마야?&quot;
+
+Thought:
+계산이 필요하다.
+
+Action:
+calculator 도구를 사용한다.
+
+Observation:
+212,500
+
+Final Answer:
+총액은 212,500원입니다.
+</code></pre></div>
+<h3 id="_10">실습 방향</h3>
+<p>이 단계에서는 Python으로 간단한 도구를 만든다.</p>
+<div class="highlight"><pre><span></span><code>tools/
+├─ calculator.py
+├─ file_reader.py
+└─ search.py
+</code></pre></div>
+<p>각 도구는 Agent가 호출할 수 있는 함수 형태로 작성한다.</p>
+<hr />
+<h2 id="step3-3-ai-agent">Step3-3. 첫 번째 AI Agent 구현</h2>
+<h3 id="_11">문서 경로</h3>
+<div class="highlight"><pre><span></span><code>docs/study/step3/step3_3_first_ai_agent_guide.md
+</code></pre></div>
+<h3 id="_12">학습 목표</h3>
+<p>이 문서에서는 Python으로 첫 번째 단일 Agent를 구현한다.</p>
+<p>목표는 복잡한 프레임워크 없이 다음 흐름을 직접 이해하는 것이다.</p>
+<div class="highlight"><pre><span></span><code>사용자 질문
+   ↓
+LLM 판단
+   ↓
+도구 선택
+   ↓
+도구 실행
+   ↓
+결과를 바탕으로 답변 생성
+</code></pre></div>
+<h3 id="_13">핵심 내용</h3>
+<div class="highlight"><pre><span></span><code>1. Agent 실행 루프 구조
+2. 사용자 질문 입력
+3. 도구 목록 정의
+4. LLM 프롬프트 구성
+5. 도구 호출 판단
+6. 도구 실행 결과 반영
+7. 최종 답변 생성
+</code></pre></div>
+<h3 id="_14">실습 파일</h3>
+<div class="highlight"><pre><span></span><code>labs/agent/01_first_agent.py
+labs/agent/02_tool_calling.py
+</code></pre></div>
+<h3 id="_15">예시 구조</h3>
+<div class="highlight"><pre><span></span><code>사용자:
+&quot;sample.txt 파일을 읽고 핵심 내용을 요약해줘.&quot;
+
+Agent:
+1. 파일 읽기 도구가 필요하다고 판단
+2. file_reader 도구 호출
+3. 파일 내용 확인
+4. LLM에게 요약 요청
+5. 최종 답변 반환
+</code></pre></div>
+<h3 id="_16">구현 관점</h3>
+<p>이 단계에서는 LangGraph나 MCP를 사용하지 않고, Agent의 기본 동작을 직접 구현한다.<br />
+직접 구현해보면 나중에 프레임워크를 사용할 때 내부 동작을 훨씬 쉽게 이해할 수 있다.</p>
+<hr />
+<h2 id="step3-4-agent-memory">Step3-4. Agent Memory와 상태 관리</h2>
+<h3 id="_17">문서 경로</h3>
+<div class="highlight"><pre><span></span><code>docs/study/step3/step3_4_agent_memory_guide.md
+</code></pre></div>
+<h3 id="_18">학습 목표</h3>
+<p>이 문서에서는 Agent Memory와 상태 관리 개념을 학습한다.</p>
+<p>Agent가 한 번의 질문에만 답하는 경우에는 Memory가 필요하지 않을 수 있다.<br />
+하지만 실제 업무에서는 사용자의 이전 요청, 진행 중인 작업, 선택한 파일, 중간 결과, 도구 실행 이력 등을 기억해야 한다.</p>
+<h3 id="_19">핵심 내용</h3>
+<div class="highlight"><pre><span></span><code>1. Memory가 필요한 이유
+2. Short-term Memory
+3. Long-term Memory
+4. Conversation History
+5. Task State
+6. Tool Execution History
+7. Memory 저장 위치
+8. Memory와 개인정보/보안
+</code></pre></div>
+<h3 id="memory">Memory 유형</h3>
+<div class="highlight"><pre><span></span><code>Short-term Memory
+- 현재 대화 안에서만 유지되는 기억
+- 대화 흐름, 최근 질문, 중간 결과 저장
+
+Long-term Memory
+- 여러 대화에 걸쳐 유지되는 기억
+- 사용자 선호, 프로젝트 설정, 자주 사용하는 경로 저장
+
+Task State
+- 특정 작업의 진행 상태
+- 예: 보고서 작성 중, 파일 분석 완료, 검토 대기
+</code></pre></div>
+<h3 id="_20">실습 파일</h3>
+<div class="highlight"><pre><span></span><code>labs/agent/03_memory.py
+</code></pre></div>
+<h3 id="_21">실습 방향</h3>
+<p>처음에는 JSON 파일 또는 Python dictionary로 간단한 Memory를 구현한다.<br />
+이후에는 SQLite, ChromaDB, LangGraph Store 등으로 확장할 수 있다.</p>
+<hr />
+<h1 id="part2-ai-agent">Part2. AI Agent 심화</h1>
+<p>Part2에서는 단순 Agent를 넘어, 복잡한 업무 흐름을 안정적으로 제어하는 방법을 학습한다.</p>
+<p>Agent가 스스로 판단하는 구조는 유연하지만, 엔터프라이즈 업무에서는 예측 가능성과 통제 가능성이 매우 중요하다.<br />
+따라서 Workflow 기반 Agent와 MCP 기반 외부 시스템 연동 구조를 함께 학습한다.</p>
+<hr />
+<h2 id="step3-5-workflow-agentlanggraph">Step3-5. Workflow Agent(LangGraph)</h2>
+<h3 id="_22">문서 경로</h3>
+<div class="highlight"><pre><span></span><code>docs/study/step3/step3_5_langgraph_workflow_agent_guide.md
+</code></pre></div>
+<h3 id="_23">학습 목표</h3>
+<p>이 문서에서는 Workflow 기반 Agent 구조를 학습한다.</p>
+<p>LangGraph는 Agent의 상태와 실행 흐름을 그래프 형태로 구성할 수 있도록 도와주는 프레임워크이다.<br />
+일반 Agent가 매번 자유롭게 판단하는 구조라면, Workflow Agent는 정해진 노드와 조건에 따라 안정적으로 흐름을 제어할 수 있다.</p>
+<h3 id="_24">핵심 내용</h3>
+<div class="highlight"><pre><span></span><code>1. Workflow Agent가 필요한 이유
+2. 자유형 Agent의 한계
+3. Graph 기반 실행 흐름
+4. Node와 Edge 개념
+5. State 관리
+6. Conditional Edge
+7. Human-in-the-loop
+8. Retry와 Error Handling
+</code></pre></div>
+<h3 id="_25">기본 구조</h3>
+<div class="highlight"><pre><span></span><code>START
+  ↓
+질문 분석 Node
+  ↓
+도구 선택 Node
+  ↓
+도구 실행 Node
+  ↓
+결과 검증 Node
+  ↓
+답변 생성 Node
+  ↓
+END
+</code></pre></div>
+<h3 id="_26">실습 파일</h3>
+<div class="highlight"><pre><span></span><code>labs/agent/04_langgraph.py
+</code></pre></div>
+<h3 id="enterprise">Enterprise 관점</h3>
+<p>기업 업무에서는 다음과 같은 이유로 Workflow Agent가 중요하다.</p>
+<div class="highlight"><pre><span></span><code>1. 실행 흐름을 통제할 수 있다.
+2. 승인 단계를 넣을 수 있다.
+3. 실패 시 재시도 또는 예외 처리가 가능하다.
+4. 특정 업무 프로세스를 표준화할 수 있다.
+5. 감사 로그를 남기기 쉽다.
+</code></pre></div>
+<hr />
+<h2 id="step3-6-mcp">Step3-6. MCP 아키텍처 이해</h2>
+<h3 id="_27">문서 경로</h3>
+<div class="highlight"><pre><span></span><code>docs/study/step3/step3_6_mcp_architecture_guide.md
+</code></pre></div>
+<h3 id="_28">학습 목표</h3>
+<p>이 문서에서는 MCP(Model Context Protocol)의 개념과 아키텍처를 학습한다.</p>
+<p>MCP는 AI 애플리케이션이 외부 시스템과 표준화된 방식으로 연결될 수 있도록 하는 프로토콜이다.<br />
+MCP를 사용하면 Agent가 파일, 데이터베이스, API, 검색 시스템, 업무 시스템 등을 일관된 방식으로 호출할 수 있다.</p>
+<h3 id="_29">핵심 내용</h3>
+<div class="highlight"><pre><span></span><code>1. MCP가 등장한 배경
+2. MCP가 해결하는 문제
+3. MCP Host
+4. MCP Client
+5. MCP Server
+6. Tools, Resources, Prompts
+7. Client/Server 연결 구조
+8. MCP와 API Gateway의 차이
+9. MCP와 Tool Calling의 관계
+</code></pre></div>
+<h3 id="mcp">MCP 기본 구조</h3>
+<div class="highlight"><pre><span></span><code>AI Application / Host
+        │
+        ▼
+    MCP Client
+        │
+        ▼
+    MCP Server
+        │
+        ├─ Tools
+        ├─ Resources
+        └─ Prompts
+</code></pre></div>
+<h3 id="enterprise_1">Enterprise 관점</h3>
+<p>기존에는 Agent가 외부 시스템마다 별도 방식으로 연동해야 했다.</p>
+<div class="highlight"><pre><span></span><code>Jira API 연동 방식
+GitHub API 연동 방식
+DB 연동 방식
+파일 시스템 연동 방식
+사내 업무 API 연동 방식
+</code></pre></div>
+<p>MCP를 사용하면 이러한 연동 방식을 표준화할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>Agent
+  ↓
+MCP Client
+  ↓
+각 업무별 MCP Server
+</code></pre></div>
+<hr />
+<h2 id="step3-7-mcp">Step3-7. MCP 기반 외부 시스템 연동</h2>
+<h3 id="_30">문서 경로</h3>
+<div class="highlight"><pre><span></span><code>docs/study/step3/step3_7_mcp_practice_guide.md
+</code></pre></div>
+<h3 id="_31">학습 목표</h3>
+<p>이 문서에서는 MCP를 이용해 외부 시스템을 연동하는 실습을 진행한다.</p>
+<p>처음에는 단순한 파일 시스템 또는 계산기 MCP Server를 만들고, 이후에는 RAG 검색, 데이터베이스, 사내 API로 확장한다.</p>
+<h3 id="_32">핵심 내용</h3>
+<div class="highlight"><pre><span></span><code>1. MCP Server 기본 구현
+2. Tool 정의
+3. Resource 정의
+4. MCP Client에서 Server 연결
+5. Agent에서 MCP Tool 호출
+6. 파일 시스템 연동
+7. RAG 검색 연동
+8. 사내 API 연동 구조
+</code></pre></div>
+<h3 id="_33">실습 파일</h3>
+<div class="highlight"><pre><span></span><code>labs/agent/05_mcp_client.py
+
+labs/agent/mcp/
+├─ file_mcp_server.py
+├─ rag_mcp_server.py
+└─ sample_mcp_client.py
+</code></pre></div>
+<h3 id="_34">실습 예시</h3>
+<div class="highlight"><pre><span></span><code>사용자:
+&quot;docs 폴더에 있는 Step2 문서 중 RAG 관련 내용을 찾아서 요약해줘.&quot;
+
+Agent:
+1. MCP File Server에 문서 목록 요청
+2. MCP RAG Server에 검색 요청
+3. 검색 결과를 LLM에 전달
+4. 요약 답변 생성
+</code></pre></div>
+<h3 id="_35">확장 방향</h3>
+<div class="highlight"><pre><span></span><code>File MCP Server
+DB MCP Server
+Git MCP Server
+Jira MCP Server
+Confluence MCP Server
+Mail MCP Server
+Calendar MCP Server
+RAG MCP Server
+</code></pre></div>
+<hr />
+<h1 id="part3-enterprise-ai-agent">Part3. Enterprise AI Agent</h1>
+<p>Part3에서는 실제 기업 환경에서 AI Agent를 어떻게 설계하고 운영할지 학습한다.</p>
+<p>여기서는 단일 Agent가 아니라 여러 Agent가 역할을 나누어 협업하는 구조와, 이를 통합 운영하기 위한 Enterprise AI Agent Platform 아키텍처를 다룬다.</p>
+<hr />
+<h2 id="step3-8-multi-agent">Step3-8. Multi Agent 협업</h2>
+<h3 id="_36">문서 경로</h3>
+<div class="highlight"><pre><span></span><code>docs/study/step3/step3_8_multi_agent_guide.md
+</code></pre></div>
+<h3 id="_37">학습 목표</h3>
+<p>이 문서에서는 Multi Agent 구조를 학습한다.</p>
+<p>하나의 Agent가 모든 일을 처리할 수도 있지만, 업무가 복잡해질수록 역할 분리가 필요하다.<br />
+Multi Agent는 여러 Agent가 각자 전문 역할을 맡고, Supervisor 또는 Orchestrator가 전체 흐름을 조정하는 구조이다.</p>
+<h3 id="_38">핵심 내용</h3>
+<div class="highlight"><pre><span></span><code>1. Multi Agent가 필요한 이유
+2. 단일 Agent의 한계
+3. 역할 기반 Agent 설계
+4. Supervisor Agent
+5. Planner Agent
+6. Search Agent
+7. Report Agent
+8. QA Agent
+9. Agent 간 메시지 전달
+10. 협업 실패와 충돌 해결
+</code></pre></div>
+<h3 id="_39">예시 구조</h3>
+<div class="highlight"><pre><span></span><code>사용자 요청
+   ↓
+Supervisor Agent
+   ├─ Planner Agent
+   ├─ Search Agent
+   ├─ Analysis Agent
+   ├─ Report Agent
+   └─ QA Agent
+</code></pre></div>
+<h3 id="_40">실습 파일</h3>
+<div class="highlight"><pre><span></span><code>labs/agent/06_multi_agent.py
+</code></pre></div>
+<h3 id="enterprise_2">Enterprise 적용 예시</h3>
+<div class="highlight"><pre><span></span><code>장애 보고서 작성 Multi Agent
+
+1. Planner Agent
+   - 필요한 작업을 분해한다.
+
+2. Search Agent
+   - 장애 이력, 로그, 문서를 검색한다.
+
+3. Analysis Agent
+   - 원인과 영향도를 분석한다.
+
+4. Report Agent
+   - 보고서 초안을 작성한다.
+
+5. QA Agent
+   - 누락 항목과 표현을 검토한다.
+</code></pre></div>
+<hr />
+<h2 id="step3-9-enterprise-ai-agent-platform">Step3-9. Enterprise AI Agent Platform</h2>
+<h3 id="_41">문서 경로</h3>
+<div class="highlight"><pre><span></span><code>docs/study/step3/step3_9_enterprise_ai_agent_platform_guide.md
+</code></pre></div>
+<h3 id="_42">학습 목표</h3>
+<p>이 문서에서는 Enterprise AI Agent Platform의 전체 아키텍처를 설계한다.</p>
+<p>이 단계는 Step3의 최종 정리 단계이다.<br />
+Local LLM, RAG, Agent, Memory, LangGraph, MCP, Multi Agent를 하나의 플랫폼 구조로 통합한다.</p>
+<h3 id="_43">핵심 내용</h3>
+<div class="highlight"><pre><span></span><code>1. Enterprise AI Agent Platform 개요
+2. 전체 아키텍처
+3. Agent Gateway
+4. Agent Runtime
+5. Tool Registry
+6. MCP Client Layer
+7. MCP Server Layer
+8. RAG 연동
+9. Memory Store
+10. Observability
+11. 보안과 권한
+12. 감사 로그
+13. 운영 정책
+14. 확장 전략
+</code></pre></div>
+<h3 id="_44">전체 아키텍처 예시</h3>
+<div class="highlight"><pre><span></span><code>사용자 / Open WebUI
+        │
+        ▼
+AI Agent Gateway
+        │
+        ▼
+Agent Orchestrator
+        │
+        ├─ Planner Agent
+        ├─ Search Agent
+        ├─ Report Agent
+        └─ QA Agent
+        │
+        ▼
+MCP Client Layer
+        │
+        ├─ File MCP Server
+        ├─ RAG MCP Server
+        ├─ DB MCP Server
+        ├─ Git MCP Server
+        └─ 업무 API MCP Server
+        │
+        ▼
+Enterprise Systems
+        ├─ 문서 저장소
+        ├─ Vector DB
+        ├─ 업무 DB
+        ├─ Git Repository
+        └─ 사내 시스템
+</code></pre></div>
+<h3 id="_45">실습 파일</h3>
+<div class="highlight"><pre><span></span><code>labs/agent/07_enterprise_agent.py
+</code></pre></div>
+<h3 id="_46">최종 목표</h3>
+<p>Step3의 최종 목표는 다음 구조를 이해하고 설명할 수 있는 것이다.</p>
+<div class="highlight"><pre><span></span><code>LLM은 판단을 담당한다.
+Agent는 실행 흐름을 담당한다.
+Tool은 실제 작업을 수행한다.
+MCP는 외부 시스템 연결을 표준화한다.
+Workflow는 실행 흐름을 통제한다.
+Memory는 상태와 맥락을 유지한다.
+Multi Agent는 복잡한 업무를 역할별로 분리한다.
+Enterprise Platform은 이 모든 것을 안전하게 운영한다.
+</code></pre></div>
+<hr />
+<h1 id="5-step">5. 모든 Step 문서 공통 템플릿</h1>
+<p>Step3의 각 문서는 아래 템플릿을 기준으로 작성한다.</p>
+<div class="highlight"><pre><span></span><code>1. 학습 목표
+
+2. 왜 필요한가?
+
+3. 기존 방식의 한계
+
+4. AI Agent가 해결하는 문제
+
+5. 핵심 개념
+
+6. 전체 아키텍처
+
+7. 동작 과정
+
+8. 실습 준비
+
+9. Python 실습
+
+10. 코드 분석
+
+11. 실행 결과
+
+12. Enterprise 적용 사례
+
+13. Best Practice
+
+14. 트러블슈팅
+
+15. 핵심 정리
+
+16. 다음 단계 예고
+</code></pre></div>
+<p>이 템플릿을 사용하면 모든 문서가 동일한 흐름으로 작성되기 때문에 학습자 입장에서 문서 구조를 예측하기 쉽다.</p>
+<hr />
+<h1 id="6-step3">6. Step3 실습 디렉터리 구조</h1>
+<p>Step3 실습 코드는 <code>labs/agent</code> 하위에 구성한다.</p>
+<div class="highlight"><pre><span></span><code>labs
+└── agent
+    ├── README.md
+    │
+    ├── common
+    │   ├── config.py
+    │   ├── llm_client.py
+    │   └── logger.py
+    │
+    ├── tools
+    │   ├── calculator.py
+    │   ├── file_reader.py
+    │   ├── search.py
+    │   ├── weather.py
+    │   └── shell.py
+    │
+    ├── memory
+    │   ├── simple_memory.py
+    │   └── sqlite_memory.py
+    │
+    ├── langgraph
+    │   └── workflow_agent.py
+    │
+    ├── mcp
+    │   ├── file_mcp_server.py
+    │   ├── rag_mcp_server.py
+    │   └── sample_mcp_client.py
+    │
+    ├── enterprise
+    │   ├── agent_gateway.py
+    │   ├── tool_registry.py
+    │   └── audit_logger.py
+    │
+    ├── 01_first_agent.py
+    ├── 02_tool_calling.py
+    ├── 03_memory.py
+    ├── 04_langgraph.py
+    ├── 05_mcp_client.py
+    ├── 06_multi_agent.py
+    └── 07_enterprise_agent.py
+</code></pre></div>
+<hr />
+<h1 id="7-step3">7. Step3 문서 디렉터리 생성 명령</h1>
+<p>프로젝트 루트에서 아래 명령을 실행한다.</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>docs/study/step3
+mkdir<span class="w"> </span>-p<span class="w"> </span>labs/agent/common
+mkdir<span class="w"> </span>-p<span class="w"> </span>labs/agent/tools
+mkdir<span class="w"> </span>-p<span class="w"> </span>labs/agent/memory
+mkdir<span class="w"> </span>-p<span class="w"> </span>labs/agent/langgraph
+mkdir<span class="w"> </span>-p<span class="w"> </span>labs/agent/mcp
+mkdir<span class="w"> </span>-p<span class="w"> </span>labs/agent/enterprise
+</code></pre></div>
+<hr />
+<h1 id="8-step3">8. Step3 문서 파일 생성 명령</h1>
+<p>아래 명령으로 빈 문서 파일을 먼저 생성할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>touch<span class="w"> </span>docs/study/step3/step3_1_ai_agent_overview_guide.md
+touch<span class="w"> </span>docs/study/step3/step3_2_react_and_tool_calling_guide.md
+touch<span class="w"> </span>docs/study/step3/step3_3_first_ai_agent_guide.md
+touch<span class="w"> </span>docs/study/step3/step3_4_agent_memory_guide.md
+touch<span class="w"> </span>docs/study/step3/step3_5_langgraph_workflow_agent_guide.md
+touch<span class="w"> </span>docs/study/step3/step3_6_mcp_architecture_guide.md
+touch<span class="w"> </span>docs/study/step3/step3_7_mcp_practice_guide.md
+touch<span class="w"> </span>docs/study/step3/step3_8_multi_agent_guide.md
+touch<span class="w"> </span>docs/study/step3/step3_9_enterprise_ai_agent_platform_guide.md
+</code></pre></div>
+<hr />
+<h1 id="9-mkdocsyml">9. mkdocs.yml 반영 예시</h1>
+<p>기존 <code>mkdocs.yml</code>의 <code>nav</code> 항목 중 적절한 위치에 아래 내용을 추가한다.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step3. AI Agent</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Part1. AI Agent 기초</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step3-1. AI Agent 개요</span><span class="p">:</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">study/step3/step3_1_ai_agent_overview_guide.md</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step3-2. ReAct와 Tool Calling</span><span class="p">:</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">study/step3/step3_2_react_and_tool_calling_guide.md</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step3-3. 첫 번째 AI Agent 구현</span><span class="p">:</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">study/step3/step3_3_first_ai_agent_guide.md</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step3-4. Agent Memory와 상태 관리</span><span class="p">:</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">study/step3/step3_4_agent_memory_guide.md</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Part2. AI Agent 심화</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step3-5. Workflow Agent(LangGraph)</span><span class="p">:</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">study/step3/step3_5_langgraph_workflow_agent_guide.md</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step3-6. MCP 아키텍처 이해</span><span class="p">:</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">study/step3/step3_6_mcp_architecture_guide.md</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step3-7. MCP 기반 외부 시스템 연동</span><span class="p">:</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">study/step3/step3_7_mcp_practice_guide.md</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Part3. Enterprise AI Agent</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step3-8. Multi Agent 협업</span><span class="p">:</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">study/step3/step3_8_multi_agent_guide.md</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Step3-9. Enterprise AI Agent Platform</span><span class="p">:</span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">study/step3/step3_9_enterprise_ai_agent_platform_guide.md</span>
+</code></pre></div>
+<hr />
+<h1 id="10-step3">10. Step3 진행 순서</h1>
+<p>Step3는 아래 순서로 진행한다.</p>
+<div class="highlight"><pre><span></span><code>1주차
+- Step3-1. AI Agent 개요
+- Step3-2. ReAct와 Tool Calling
+
+2주차
+- Step3-3. 첫 번째 AI Agent 구현
+- Step3-4. Agent Memory와 상태 관리
+
+3주차
+- Step3-5. Workflow Agent(LangGraph)
+- Step3-6. MCP 아키텍처 이해
+
+4주차
+- Step3-7. MCP 기반 외부 시스템 연동
+- Step3-8. Multi Agent 협업
+
+5주차
+- Step3-9. Enterprise AI Agent Platform
+- Step3 전체 통합 실습
+</code></pre></div>
+<p>이 일정은 절대적인 기준은 아니며, 실습 난이도에 따라 조정할 수 있다.</p>
+<hr />
+<h1 id="11-part">11. Part별 종료 프로젝트</h1>
+<p>각 Part가 끝날 때마다 작은 프로젝트를 수행한다.</p>
+<hr />
+<h2 id="111-part1">11.1 Part1 종료 프로젝트</h2>
+<div class="highlight"><pre><span></span><code>프로젝트명:
+파일을 읽고 요약하는 AI Agent 만들기
+
+포함 내용:
+- Tool Calling
+- ReAct
+- 파일 읽기 도구
+- 간단한 Memory
+- 최종 요약 답변
+</code></pre></div>
+<hr />
+<h2 id="112-part2">11.2 Part2 종료 프로젝트</h2>
+<div class="highlight"><pre><span></span><code>프로젝트명:
+MCP 기반 사내 문서 검색 Agent 만들기
+
+포함 내용:
+- LangGraph Workflow
+- MCP Client
+- File MCP Server
+- RAG MCP Server
+- 검색 결과 요약
+</code></pre></div>
+<hr />
+<h2 id="113-part3">11.3 Part3 종료 프로젝트</h2>
+<div class="highlight"><pre><span></span><code>프로젝트명:
+Enterprise AI Agent Platform Prototype
+
+포함 내용:
+- Agent Gateway
+- Multi Agent
+- MCP Server Layer
+- RAG 연동
+- Memory Store
+- Audit Log
+- Open WebUI 연동 구조
+</code></pre></div>
+<hr />
+<h1 id="12-step3">12. Step3에서 특히 주의할 점</h1>
+<p>AI Agent는 강력하지만, 통제 없이 사용하면 위험할 수 있다.<br />
+따라서 Step3에서는 기능 구현뿐 아니라 다음 항목을 반드시 함께 다룬다.</p>
+<div class="highlight"><pre><span></span><code>1. 도구 실행 권한 제어
+2. 파일 시스템 접근 범위 제한
+3. Shell 명령 실행 제한
+4. 개인정보와 민감정보 보호
+5. API Key 관리
+6. 실행 로그와 감사 로그
+7. Human-in-the-loop 승인 절차
+8. 실패 시 복구 전략
+9. 비용과 성능 관리
+10. Agent 오동작 방지
+</code></pre></div>
+<p>특히 Enterprise 환경에서는 Agent가 실제 시스템에 영향을 줄 수 있으므로, 읽기 전용 도구와 쓰기 도구를 반드시 구분해야 한다.</p>
+<hr />
+<h1 id="13-step3-step4">13. Step3와 Step4의 연결</h1>
+<p>Step3는 이후 Step4. AI Data Platform으로 자연스럽게 연결된다.</p>
+<div class="highlight"><pre><span></span><code>Step1. Local LLM
+   ↓
+Step2. RAG
+   ↓
+Step3. AI Agent
+   ↓
+Step4. AI Data Platform
+   ↓
+Step5. AI Service / Serving
+</code></pre></div>
+<p>Step3에서 Agent가 도구를 사용하고 외부 시스템을 호출하는 구조를 학습하면, Step4에서는 이를 플랫폼 형태로 확장한다.</p>
+<p>Step4에서는 다음 주제를 다룰 수 있다.</p>
+<div class="highlight"><pre><span></span><code>1. Agent Gateway 고도화
+2. AI 서비스 API화
+3. 사용자별 권한 관리
+4. 모델 라우팅
+5. RAG 서비스화
+6. MCP Server 운영
+7. Agent Observability
+8. 운영 대시보드
+9. 서비스 배포
+10. 사내 AI 업무 플랫폼화
+</code></pre></div>
+<hr />
+<h1 id="14">14. 참고 자료</h1>
+<p>아래 자료는 Step3 학습 시 참고할 수 있는 공식 문서이다.</p>
+<div class="highlight"><pre><span></span><code>Model Context Protocol 공식 문서
+https://modelcontextprotocol.io/docs/getting-started/intro
+
+MCP Architecture Overview
+https://modelcontextprotocol.io/docs/learn/architecture
+
+MCP Tools Specification
+https://modelcontextprotocol.io/specification/2025-06-18/server/tools
+
+LangGraph 공식 문서
+https://langchain-ai.github.io/langgraph/
+
+LangGraph Memory / LangMem 문서
+https://langchain-ai.github.io/langmem/
+
+OpenAI Tool Calling / Function Calling 문서
+https://platform.openai.com/docs/
+</code></pre></div>
+<hr />
+<h1 id="15">15. 핵심 정리</h1>
+<p>Step3는 AI DATA Platform 연구 프로젝트에서 매우 중요한 전환점이다.</p>
+<p>Step1과 Step2가 LLM과 RAG를 이해하는 단계였다면, Step3는 LLM을 실제 업무 시스템과 연결하여 <strong>스스로 판단하고 실행하는 AI 시스템</strong>으로 확장하는 단계이다.</p>
+<p>이번 Step3의 핵심은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. Agent는 단순 답변 생성기가 아니라 작업 수행 구조이다.
+2. ReAct는 생각과 행동을 반복하는 Agent의 기본 패턴이다.
+3. Tool Calling은 Agent가 외부 기능을 사용할 수 있게 한다.
+4. Memory는 Agent가 맥락과 상태를 유지하게 한다.
+5. LangGraph는 복잡한 Agent 흐름을 안정적으로 제어한다.
+6. MCP는 외부 시스템 연동을 표준화한다.
+7. Multi Agent는 복잡한 업무를 역할별로 분리한다.
+8. Enterprise Agent Platform은 Agent를 안전하게 운영하기 위한 구조이다.
+</code></pre></div>
+<p>따라서 Step3는 단순한 코딩 실습이 아니라,<br />
+<strong>AI 아키텍트가 Enterprise AI Platform을 설계하기 위해 반드시 이해해야 하는 핵심 과정</strong>이다.</p>
+<hr />
+<h1 id="16">16. 다음 작업</h1>
+<p>이 문서를 기준으로 다음 순서로 세부 가이드를 작성한다.</p>
+<div class="highlight"><pre><span></span><code>1. step3_1_ai_agent_overview_guide.md 작성
+2. step3_2_react_and_tool_calling_guide.md 작성
+3. labs/agent 기본 디렉터리 생성
+4. 첫 번째 Agent 실습 코드 작성
+5. Step3 전체 MkDocs nav 반영
+</code></pre></div>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.prune", "search.highlight", "search.share", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
