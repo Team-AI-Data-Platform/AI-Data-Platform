@@ -13,3 +13,52 @@
     padding: 4px;
     box-shadow: 0 2px 6px rgba(0,0,0,.08);
 }
+
+
+
+/* ==============================
+   좌측 메뉴 Depth 구분 강화
+   ============================== */
+
+/* 전체 사이드 메뉴 글자 크기 */
+.md-nav {
+  font-size: 14px;
+}
+
+/* 1 Depth: Step */
+.md-nav__item > .md-nav__link {
+  font-weight: 700;
+}
+
+/* 2 Depth */
+.md-nav__item .md-nav .md-nav__item > .md-nav__link {
+  padding-left: 8px;
+  font-weight: 500;
+}
+
+/* 3 Depth */
+.md-nav__item .md-nav .md-nav .md-nav__item > .md-nav__link {
+  padding-left: 16px;
+  font-weight: 400;
+}
+
+/* 4 Depth 이상 */
+.md-nav__item .md-nav .md-nav .md-nav .md-nav__item > .md-nav__link {
+  padding-left: 24px;
+}
+
+/* 현재 선택된 메뉴 */
+.md-nav__link--active {
+  font-weight: 700;
+  color: #3f51b5 !important;
+}
+
+/* Step 제목처럼 보이는 상위 메뉴 간격 */
+.md-nav__item {
+  margin-top: 2px;
+}
+
+/* 접히는 메뉴 화살표 영역 정리 */
+.md-nav__toggle ~ .md-nav__link {
+  font-weight: 600;
+}
