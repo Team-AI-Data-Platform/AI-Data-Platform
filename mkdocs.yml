@@ -75,9 +75,34 @@ nav:
               - 실습파일 사용 가이드: study/step2/step2_5a_practice_guide.md
               - Open WebUI Knowledge 구축: study/step2/step2_5b_openwebui_enterprise_knowledge_guide.md
               - AI OCR / Vision LLM: study/step2/step2_5c_ai_ocr_vision_llm_document_understanding_guide.md
-      - Step 3 Agent 만들기 :
-          - Agent 개요: study/iceberg.md
-          - MCP 개념 및 구축: study/mcp.md
+      #- Step 3 Agent 만들기 :
+          
+
+      - Step3. AI Agent:
+        - Part1. AI Agent 기초:
+            - Step3-1. AI Agent 개요:
+                study/step3/step3_1_ai_agent_overview_guide.md
+            - Step3-2. ReAct와 Tool Calling:
+                study/step3/step3_2_react_and_tool_calling_guide.md
+            - Step3-3. 첫 번째 AI Agent 구현:
+                study/step3/step3_3_first_ai_agent_guide.md
+            - Step3-4. Agent Memory와 상태 관리:
+                study/step3/step3_4_agent_memory_guide.md
+        - Part2. AI Agent 심화:
+            - Step3-5. Planning Agent와 Workflow:
+                study/step3/step3_5_planning_and_workflow_agent_guide.md
+            - Step3-6. LangGraph 기반 Workflow Agent:
+                study/step3/step3_6_langgraph_workflow_agent_guide.md
+            - Step3-7. MCP 아키텍처 이해:
+                study/step3/step3_7_mcp_architecture_guide.md
+            - Step3-8. MCP 기반 외부 시스템 연동:
+                study/step3/step3_8_mcp_practice_guide.md
+        - Part3. Enterprise AI Agent:
+            - Step3-9. Multi Agent 협업:
+                study/step3/step3_9_multi_agent_guide.md
+            - Step3-10. Enterprise AI Agent Platform:
+                study/step3/step3_10_enterprise_ai_agent_platform_guide.md
+
       - Step 4 AI Data Platform:
           - AI Data Platform 개요: study/delta-lake.md
       - Step 5 AI Serving Platform:
