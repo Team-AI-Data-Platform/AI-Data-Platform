@@ -11,6 +11,10 @@
       
       
       
+        <link rel="prev" href="../sourcetree_github_usage_guide/">
+      
+      
+        <link rel="next" href="../macmini_ai_lab_guide/">
       
       
         
@@ -21,7 +25,7 @@
     
     
       
-        <title>Overall architecture - AI Data Platform Study</title>
+        <title>ollama python 가이드 - AI Data Platform Study</title>
       
     
     
@@ -63,6 +67,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#ollama-python" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -93,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Overall architecture
+              ollama python 가이드
             
           </span>
         </div>
@@ -207,11 +216,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../setting/github_team_repository_practice_guide_revised/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../github_team_repository_practice_guide_revised/" class="md-tabs__link">
           
   
   
@@ -231,7 +242,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../setting/macmini_ai_lab_guide/" class="md-tabs__link">
+        <a href="../macmini_ai_lab_guide/" class="md-tabs__link">
           
   
   
@@ -251,7 +262,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../setting/mkdocs_github_pages_guide/" class="md-tabs__link">
+        <a href="../mkdocs_github_pages_guide/" class="md-tabs__link">
           
   
   
@@ -394,12 +405,17 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
@@ -407,18 +423,16 @@
     
     
       
-        
-        
-      
     
-    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
-  
-  
-  
-    <a href="../../setting/github_team_repository_practice_guide_revised/" class="md-nav__link">
-      
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
   
   
   <span class="md-ellipsis">
@@ -432,12 +446,320 @@
   
   
 
-      
-        <span class="md-nav__icon md-icon"></span>
-      
-    </a>
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    시작하기
   
 
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../github_team_repository_practice_guide_revised/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GitHub 참여 및 소스받기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sourcetree_github_usage_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SourceTree 사용법
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ollama python 가이드
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ollama python 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        목적
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 가상환경 생성
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 가상환경 생성">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        명령어 설명
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 가상환경 활성화
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 가상환경 활성화">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        설명
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-pip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. pip 업그레이드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. pip 업그레이드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        설명
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Ollama 라이브러리 설치
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Ollama 라이브러리 설치">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        설명
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 설치 확인
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 첫 번째 예제
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 내부 동작 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 향후 활용
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -470,7 +792,7 @@
   
   
   
-    <a href="../../setting/macmini_ai_lab_guide/" class="md-nav__link">
+    <a href="../macmini_ai_lab_guide/" class="md-nav__link">
       
   
   
@@ -523,7 +845,7 @@
   
   
   
-    <a href="../../setting/mkdocs_github_pages_guide/" class="md-nav__link">
+    <a href="../mkdocs_github_pages_guide/" class="md-nav__link">
       
   
   
@@ -631,6 +953,183 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        목적
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 가상환경 생성
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 가상환경 생성">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        명령어 설명
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 가상환경 활성화
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 가상환경 활성화">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        설명
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-pip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. pip 업그레이드
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. pip 업그레이드">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        설명
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Ollama 라이브러리 설치
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Ollama 라이브러리 설치">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        설명
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 설치 확인
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 첫 번째 예제
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 내부 동작 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 향후 활용
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -647,9 +1146,97 @@
 
 
 
-  <h1>Overall architecture</h1>
+<h1 id="ollama-python">Ollama Python 연동 가이드</h1>
+<h2 id="_1">목적</h2>
+<p>Local LLM 구축 후 Python 프로그램에서 Ollama를 호출하는 방법을 설명합니다.</p>
+<h2 id="1">1. 가상환경 생성</h2>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+</code></pre></div>
+<h3 id="_2">명령어 설명</h3>
+<ul>
+<li>python3 : Python 실행</li>
+<li>-m : 모듈 실행</li>
+<li>venv : 가상환경 생성 모듈</li>
+<li>.venv : 생성될 폴더명</li>
+</ul>
+<p>생성 후:</p>
+<div class="highlight"><pre><span></span><code>AI-Data-Platform
+ ├── docs
+ ├── mkdocs.yml
+ └── .venv
+</code></pre></div>
+<h2 id="2">2. 가상환경 활성화</h2>
+<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+</code></pre></div>
+<h3 id="_3">설명</h3>
+<ul>
+<li>source : 현재 쉘에 적용</li>
+<li>activate : 가상환경 활성화</li>
+</ul>
+<p>정상 실행 시:</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span>.venv<span class="o">)</span><span class="w"> </span>➜
+</code></pre></div>
+<h2 id="3-pip">3. pip 업그레이드</h2>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+</code></pre></div>
+<h3 id="_4">설명</h3>
+<p>현재 가상환경 안의 pip를 최신 버전으로 업그레이드합니다.</p>
+<h2 id="4-ollama">4. Ollama 라이브러리 설치</h2>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ollama
+</code></pre></div>
+<h3 id="_5">설명</h3>
+<p>주의:</p>
+<p>이 명령은 Ollama 서버 설치가 아닙니다.</p>
+<p>Python 프로그램에서 Ollama API를 호출하기 위한 라이브러리를 설치하는 것입니다.</p>
+<p>구조:</p>
+<p>Python Program
+→ Ollama Library
+→ Ollama Server
+→ Gemma/Qwen</p>
+<h2 id="5">5. 설치 확인</h2>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import ollama; print(&#39;ollama python library ok&#39;)&quot;</span>
+</code></pre></div>
+<p>정상 결과:</p>
+<div class="highlight"><pre><span></span><code>ollama python library ok
+</code></pre></div>
+<h2 id="6">6. 첫 번째 예제</h2>
+<p>파일명:</p>
+<p>test_ollama.py</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ollama</span><span class="w"> </span><span class="kn">import</span> <span class="n">chat</span>
 
+<span class="n">response</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s1">&#39;gemma3:4b&#39;</span><span class="p">,</span>
+    <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;role&#39;</span><span class="p">:</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="s1">&#39;Local LLM이 무엇인지 설명해줘&#39;</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">)</span>
 
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="s1">&#39;content&#39;</span><span class="p">])</span>
+</code></pre></div>
+<p>실행:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>test_ollama.py
+</code></pre></div>
+<h2 id="7">7. 내부 동작 구조</h2>
+<p>Python
+↓
+Ollama Library
+↓
+localhost:11434
+↓
+Gemma3 4B
+↓
+Response</p>
+<h2 id="8">8. 향후 활용</h2>
+<ul>
+<li>RAG 구축</li>
+<li>Agent 구축</li>
+<li>Open WebUI 연동</li>
+<li>Vector DB 연동</li>
+</ul>
+<p>모든 단계에서 Python을 사용하게 됩니다.</p>
 
 
 
