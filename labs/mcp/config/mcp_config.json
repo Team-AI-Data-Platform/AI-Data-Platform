@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "ai-data-platform": {
+      "command": "python",
+      "args": [
+        "servers/06_all_tools_mcp_server.py"
+      ]
+    }
+  }
+}

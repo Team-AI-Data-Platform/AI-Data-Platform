@@ -1,0 +1,20 @@
+[
+  {
+    "order_id": "ORD-001",
+    "product_id": 101,
+    "customer": "A은행",
+    "amount": 3000000
+  },
+  {
+    "order_id": "ORD-002",
+    "product_id": 102,
+    "customer": "B증권",
+    "amount": 5000000
+  },
+  {
+    "order_id": "ORD-003",
+    "product_id": 103,
+    "customer": "C카드",
+    "amount": 4000000
+  }
+]

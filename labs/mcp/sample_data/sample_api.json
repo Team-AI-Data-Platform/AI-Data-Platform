@@ -1,0 +1,20 @@
+{
+  "platform_status": {
+    "open_webui": "running",
+    "ollama": "running",
+    "chroma_db": "ready",
+    "last_checked": "2026-06-30T10:00:00+09:00"
+  },
+  "notices": [
+    {
+      "id": 1,
+      "title": "AI DATA Platform 점검 완료",
+      "level": "info"
+    },
+    {
+      "id": 2,
+      "title": "RAG 인덱스 재생성 필요",
+      "level": "warning"
+    }
+  ]
+}

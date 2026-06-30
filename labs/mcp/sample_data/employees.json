@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "name": "김철수",
+    "department": "AI플랫폼",
+    "role": "AI Engineer",
+    "skills": [
+      "Python",
+      "RAG",
+      "Agent"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "이영희",
+    "department": "R&D",
+    "role": "Data Scientist",
+    "skills": [
+      "Python",
+      "Pandas",
+      "Machine Learning"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "박민수",
+    "department": "플랫폼개발",
+    "role": "Backend Developer",
+    "skills": [
+      "FastAPI",
+      "Docker",
+      "PostgreSQL"
+    ]
+  }
+]

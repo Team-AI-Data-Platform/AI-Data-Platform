@@ -1,0 +1,20 @@
+[
+  {
+    "id": 101,
+    "name": "AI 문서 검색 서비스",
+    "category": "RAG",
+    "price": 3000000
+  },
+  {
+    "id": 102,
+    "name": "Agent Workflow PoC",
+    "category": "Agent",
+    "price": 5000000
+  },
+  {
+    "id": 103,
+    "name": "MCP 연동 모듈",
+    "category": "MCP",
+    "price": 4000000
+  }
+]
