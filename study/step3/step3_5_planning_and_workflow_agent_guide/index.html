@@ -1,0 +1,4171 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Data Platform & Local LLM Study">
+      
+      
+      
+      
+        <link rel="prev" href="../step3_4_agent_memory_guide/">
+      
+      
+        <link rel="next" href="../step3_6_langgraph_workflow_agent_guide/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Step3-5. Planning Agent와 Workflow - AI Data Platform Study</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#step3-5-planning-agent-workflow" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="AI Data Platform Study" class="md-header__button md-logo" aria-label="AI Data Platform Study" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Data Platform Study
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Step3-5. Planning Agent와 Workflow
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../roadmap/study-roadmap/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Roadmap
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../setting/github_team_repository_practice_guide_revised/" class="md-tabs__link">
+          
+  
+  
+  시작하기
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../setting/macmini_ai_lab_guide/" class="md-tabs__link">
+          
+  
+  
+  개발환경
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../setting/mkdocs_github_pages_guide/" class="md-tabs__link">
+          
+  
+  
+  문서관리
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../step1/step1_local_llm_setup_guide/" class="md-tabs__link">
+          
+  
+  
+  AI Lab
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="AI Data Platform Study" class="md-nav__button md-logo" aria-label="AI Data Platform Study" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AI Data Platform Study
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../roadmap/study-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../setting/github_team_repository_practice_guide_revised/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    시작하기
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../setting/macmini_ai_lab_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    개발환경
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../setting/mkdocs_github_pages_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    문서관리
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI Lab
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step 1 Local LLM 구축
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Step 1 Local LLM 구축
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../step1/step1_local_llm_setup_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    개념 이해
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../step1/Step1-3_Python_Virtual_Environment_and_Ollama_Guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    구축 실습
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step 2 RAG 구축
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Step 2 RAG 구축
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../step2/step2_rag_overview_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    개념 이해
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../step2/step2_2_vector_db_build_and_document_ingestion_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    기본 구축
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../step2/step2_5_enterprise_document_rag_guide_summary/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    실전 사내 문서 RAG
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step3. AI Agent
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Step3. AI Agent
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../step3_1_ai_agent_overview_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part1. AI Agent 기초
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_3_2" id="__nav_6_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part2. AI Agent 심화
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part2. AI Agent 심화
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step3-5. Planning Agent와 Workflow
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step3-5. Planning Agent와 Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 문서 목적
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 이번 문서의 위치
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 학습 목표
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-planning-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 왜 Planning Agent가 필요한가?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-planning-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Planning Agent란 무엇인가?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-planning-react" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Planning과 ReAct의 차이
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-task-decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Task Decomposition이란?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-plan-task-step-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Plan, Task, Step, Workflow의 차이
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Workflow란 무엇인가?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Workflow의 기본 유형
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Workflow의 기본 유형">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-sequential-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Sequential Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-conditional-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 Conditional Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-parallel-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 Parallel Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-human-in-the-loop-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 Human-in-the-Loop Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-planner-executor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Planner와 Executor 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-planning-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Planning Agent의 실행 흐름
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Plan 데이터 구조 설계
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Task 상태 관리
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-workflow-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Workflow State란?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-planning-agent-1-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Planning Agent 예시 1: 문서 요약 Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-planning-agent-2-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Planning Agent 예시 2: 운영 점검 Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-planning-agent-3-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Planning Agent 예시 3: 제안서 작성 Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-planning-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Planning Agent 구현 방식
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19. Planning Agent 구현 방식">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#191-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.1 규칙 기반 Planning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#192-llm-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.2 LLM 기반 Planning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#193-hybrid-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.3 Hybrid Planning
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-planning-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. Planning Agent 보안 원칙
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-planning-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. Planning Agent 로그 설계
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. Workflow 실패 처리
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. 실습 목표
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. 권장 실습 디렉터리 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-1-sample_tasksjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. 실습 파일 1: sample_tasks.json
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-2-01_simple_plannerpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26. 실습 파일 2: 01_simple_planner.py
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-3-02_task_executorpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27. 실습 파일 3: 02_task_executor.py
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#28-4-03_workflow_demopy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28. 실습 파일 4: 03_workflow_demo.py
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        29. 실행 예시
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-step3-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30. Step3-3 코드와의 연결
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-step3-6-langgraph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        31. Step3-6 LangGraph로 이어지는 이유
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-enterprise-planning-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        32. Enterprise 관점에서 Planning Agent 보기
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33-planning-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        33. Planning Agent 도입 시 주의사항
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34. 핵심 정리
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#35" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35. 다음 단계 예고
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        36. 참고: 이번 단계에서 만들 실습 패키지 후보
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#37-planning-agent-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        37. 부록: Planning Agent와 기존 Agent 비교
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#38-planning-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        38. 부록: Planning Agent 설계 체크리스트
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#39" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        39. 부록: 추천 학습 순서
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        40. 마무리
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step3_6_langgraph_workflow_agent_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step3-6. LangGraph 기반 Workflow Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step3_7_mcp_architecture_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step3-7. MCP 아키텍처 이해
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step3_8_mcp_practice_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step3-8. MCP 기반 외부 시스템 연동
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../step3_9_multi_agent_guide.md" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part3. Enterprise AI Agent
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step 4 AI Data Platform
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Step 4 AI Data Platform
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step 5 AI Serving Platform
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Step 5 AI Serving Platform
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 문서 목적
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 이번 문서의 위치
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 학습 목표
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-planning-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 왜 Planning Agent가 필요한가?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-planning-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Planning Agent란 무엇인가?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-planning-react" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Planning과 ReAct의 차이
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-task-decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Task Decomposition이란?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-plan-task-step-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Plan, Task, Step, Workflow의 차이
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Workflow란 무엇인가?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Workflow의 기본 유형
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. Workflow의 기본 유형">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-sequential-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 Sequential Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102-conditional-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 Conditional Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-parallel-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 Parallel Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-human-in-the-loop-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 Human-in-the-Loop Workflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-planner-executor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Planner와 Executor 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-planning-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Planning Agent의 실행 흐름
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. Plan 데이터 구조 설계
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Task 상태 관리
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-workflow-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Workflow State란?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-planning-agent-1-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Planning Agent 예시 1: 문서 요약 Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-planning-agent-2-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. Planning Agent 예시 2: 운영 점검 Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-planning-agent-3-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Planning Agent 예시 3: 제안서 작성 Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-planning-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. Planning Agent 구현 방식
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19. Planning Agent 구현 방식">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#191-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.1 규칙 기반 Planning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#192-llm-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.2 LLM 기반 Planning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#193-hybrid-planning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.3 Hybrid Planning
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-planning-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. Planning Agent 보안 원칙
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-planning-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. Planning Agent 로그 설계
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. Workflow 실패 처리
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. 실습 목표
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. 권장 실습 디렉터리 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25-1-sample_tasksjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. 실습 파일 1: sample_tasks.json
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-2-01_simple_plannerpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26. 실습 파일 2: 01_simple_planner.py
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-3-02_task_executorpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27. 실습 파일 3: 02_task_executor.py
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#28-4-03_workflow_demopy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28. 실습 파일 4: 03_workflow_demo.py
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        29. 실행 예시
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-step3-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        30. Step3-3 코드와의 연결
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-step3-6-langgraph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        31. Step3-6 LangGraph로 이어지는 이유
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32-enterprise-planning-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        32. Enterprise 관점에서 Planning Agent 보기
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33-planning-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        33. Planning Agent 도입 시 주의사항
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        34. 핵심 정리
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#35" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        35. 다음 단계 예고
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        36. 참고: 이번 단계에서 만들 실습 패키지 후보
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#37-planning-agent-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        37. 부록: Planning Agent와 기존 Agent 비교
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#38-planning-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        38. 부록: Planning Agent 설계 체크리스트
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#39" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        39. 부록: 추천 학습 순서
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#40" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        40. 마무리
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="step3-5-planning-agent-workflow">Step3-5. Planning Agent와 Workflow 가이드</h1>
+<blockquote>
+<p>AI DATA Platform 연구 프로젝트<br />
+Step3. AI Agent<br />
+Part2. AI Agent 심화<br />
+문서 경로: <code>docs/study/step3/step3_5_planning_and_workflow_agent_guide.md</code><br />
+작성일: 2026-06-30</p>
+</blockquote>
+<hr />
+<h2 id="1">1. 문서 목적</h2>
+<p>이 문서는 <code>Step3-3. 첫 번째 AI Agent 구현</code>과 <code>Step3-4. Agent Memory와 상태 관리</code>에서 학습한 내용을 바탕으로, <strong>Planning Agent</strong>와 <strong>Workflow Agent</strong>의 기본 개념을 이해하기 위한 가이드 문서이다.</p>
+<p>앞 단계에서는 Agent가 다음과 같은 방식으로 동작하는 것을 학습했다.</p>
+<div class="highlight"><pre><span></span><code>사용자 질문
+   ↓
+도구 선택
+   ↓
+Tool Call 생성
+   ↓
+Tool Executor 실행
+   ↓
+Tool Result 반환
+   ↓
+최종 답변 출력
+</code></pre></div>
+<p>이 구조는 단순한 작업에는 충분하다.</p>
+<p>예를 들어 다음과 같은 요청은 하나의 도구로 처리할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>&quot;12500 * 17 계산해줘&quot;
+&quot;Agent 문서를 검색해줘&quot;
+&quot;sample_docs/agent_sample.md 파일을 읽어줘&quot;
+</code></pre></div>
+<p>하지만 실제 업무 요청은 대부분 하나의 도구 호출로 끝나지 않는다.</p>
+<p>예를 들어 다음과 같은 요청을 생각해보자.</p>
+<div class="highlight"><pre><span></span><code>&quot;AI 플랫폼 상태를 점검하고, 문제가 있으면 원인을 정리해서 보고서 초안으로 만들어줘.&quot;
+</code></pre></div>
+<p>이 요청을 처리하려면 Agent는 다음을 수행해야 한다.</p>
+<div class="highlight"><pre><span></span><code>1. 점검 대상 식별
+2. Docker 상태 확인
+3. Ollama 상태 확인
+4. Open WebUI 상태 확인
+5. ChromaDB 또는 RAG 데이터 상태 확인
+6. 문제 여부 판단
+7. 원인 정리
+8. 보고서 초안 작성
+</code></pre></div>
+<p>즉, 복잡한 요청은 먼저 <strong>작업을 나누고</strong>, <strong>순서를 정하고</strong>, <strong>각 작업을 실행하고</strong>, <strong>결과를 종합</strong>해야 한다.</p>
+<p>이번 문서에서는 이 구조를 <strong>Planning Agent</strong>와 <strong>Workflow</strong> 관점에서 학습한다.</p>
+<hr />
+<h2 id="2">2. 이번 문서의 위치</h2>
+<p>전체 Step3 목차에서 이 문서의 위치는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Step3. AI Agent
+│
+├─ Part1. AI Agent 기초
+│   ├─ Step3-1. AI Agent 개요
+│   ├─ Step3-2. ReAct와 Tool Calling
+│   ├─ Step3-3. 첫 번째 AI Agent 구현
+│   └─ Step3-4. Agent Memory와 상태 관리
+│
+├─ Part2. AI Agent 심화
+│   ├─ Step3-5. Planning Agent와 Workflow   ← 현재 문서
+│   ├─ Step3-6. LangGraph 기반 Workflow Agent
+│   ├─ Step3-7. MCP 아키텍처 이해
+│   └─ Step3-8. MCP 기반 외부 시스템 연동
+│
+└─ Part3. Enterprise AI Agent
+    ├─ Step3-9. Multi Agent 협업
+    └─ Step3-10. Enterprise AI Agent Platform
+</code></pre></div>
+<p>Step3-5는 Part1에서 만든 단일 Agent 구조를 <strong>업무 흐름 기반 Agent</strong>로 확장하는 첫 단계이다.</p>
+<div class="highlight"><pre><span></span><code>Step3-3:
+하나의 요청을 하나의 도구로 처리하는 Agent 구조 이해
+
+Step3-4:
+대화 이력과 작업 상태를 저장하는 Memory 구조 이해
+
+Step3-5:
+복잡한 요청을 여러 단계로 나누고 실행하는 Planning / Workflow 구조 이해
+
+Step3-6:
+LangGraph를 사용하여 Workflow를 코드로 제어
+</code></pre></div>
+<p>따라서 이번 문서는 Step3-6의 LangGraph 학습을 위한 사전 준비 단계이다.</p>
+<hr />
+<h2 id="3">3. 학습 목표</h2>
+<p>이 문서를 마치면 다음 내용을 설명할 수 있어야 한다.</p>
+<div class="highlight"><pre><span></span><code>1. Planning Agent가 왜 필요한지 설명할 수 있다.
+2. Task Decomposition이 무엇인지 설명할 수 있다.
+3. Plan, Task, Step, Workflow의 차이를 설명할 수 있다.
+4. Planner와 Executor의 역할을 구분할 수 있다.
+5. 순차 Workflow와 조건부 Workflow를 설명할 수 있다.
+6. Planning Agent 실행 흐름을 설계할 수 있다.
+7. ReAct 기반 Agent와 Planning Agent의 차이를 설명할 수 있다.
+8. Enterprise 업무 자동화에서 Workflow 통제가 왜 중요한지 설명할 수 있다.
+9. Step3-6에서 LangGraph가 왜 필요한지 이해할 수 있다.
+</code></pre></div>
+<hr />
+<h2 id="4-planning-agent">4. 왜 Planning Agent가 필요한가?</h2>
+<p>기본 Agent는 사용자의 요청을 보고 바로 도구를 선택한다.</p>
+<div class="highlight"><pre><span></span><code>사용자:
+&quot;Agent 검색해줘&quot;
+
+Agent:
+검색 도구를 사용해야겠다.
+
+Tool Call:
+search(query=&quot;Agent&quot;)
+
+Observation:
+검색 결과
+
+Final Answer:
+검색 결과 정리
+</code></pre></div>
+<p>이 구조는 단순하고 이해하기 쉽다.</p>
+<p>하지만 다음 요청은 다르다.</p>
+<div class="highlight"><pre><span></span><code>&quot;프로젝트 문서를 검토해서 누락된 내용을 찾고, 보완할 목차를 추천해줘.&quot;
+</code></pre></div>
+<p>이 요청은 바로 답변하기 어렵다.</p>
+<p>Agent는 먼저 다음과 같은 판단을 해야 한다.</p>
+<div class="highlight"><pre><span></span><code>1. 어떤 프로젝트 문서를 볼 것인가?
+2. 문서 목록을 먼저 확인해야 하는가?
+3. 각 문서를 읽어야 하는가?
+4. 목차 구조를 추출해야 하는가?
+5. 누락 여부를 어떤 기준으로 판단할 것인가?
+6. 보완 목차를 어떤 형식으로 제안할 것인가?
+</code></pre></div>
+<p>즉, 복잡한 요청은 다음 구조가 필요하다.</p>
+<div class="highlight"><pre><span></span><code>큰 목표
+   ↓
+작업 분해
+   ↓
+실행 순서 결정
+   ↓
+각 작업 실행
+   ↓
+중간 결과 저장
+   ↓
+최종 결과 통합
+</code></pre></div>
+<p>이 역할을 수행하는 Agent가 Planning Agent이다.</p>
+<hr />
+<h2 id="5-planning-agent">5. Planning Agent란 무엇인가?</h2>
+<p>Planning Agent는 사용자의 목표를 달성하기 위해 필요한 작업을 먼저 계획하고, 그 계획에 따라 실행하는 Agent이다.</p>
+<p>간단히 표현하면 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Planning Agent = Planner + Executor + Memory + Tools
+</code></pre></div>
+<p>각 구성 요소의 역할은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Planner:
+- 사용자의 목표를 작은 작업으로 나눈다.
+- 작업 순서를 정한다.
+- 어떤 도구가 필요한지 판단한다.
+
+Executor:
+- Planner가 만든 작업을 실제로 실행한다.
+- Tool Call을 수행한다.
+- 실행 결과를 반환한다.
+
+Memory:
+- 계획, 중간 결과, 실행 상태를 저장한다.
+- 실패한 작업이나 완료된 작업을 기록한다.
+
+Tools:
+- 검색, 파일 읽기, 계산, DB 조회, API 호출 등 실제 작업을 수행한다.
+</code></pre></div>
+<p>Planning Agent의 기본 흐름은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>사용자 목표
+   ↓
+계획 수립
+   ↓
+작업 목록 생성
+   ↓
+작업 실행
+   ↓
+결과 확인
+   ↓
+필요 시 계획 수정
+   ↓
+최종 답변
+</code></pre></div>
+<hr />
+<h2 id="6-planning-react">6. Planning과 ReAct의 차이</h2>
+<p>Step3-2에서 ReAct를 학습했다.</p>
+<p>ReAct는 다음 흐름을 가진다.</p>
+<div class="highlight"><pre><span></span><code>Thought
+   ↓
+Action
+   ↓
+Observation
+   ↓
+Thought
+   ↓
+Action
+   ↓
+Observation
+   ↓
+Final Answer
+</code></pre></div>
+<p>ReAct는 매 순간 다음 행동을 판단하는 구조에 가깝다.</p>
+<p>반면 Planning Agent는 먼저 전체 계획을 세우는 구조에 가깝다.</p>
+<div class="highlight"><pre><span></span><code>Plan
+   ↓
+Step 1
+   ↓
+Step 2
+   ↓
+Step 3
+   ↓
+Final Answer
+</code></pre></div>
+<p>둘의 차이를 비교하면 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>ReAct Agent</th>
+<th>Planning Agent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>중심 개념</td>
+<td>생각과 행동의 반복</td>
+<td>계획 수립과 실행</td>
+</tr>
+<tr>
+<td>실행 방식</td>
+<td>매 단계에서 다음 행동 판단</td>
+<td>전체 또는 일부 계획을 먼저 생성</td>
+</tr>
+<tr>
+<td>적합한 작업</td>
+<td>단순 질의, 도구 사용, 검색</td>
+<td>보고서 작성, 점검, 분석, 업무 자동화</td>
+</tr>
+<tr>
+<td>장점</td>
+<td>유연하고 단순하다</td>
+<td>복잡한 작업을 체계적으로 처리한다</td>
+</tr>
+<tr>
+<td>단점</td>
+<td>긴 작업에서는 흐름이 흔들릴 수 있다</td>
+<td>계획이 잘못되면 전체 실행이 영향을 받는다</td>
+</tr>
+</tbody>
+</table>
+<p>실제 Agent 시스템에서는 ReAct와 Planning이 함께 사용될 수 있다.</p>
+<div class="highlight"><pre><span></span><code>Planning:
+전체 작업 계획을 세운다.
+
+ReAct:
+각 작업을 실행하면서 필요한 도구를 선택하고 결과를 확인한다.
+</code></pre></div>
+<p>즉, Planning은 큰 흐름을 잡고, ReAct는 각 단계의 실행 판단을 담당할 수 있다.</p>
+<hr />
+<h2 id="7-task-decomposition">7. Task Decomposition이란?</h2>
+<p>Task Decomposition은 큰 목표를 작은 작업으로 나누는 것이다.</p>
+<p>예를 들어 다음 요청이 있다고 하자.</p>
+<div class="highlight"><pre><span></span><code>&quot;Step2 RAG 문서를 검토해서 팀원 교육용 요약 자료를 만들어줘.&quot;
+</code></pre></div>
+<p>이 요청은 다음과 같이 분해할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>1. Step2 RAG 문서 목록 확인
+2. 주요 문서 읽기
+3. 핵심 개념 추출
+4. 실습 흐름 정리
+5. 팀원이 어려워할 부분 정리
+6. 교육용 요약 자료 작성
+7. 최종 검토
+</code></pre></div>
+<p>Task Decomposition의 목적은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 복잡한 작업을 이해하기 쉽게 만든다.
+2. 실행 순서를 명확히 한다.
+3. 중간 결과를 관리할 수 있다.
+4. 실패한 작업만 다시 실행할 수 있다.
+5. 사람이 검토하기 쉬워진다.
+</code></pre></div>
+<hr />
+<h2 id="8-plan-task-step-workflow">8. Plan, Task, Step, Workflow의 차이</h2>
+<p>Planning Agent를 이해하려면 용어를 구분해야 한다.</p>
+<table>
+<thead>
+<tr>
+<th>용어</th>
+<th>의미</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Goal</td>
+<td>사용자가 달성하고 싶은 최종 목표</td>
+</tr>
+<tr>
+<td>Plan</td>
+<td>목표를 달성하기 위한 전체 계획</td>
+</tr>
+<tr>
+<td>Task</td>
+<td>계획을 구성하는 개별 작업</td>
+</tr>
+<tr>
+<td>Step</td>
+<td>Task를 실행하는 구체적인 단계</td>
+</tr>
+<tr>
+<td>Workflow</td>
+<td>Task 또는 Step의 실행 흐름</td>
+</tr>
+<tr>
+<td>State</td>
+<td>현재까지의 작업 상태와 중간 결과</td>
+</tr>
+</tbody>
+</table>
+<p>예를 들어 다음 요청이 있다고 하자.</p>
+<div class="highlight"><pre><span></span><code>&quot;AI 플랫폼 상태 점검 보고서를 만들어줘.&quot;
+</code></pre></div>
+<p>이를 구조화하면 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Goal:
+AI 플랫폼 상태 점검 보고서 작성
+
+Plan:
+1. 점검 대상 식별
+2. 상태 정보 수집
+3. 이상 여부 판단
+4. 보고서 작성
+
+Task:
+- Docker 상태 확인
+- Ollama 상태 확인
+- Open WebUI 상태 확인
+- ChromaDB 상태 확인
+
+Step:
+- docker ps 실행
+- ollama list 실행
+- HTTP 응답 확인
+- 경로 존재 여부 확인
+
+Workflow:
+점검 대상 식별 → 상태 확인 → 결과 분석 → 보고서 작성
+
+State:
+현재까지 확인된 상태 정보와 오류 목록
+</code></pre></div>
+<hr />
+<h2 id="9-workflow">9. Workflow란 무엇인가?</h2>
+<p>Workflow는 작업이 어떤 순서와 조건으로 실행되는지를 정의한 흐름이다.</p>
+<p>단순한 Workflow는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>START
+  ↓
+문서 검색
+  ↓
+문서 요약
+  ↓
+답변 생성
+  ↓
+END
+</code></pre></div>
+<p>업무 시스템에서 Workflow는 매우 중요하다.</p>
+<p>왜냐하면 실제 업무는 대부분 절차를 가지고 있기 때문이다.</p>
+<div class="highlight"><pre><span></span><code>제안서 작성:
+자료 수집 → 요구사항 분석 → 목차 작성 → 본문 작성 → 검토 → 제출
+
+장애 보고:
+장애 감지 → 로그 확인 → 영향도 분석 → 조치 내용 정리 → 보고서 작성
+
+문서 검토:
+문서 읽기 → 기준 확인 → 누락 항목 확인 → 개선안 작성 → 최종 검토
+</code></pre></div>
+<p>Agent가 Workflow를 이해하면 단순 답변이 아니라 실제 업무 흐름을 수행할 수 있다.</p>
+<hr />
+<h2 id="10-workflow">10. Workflow의 기본 유형</h2>
+<hr />
+<h3 id="101-sequential-workflow">10.1 Sequential Workflow</h3>
+<p>Sequential Workflow는 작업을 순서대로 실행하는 방식이다.</p>
+<div class="highlight"><pre><span></span><code>Task A
+  ↓
+Task B
+  ↓
+Task C
+  ↓
+Task D
+</code></pre></div>
+<p>예시는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>문서 읽기
+  ↓
+핵심 내용 추출
+  ↓
+요약 작성
+  ↓
+최종 답변 생성
+</code></pre></div>
+<p>가장 단순하고 이해하기 쉬운 Workflow이다.</p>
+<p>처음 Planning Agent를 구현할 때는 Sequential Workflow부터 시작하는 것이 좋다.</p>
+<hr />
+<h3 id="102-conditional-workflow">10.2 Conditional Workflow</h3>
+<p>Conditional Workflow는 조건에 따라 다음 작업이 달라지는 방식이다.</p>
+<div class="highlight"><pre><span></span><code>상태 확인
+   ↓
+문제 있음?
+   ├─ 예 → 원인 분석
+   └─ 아니오 → 정상 보고
+</code></pre></div>
+<p>예시는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Ollama 상태 확인
+   ↓
+실행 중인가?
+   ├─ 예 → 모델 목록 확인
+   └─ 아니오 → 실행 가이드 출력
+</code></pre></div>
+<p>조건부 Workflow는 실제 운영 점검 Agent에서 자주 필요하다.</p>
+<hr />
+<h3 id="103-parallel-workflow">10.3 Parallel Workflow</h3>
+<p>Parallel Workflow는 여러 작업을 동시에 또는 독립적으로 수행하는 방식이다.</p>
+<div class="highlight"><pre><span></span><code>        START
+          ↓
+   ┌──────┼──────┐
+   ↓      ↓      ↓
+Docker  Ollama  ChromaDB
+   ↓      ↓      ↓
+   └──────┼──────┘
+          ↓
+       결과 종합
+</code></pre></div>
+<p>예시는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. Docker 상태 확인
+2. Ollama 상태 확인
+3. Open WebUI 상태 확인
+4. ChromaDB 상태 확인
+5. 결과 종합
+</code></pre></div>
+<p>여러 점검 작업이 서로 의존하지 않는 경우 병렬 구조로 설계할 수 있다.</p>
+<p>단, 처음 구현할 때는 병렬 실행을 실제로 구현하지 않고, 논리적으로만 병렬 작업으로 분리해도 충분하다.</p>
+<hr />
+<h3 id="104-human-in-the-loop-workflow">10.4 Human-in-the-Loop Workflow</h3>
+<p>Human-in-the-Loop은 중간에 사람의 확인이나 승인을 받는 Workflow이다.</p>
+<div class="highlight"><pre><span></span><code>Agent 초안 작성
+   ↓
+사용자 검토
+   ↓
+승인 여부
+   ├─ 승인 → 최종 생성
+   └─ 수정 요청 → 다시 작성
+</code></pre></div>
+<p>Enterprise 환경에서는 매우 중요하다.</p>
+<p>특히 다음 작업은 바로 실행하면 위험하다.</p>
+<div class="highlight"><pre><span></span><code>1. 메일 발송
+2. DB 수정
+3. 파일 삭제
+4. 배포 실행
+5. 티켓 등록
+6. 외부 시스템 전송
+</code></pre></div>
+<p>따라서 쓰기 작업은 다음 구조를 권장한다.</p>
+<div class="highlight"><pre><span></span><code>계획 수립
+  ↓
+Preview 생성
+  ↓
+사용자 승인
+  ↓
+실제 실행
+  ↓
+실행 로그 기록
+</code></pre></div>
+<hr />
+<h2 id="11-planner-executor">11. Planner와 Executor 구조</h2>
+<p>Planning Agent는 보통 Planner와 Executor를 분리한다.</p>
+<div class="highlight"><pre><span></span><code>사용자 요청
+   ↓
+Planner
+   ↓
+Task List
+   ↓
+Executor
+   ↓
+Tool Result
+   ↓
+Final Answer
+</code></pre></div>
+<p>Planner의 역할은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 사용자 요청 분석
+2. 목표 정의
+3. 필요한 작업 분해
+4. 작업 순서 결정
+5. 필요한 도구 후보 지정
+</code></pre></div>
+<p>Executor의 역할은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. Task를 하나씩 실행
+2. 필요한 Tool 호출
+3. 실행 결과 저장
+4. 실패 여부 확인
+5. 다음 Task로 이동
+</code></pre></div>
+<p>이 구조를 분리하면 장점이 있다.</p>
+<div class="highlight"><pre><span></span><code>1. 계획과 실행을 따로 검토할 수 있다.
+2. 잘못된 계획을 실행 전에 수정할 수 있다.
+3. 실패한 Task만 재실행할 수 있다.
+4. 실행 로그를 체계적으로 남길 수 있다.
+5. 나중에 LangGraph로 확장하기 쉽다.
+</code></pre></div>
+<hr />
+<h2 id="12-planning-agent">12. Planning Agent의 실행 흐름</h2>
+<p>Planning Agent의 기본 실행 흐름은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 사용자 요청 입력
+2. Planner가 Plan 생성
+3. Plan을 Task 목록으로 변환
+4. Executor가 Task를 순서대로 실행
+5. 각 Task 결과를 State에 저장
+6. 모든 Task 완료 여부 확인
+7. 결과를 종합하여 Final Answer 생성
+</code></pre></div>
+<p>이를 의사코드로 표현하면 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code><span class="n">user_goal</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;요청을 입력하세요: &quot;</span><span class="p">)</span>
+
+<span class="n">plan</span> <span class="o">=</span> <span class="n">planner</span><span class="o">.</span><span class="n">create_plan</span><span class="p">(</span><span class="n">user_goal</span><span class="p">)</span>
+
+<span class="n">state</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;goal&quot;</span><span class="p">:</span> <span class="n">user_goal</span><span class="p">,</span>
+    <span class="s2">&quot;plan&quot;</span><span class="p">:</span> <span class="n">plan</span><span class="p">,</span>
+    <span class="s2">&quot;task_results&quot;</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">plan</span><span class="p">[</span><span class="s2">&quot;tasks&quot;</span><span class="p">]:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+    <span class="n">state</span><span class="p">[</span><span class="s2">&quot;task_results&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+<span class="n">final_answer</span> <span class="o">=</span> <span class="n">summarize</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">final_answer</span><span class="p">)</span>
+</code></pre></div>
+<p>이 구조는 Step3-6에서 LangGraph의 StateGraph 구조로 확장된다.</p>
+<hr />
+<h2 id="13-plan">13. Plan 데이터 구조 설계</h2>
+<p>Planning Agent를 구현하려면 Plan을 데이터로 표현해야 한다.</p>
+<p>가장 단순한 Plan 구조는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;goal&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AI 플랫폼 상태를 점검한다.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tasks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task_1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Docker 상태 확인&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;check_docker_status&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pending&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task_2&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ollama 상태 확인&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;check_ollama_status&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pending&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task_3&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;결과 요약&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;summarizer&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pending&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>처음에는 이 정도로 충분하다.</p>
+<p>이후에는 다음 정보를 추가할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>1. Task 설명
+2. 입력 파라미터
+3. 예상 결과
+4. 의존 Task
+5. 실패 시 처리 방식
+6. 승인 필요 여부
+7. 실행 시간
+8. 실행 결과
+</code></pre></div>
+<p>확장된 구조는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task_1&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;문서 검색&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Step2 RAG 관련 문서를 검색한다.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;search_documents&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;arguments&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Step2 RAG ChromaDB&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;depends_on&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pending&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;approval_required&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;result&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="14-task">14. Task 상태 관리</h2>
+<p>Workflow에서 각 Task는 상태를 가진다.</p>
+<p>대표적인 상태는 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>상태</th>
+<th>의미</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pending</td>
+<td>아직 실행 전</td>
+</tr>
+<tr>
+<td>running</td>
+<td>실행 중</td>
+</tr>
+<tr>
+<td>success</td>
+<td>성공</td>
+</tr>
+<tr>
+<td>failed</td>
+<td>실패</td>
+</tr>
+<tr>
+<td>skipped</td>
+<td>조건에 의해 건너뜀</td>
+</tr>
+<tr>
+<td>waiting_approval</td>
+<td>사용자 승인 대기</td>
+</tr>
+</tbody>
+</table>
+<p>Task 상태를 관리하면 다음을 할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>1. 어떤 작업이 완료되었는지 확인
+2. 어디서 실패했는지 확인
+3. 실패한 작업만 다시 실행
+4. 승인 대기 작업을 분리
+5. 실행 이력을 로그로 남김
+</code></pre></div>
+<p>단순 Agent와 Workflow Agent의 가장 큰 차이 중 하나가 바로 상태 관리이다.</p>
+<hr />
+<h2 id="15-workflow-state">15. Workflow State란?</h2>
+<p>State는 현재 Workflow의 전체 상태이다.</p>
+<p>예를 들어 상태 점검 Agent의 State는 다음과 같이 표현할 수 있다.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;goal&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AI 플랫폼 상태 점검&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;current_task_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task_2&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;results&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;docker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;running&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ollama&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;not_running&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;open_webui&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;running&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;errors&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;Ollama 서버가 실행 중이 아닙니다.&quot;</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;final_report&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>State는 Agent가 다음 행동을 결정하는 기준이 된다.</p>
+<div class="highlight"><pre><span></span><code>State를 보고 다음 Task를 실행한다.
+State를 보고 조건 분기를 수행한다.
+State를 보고 최종 답변을 만든다.
+</code></pre></div>
+<p>Step3-6에서 LangGraph를 학습할 때 가장 중요한 개념이 바로 State이다.</p>
+<hr />
+<h2 id="16-planning-agent-1-workflow">16. Planning Agent 예시 1: 문서 요약 Workflow</h2>
+<p>사용자 요청:</p>
+<div class="highlight"><pre><span></span><code>&quot;Agent 관련 문서를 찾아서 교육용 요약을 만들어줘.&quot;
+</code></pre></div>
+<p>Planning 결과:</p>
+<div class="highlight"><pre><span></span><code>1. Agent 관련 문서 검색
+2. 검색 결과에서 주요 문서 선택
+3. 문서 내용 요약
+4. 교육용 핵심 포인트 정리
+5. 최종 답변 작성
+</code></pre></div>
+<p>Workflow:</p>
+<div class="highlight"><pre><span></span><code>START
+  ↓
+search_documents
+  ↓
+read_text_file
+  ↓
+summarize
+  ↓
+format_answer
+  ↓
+END
+</code></pre></div>
+<p>이 예시는 문서 기반 RAG와 Agent Workflow가 결합되는 형태이다.</p>
+<hr />
+<h2 id="17-planning-agent-2-workflow">17. Planning Agent 예시 2: 운영 점검 Workflow</h2>
+<p>사용자 요청:</p>
+<div class="highlight"><pre><span></span><code>&quot;AI 플랫폼 상태를 점검해줘.&quot;
+</code></pre></div>
+<p>Planning 결과:</p>
+<div class="highlight"><pre><span></span><code>1. Docker 상태 확인
+2. Ollama 상태 확인
+3. Open WebUI 상태 확인
+4. ChromaDB 상태 확인
+5. 이상 여부 판단
+6. 점검 결과 보고
+</code></pre></div>
+<p>Workflow:</p>
+<div class="highlight"><pre><span></span><code>START
+  ↓
+check_docker_status
+  ↓
+check_ollama_status
+  ↓
+check_open_webui_status
+  ↓
+check_chroma_status
+  ↓
+analyze_health
+  ↓
+generate_report
+  ↓
+END
+</code></pre></div>
+<p>조건부 Workflow로 표현하면 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>check_ollama_status
+   ↓
+Ollama 실행 중?
+   ├─ 예 → 모델 목록 확인
+   └─ 아니오 → 실행 가이드 생성
+</code></pre></div>
+<hr />
+<h2 id="18-planning-agent-3-workflow">18. Planning Agent 예시 3: 제안서 작성 Workflow</h2>
+<p>사용자 요청:</p>
+<div class="highlight"><pre><span></span><code>&quot;KB증권 자산성장 프로젝트 제안서 작성 방향을 정리해줘.&quot;
+</code></pre></div>
+<p>Planning 결과:</p>
+<div class="highlight"><pre><span></span><code>1. RFP 또는 요구사항 문서 확인
+2. 자산성장 관련 키워드 추출
+3. 경쟁사 벤치마킹 관점 정리
+4. 웹표준/웹접근성 항목 정리
+5. 보안 요구사항 대응 항목 정리
+6. 작성 목차 추천
+7. 초안 작성
+8. 검토 포인트 정리
+</code></pre></div>
+<p>이 예시는 실제 제안 업무에서 Planning Agent가 어떻게 활용될 수 있는지 보여준다.</p>
+<p>Enterprise 업무에서는 계획 자체가 매우 중요하다.</p>
+<p>왜냐하면 사용자가 원하는 것은 단순 답변이 아니라 다음과 같은 결과물이기 때문이다.</p>
+<div class="highlight"><pre><span></span><code>1. 어떤 순서로 작업할지
+2. 누가 어떤 자료를 봐야 하는지
+3. 어떤 산출물이 나와야 하는지
+4. 어떤 검토 포인트가 있는지
+5. 최종 문서가 어떤 구조여야 하는지
+</code></pre></div>
+<hr />
+<h2 id="19-planning-agent">19. Planning Agent 구현 방식</h2>
+<p>Planning Agent를 구현하는 방식은 크게 세 가지가 있다.</p>
+<div class="highlight"><pre><span></span><code>1. 규칙 기반 Planning
+2. LLM 기반 Planning
+3. Hybrid Planning
+</code></pre></div>
+<hr />
+<h3 id="191-planning">19.1 규칙 기반 Planning</h3>
+<p>규칙 기반 Planning은 미리 정한 규칙에 따라 계획을 만든다.</p>
+<p>예를 들어 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>입력에 &quot;점검&quot;이 있으면:
+1. Docker 상태 확인
+2. Ollama 상태 확인
+3. Open WebUI 상태 확인
+4. 결과 요약
+</code></pre></div>
+<p>장점은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 예측 가능하다.
+2. 디버깅이 쉽다.
+3. 보안 통제가 쉽다.
+4. 처음 실습하기 좋다.
+</code></pre></div>
+<p>단점은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 유연성이 낮다.
+2. 새로운 요청에 약하다.
+3. 규칙이 많아지면 관리가 어렵다.
+</code></pre></div>
+<p>Step3-5 실습에서는 먼저 규칙 기반 Planning을 권장한다.</p>
+<hr />
+<h3 id="192-llm-planning">19.2 LLM 기반 Planning</h3>
+<p>LLM 기반 Planning은 LLM이 사용자의 요청을 분석해서 계획을 생성한다.</p>
+<p>예를 들어 LLM에게 다음과 같이 요청할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>사용자 요청을 처리하기 위한 작업 계획을 JSON 형식으로 작성하라.
+각 작업에는 id, name, tool, arguments를 포함하라.
+</code></pre></div>
+<p>LLM 출력 예시는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;goal&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Agent 문서를 교육용으로 요약한다.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tasks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task_1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Agent 문서 검색&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;search_documents&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;arguments&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AI Agent&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task_2&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;요약 작성&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;summarize&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;arguments&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>장점은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 유연하다.
+2. 다양한 요청에 대응할 수 있다.
+3. 사람이 직접 규칙을 모두 만들 필요가 없다.
+</code></pre></div>
+<p>단점은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 잘못된 계획을 만들 수 있다.
+2. 허용되지 않은 도구를 제안할 수 있다.
+3. JSON 형식이 깨질 수 있다.
+4. 보안 검증이 반드시 필요하다.
+</code></pre></div>
+<hr />
+<h3 id="193-hybrid-planning">19.3 Hybrid Planning</h3>
+<p>Hybrid Planning은 규칙 기반과 LLM 기반을 함께 사용하는 방식이다.</p>
+<div class="highlight"><pre><span></span><code>LLM:
+계획 초안을 만든다.
+
+Application:
+계획을 검증한다.
+허용된 도구인지 확인한다.
+위험한 작업은 승인 대상으로 분리한다.
+
+Executor:
+검증된 계획만 실행한다.
+</code></pre></div>
+<p>Enterprise 환경에서는 Hybrid 방식을 권장한다.</p>
+<div class="highlight"><pre><span></span><code>LLM은 계획을 제안한다.
+Application은 계획을 검증한다.
+사용자는 중요한 작업을 승인한다.
+Executor는 승인된 작업만 실행한다.
+</code></pre></div>
+<hr />
+<h2 id="20-planning-agent">20. Planning Agent 보안 원칙</h2>
+<p>Planning Agent는 단일 Tool Calling Agent보다 더 강력하다.</p>
+<p>따라서 더 많은 통제가 필요하다.</p>
+<p>중요한 보안 원칙은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. Plan에 포함된 도구가 허용된 도구인지 검증한다.
+2. 쓰기 작업은 실행 전 사용자 승인을 받는다.
+3. 파일 경로는 허용된 디렉터리 안으로 제한한다.
+4. DB 수정, 메일 발송, 배포 실행은 별도 권한을 요구한다.
+5. Plan과 실행 결과를 모두 로그로 남긴다.
+6. 실패한 작업은 안전하게 중단한다.
+7. 민감정보는 로그에 그대로 저장하지 않는다.
+8. Agent가 만든 계획을 사람이 검토할 수 있어야 한다.
+</code></pre></div>
+<p>Planning Agent에서 가장 중요한 원칙은 다음이다.</p>
+<blockquote>
+<p><strong>LLM이 만든 계획을 그대로 믿고 실행하면 안 된다.</strong></p>
+</blockquote>
+<hr />
+<h2 id="21-planning-agent">21. Planning Agent 로그 설계</h2>
+<p>Planning Agent는 실행 과정이 길기 때문에 로그가 중요하다.</p>
+<p>로그에는 다음 정보가 포함되는 것이 좋다.</p>
+<div class="highlight"><pre><span></span><code>1. 사용자 요청
+2. 생성된 Plan
+3. 각 Task의 시작 시간
+4. 각 Task의 종료 시간
+5. 실행한 Tool
+6. 입력 Arguments
+7. 실행 결과 상태
+8. 오류 메시지
+9. 승인 여부
+10. 최종 답변
+</code></pre></div>
+<p>예시는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;session-20260630-001&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;goal&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AI 플랫폼 상태 점검&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;plan_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;plan-001&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tasks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;task_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task_1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Docker 상태 확인&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;check_docker_status&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;elapsed_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">120</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;task_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task_2&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ollama 상태 확인&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;check_ollama_status&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;failed&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Ollama 서버 응답 없음&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>이 로그는 다음 목적에 사용된다.</p>
+<div class="highlight"><pre><span></span><code>1. 장애 분석
+2. 보안 감사
+3. 실행 흐름 재현
+4. Agent 품질 개선
+5. 비용 분석
+6. 실패 지점 파악
+</code></pre></div>
+<hr />
+<h2 id="22-workflow">22. Workflow 실패 처리</h2>
+<p>실제 Workflow에서는 실패가 자주 발생한다.</p>
+<p>예를 들어 다음 문제가 생길 수 있다.</p>
+<div class="highlight"><pre><span></span><code>1. 파일이 존재하지 않는다.
+2. 검색 결과가 없다.
+3. API 응답이 실패한다.
+4. DB 연결이 되지 않는다.
+5. 권한이 없다.
+6. LLM 응답 형식이 깨진다.
+</code></pre></div>
+<p>실패 처리 방식은 다음과 같이 설계할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>Fail Fast:
+- 오류가 발생하면 즉시 중단한다.
+- 위험한 작업에 적합하다.
+
+Retry:
+- 일정 횟수 다시 시도한다.
+- 네트워크 오류나 일시적 API 오류에 적합하다.
+
+Skip:
+- 실패한 작업을 건너뛰고 다음 작업으로 진행한다.
+- 선택 작업에 적합하다.
+
+Fallback:
+- 대체 도구나 대체 경로를 사용한다.
+- 검색 실패 시 다른 키워드로 재검색하는 방식이다.
+
+Human Review:
+- 사람이 판단하도록 중단한다.
+- 중요한 업무나 위험한 작업에 적합하다.
+</code></pre></div>
+<p>처음 실습에서는 Fail Fast 방식으로 시작해도 충분하다.</p>
+<hr />
+<h2 id="23">23. 실습 목표</h2>
+<p>이번 Step3-5 실습에서는 완성형 Planning Agent를 만드는 것이 아니라, Planning 구조를 이해하기 위한 최소 예제를 만든다.</p>
+<p>실습 목표는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 사용자 요청을 기반으로 Plan을 만든다.
+2. Plan을 Task 목록으로 표현한다.
+3. Task를 순서대로 실행한다.
+4. 실행 결과를 State에 저장한다.
+5. 최종 결과를 요약한다.
+</code></pre></div>
+<p>실습에서는 실제 LLM을 연결하지 않고 규칙 기반 Planner를 사용한다.</p>
+<p>이유는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. Planning 구조를 먼저 이해하기 위해서이다.
+2. LLM 응답 오류와 Agent 구조 오류를 분리하기 위해서이다.
+3. 디버깅이 쉽다.
+4. Step3-6에서 LangGraph로 확장하기 쉽다.
+</code></pre></div>
+<hr />
+<h2 id="24">24. 권장 실습 디렉터리 구조</h2>
+<p>이번 실습은 기존 <code>labs/agent</code> 아래에 <code>workflow</code> 디렉터리를 추가하는 방식으로 진행한다.</p>
+<div class="highlight"><pre><span></span><code>labs
+└── agent
+    ├── workflow
+    │   ├── README.md
+    │   ├── 01_simple_planner.py
+    │   ├── 02_task_executor.py
+    │   ├── 03_workflow_demo.py
+    │   └── sample_tasks.json
+    │
+    ├── tools
+    │   ├── calculator.py
+    │   ├── search.py
+    │   └── file_reader.py
+    │
+    └── common
+        ├── tool_registry.py
+        └── tool_executor.py
+</code></pre></div>
+<p>이번 문서에서는 구조를 설명하고, 실제 실습 파일은 별도 실습 패키지로 제공하는 것을 권장한다.</p>
+<hr />
+<h2 id="25-1-sample_tasksjson">25. 실습 파일 1: sample_tasks.json</h2>
+<p>파일 경로:</p>
+<div class="highlight"><pre><span></span><code>labs/agent/workflow/sample_tasks.json
+</code></pre></div>
+<p>예시 내용:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;goal&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AI Agent 문서를 검색하고 요약한다.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tasks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task_1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Agent 문서 검색&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;search&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;arguments&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Agent&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pending&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task_2&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;샘플 문서 읽기&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file_reader&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;arguments&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;relative_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sample_docs/agent_sample.md&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pending&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>이 파일은 Plan을 JSON 데이터로 표현하는 예제이다.</p>
+<hr />
+<h2 id="26-2-01_simple_plannerpy">26. 실습 파일 2: 01_simple_planner.py</h2>
+<p>이 파일은 사용자 요청을 보고 간단한 Plan을 생성한다.</p>
+<p>예시 흐름은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>사용자 요청에 &quot;점검&quot; 포함
+→ 상태 점검 Plan 생성
+
+사용자 요청에 &quot;문서&quot; 또는 &quot;검색&quot; 포함
+→ 문서 검색 Plan 생성
+
+사용자 요청에 &quot;계산&quot; 포함
+→ 계산 Plan 생성
+</code></pre></div>
+<p>의사코드는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">create_plan</span><span class="p">(</span><span class="n">user_input</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s2">&quot;점검&quot;</span> <span class="ow">in</span> <span class="n">user_input</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">health_check_plan</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="s2">&quot;문서&quot;</span> <span class="ow">in</span> <span class="n">user_input</span> <span class="ow">or</span> <span class="s2">&quot;검색&quot;</span> <span class="ow">in</span> <span class="n">user_input</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">document_search_plan</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="s2">&quot;계산&quot;</span> <span class="ow">in</span> <span class="n">user_input</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">calculation_plan</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">default_plan</span><span class="p">()</span>
+</code></pre></div>
+<p>처음에는 이처럼 규칙 기반으로 계획을 생성한다.</p>
+<hr />
+<h2 id="27-3-02_task_executorpy">27. 실습 파일 3: 02_task_executor.py</h2>
+<p>이 파일은 Plan에 포함된 Task를 실행한다.</p>
+<p>의사코드는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">execute_task</span><span class="p">(</span><span class="n">task</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="n">tool_name</span> <span class="o">=</span> <span class="n">task</span><span class="p">[</span><span class="s2">&quot;tool&quot;</span><span class="p">]</span>
+    <span class="n">arguments</span> <span class="o">=</span> <span class="n">task</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;arguments&quot;</span><span class="p">,</span> <span class="p">{})</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">execute_tool</span><span class="p">(</span><span class="n">tool_name</span><span class="p">,</span> <span class="n">arguments</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;task_id&quot;</span><span class="p">:</span> <span class="n">task</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;success&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="n">result</span>
+    <span class="p">}</span>
+</code></pre></div>
+<p>Task Executor는 기존 Step3-3에서 만든 <code>execute_tool()</code> 구조를 재사용할 수 있다.</p>
+<p>이 점이 중요하다.</p>
+<div class="highlight"><pre><span></span><code>Step3-3:
+Tool Executor 구현
+
+Step3-5:
+Tool Executor를 Task Executor에서 재사용
+</code></pre></div>
+<hr />
+<h2 id="28-4-03_workflow_demopy">28. 실습 파일 4: 03_workflow_demo.py</h2>
+<p>이 파일은 전체 Workflow를 실행한다.</p>
+<p>흐름은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 사용자 요청 입력
+2. create_plan() 호출
+3. Plan 출력
+4. Task 목록 순회
+5. 각 Task 실행
+6. State에 결과 저장
+7. 최종 결과 출력
+</code></pre></div>
+<p>의사코드는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">run_workflow</span><span class="p">(</span><span class="n">user_input</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="n">plan</span> <span class="o">=</span> <span class="n">create_plan</span><span class="p">(</span><span class="n">user_input</span><span class="p">)</span>
+
+    <span class="n">state</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;goal&quot;</span><span class="p">:</span> <span class="n">plan</span><span class="p">[</span><span class="s2">&quot;goal&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;tasks&quot;</span><span class="p">:</span> <span class="n">plan</span><span class="p">[</span><span class="s2">&quot;tasks&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;results&quot;</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">plan</span><span class="p">[</span><span class="s2">&quot;tasks&quot;</span><span class="p">]:</span>
+        <span class="n">task_result</span> <span class="o">=</span> <span class="n">execute_task</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;results&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">task_result</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">state</span>
+</code></pre></div>
+<hr />
+<h2 id="29">29. 실행 예시</h2>
+<p>사용자 입력:</p>
+<div class="highlight"><pre><span></span><code>Agent 문서 검색하고 요약해줘
+</code></pre></div>
+<p>생성된 Plan:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;goal&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Agent 관련 문서를 검색하고 내용을 확인한다.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tasks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task_1&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Agent 문서 검색&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;search&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;arguments&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Agent&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pending&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;task_2&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;샘플 Agent 문서 읽기&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;tool&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file_reader&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;arguments&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;relative_path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sample_docs/agent_sample.md&quot;</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;pending&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>실행 결과:</p>
+<div class="highlight"><pre><span></span><code>task_1 성공
+- Agent 관련 문서 검색 결과 확인
+
+task_2 성공
+- agent_sample.md 파일 내용 읽기 완료
+
+최종 답변:
+Agent 관련 문서를 검색하고 샘플 문서를 읽었습니다...
+</code></pre></div>
+<hr />
+<h2 id="30-step3-3">30. Step3-3 코드와의 연결</h2>
+<p>Step3-5는 Step3-3의 코드를 버리는 것이 아니라 확장한다.</p>
+<p>Step3-3 구조:</p>
+<div class="highlight"><pre><span></span><code>사용자 입력
+   ↓
+select_tool
+   ↓
+execute_tool
+   ↓
+Final Answer
+</code></pre></div>
+<p>Step3-5 구조:</p>
+<div class="highlight"><pre><span></span><code>사용자 입력
+   ↓
+create_plan
+   ↓
+Task List
+   ↓
+execute_task
+   ↓
+execute_tool
+   ↓
+State 저장
+   ↓
+Final Answer
+</code></pre></div>
+<p>즉, Step3-5에서 새로 추가되는 것은 다음이다.</p>
+<div class="highlight"><pre><span></span><code>1. Plan
+2. Task
+3. Workflow
+4. State
+</code></pre></div>
+<p>기존 Tool Registry와 Tool Executor는 그대로 재사용할 수 있다.</p>
+<hr />
+<h2 id="31-step3-6-langgraph">31. Step3-6 LangGraph로 이어지는 이유</h2>
+<p>Step3-5에서는 Workflow를 Python for문과 if문으로 단순하게 표현한다.</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
+    <span class="n">execute_task</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+</code></pre></div>
+<p>하지만 Workflow가 복잡해지면 문제가 생긴다.</p>
+<div class="highlight"><pre><span></span><code>1. 조건 분기가 많아진다.
+2. 중간 상태 관리가 어려워진다.
+3. 실패 처리 로직이 복잡해진다.
+4. 재시작과 재실행이 어렵다.
+5. Human-in-the-Loop을 넣기 어렵다.
+6. 그래프 형태의 업무 흐름을 표현하기 어렵다.
+</code></pre></div>
+<p>이 문제를 해결하기 위해 Step3-6에서 LangGraph를 학습한다.</p>
+<p>LangGraph는 Workflow를 다음 개념으로 표현한다.</p>
+<div class="highlight"><pre><span></span><code>State:
+현재 작업 상태
+
+Node:
+실행 단위
+
+Edge:
+다음 실행 흐름
+
+Conditional Edge:
+조건에 따른 분기
+
+Graph:
+전체 Workflow 구조
+</code></pre></div>
+<p>즉, Step3-5에서 개념적으로 배운 Workflow가 Step3-6에서는 LangGraph 코드로 구현된다.</p>
+<hr />
+<h2 id="32-enterprise-planning-agent">32. Enterprise 관점에서 Planning Agent 보기</h2>
+<p>Enterprise 환경에서 Planning Agent는 단순한 자동화 도구가 아니다.</p>
+<p>업무 절차를 AI가 이해하고 실행할 수 있도록 만드는 구조이다.</p>
+<p>예시는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>제안서 작성 Agent:
+요구사항 분석 → 경쟁사 조사 → 목차 작성 → 초안 작성 → 품질 검토
+
+운영 점검 Agent:
+시스템 상태 확인 → 오류 탐지 → 원인 분석 → 조치 가이드 작성
+
+문서 관리 Agent:
+문서 목록 확인 → 변경사항 요약 → 누락 항목 검토 → 개선안 작성
+
+RAG 품질 점검 Agent:
+문서 수집 → Chunk 품질 확인 → 검색 테스트 → 답변 품질 평가
+</code></pre></div>
+<p>이런 업무는 단순 Tool Calling으로는 어렵고, Planning과 Workflow가 필요하다.</p>
+<hr />
+<h2 id="33-planning-agent">33. Planning Agent 도입 시 주의사항</h2>
+<p>Planning Agent를 도입할 때는 다음을 주의해야 한다.</p>
+<div class="highlight"><pre><span></span><code>1. 처음부터 너무 복잡한 Planner를 만들지 않는다.
+2. 읽기 전용 Workflow부터 시작한다.
+3. 쓰기 작업은 반드시 승인 단계를 둔다.
+4. Plan을 사람이 볼 수 있는 형태로 출력한다.
+5. 실패한 Task를 확인할 수 있게 한다.
+6. Plan과 실행 결과를 로그로 남긴다.
+7. 허용된 Tool만 실행되도록 검증한다.
+8. Workflow가 길어질수록 State를 명확히 관리한다.
+</code></pre></div>
+<p>처음에는 다음 정도의 Workflow부터 시작하는 것이 좋다.</p>
+<div class="highlight"><pre><span></span><code>문서 검색
+  ↓
+파일 읽기
+  ↓
+요약
+  ↓
+답변
+</code></pre></div>
+<p>이 구조가 안정화된 후 운영 점검, 보고서 작성, 외부 시스템 연동으로 확장한다.</p>
+<hr />
+<h2 id="34">34. 핵심 정리</h2>
+<p>이번 문서의 핵심은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. Planning Agent는 복잡한 요청을 여러 작업으로 분해한다.
+2. Task Decomposition은 큰 목표를 작은 작업으로 나누는 과정이다.
+3. Workflow는 Task의 실행 순서와 조건을 정의한다.
+4. Planner는 계획을 만들고, Executor는 계획을 실행한다.
+5. Workflow에는 순차, 조건부, 병렬, Human-in-the-Loop 구조가 있다.
+6. Task는 pending, running, success, failed 같은 상태를 가진다.
+7. State는 Workflow 전체의 현재 상태와 중간 결과를 저장한다.
+8. Step3-3의 Tool Executor는 Step3-5의 Task Executor에서 재사용된다.
+9. Enterprise 환경에서는 Plan 검증, 권한, 승인, 로그가 중요하다.
+10. Step3-6에서는 이 Workflow를 LangGraph로 구현한다.
+</code></pre></div>
+<p>한 문장으로 정리하면 다음과 같다.</p>
+<blockquote>
+<p><strong>Planning Agent는 복잡한 업무 요청을 계획 가능한 작업 목록으로 분해하고, Workflow에 따라 실행하는 Agent 구조이다.</strong></p>
+</blockquote>
+<hr />
+<h2 id="35">35. 다음 단계 예고</h2>
+<p>다음 문서는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Step3-6. LangGraph 기반 Workflow Agent
+docs/study/step3/step3_6_langgraph_workflow_agent_guide.md
+</code></pre></div>
+<p>다음 단계에서는 이번 문서에서 학습한 Planning과 Workflow 개념을 LangGraph로 구현한다.</p>
+<p>다음 문서에서 다룰 내용은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. LangGraph가 필요한 이유
+2. StateGraph 개념
+3. State 정의
+4. Node 정의
+5. Edge 정의
+6. Conditional Edge 정의
+7. START와 END
+8. Workflow 실행
+9. Agent State 관리
+10. LangGraph 기반 Workflow Agent 구현
+</code></pre></div>
+<hr />
+<h2 id="36">36. 참고: 이번 단계에서 만들 실습 패키지 후보</h2>
+<p>Step3-5 실습 패키지를 만든다면 다음 파일 구성을 추천한다.</p>
+<div class="highlight"><pre><span></span><code>labs/agent/workflow
+├── README.md
+├── 01_simple_planner.py
+├── 02_task_executor.py
+├── 03_workflow_demo.py
+├── 04_conditional_workflow.py
+└── sample_tasks.json
+</code></pre></div>
+<p>각 파일의 역할은 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>파일</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>01_simple_planner.py</code></td>
+<td>사용자 요청을 기반으로 Plan 생성</td>
+</tr>
+<tr>
+<td><code>02_task_executor.py</code></td>
+<td>Task를 실행하고 결과 반환</td>
+</tr>
+<tr>
+<td><code>03_workflow_demo.py</code></td>
+<td>전체 Workflow 실행</td>
+</tr>
+<tr>
+<td><code>04_conditional_workflow.py</code></td>
+<td>조건부 Workflow 예제</td>
+</tr>
+<tr>
+<td><code>sample_tasks.json</code></td>
+<td>Plan 데이터 예제</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="37-planning-agent-agent">37. 부록: Planning Agent와 기존 Agent 비교</h2>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>기본 Tool Agent</th>
+<th>Planning Agent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>입력 처리</td>
+<td>요청 즉시 도구 선택</td>
+<td>먼저 계획 수립</td>
+</tr>
+<tr>
+<td>실행 단위</td>
+<td>Tool Call</td>
+<td>Task</td>
+</tr>
+<tr>
+<td>상태 관리</td>
+<td>단순 결과</td>
+<td>Workflow State</td>
+</tr>
+<tr>
+<td>복잡한 작업</td>
+<td>어려움</td>
+<td>가능</td>
+</tr>
+<tr>
+<td>실패 처리</td>
+<td>단순 예외 처리</td>
+<td>Task 단위 처리</td>
+</tr>
+<tr>
+<td>로그</td>
+<td>Tool 실행 로그</td>
+<td>Plan + Task + Tool 로그</td>
+</tr>
+<tr>
+<td>확장 방향</td>
+<td>Tool 추가</td>
+<td>Workflow / LangGraph 확장</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="38-planning-agent">38. 부록: Planning Agent 설계 체크리스트</h2>
+<p>Planning Agent를 설계할 때 다음 항목을 확인한다.</p>
+<div class="highlight"><pre><span></span><code>1. 사용자의 Goal이 명확한가?
+2. Goal을 Task로 분해할 수 있는가?
+3. 각 Task에 적절한 Tool이 지정되어 있는가?
+4. Task 실행 순서가 명확한가?
+5. Task 간 의존 관계가 있는가?
+6. 실패 시 중단할 것인가, 재시도할 것인가?
+7. 사용자 승인이 필요한 Task가 있는가?
+8. 실행 결과를 State에 저장하는가?
+9. Plan과 실행 로그를 남기는가?
+10. 최종 답변에서 실행 결과를 명확히 요약하는가?
+</code></pre></div>
+<hr />
+<h2 id="39">39. 부록: 추천 학습 순서</h2>
+<p>이번 문서는 다음 순서로 학습하는 것을 추천한다.</p>
+<div class="highlight"><pre><span></span><code>1. Planning Agent가 왜 필요한지 이해한다.
+2. Task Decomposition 예시를 직접 만들어본다.
+3. Sequential Workflow를 그려본다.
+4. Conditional Workflow를 그려본다.
+5. Plan을 JSON으로 표현해본다.
+6. Task 상태값을 정의해본다.
+7. Step3-3의 Tool Executor와 연결하는 구조를 이해한다.
+8. Step3-6의 LangGraph가 왜 필요한지 이해한다.
+</code></pre></div>
+<hr />
+<h2 id="40">40. 마무리</h2>
+<p>Step3-5는 Agent 학습에서 중요한 전환점이다.</p>
+<p>Step3-3까지는 Agent가 도구를 사용할 수 있다는 것을 확인했다.</p>
+<p>Step3-4에서는 Agent가 작업 상태를 기억할 수 있다는 것을 확인했다.</p>
+<p>Step3-5에서는 Agent가 이제 단순히 도구를 호출하는 수준을 넘어, <strong>업무를 계획하고 순서대로 실행하는 구조</strong>로 확장된다.</p>
+<p>이 구조가 안정화되면 이후 다음 단계로 자연스럽게 이어질 수 있다.</p>
+<div class="highlight"><pre><span></span><code>Planning Agent
+   ↓
+LangGraph Workflow Agent
+   ↓
+MCP 기반 외부 시스템 연동
+   ↓
+Multi Agent 협업
+   ↓
+Enterprise AI Agent Platform
+</code></pre></div>
+<p>따라서 Step3-5는 단순한 개념 문서가 아니라, AI DATA Platform의 Agent 구조를 실무형 Workflow로 확장하기 위한 핵심 기반 문서이다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.prune", "search.highlight", "search.share", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3941 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Data Platform & Local LLM Study">
+      
+      
+      
+      
+        <link rel="prev" href="../step3_7_mcp_architecture_guide/">
+      
+      
+        <link rel="next" href="../../..">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Step3-8. MCP 기반 외부 시스템 연동 - AI Data Platform Study</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#step3-8-mcp" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="AI Data Platform Study" class="md-header__button md-logo" aria-label="AI Data Platform Study" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Data Platform Study
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Step3-8. MCP 기반 외부 시스템 연동
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../roadmap/study-roadmap/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Roadmap
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../setting/github_team_repository_practice_guide_revised/" class="md-tabs__link">
+          
+  
+  
+  시작하기
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../setting/macmini_ai_lab_guide/" class="md-tabs__link">
+          
+  
+  
+  개발환경
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../setting/mkdocs_github_pages_guide/" class="md-tabs__link">
+          
+  
+  
+  문서관리
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../step1/step1_local_llm_setup_guide/" class="md-tabs__link">
+          
+  
+  
+  AI Lab
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="AI Data Platform Study" class="md-nav__button md-logo" aria-label="AI Data Platform Study" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AI Data Platform Study
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../roadmap/study-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../setting/github_team_repository_practice_guide_revised/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    시작하기
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../setting/macmini_ai_lab_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    개발환경
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../../setting/mkdocs_github_pages_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    문서관리
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AI Lab
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step 1 Local LLM 구축
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Step 1 Local LLM 구축
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../step1/step1_local_llm_setup_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    개념 이해
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../step1/Step1-3_Python_Virtual_Environment_and_Ollama_Guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    구축 실습
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step 2 RAG 구축
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Step 2 RAG 구축
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../step2/step2_rag_overview_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    개념 이해
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../step2/step2_2_vector_db_build_and_document_ingestion_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    기본 구축
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../step2/step2_5_enterprise_document_rag_guide_summary/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    실전 사내 문서 RAG
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step3. AI Agent
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Step3. AI Agent
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../step3_1_ai_agent_overview_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part1. AI Agent 기초
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_3_2" id="__nav_6_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part2. AI Agent 심화
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Part2. AI Agent 심화
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step3_5_planning_and_workflow_agent_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step3-5. Planning Agent와 Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step3_6_langgraph_workflow_agent_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step3-6. LangGraph 기반 Workflow Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../step3_7_mcp_architecture_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step3-7. MCP 아키텍처 이해
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step3-8. MCP 기반 외부 시스템 연동
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step3-8. MCP 기반 외부 시스템 연동
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 문서 목적
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 이번 문서의 위치
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 학습 목표
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 실습 범위
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-transport" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Transport 선택
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 최종 실습 디렉터리 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 실습 준비
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-requirementstxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. requirements.txt
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../step3_9_multi_agent_guide.md" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part3. Enterprise AI Agent
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step 4 AI Data Platform
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Step 4 AI Data Platform
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Step 5 AI Serving Platform
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Step 5 AI Serving Platform
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 문서 목적
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 이번 문서의 위치
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 학습 목표
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 실습 범위
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-transport" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Transport 선택
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 최종 실습 디렉터리 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 실습 준비
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-requirementstxt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. requirements.txt
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="step3-8-mcp">Step3-8. MCP 기반 외부 시스템 연동 실습 가이드</h1>
+<blockquote>
+<p>AI DATA Platform 연구 프로젝트<br />
+Step3. AI Agent<br />
+Part2. AI Agent 심화<br />
+문서 경로: <code>docs/study/step3/step3_8_mcp_practice_guide.md</code><br />
+작성일: 2026-06-30</p>
+</blockquote>
+<hr />
+<h2 id="1">1. 문서 목적</h2>
+<p>이 문서는 <code>Step3-7. MCP 아키텍처 이해</code>에서 학습한 MCP 개념을 바탕으로, Python을 사용하여 <strong>MCP Server와 MCP Client를 직접 구현하고 외부 시스템을 Agent 도구로 연결하는 실습 가이드</strong>이다.</p>
+<p>Step3-7에서는 MCP를 다음과 같이 이해했다.</p>
+<div class="highlight"><pre><span></span><code>MCP = AI Agent가 외부 시스템의 Tool, Resource, Prompt를 표준 방식으로 사용할 수 있게 해주는 연결 프로토콜
+</code></pre></div>
+<p>이번 Step3-8에서는 이 개념을 실제 코드로 옮긴다.</p>
+<p>이번 문서에서 다룰 외부 시스템은 다음 네 가지이다.</p>
+<div class="highlight"><pre><span></span><code>1. File
+2. RAG
+3. Database
+4. API
+</code></pre></div>
+<p>처음부터 실제 운영 시스템을 연결하지는 않는다. 대신 실습용 샘플 파일, 샘플 문서, SQLite DB, Mock API 데이터를 만들어 MCP Tool로 감싸는 방식으로 진행한다.</p>
+<p>이번 문서의 핵심은 다음 한 문장으로 요약할 수 있다.</p>
+<blockquote>
+<p><strong>Step3-8의 목표는 File, RAG, DB, API 기능을 MCP Server의 Tool로 제공하고, Agent가 MCP Client를 통해 호출하는 구조를 이해하는 것이다.</strong></p>
+</blockquote>
+<hr />
+<h2 id="2">2. 이번 문서의 위치</h2>
+<p>전체 Step3 목차에서 이 문서의 위치는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Step3. AI Agent
+│
+├─ Part1. AI Agent 기초
+│   ├─ Step3-1. AI Agent 개요
+│   ├─ Step3-2. ReAct와 Tool Calling
+│   ├─ Step3-3. 첫 번째 AI Agent 구현
+│   └─ Step3-4. Agent Memory와 상태 관리
+│
+├─ Part2. AI Agent 심화
+│   ├─ Step3-5. Planning Agent와 Workflow
+│   ├─ Step3-6. LangGraph 기반 Workflow Agent
+│   ├─ Step3-7. MCP 아키텍처 이해
+│   └─ Step3-8. MCP 기반 외부 시스템 연동   ← 현재 문서
+│
+└─ Part3. Enterprise AI Agent
+    ├─ Step3-9. Multi Agent 협업
+    └─ Step3-10. Enterprise AI Agent Platform
+</code></pre></div>
+<p>Step3-8은 Part2의 마지막 단계이다.</p>
+<div class="highlight"><pre><span></span><code>Step3-5:
+복잡한 작업을 계획하고 Workflow로 나눈다.
+
+Step3-6:
+Workflow를 LangGraph로 제어한다.
+
+Step3-7:
+외부 시스템 연동 표준인 MCP 아키텍처를 이해한다.
+
+Step3-8:
+MCP Server와 MCP Client를 구현하고 File, RAG, DB, API를 연결한다.
+</code></pre></div>
+<p>즉, Step3-8은 Part3의 Multi Agent와 Enterprise Agent Platform으로 넘어가기 위한 실습 기반이다.</p>
+<hr />
+<h2 id="3">3. 학습 목표</h2>
+<p>이 문서를 마치면 다음 내용을 직접 설명하고 실행할 수 있어야 한다.</p>
+<div class="highlight"><pre><span></span><code>1. MCP Python SDK를 설치할 수 있다.
+2. FastMCP를 사용하여 첫 번째 MCP Server를 만들 수 있다.
+3. MCP Tool을 정의하고 호출할 수 있다.
+4. File Tool을 MCP Server에 등록할 수 있다.
+5. RAG 검색 기능을 MCP Tool로 감쌀 수 있다.
+6. SQLite DB 조회 기능을 MCP Tool로 감쌀 수 있다.
+7. Mock API 데이터를 MCP Tool로 제공할 수 있다.
+8. MCP Client에서 MCP Server의 Tool 목록을 조회할 수 있다.
+9. MCP Client에서 Tool을 호출할 수 있다.
+10. Agent 구조에서 MCP Tool을 호출하는 흐름을 이해할 수 있다.
+11. LangGraph Node에서 MCP Tool을 호출하는 확장 방향을 이해할 수 있다.
+12. Enterprise 환경에서 MCP Tool 보안 원칙을 설명할 수 있다.
+</code></pre></div>
+<hr />
+<h2 id="4">4. 실습 범위</h2>
+<p>MCP Server는 다음 기능을 제공할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>1. Tools
+2. Resources
+3. Prompts
+</code></pre></div>
+<p>이번 Step3-8에서는 <strong>Tools 중심</strong>으로 실습한다.</p>
+<div class="highlight"><pre><span></span><code>이번 실습의 중심:
+MCP Tools
+
+개념만 확인:
+MCP Resources
+MCP Prompts
+</code></pre></div>
+<p>이유는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. Step3-2에서 학습한 Tool Calling과 바로 연결된다.
+2. Step3-3에서 만든 Tool Executor 개념과 연결된다.
+3. File, RAG, DB, API 기능을 Tool로 감싸기 쉽다.
+4. Agent가 외부 시스템을 호출하는 흐름을 가장 빨리 확인할 수 있다.
+</code></pre></div>
+<p>이번 실습의 핵심 흐름은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Agent
+  ↓
+MCP Client
+  ↓
+MCP Server
+  ↓
+Tool
+  ↓
+File / RAG / DB / API
+</code></pre></div>
+<hr />
+<h2 id="5-transport">5. Transport 선택</h2>
+<p>MCP는 여러 Transport를 사용할 수 있다.</p>
+<p>대표적으로 다음이 있다.</p>
+<div class="highlight"><pre><span></span><code>1. stdio
+2. Streamable HTTP
+3. SSE
+</code></pre></div>
+<p>이번 실습에서는 <code>stdio</code> 중심으로 진행한다.</p>
+<p>이유는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 로컬 실습에 적합하다.
+2. 별도 웹 서버 배포가 필요 없다.
+3. 처음 MCP 구조를 이해하기 쉽다.
+4. Python 프로세스 하나로 Server를 실행할 수 있다.
+</code></pre></div>
+<p>운영 환경 또는 여러 사용자가 함께 사용하는 환경에서는 Streamable HTTP 구조를 검토할 수 있다.</p>
+<p>정리하면 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>적합한 상황</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stdio</td>
+<td>로컬 실습, 개발자 PC, 간단한 서버 실행</td>
+</tr>
+<tr>
+<td>Streamable HTTP</td>
+<td>사내 서버, 여러 사용자, 운영 환경</td>
+</tr>
+<tr>
+<td>SSE</td>
+<td>일부 기존 예제나 레거시 환경</td>
+</tr>
+</tbody>
+</table>
+<p>이번 실습에서는 안전하게 <code>stdio</code> 기반부터 시작한다.</p>
+<hr />
+<h2 id="6">6. 최종 실습 디렉터리 구조</h2>
+<p>이번 실습의 최종 디렉터리 구조는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>labs
+└── mcp
+    ├── README.md
+    ├── requirements.txt
+    │
+    ├── servers
+    │   ├── 01_first_mcp_server.py
+    │   ├── 02_file_mcp_server.py
+    │   ├── 03_rag_mcp_server.py
+    │   ├── 04_database_mcp_server.py
+    │   ├── 05_api_mcp_server.py
+    │   └── 06_all_tools_mcp_server.py
+    │
+    ├── clients
+    │   ├── 01_manual_test_client.md
+    │   ├── 02_first_mcp_client.py
+    │   └── 03_agent_with_mcp.py
+    │
+    ├── sample_docs
+    │   ├── agent.md
+    │   ├── rag.md
+    │   ├── langgraph.md
+    │   └── mcp.md
+    │
+    ├── sample_data
+    │   ├── employees.json
+    │   ├── products.json
+    │   ├── orders.json
+    │   └── sample_api.json
+    │
+    ├── database
+    │   ├── create_sample_db.py
+    │   └── sample.db
+    │
+    └── config
+        └── mcp_config.json
+</code></pre></div>
+<p>이번 문서에서는 위 구조를 기준으로 설명한다.</p>
+<hr />
+<h2 id="7">7. 실습 준비</h2>
+<p>프로젝트 루트에서 아래 명령으로 디렉터리를 만든다.</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>labs/mcp/servers
+mkdir<span class="w"> </span>-p<span class="w"> </span>labs/mcp/clients
+mkdir<span class="w"> </span>-p<span class="w"> </span>labs/mcp/sample_docs
+mkdir<span class="w"> </span>-p<span class="w"> </span>labs/mcp/sample_data
+mkdir<span class="w"> </span>-p<span class="w"> </span>labs/mcp/database
+mkdir<span class="w"> </span>-p<span class="w"> </span>labs/mcp/config
+</code></pre></div>
+<p>가상환경을 사용하는 것을 권장한다.</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+</code></pre></div>
+<p>Windows PowerShell에서는 다음과 같이 활성화한다.</p>
+<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="n">venv</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">Activate</span><span class="p">.</span><span class="n">ps1</span>
+</code></pre></div>
+<p>패키지를 설치한다.</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;mcp[cli]&quot;</span>
+</code></pre></div>
+<p>설치 확인은 다음과 같이 한다.</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import mcp; print(&#39;mcp installed&#39;)&quot;</span>
+</code></pre></div>
+<hr />
+<h2 id="8-requirementstxt">8. requirements.txt</h2>
+<p>파일 경로:</p>
+<div class="highlight"><pre><span></span><code>labs/mcp/requirements.txt
+</code></pre></div>
+<p>내용:</p>
+<div class="highlight"><pre><span></span><code>mcp[cli]
+</code></pre></div>
+<p>SQLite는 Python 표준 라이브러리의 <code>sqlite3</code>를 사용하므로 별도 설치가 필요 없다.</p>
+<p>이번 실습에서는 복잡한 RAG 라이브러리를 바로 붙이지 않고, Markdown 문서에 대한 단순 키워드 검색으로 RAG MCP Tool의 개념을 먼저 확인한다.</p>
+<p>이후 Step2에서 만든 ChromaDB 기반 RAG 검색 코드와 연결할 수 있다.</p>
+<hr />
+<h1 id="part-a">Part A. 샘플 데이터 준비</h1>
+<h2 id="9">9. 샘플 문서 만들기</h2>
+<p>파일 경로:</p>
+<div class="highlight"><pre><span></span><code>labs/mcp/sample_docs/agent.md
+</code></pre></div>
+<p>내용:</p>
+<div class="highlight"><pre><span></span><code><span class="gh"># AI Agent</span>
+
+AI Agent는 사용자의 목표를 이해하고 필요한 도구를 선택하여 작업을 수행하는 AI 시스템이다.
+
+Agent는 LLM, Tool, Memory, Planner, Executor로 구성될 수 있다.
+
+단순 Chatbot이 답변 중심이라면 Agent는 판단과 실행 중심이다.
+</code></pre></div>
+<p>파일 경로:</p>
+<div class="highlight"><pre><span></span><code>labs/mcp/sample_docs/rag.md
+</code></pre></div>
+<p>내용:</p>
+<div class="highlight"><pre><span></span><code><span class="gh"># RAG</span>
+
+RAG는 Retrieval Augmented Generation의 약자이다.
+
+외부 문서를 검색하여 LLM 답변의 근거로 활용하는 구조이다.
+
+AI Agent에서는 RAG 검색 기능이 하나의 Tool로 사용될 수 있다.
+</code></pre></div>
+<p>파일 경로:</p>
+<div class="highlight"><pre><span></span><code>labs/mcp/sample_docs/langgraph.md
+</code></pre></div>
+<p>내용:</p>
+<div class="highlight"><pre><span></span><code><span class="gh"># LangGraph</span>
+
+LangGraph는 Agent Workflow를 State, Node, Edge 기반 Graph 구조로 제어하는 프레임워크이다.
+
+복잡한 Agent 흐름, 조건 분기, 반복 실행, Human-in-the-Loop 구조를 표현하는 데 유용하다.
+</code></pre></div>
+<p>파일 경로:</p>
+<div class="highlight"><pre><span></span><code>labs/mcp/sample_docs/mcp.md
+</code></pre></div>
+<p>내용:</p>
+<div class="highlight"><pre><span></span><code><span class="gh"># MCP</span>
+
+MCP는 Model Context Protocol의 약자이다.
+
+LLM 애플리케이션과 외부 시스템을 표준 방식으로 연결하기 위한 프로토콜이다.
+
+MCP Server는 Tools, Resources, Prompts를 제공할 수 있다.
+</code></pre></div>
+<hr />
+<h2 id="10-json">10. 샘플 JSON 데이터 만들기</h2>
+<p>파일 경로:</p>
+<div class="highlight"><pre><span></span><code>labs/mcp/sample_data/employees.json
+</code></pre></div>
+<p>내용:</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;김철수&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;department&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AI플랫폼&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AI Engineer&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;skills&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Python&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;RAG&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Agent&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;이영희&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;department&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;R&amp;D&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Data Scientist&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;skills&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;Python&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Pandas&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Machine Learning&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;박민수&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;department&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;플랫폼개발&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Backend Developer&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;skills&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;FastAPI&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Docker&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;PostgreSQL&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+<p>파일 경로:</p>
+<div class="highlight"><pre><span></span><code>labs/mcp/sample_data/products.json
+</code></pre></div>
+<p>내용:</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">101</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AI 문서 검색 서비스&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RAG&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3000000</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">102</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Agent Workflow PoC&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Agent&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5000000</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">103</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MCP 연동 모듈&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MCP&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;price&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4000000</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+<p>파일 경로:</p>
+<div class="highlight"><pre><span></span><code>labs/mcp/sample_data/orders.json
+</code></pre></div>
+<p>내용:</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;order_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ORD-001&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;product_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">101</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A은행&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3000000</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;order_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ORD-002&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;product_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">102</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;B증권&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5000000</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;order_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ORD-003&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;product_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">103</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;customer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;C카드&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4000000</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+<p>파일 경로:</p>
+<div class="highlight"><pre><span></span><code>labs/mcp/sample_data/sample_api.json
+</code></pre></div>
+<p>내용:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;platform_status&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;open_webui&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;running&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;ollama&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;running&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;chroma_db&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ready&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;last_checked&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-06-30T10:00:00+09:00&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;notices&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AI DATA Platform 점검 완료&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;info&quot;</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RAG 인덱스 재생성 필요&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;warning&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h1 id="part-b-mcp-server">Part B. 첫 번째 MCP Server</h1>
+<h2 id="11-mcp-server">11. 첫 번째 MCP Server 만들기</h2>
+<p>파일 경로:</p>
+<div class="highlight"><pre><span></span><code>labs/mcp/servers/01_first_mcp_server.py
+</code></pre></div>
+<p>코드:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">mcp.server.fastmcp</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastMCP</span>
+
+
+<span class="n">mcp</span> <span class="o">=</span> <span class="n">FastMCP</span><span class="p">(</span><span class="s2">&quot;first-mcp-server&quot;</span><span class="p">)</span>
+
+
+<span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">hello</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">이름을</span> <span class="n">입력받아</span> <span class="n">인사말을</span> <span class="n">반환한다</span><span class="o">.</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;안녕하세요, </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">님. 첫 번째 MCP Tool 호출에 성공했습니다.&quot;</span>
+
+
+<span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">두</span> <span class="n">숫자를</span> <span class="n">더한다</span><span class="o">.</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">mcp</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+<p>이 서버는 두 개의 Tool을 제공한다.</p>
+<div class="highlight"><pre><span></span><code>hello
+add
+</code></pre></div>
+<p>이 예제의 목적은 MCP Server가 Python 함수 하나를 Tool로 노출할 수 있다는 점을 확인하는 것이다.</p>
+<hr />
+<h2 id="12-mcp-inspector">12. MCP Inspector로 확인</h2>
+<p><code>mcp[cli]</code>를 설치했다면 MCP Inspector를 사용할 수 있다.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>labs/mcp
+mcp<span class="w"> </span>dev<span class="w"> </span>servers/01_first_mcp_server.py
+</code></pre></div>
+<p>Inspector에서 확인할 수 있는 것은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. Server 연결 여부
+2. Tool 목록
+3. Tool 입력 Schema
+4. Tool 호출 결과
+5. 오류 메시지
+</code></pre></div>
+<p>처음 MCP Server를 만들 때는 Inspector로 확인하는 것을 권장한다.</p>
+<hr />
+<h1 id="part-c-file-mcp-server">Part C. File MCP Server</h1>
+<h2 id="13-file-mcp-server">13. File MCP Server 목표</h2>
+<p>File MCP Server의 목표는 프로젝트 내부 파일을 읽는 기능을 MCP Tool로 제공하는 것이다.</p>
+<p>이번 실습에서는 다음 Tool을 만든다.</p>
+<div class="highlight"><pre><span></span><code>list_sample_docs:
+sample_docs 디렉터리의 Markdown 파일 목록 조회
+
+read_sample_doc:
+sample_docs 디렉터리의 Markdown 파일 읽기
+</code></pre></div>
+<p>보안상 중요한 점은 다음이다.</p>
+<div class="highlight"><pre><span></span><code>1. sample_docs 디렉터리 밖의 파일은 읽지 않는다.
+2. Markdown 파일만 읽는다.
+3. 상대 경로에 ../ 같은 경로 탈출이 들어오면 차단한다.
+</code></pre></div>
+<hr />
+<h2 id="14-file-mcp-server">14. File MCP Server 코드</h2>
+<p>파일 경로:</p>
+<div class="highlight"><pre><span></span><code>labs/mcp/servers/02_file_mcp_server.py
+</code></pre></div>
+<p>코드:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">mcp.server.fastmcp</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastMCP</span>
+
+
+<span class="n">mcp</span> <span class="o">=</span> <span class="n">FastMCP</span><span class="p">(</span><span class="s2">&quot;file-mcp-server&quot;</span><span class="p">)</span>
+
+<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">SAMPLE_DOCS_DIR</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;sample_docs&quot;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">resolve_doc_path</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">sample_docs</span> <span class="n">내부의</span> <span class="n">Markdown</span> <span class="n">파일</span> <span class="n">경로만</span> <span class="n">허용한다</span><span class="o">.</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">filename</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">filename</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;파일명이 비어 있습니다.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s2">&quot;/&quot;</span> <span class="ow">in</span> <span class="n">filename</span> <span class="ow">or</span> <span class="s2">&quot;</span><span class="se">\\\\</span><span class="s2">&quot;</span> <span class="ow">in</span> <span class="n">filename</span> <span class="ow">or</span> <span class="s2">&quot;..&quot;</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;파일명에는 경로 문자를 사용할 수 없습니다.&quot;</span><span class="p">)</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="p">(</span><span class="n">SAMPLE_DOCS_DIR</span> <span class="o">/</span> <span class="n">filename</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">SAMPLE_DOCS_DIR</span><span class="o">.</span><span class="n">resolve</span><span class="p">())):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;sample_docs 디렉터리 밖의 파일은 읽을 수 없습니다.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">suffix</span> <span class="o">!=</span> <span class="s2">&quot;.md&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Markdown 파일만 읽을 수 있습니다.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;파일을 찾을 수 없습니다: </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">path</span>
+
+
+<span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">list_sample_docs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">sample_docs</span> <span class="n">디렉터리에</span> <span class="n">있는</span> <span class="n">Markdown</span> <span class="n">파일</span> <span class="n">목록을</span> <span class="n">반환한다</span><span class="o">.</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">SAMPLE_DOCS_DIR</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.md&quot;</span><span class="p">))</span>
+
+
+<span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_sample_doc</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">sample_docs</span> <span class="n">디렉터리의</span> <span class="n">Markdown</span> <span class="n">파일</span> <span class="n">내용을</span> <span class="n">읽는다</span><span class="o">.</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">resolve_doc_path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">path</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">mcp</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+<hr />
+<h2 id="15-file-mcp-server">15. File MCP Server 확인</h2>
+<p>Inspector로 실행한다.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>labs/mcp
+mcp<span class="w"> </span>dev<span class="w"> </span>servers/02_file_mcp_server.py
+</code></pre></div>
+<p>Tool 목록에서 다음이 보이면 정상이다.</p>
+<div class="highlight"><pre><span></span><code>list_sample_docs
+read_sample_doc
+</code></pre></div>
+<p>테스트 예시는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;filename&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mcp.md&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>예상 결과:</p>
+<div class="highlight"><pre><span></span><code># MCP
+...
+</code></pre></div>
+<hr />
+<h1 id="part-d-rag-mcp-server">Part D. RAG MCP Server</h1>
+<h2 id="16-rag-mcp-server">16. RAG MCP Server 목표</h2>
+<p>이번 실습의 RAG MCP Server는 간단한 키워드 검색으로 구현한다.</p>
+<p>실제 RAG라면 다음이 필요하다.</p>
+<div class="highlight"><pre><span></span><code>1. 문서 Chunk
+2. Embedding Model
+3. Vector DB
+4. Similarity Search
+</code></pre></div>
+<p>하지만 Step3-8의 목적은 MCP 구조를 이해하는 것이므로, 처음에는 단순 검색으로 시작한다.</p>
+<p>이번 Tool은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>search_docs:
+sample_docs Markdown 문서에서 키워드를 검색한다.
+</code></pre></div>
+<p>이후 Step2에서 만든 ChromaDB 검색 함수를 이 Tool 내부로 교체하면 실제 RAG MCP Server로 확장할 수 있다.</p>
+<hr />
+<h2 id="17-rag-mcp-server">17. RAG MCP Server 코드</h2>
+<p>파일 경로:</p>
+<div class="highlight"><pre><span></span><code>labs/mcp/servers/03_rag_mcp_server.py
+</code></pre></div>
+<p>코드:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">mcp.server.fastmcp</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastMCP</span>
+
+
+<span class="n">mcp</span> <span class="o">=</span> <span class="n">FastMCP</span><span class="p">(</span><span class="s2">&quot;rag-mcp-server&quot;</span><span class="p">)</span>
+
+<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">SAMPLE_DOCS_DIR</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;sample_docs&quot;</span>
+
+
+<span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">search_docs</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">top_k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">sample_docs</span> <span class="n">Markdown</span> <span class="n">문서에서</span> <span class="n">query가</span> <span class="n">포함된</span> <span class="n">문서를</span> <span class="n">검색한다</span><span class="o">.</span>
+
+    <span class="n">실제</span> <span class="n">운영</span> <span class="n">RAG에서는</span> <span class="n">이</span> <span class="n">부분을</span> <span class="n">Embedding</span> <span class="o">+</span> <span class="n">Vector</span> <span class="n">DB</span> <span class="n">검색으로</span> <span class="n">교체할</span> <span class="n">수</span> <span class="n">있다</span><span class="o">.</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">query</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">query</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;검색어가 비어 있습니다.&quot;</span><span class="p">)</span>
+
+    <span class="n">query_lower</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">results</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">SAMPLE_DOCS_DIR</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.md&quot;</span><span class="p">)):</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+        <span class="n">content_lower</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">query_lower</span> <span class="ow">in</span> <span class="n">content_lower</span> <span class="ow">or</span> <span class="n">query_lower</span> <span class="ow">in</span> <span class="n">path</span><span class="o">.</span><span class="n">stem</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="n">preview</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">n&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">preview</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="n">preview</span> <span class="o">=</span> <span class="n">preview</span><span class="p">[:</span><span class="mi">200</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;...&quot;</span>
+
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">stem</span><span class="p">,</span>
+                    <span class="s2">&quot;preview&quot;</span><span class="p">:</span> <span class="n">preview</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">results</span><span class="p">[:</span><span class="n">top_k</span><span class="p">]</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">mcp</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+<hr />
+<h2 id="18-rag-mcp-server">18. RAG MCP Server 확인</h2>
+<p>Inspector로 실행한다.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>labs/mcp
+mcp<span class="w"> </span>dev<span class="w"> </span>servers/03_rag_mcp_server.py
+</code></pre></div>
+<p>테스트 입력:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Agent&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;top_k&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>예상 결과:</p>
+<div class="highlight"><pre><span></span><code>agent.md
+rag.md
+</code></pre></div>
+<p>검색어를 바꿔 테스트한다.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LangGraph&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;top_k&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>예상 결과:</p>
+<div class="highlight"><pre><span></span><code>langgraph.md
+</code></pre></div>
+<hr />
+<h2 id="19-chromadb-rag">19. 실제 ChromaDB RAG로 확장하는 방향</h2>
+<p>Step2에서 만든 RAG 검색 함수가 있다고 가정하자.</p>
+<p>예를 들어 다음 함수가 있다고 하자.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">search_documents</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">top_k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+    <span class="o">...</span>
+</code></pre></div>
+<p>그러면 MCP Tool은 다음처럼 감쌀 수 있다.</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">search_rag_documents</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">top_k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">search_documents</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="n">top_k</span><span class="p">)</span>
+</code></pre></div>
+<p>즉, 기존 RAG 코드를 크게 바꾸지 않아도 된다.</p>
+<div class="highlight"><pre><span></span><code>기존 RAG 함수
+   ↓
+MCP Tool Wrapper
+   ↓
+MCP Server
+   ↓
+Agent에서 표준 방식으로 호출
+</code></pre></div>
+<p>이것이 MCP의 장점이다.</p>
+<hr />
+<h1 id="part-e-database-mcp-server">Part E. Database MCP Server</h1>
+<h2 id="20-sqlite-db">20. SQLite 샘플 DB 만들기</h2>
+<p>이번 실습에서는 SQLite를 사용한다.</p>
+<p>SQLite는 Python 표준 라이브러리로 사용할 수 있고, 별도 DB 서버가 필요 없다.</p>
+<p>파일 경로:</p>
+<div class="highlight"><pre><span></span><code>labs/mcp/database/create_sample_db.py
+</code></pre></div>
+<p>코드:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+
+<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">DB_PATH</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;sample.db&quot;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">DB_PATH</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="n">DB_PATH</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">DB_PATH</span><span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+        <span class="n">CREATE</span> <span class="n">TABLE</span> <span class="n">employees</span> <span class="p">(</span>
+            <span class="nb">id</span> <span class="n">INTEGER</span> <span class="n">PRIMARY</span> <span class="n">KEY</span><span class="p">,</span>
+            <span class="n">name</span> <span class="n">TEXT</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span>
+            <span class="n">department</span> <span class="n">TEXT</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span>
+            <span class="n">role</span> <span class="n">TEXT</span> <span class="n">NOT</span> <span class="n">NULL</span>
+        <span class="p">)</span>
+        \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+        <span class="n">CREATE</span> <span class="n">TABLE</span> <span class="n">projects</span> <span class="p">(</span>
+            <span class="nb">id</span> <span class="n">INTEGER</span> <span class="n">PRIMARY</span> <span class="n">KEY</span><span class="p">,</span>
+            <span class="n">name</span> <span class="n">TEXT</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span>
+            <span class="n">category</span> <span class="n">TEXT</span> <span class="n">NOT</span> <span class="n">NULL</span><span class="p">,</span>
+            <span class="n">status</span> <span class="n">TEXT</span> <span class="n">NOT</span> <span class="n">NULL</span>
+        <span class="p">)</span>
+        \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span>
+        <span class="s2">&quot;INSERT INTO employees VALUES (?, ?, ?, ?)&quot;</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;김철수&quot;</span><span class="p">,</span> <span class="s2">&quot;AI플랫폼&quot;</span><span class="p">,</span> <span class="s2">&quot;AI Engineer&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;이영희&quot;</span><span class="p">,</span> <span class="s2">&quot;R&amp;D&quot;</span><span class="p">,</span> <span class="s2">&quot;Data Scientist&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;박민수&quot;</span><span class="p">,</span> <span class="s2">&quot;플랫폼개발&quot;</span><span class="p">,</span> <span class="s2">&quot;Backend Developer&quot;</span><span class="p">),</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span>
+        <span class="s2">&quot;INSERT INTO projects VALUES (?, ?, ?, ?)&quot;</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Local LLM 구축&quot;</span><span class="p">,</span> <span class="s2">&quot;LLM&quot;</span><span class="p">,</span> <span class="s2">&quot;done&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;RAG 실습&quot;</span><span class="p">,</span> <span class="s2">&quot;RAG&quot;</span><span class="p">,</span> <span class="s2">&quot;done&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;AI Agent 연구&quot;</span><span class="p">,</span> <span class="s2">&quot;Agent&quot;</span><span class="p">,</span> <span class="s2">&quot;in_progress&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;MCP 연동&quot;</span><span class="p">,</span> <span class="s2">&quot;MCP&quot;</span><span class="p">,</span> <span class="s2">&quot;planned&quot;</span><span class="p">),</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+
+    <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DB 생성 완료: </span><span class="si">{</span><span class="n">DB_PATH</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+<p>실행:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>labs/mcp
+python<span class="w"> </span>database/create_sample_db.py
+</code></pre></div>
+<hr />
+<h2 id="21-db-mcp-server">21. DB MCP Server 목표</h2>
+<p>DB MCP Server는 SQLite DB를 조회하는 Tool을 제공한다.</p>
+<p>이번 실습에서는 읽기 전용 Tool만 만든다.</p>
+<div class="highlight"><pre><span></span><code>list_tables:
+테이블 목록 조회
+
+describe_table:
+테이블 컬럼 정보 조회
+
+run_select_query:
+SELECT 쿼리 실행
+</code></pre></div>
+<p>중요한 보안 원칙은 다음이다.</p>
+<div class="highlight"><pre><span></span><code>1. SELECT만 허용한다.
+2. INSERT, UPDATE, DELETE, DROP, ALTER는 금지한다.
+3. 결과 건수를 제한한다.
+4. DB 파일 경로는 고정한다.
+</code></pre></div>
+<hr />
+<h2 id="22-db-mcp-server">22. DB MCP Server 코드</h2>
+<p>파일 경로:</p>
+<div class="highlight"><pre><span></span><code>labs/mcp/servers/04_database_mcp_server.py
+</code></pre></div>
+<p>코드:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">mcp.server.fastmcp</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastMCP</span>
+
+
+<span class="n">mcp</span> <span class="o">=</span> <span class="n">FastMCP</span><span class="p">(</span><span class="s2">&quot;database-mcp-server&quot;</span><span class="p">)</span>
+
+<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">DB_PATH</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;database&quot;</span> <span class="o">/</span> <span class="s2">&quot;sample.db&quot;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">connect_db</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">Connection</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">DB_PATH</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+            <span class="s2">&quot;sample.db 파일이 없습니다. 먼저 database/create_sample_db.py를 실행하세요.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">DB_PATH</span><span class="p">)</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">row_factory</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">Row</span>
+    <span class="k">return</span> <span class="n">conn</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">validate_select_query</span><span class="p">(</span><span class="n">sql</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">SELECT</span> <span class="n">쿼리만</span> <span class="n">허용한다</span><span class="o">.</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">normalized</span> <span class="o">=</span> <span class="n">sql</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">normalized</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;SELECT 쿼리만 실행할 수 있습니다.&quot;</span><span class="p">)</span>
+
+    <span class="n">blocked_keywords</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;insert&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;update&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;delete&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;alter&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;create&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;replace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;truncate&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">blocked_keywords</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">normalized</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;허용되지 않은 SQL 키워드입니다: </span><span class="si">{</span><span class="n">keyword</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">list_tables</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">SQLite</span> <span class="n">DB의</span> <span class="n">테이블</span> <span class="n">목록을</span> <span class="n">조회한다</span><span class="o">.</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">connect_db</span><span class="p">()</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="s2">&quot;SELECT name FROM sqlite_master WHERE type=&#39;table&#39; ORDER BY name&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">]</span>
+
+
+<span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">describe_table</span><span class="p">(</span><span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">테이블</span> <span class="n">컬럼</span> <span class="n">정보를</span> <span class="n">조회한다</span><span class="o">.</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">table_name</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">table_name</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;테이블명이 비어 있습니다.&quot;</span><span class="p">)</span>
+
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">connect_db</span><span class="p">()</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;PRAGMA table_info(</span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;not_null&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;notnull&quot;</span><span class="p">])),</span>
+            <span class="s2">&quot;primary_key&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;pk&quot;</span><span class="p">])),</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span>
+    <span class="p">]</span>
+
+
+<span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_select_query</span><span class="p">(</span><span class="n">sql</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">SELECT</span> <span class="n">쿼리를</span> <span class="n">실행한다</span><span class="o">.</span>
+
+    <span class="n">운영</span> <span class="n">환경에서는</span> <span class="n">SQL</span> <span class="n">Parser</span><span class="p">,</span> <span class="n">권한</span> <span class="n">검사</span><span class="p">,</span> <span class="n">테이블</span> <span class="n">허용</span> <span class="n">목록</span><span class="p">,</span> <span class="n">Row</span><span class="o">-</span><span class="n">Level</span> <span class="n">Security가</span> <span class="n">추가로</span> <span class="n">필요하다</span><span class="o">.</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">validate_select_query</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+
+    <span class="n">safe_limit</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">limit</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
+
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">connect_db</span><span class="p">()</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT * FROM (</span><span class="si">{</span><span class="n">sql</span><span class="si">}</span><span class="s2">) LIMIT </span><span class="si">{</span><span class="n">safe_limit</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">]</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">mcp</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+<hr />
+<h2 id="23-db-mcp-server">23. DB MCP Server 확인</h2>
+<p>먼저 DB를 생성한다.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>labs/mcp
+python<span class="w"> </span>database/create_sample_db.py
+</code></pre></div>
+<p>Inspector로 실행한다.</p>
+<div class="highlight"><pre><span></span><code>mcp<span class="w"> </span>dev<span class="w"> </span>servers/04_database_mcp_server.py
+</code></pre></div>
+<p>테스트 1:</p>
+<div class="highlight"><pre><span></span><code>Tool:
+list_tables
+</code></pre></div>
+<p>예상 결과:</p>
+<div class="highlight"><pre><span></span><code>employees
+projects
+</code></pre></div>
+<p>테스트 2:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;table_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;employees&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>테스트 3:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;sql&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SELECT * FROM employees&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;limit&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>테스트 4:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;sql&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;DELETE FROM employees&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;limit&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>예상 결과:</p>
+<div class="highlight"><pre><span></span><code>오류 발생
+SELECT 쿼리만 실행할 수 있습니다.
+</code></pre></div>
+<hr />
+<h1 id="part-f-api-mcp-server">Part F. API MCP Server</h1>
+<h2 id="24-api-mcp-server">24. API MCP Server 목표</h2>
+<p>이번 실습에서는 실제 외부 API를 호출하지 않고, <code>sample_api.json</code> 파일을 Mock API 응답처럼 사용한다.</p>
+<p>이유는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 네트워크 의존성을 줄인다.
+2. API Key가 필요 없다.
+3. 실습 결과가 항상 동일하다.
+4. MCP 구조 이해에 집중할 수 있다.
+</code></pre></div>
+<p>이번 Tool은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>get_platform_status:
+AI 플랫폼 상태 정보 조회
+
+get_notices:
+공지 목록 조회
+
+get_notice_by_level:
+level 기준 공지 조회
+</code></pre></div>
+<hr />
+<h2 id="25-api-mcp-server">25. API MCP Server 코드</h2>
+<p>파일 경로:</p>
+<div class="highlight"><pre><span></span><code>labs/mcp/servers/05_api_mcp_server.py
+</code></pre></div>
+<p>코드:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">mcp.server.fastmcp</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastMCP</span>
+
+
+<span class="n">mcp</span> <span class="o">=</span> <span class="n">FastMCP</span><span class="p">(</span><span class="s2">&quot;api-mcp-server&quot;</span><span class="p">)</span>
+
+<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">API_DATA_PATH</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;sample_data&quot;</span> <span class="o">/</span> <span class="s2">&quot;sample_api.json&quot;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">load_api_data</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">API_DATA_PATH</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;API 샘플 데이터를 찾을 수 없습니다: </span><span class="si">{</span><span class="n">API_DATA_PATH</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">API_DATA_PATH</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+
+
+<span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_platform_status</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">AI</span> <span class="n">DATA</span> <span class="n">Platform</span> <span class="n">상태</span> <span class="n">정보를</span> <span class="n">조회한다</span><span class="o">.</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">load_api_data</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;platform_status&quot;</span><span class="p">]</span>
+
+
+<span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_notices</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">공지</span> <span class="n">목록을</span> <span class="n">조회한다</span><span class="o">.</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">load_api_data</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;notices&quot;</span><span class="p">]</span>
+
+
+<span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_notice_by_level</span><span class="p">(</span><span class="n">level</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">level</span> <span class="n">기준으로</span> <span class="n">공지를</span> <span class="n">조회한다</span><span class="o">.</span>
+    <span class="n">예</span><span class="p">:</span> <span class="n">info</span><span class="p">,</span> <span class="n">warning</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">level</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">level</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;level 값이 비어 있습니다.&quot;</span><span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">load_api_data</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="p">[</span>
+        <span class="n">notice</span>
+        <span class="k">for</span> <span class="n">notice</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;notices&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">notice</span><span class="p">[</span><span class="s2">&quot;level&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">level</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="p">]</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">mcp</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+<hr />
+<h2 id="26-api-mcp-server">26. API MCP Server 확인</h2>
+<p>Inspector로 실행한다.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>labs/mcp
+mcp<span class="w"> </span>dev<span class="w"> </span>servers/05_api_mcp_server.py
+</code></pre></div>
+<p>테스트 1:</p>
+<div class="highlight"><pre><span></span><code>Tool:
+get_platform_status
+</code></pre></div>
+<p>예상 결과:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;open_webui&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;running&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;ollama&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;running&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;chroma_db&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ready&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;last_checked&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-06-30T10:00:00+09:00&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>테스트 2:</p>
+<div class="highlight"><pre><span></span><code>Tool:
+get_notices
+</code></pre></div>
+<p>테스트 3:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;level&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;warning&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>예상 결과:</p>
+<div class="highlight"><pre><span></span><code>RAG 인덱스 재생성 필요
+</code></pre></div>
+<hr />
+<h1 id="part-g-mcp-server">Part G. 통합 MCP Server</h1>
+<h2 id="27-mcp-server">27. 통합 MCP Server 목표</h2>
+<p>지금까지는 기능별로 MCP Server를 분리했다.</p>
+<div class="highlight"><pre><span></span><code>File MCP Server
+RAG MCP Server
+DB MCP Server
+API MCP Server
+</code></pre></div>
+<p>실습 편의를 위해 하나의 통합 MCP Server를 만들 수도 있다.</p>
+<p>통합 서버의 장점은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 한 번에 여러 Tool을 테스트할 수 있다.
+2. Agent Client에서 하나의 MCP Server만 연결하면 된다.
+3. 실습 구성이 단순하다.
+</code></pre></div>
+<p>단점은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 서버 책임이 커진다.
+2. 실제 운영에서는 도메인별 분리가 더 적합할 수 있다.
+3. 권한 통제가 복잡해질 수 있다.
+</code></pre></div>
+<p>실습에서는 통합 MCP Server를 사용하고, 운영 설계에서는 도메인별 MCP Server 분리를 권장한다.</p>
+<hr />
+<h2 id="28-mcp-server">28. 통합 MCP Server 코드</h2>
+<p>파일 경로:</p>
+<div class="highlight"><pre><span></span><code>labs/mcp/servers/06_all_tools_mcp_server.py
+</code></pre></div>
+<p>코드:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sqlite3</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">mcp.server.fastmcp</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastMCP</span>
+
+
+<span class="n">mcp</span> <span class="o">=</span> <span class="n">FastMCP</span><span class="p">(</span><span class="s2">&quot;ai-data-platform-mcp-server&quot;</span><span class="p">)</span>
+
+<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">SAMPLE_DOCS_DIR</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;sample_docs&quot;</span>
+<span class="n">API_DATA_PATH</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;sample_data&quot;</span> <span class="o">/</span> <span class="s2">&quot;sample_api.json&quot;</span>
+<span class="n">DB_PATH</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;database&quot;</span> <span class="o">/</span> <span class="s2">&quot;sample.db&quot;</span>
+
+
+<span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">list_sample_docs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">sample_docs</span> <span class="n">디렉터리의</span> <span class="n">Markdown</span> <span class="n">파일</span> <span class="n">목록을</span> <span class="n">반환한다</span><span class="o">.</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">SAMPLE_DOCS_DIR</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.md&quot;</span><span class="p">))</span>
+
+
+<span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">read_sample_doc</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">sample_docs</span> <span class="n">디렉터리의</span> <span class="n">Markdown</span> <span class="n">파일을</span> <span class="n">읽는다</span><span class="o">.</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;/&quot;</span> <span class="ow">in</span> <span class="n">filename</span> <span class="ow">or</span> <span class="s2">&quot;</span><span class="se">\\\\</span><span class="s2">&quot;</span> <span class="ow">in</span> <span class="n">filename</span> <span class="ow">or</span> <span class="s2">&quot;..&quot;</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;파일명에는 경로 문자를 사용할 수 없습니다.&quot;</span><span class="p">)</span>
+
+    <span class="n">path</span> <span class="o">=</span> <span class="p">(</span><span class="n">SAMPLE_DOCS_DIR</span> <span class="o">/</span> <span class="n">filename</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">SAMPLE_DOCS_DIR</span><span class="o">.</span><span class="n">resolve</span><span class="p">())):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;sample_docs 밖의 파일은 읽을 수 없습니다.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">suffix</span> <span class="o">!=</span> <span class="s2">&quot;.md&quot;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Markdown 파일만 읽을 수 있습니다.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;파일을 찾을 수 없습니다: </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">path</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+
+
+<span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">search_docs</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">top_k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">sample_docs</span> <span class="n">Markdown</span> <span class="n">문서에서</span> <span class="n">query가</span> <span class="n">포함된</span> <span class="n">문서를</span> <span class="n">검색한다</span><span class="o">.</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">query</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">query</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;검색어가 비어 있습니다.&quot;</span><span class="p">)</span>
+
+    <span class="n">query_lower</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">results</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">SAMPLE_DOCS_DIR</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.md&quot;</span><span class="p">)):</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">query_lower</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">or</span> <span class="n">query_lower</span> <span class="ow">in</span> <span class="n">path</span><span class="o">.</span><span class="n">stem</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="n">preview</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">n&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">preview</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">200</span><span class="p">:</span>
+                <span class="n">preview</span> <span class="o">=</span> <span class="n">preview</span><span class="p">[:</span><span class="mi">200</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;...&quot;</span>
+
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;filename&quot;</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">stem</span><span class="p">,</span>
+                    <span class="s2">&quot;preview&quot;</span><span class="p">:</span> <span class="n">preview</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">results</span><span class="p">[:</span><span class="n">top_k</span><span class="p">]</span>
+
+
+<span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_platform_status</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">AI</span> <span class="n">DATA</span> <span class="n">Platform</span> <span class="n">상태</span> <span class="n">정보를</span> <span class="n">조회한다</span><span class="o">.</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">API_DATA_PATH</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;platform_status&quot;</span><span class="p">]</span>
+
+
+<span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">list_tables</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">SQLite</span> <span class="n">DB</span> <span class="n">테이블</span> <span class="n">목록을</span> <span class="n">조회한다</span><span class="o">.</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">DB_PATH</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s2">&quot;sample.db가 없습니다. create_sample_db.py를 먼저 실행하세요.&quot;</span><span class="p">)</span>
+
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">DB_PATH</span><span class="p">)</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">row_factory</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">Row</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="s2">&quot;SELECT name FROM sqlite_master WHERE type=&#39;table&#39; ORDER BY name&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">]</span>
+
+
+<span class="nd">@mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">()</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_select_query</span><span class="p">(</span><span class="n">sql</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]:</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">SELECT</span> <span class="n">쿼리만</span> <span class="n">실행한다</span><span class="o">.</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">normalized</span> <span class="o">=</span> <span class="n">sql</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">normalized</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;SELECT 쿼리만 실행할 수 있습니다.&quot;</span><span class="p">)</span>
+
+    <span class="n">blocked_keywords</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;insert&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;update&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;delete&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;drop&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;alter&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;create&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;replace&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;truncate&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">blocked_keywords</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">normalized</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;허용되지 않은 SQL 키워드입니다: </span><span class="si">{</span><span class="n">keyword</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">safe_limit</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">limit</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
+
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">DB_PATH</span><span class="p">)</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">row_factory</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">Row</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;SELECT * FROM (</span><span class="si">{</span><span class="n">sql</span><span class="si">}</span><span class="s2">) LIMIT </span><span class="si">{</span><span class="n">safe_limit</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">]</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">mcp</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+<hr />
+<h2 id="29-mcp-server">29. 통합 MCP Server 확인</h2>
+<p>먼저 DB를 생성한다.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>labs/mcp
+python<span class="w"> </span>database/create_sample_db.py
+</code></pre></div>
+<p>Inspector로 실행한다.</p>
+<div class="highlight"><pre><span></span><code>mcp<span class="w"> </span>dev<span class="w"> </span>servers/06_all_tools_mcp_server.py
+</code></pre></div>
+<p>확인할 Tool은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>list_sample_docs
+read_sample_doc
+search_docs
+get_platform_status
+list_tables
+run_select_query
+</code></pre></div>
+<hr />
+<h1 id="part-h-mcp-client">Part H. MCP Client</h1>
+<h2 id="30-mcp-client">30. MCP Client가 하는 일</h2>
+<p>MCP Server를 만들었으면 이제 Client에서 호출해야 한다.</p>
+<p>MCP Client의 역할은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. MCP Server 프로세스를 실행하거나 연결한다.
+2. Server와 초기화한다.
+3. Tool 목록을 조회한다.
+4. Tool을 호출한다.
+5. 결과를 받아 Agent에 전달한다.
+</code></pre></div>
+<p>이번 실습에서는 Python Client를 만든다.</p>
+<p>단, MCP Python SDK의 Client API는 버전에 따라 세부 코드가 바뀔 수 있다.</p>
+<p>따라서 처음에는 MCP Inspector로 Tool을 충분히 확인한 후 Python Client 코드를 작성하는 것을 추천한다.</p>
+<hr />
+<h2 id="31-mcp-client">31. MCP Client 구성 파일</h2>
+<p>파일 경로:</p>
+<div class="highlight"><pre><span></span><code>labs/mcp/config/mcp_config.json
+</code></pre></div>
+<p>내용:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;mcpServers&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;ai-data-platform&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;command&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;args&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;servers/06_all_tools_mcp_server.py&quot;</span>
+<span class="w">      </span><span class="p">]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>이 설정은 MCP Host 또는 Client가 어떤 MCP Server를 어떤 명령으로 실행할지 알려준다.</p>
+<p>핵심은 다음이다.</p>
+<div class="highlight"><pre><span></span><code>서버 이름
+실행 명령
+실행 인자
+환경변수
+</code></pre></div>
+<hr />
+<h2 id="32-mcp-client">32. 첫 번째 MCP Client 예시</h2>
+<p>파일 경로:</p>
+<div class="highlight"><pre><span></span><code>labs/mcp/clients/02_first_mcp_client.py
+</code></pre></div>
+<p>예시 코드:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">mcp</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClientSession</span><span class="p">,</span> <span class="n">StdioServerParameters</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mcp.client.stdio</span><span class="w"> </span><span class="kn">import</span> <span class="n">stdio_client</span>
+
+
+<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">server_script</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;servers&quot;</span> <span class="o">/</span> <span class="s2">&quot;06_all_tools_mcp_server.py&quot;</span>
+
+    <span class="n">server_params</span> <span class="o">=</span> <span class="n">StdioServerParameters</span><span class="p">(</span>
+        <span class="n">command</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+        <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">server_script</span><span class="p">)],</span>
+    <span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">stdio_client</span><span class="p">(</span><span class="n">server_params</span><span class="p">)</span> <span class="k">as</span> <span class="p">(</span><span class="n">read</span><span class="p">,</span> <span class="n">write</span><span class="p">):</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="n">ClientSession</span><span class="p">(</span><span class="n">read</span><span class="p">,</span> <span class="n">write</span><span class="p">)</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+
+            <span class="n">tools</span> <span class="o">=</span> <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">list_tools</span><span class="p">()</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tool 목록&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">tool</span> <span class="ow">in</span> <span class="n">tools</span><span class="o">.</span><span class="n">tools</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;- </span><span class="si">{</span><span class="n">tool</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">tool</span><span class="o">.</span><span class="n">description</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tool 호출: list_sample_docs&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+
+            <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">call_tool</span><span class="p">(</span><span class="s2">&quot;list_sample_docs&quot;</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tool 호출: search_docs&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+
+            <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">call_tool</span><span class="p">(</span>
+                <span class="s2">&quot;search_docs&quot;</span><span class="p">,</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="s2">&quot;Agent&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;top_k&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</code></pre></div>
+<p>실행:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>labs/mcp
+python<span class="w"> </span>clients/02_first_mcp_client.py
+</code></pre></div>
+<p>이 예제의 목적은 다음이다.</p>
+<div class="highlight"><pre><span></span><code>1. Python Client에서 MCP Server 실행
+2. Tool 목록 조회
+3. Tool 호출
+4. 결과 확인
+</code></pre></div>
+<hr />
+<h2 id="33-client">33. Client 코드 이해</h2>
+<p>핵심 코드는 다음이다.</p>
+<div class="highlight"><pre><span></span><code><span class="n">server_params</span> <span class="o">=</span> <span class="n">StdioServerParameters</span><span class="p">(</span>
+    <span class="n">command</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+    <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">server_script</span><span class="p">)],</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>이 코드는 MCP Server를 어떤 명령으로 실행할지 정의한다.</p>
+<p>다음 코드는 stdio로 MCP Server와 연결한다.</p>
+<div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="k">with</span> <span class="n">stdio_client</span><span class="p">(</span><span class="n">server_params</span><span class="p">)</span> <span class="k">as</span> <span class="p">(</span><span class="n">read</span><span class="p">,</span> <span class="n">write</span><span class="p">):</span>
+</code></pre></div>
+<p>다음 코드는 MCP 세션을 생성한다.</p>
+<div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="k">with</span> <span class="n">ClientSession</span><span class="p">(</span><span class="n">read</span><span class="p">,</span> <span class="n">write</span><span class="p">)</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+</code></pre></div>
+<p>다음 코드는 초기화 과정이다.</p>
+<div class="highlight"><pre><span></span><code><span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+</code></pre></div>
+<p>다음 코드는 Tool 목록을 조회한다.</p>
+<div class="highlight"><pre><span></span><code><span class="n">tools</span> <span class="o">=</span> <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">list_tools</span><span class="p">()</span>
+</code></pre></div>
+<p>다음 코드는 Tool을 호출한다.</p>
+<div class="highlight"><pre><span></span><code><span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">call_tool</span><span class="p">(</span>
+    <span class="s2">&quot;search_docs&quot;</span><span class="p">,</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="s2">&quot;Agent&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;top_k&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>즉, MCP Client는 기존 Tool Executor와 비슷한 역할을 한다.</p>
+<div class="highlight"><pre><span></span><code>기존 Tool Executor:
+Python 함수 직접 호출
+
+MCP Client:
+MCP Server의 Tool 호출
+</code></pre></div>
+<hr />
+<h1 id="part-i-agent-mcp-tool">Part I. Agent에서 MCP Tool 호출</h1>
+<h2 id="34-agent-with-mcp">34. Agent with MCP 목표</h2>
+<p>이제 MCP Tool을 Agent 구조에서 사용해본다.</p>
+<p>이번 예제에서는 실제 LLM을 연결하지 않고, 규칙 기반 Agent를 만든다.</p>
+<p>입력 예시는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>문서 목록 보여줘
+Agent 검색해줘
+플랫폼 상태 확인해줘
+직원 테이블 조회해줘
+</code></pre></div>
+<p>Agent는 입력을 보고 MCP Tool을 선택한다.</p>
+<div class="highlight"><pre><span></span><code>문서 목록 → list_sample_docs
+검색 → search_docs
+상태 → get_platform_status
+직원 테이블 → run_select_query
+</code></pre></div>
+<hr />
+<h2 id="35-agent-with-mcp">35. Agent with MCP 코드</h2>
+<p>파일 경로:</p>
+<div class="highlight"><pre><span></span><code>labs/mcp/clients/03_agent_with_mcp.py
+</code></pre></div>
+<p>코드:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">mcp</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClientSession</span><span class="p">,</span> <span class="n">StdioServerParameters</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mcp.client.stdio</span><span class="w"> </span><span class="kn">import</span> <span class="n">stdio_client</span>
+
+
+<span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">select_mcp_tool</span><span class="p">(</span><span class="n">user_input</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">사용자</span> <span class="n">입력을</span> <span class="n">기반으로</span> <span class="n">호출할</span> <span class="n">MCP</span> <span class="n">Tool을</span> <span class="n">선택한다</span><span class="o">.</span>
+    <span class="n">실제</span> <span class="n">Agent에서는</span> <span class="n">이</span> <span class="n">판단을</span> <span class="n">LLM이</span> <span class="n">수행할</span> <span class="n">수</span> <span class="n">있다</span><span class="o">.</span>
+    \<span class="s2">&quot;</span><span class="se">\&quot;\&quot;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">user_input</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="s2">&quot;문서 목록&quot;</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;list_sample_docs&quot;</span><span class="p">,</span> <span class="p">{}</span>
+
+    <span class="k">if</span> <span class="s2">&quot;검색&quot;</span> <span class="ow">in</span> <span class="n">text</span> <span class="ow">or</span> <span class="s2">&quot;찾아&quot;</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;검색해줘&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;검색&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;찾아줘&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;찾아&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="s2">&quot;search_docs&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="n">query</span><span class="p">,</span> <span class="s2">&quot;top_k&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+
+    <span class="k">if</span> <span class="s2">&quot;상태&quot;</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;get_platform_status&quot;</span><span class="p">,</span> <span class="p">{}</span>
+
+    <span class="k">if</span> <span class="s2">&quot;직원&quot;</span> <span class="ow">in</span> <span class="n">text</span> <span class="ow">or</span> <span class="s2">&quot;employees&quot;</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;run_select_query&quot;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s2">&quot;sql&quot;</span><span class="p">:</span> <span class="s2">&quot;SELECT * FROM employees&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="p">{}</span>
+
+
+<span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">run_agent</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">server_script</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s2">&quot;servers&quot;</span> <span class="o">/</span> <span class="s2">&quot;06_all_tools_mcp_server.py&quot;</span>
+
+    <span class="n">server_params</span> <span class="o">=</span> <span class="n">StdioServerParameters</span><span class="p">(</span>
+        <span class="n">command</span><span class="o">=</span><span class="s2">&quot;python&quot;</span><span class="p">,</span>
+        <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">server_script</span><span class="p">)],</span>
+    <span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">stdio_client</span><span class="p">(</span><span class="n">server_params</span><span class="p">)</span> <span class="k">as</span> <span class="p">(</span><span class="n">read</span><span class="p">,</span> <span class="n">write</span><span class="p">):</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="n">ClientSession</span><span class="p">(</span><span class="n">read</span><span class="p">,</span> <span class="n">write</span><span class="p">)</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+
+            <span class="n">user_input</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;질문을 입력하세요: &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+            <span class="n">tool_name</span><span class="p">,</span> <span class="n">arguments</span> <span class="o">=</span> <span class="n">select_mcp_tool</span><span class="p">(</span><span class="n">user_input</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">tool_name</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;처리할 수 있는 요청이 아닙니다.&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;예: 문서 목록 보여줘 / Agent 검색해줘 / 플랫폼 상태 확인해줘 / 직원 테이블 조회해줘&quot;</span><span class="p">)</span>
+                <span class="k">return</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MCP Tool Call&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;tool_name&quot;</span><span class="p">:</span> <span class="n">tool_name</span><span class="p">,</span>
+                    <span class="s2">&quot;arguments&quot;</span><span class="p">:</span> <span class="n">arguments</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="p">))</span>
+
+            <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">session</span><span class="o">.</span><span class="n">call_tool</span><span class="p">(</span><span class="n">tool_name</span><span class="p">,</span> <span class="n">arguments</span><span class="p">)</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MCP Tool Result&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">80</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">run_agent</span><span class="p">())</span>
+</code></pre></div>
+<p>실행:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>labs/mcp
+python<span class="w"> </span>clients/03_agent_with_mcp.py
+</code></pre></div>
+<p>입력 예시:</p>
+<div class="highlight"><pre><span></span><code>Agent 검색해줘
+</code></pre></div>
+<hr />
+<h2 id="36-agent-with-mcp">36. Agent with MCP 구조 이해</h2>
+<p>이 예제의 전체 흐름은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>사용자 입력
+   ↓
+select_mcp_tool
+   ↓
+MCP Tool Call 생성
+   ↓
+MCP Client
+   ↓
+MCP Server
+   ↓
+Tool 실행
+   ↓
+MCP Tool Result
+   ↓
+Agent 출력
+</code></pre></div>
+<p>Step3-3의 기본 Agent와 비교하면 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Step3-3:
+Agent → Tool Executor → Python 함수
+
+Step3-8:
+Agent → MCP Client → MCP Server → Python 함수 / 외부 시스템
+</code></pre></div>
+<p>즉, MCP는 Tool Executor 뒤쪽의 외부 시스템 연결 구조를 표준화한다고 볼 수 있다.</p>
+<hr />
+<h1 id="part-j-langgraph-mcp">Part J. LangGraph와 MCP 연결 방향</h1>
+<h2 id="37-langgraph-node-mcp-tool">37. LangGraph Node에서 MCP Tool 호출하기</h2>
+<p>Step3-6에서 LangGraph Node를 만들었다.</p>
+<p>LangGraph Node 안에서 MCP Tool을 호출하면 다음 구조가 된다.</p>
+<div class="highlight"><pre><span></span><code>LangGraph Workflow
+        │
+        ▼
+Node
+        │
+        ▼
+MCP Client
+        │
+        ▼
+MCP Server
+        │
+        ▼
+External System
+</code></pre></div>
+<p>예를 들어 문서 검색 Node는 다음 역할을 할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>1. State에서 query를 읽는다.
+2. MCP Client로 search_docs Tool을 호출한다.
+3. 결과를 State의 search_results에 저장한다.
+</code></pre></div>
+<p>의사코드는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">search_node</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">mcp_client</span><span class="o">.</span><span class="n">call_tool</span><span class="p">(</span>
+        <span class="s2">&quot;search_docs&quot;</span><span class="p">,</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;top_k&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;search_results&quot;</span><span class="p">:</span> <span class="n">result</span>
+    <span class="p">}</span>
+</code></pre></div>
+<p>이 구조를 사용하면 LangGraph는 Workflow를 제어하고, MCP는 외부 Tool 호출을 담당한다.</p>
+<div class="highlight"><pre><span></span><code>LangGraph:
+흐름 제어
+
+MCP:
+외부 시스템 연동
+</code></pre></div>
+<hr />
+<h2 id="38-langgraph-mcp">38. LangGraph + MCP 활용 예시</h2>
+<p>문서 검토 Workflow:</p>
+<div class="highlight"><pre><span></span><code>START
+  ↓
+prepare_query
+  ↓
+search_docs MCP Tool
+  ↓
+read_sample_doc MCP Tool
+  ↓
+summarize
+  ↓
+final_answer
+  ↓
+END
+</code></pre></div>
+<p>운영 점검 Workflow:</p>
+<div class="highlight"><pre><span></span><code>START
+  ↓
+get_platform_status MCP Tool
+  ↓
+상태 판단
+  ↓
+warning 있음?
+   ├─ 예 → 조치 가이드 생성
+   └─ 아니오 → 정상 보고
+  ↓
+END
+</code></pre></div>
+<p>DB 분석 Workflow:</p>
+<div class="highlight"><pre><span></span><code>START
+  ↓
+list_tables MCP Tool
+  ↓
+describe_table MCP Tool
+  ↓
+run_select_query MCP Tool
+  ↓
+분석 요약
+  ↓
+END
+</code></pre></div>
+<hr />
+<h1 id="part-k">Part K. 보안과 운영 고려사항</h1>
+<h2 id="39-mcp-tool">39. MCP Tool 보안 원칙</h2>
+<p>MCP Tool은 외부 시스템에 접근할 수 있으므로 보안 통제가 매우 중요하다.</p>
+<p>이번 실습에서는 읽기 중심 Tool만 만들었다.</p>
+<p>운영 환경에서는 다음 원칙을 반드시 적용해야 한다.</p>
+<div class="highlight"><pre><span></span><code>1. 읽기 Tool과 쓰기 Tool을 분리한다.
+2. 쓰기 Tool은 사용자 승인 후 실행한다.
+3. 파일 접근 경로를 제한한다.
+4. DB는 SELECT부터 허용한다.
+5. API 호출은 허용 목록 기반으로 제한한다.
+6. Tool 입력값을 검증한다.
+7. 실행 로그를 남긴다.
+8. 민감정보를 응답과 로그에서 마스킹한다.
+9. MCP Server 실행 권한을 제한한다.
+10. Transport 보안을 고려한다.
+</code></pre></div>
+<hr />
+<h2 id="40-tool">40. 파일 Tool 보안</h2>
+<p>파일 Tool은 다음을 반드시 제한해야 한다.</p>
+<div class="highlight"><pre><span></span><code>1. 프로젝트 루트 밖 접근 금지
+2. ../ 경로 차단
+3. 허용 확장자 제한
+4. 숨김 파일 접근 제한
+5. 민감 파일 접근 제한
+6. 파일 삭제 Tool 기본 비활성화
+</code></pre></div>
+<p>이번 실습의 <code>read_sample_doc</code>에서는 다음을 적용했다.</p>
+<div class="highlight"><pre><span></span><code>1. sample_docs 내부만 허용
+2. Markdown 파일만 허용
+3. 경로 문자 차단
+</code></pre></div>
+<hr />
+<h2 id="41-db-tool">41. DB Tool 보안</h2>
+<p>DB Tool은 특히 위험하다.</p>
+<p>처음에는 읽기 전용으로 시작해야 한다.</p>
+<p>이번 실습에서는 다음을 적용했다.</p>
+<div class="highlight"><pre><span></span><code>1. SELECT만 허용
+2. INSERT, UPDATE, DELETE, DROP, ALTER 차단
+3. 결과 건수 제한
+</code></pre></div>
+<p>운영 환경에서는 추가로 다음이 필요하다.</p>
+<div class="highlight"><pre><span></span><code>1. 테이블 허용 목록
+2. 컬럼 마스킹
+3. Row-Level Security
+4. 사용자별 권한
+5. Query Timeout
+6. SQL Parser 기반 검증
+7. 감사 로그
+</code></pre></div>
+<hr />
+<h2 id="42-api-tool">42. API Tool 보안</h2>
+<p>API Tool은 외부 시스템에 영향을 줄 수 있다.</p>
+<p>따라서 API Tool은 다음처럼 나누어야 한다.</p>
+<div class="highlight"><pre><span></span><code>읽기 API:
+- 상태 조회
+- 목록 조회
+- 상세 조회
+
+쓰기 API:
+- 생성
+- 수정
+- 삭제
+- 발송
+- 배포
+</code></pre></div>
+<p>쓰기 API는 반드시 다음 구조를 권장한다.</p>
+<div class="highlight"><pre><span></span><code>1. Preview 생성
+2. 사용자 확인
+3. 승인 후 실행
+4. 실행 로그 저장
+</code></pre></div>
+<hr />
+<h2 id="43-mcp">43. MCP 실행 로그</h2>
+<p>MCP Tool 호출 시 다음 로그를 남기는 것이 좋다.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-06-30T10:30:00+09:00&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;session_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;session-001&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;mcp_server&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ai-data-platform-mcp-server&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tool_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;search_docs&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;arguments&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Agent&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;top_k&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;success&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;elapsed_ms&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">120</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>로그는 다음에 사용된다.</p>
+<div class="highlight"><pre><span></span><code>1. 장애 분석
+2. 보안 감사
+3. 사용량 분석
+4. Tool 품질 개선
+5. Agent 실행 흐름 재현
+</code></pre></div>
+<hr />
+<h1 id="part-l">Part L. 실습 검증 체크리스트</h1>
+<h2 id="44">44. 환경 검증</h2>
+<div class="highlight"><pre><span></span><code>1. Python 가상환경을 만들었는가?
+2. mcp[cli]를 설치했는가?
+3. import mcp가 정상 동작하는가?
+4. labs/mcp 디렉터리 구조를 만들었는가?
+</code></pre></div>
+<hr />
+<h2 id="45-server">45. Server 검증</h2>
+<div class="highlight"><pre><span></span><code>1. 01_first_mcp_server.py가 실행되는가?
+2. mcp dev로 Tool 목록이 보이는가?
+3. hello Tool을 호출할 수 있는가?
+4. add Tool을 호출할 수 있는가?
+</code></pre></div>
+<hr />
+<h2 id="46-file-tool">46. File Tool 검증</h2>
+<div class="highlight"><pre><span></span><code>1. list_sample_docs가 파일 목록을 반환하는가?
+2. read_sample_doc으로 mcp.md를 읽을 수 있는가?
+3. ../ 경로 입력 시 차단되는가?
+4. Markdown 외 파일이 차단되는가?
+</code></pre></div>
+<hr />
+<h2 id="47-rag-tool">47. RAG Tool 검증</h2>
+<div class="highlight"><pre><span></span><code>1. search_docs로 Agent 검색이 되는가?
+2. search_docs로 LangGraph 검색이 되는가?
+3. top_k 값이 적용되는가?
+4. 빈 검색어 입력 시 오류가 나는가?
+</code></pre></div>
+<hr />
+<h2 id="48-db-tool">48. DB Tool 검증</h2>
+<div class="highlight"><pre><span></span><code>1. create_sample_db.py로 sample.db가 생성되는가?
+2. list_tables가 employees, projects를 반환하는가?
+3. run_select_query로 SELECT가 실행되는가?
+4. DELETE 같은 쿼리가 차단되는가?
+</code></pre></div>
+<hr />
+<h2 id="49-api-tool">49. API Tool 검증</h2>
+<div class="highlight"><pre><span></span><code>1. get_platform_status가 상태 정보를 반환하는가?
+2. get_notices가 공지 목록을 반환하는가?
+3. get_notice_by_level로 warning 공지를 조회할 수 있는가?
+</code></pre></div>
+<hr />
+<h2 id="50-client">50. Client 검증</h2>
+<div class="highlight"><pre><span></span><code>1. 02_first_mcp_client.py가 Server에 연결되는가?
+2. Tool 목록을 출력하는가?
+3. list_sample_docs 호출 결과가 출력되는가?
+4. search_docs 호출 결과가 출력되는가?
+</code></pre></div>
+<hr />
+<h2 id="51-agent">51. Agent 검증</h2>
+<div class="highlight"><pre><span></span><code>1. 문서 목록 보여줘 입력 시 list_sample_docs가 호출되는가?
+2. Agent 검색해줘 입력 시 search_docs가 호출되는가?
+3. 플랫폼 상태 확인해줘 입력 시 get_platform_status가 호출되는가?
+4. 직원 테이블 조회해줘 입력 시 run_select_query가 호출되는가?
+</code></pre></div>
+<hr />
+<h1 id="part-m">Part M. 자주 발생하는 오류</h1>
+<h2 id="52-modulenotfounderror-no-module-named-mcp">52. ModuleNotFoundError: No module named 'mcp'</h2>
+<p>원인:</p>
+<div class="highlight"><pre><span></span><code>mcp 패키지가 설치되지 않았거나, 다른 Python 환경에서 실행 중이다.
+</code></pre></div>
+<p>해결:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;mcp[cli]&quot;</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import mcp; print(&#39;ok&#39;)&quot;</span>
+</code></pre></div>
+<p>가상환경을 사용하는 경우 활성화 여부를 확인한다.</p>
+<hr />
+<h2 id="53-sampledb">53. sample.db 파일을 찾을 수 없음</h2>
+<p>원인:</p>
+<div class="highlight"><pre><span></span><code>SQLite 샘플 DB를 아직 생성하지 않았다.
+</code></pre></div>
+<p>해결:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>labs/mcp
+python<span class="w"> </span>database/create_sample_db.py
+</code></pre></div>
+<hr />
+<h2 id="54-mcp-server">54. MCP Server를 직접 실행했는데 아무 반응이 없음</h2>
+<p>stdio 기반 MCP Server는 브라우저용 웹 서버가 아니다.</p>
+<p>MCP Client가 표준 입출력으로 통신해야 한다.</p>
+<p>확인은 다음 명령을 사용한다.</p>
+<div class="highlight"><pre><span></span><code>mcp<span class="w"> </span>dev<span class="w"> </span>servers/01_first_mcp_server.py
+</code></pre></div>
+<hr />
+<h2 id="55-client-server">55. Client에서 Server 경로 오류</h2>
+<p>원인:</p>
+<div class="highlight"><pre><span></span><code>Client 코드에서 server_script 경로가 잘못되었을 수 있다.
+</code></pre></div>
+<p>해결:</p>
+<div class="highlight"><pre><span></span><code>1. clients/02_first_mcp_client.py 위치 확인
+2. BASE_DIR 계산 확인
+3. servers/06_all_tools_mcp_server.py 파일 존재 확인
+</code></pre></div>
+<hr />
+<h2 id="56-sql">56. SQL 검증 오류</h2>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>SELECT 쿼리만 실행할 수 있습니다.
+</code></pre></div>
+<p>원인:</p>
+<div class="highlight"><pre><span></span><code>run_select_query Tool은 SELECT만 허용한다.
+</code></pre></div>
+<p>좋은 입력:</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span>
+</code></pre></div>
+<p>나쁜 입력:</p>
+<div class="highlight"><pre><span></span><code><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span>
+</code></pre></div>
+<hr />
+<h1 id="part-n-enterprise">Part N. Enterprise 확장 방향</h1>
+<h2 id="57-streamable-http-mcp-server">57. Streamable HTTP MCP Server로 확장</h2>
+<p>이번 실습은 stdio 기반이다.</p>
+<p>Enterprise 환경에서는 원격 MCP Server가 필요할 수 있다.</p>
+<p>이 경우 Streamable HTTP를 검토한다.</p>
+<p>구조는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Agent Runtime
+   ↓ HTTP
+MCP Server
+   ↓
+Enterprise System
+</code></pre></div>
+<p>장점은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 여러 Agent가 같은 MCP Server를 사용할 수 있다.
+2. API Gateway, 인증, 로깅과 연동하기 쉽다.
+3. 서버 배포와 모니터링이 가능하다.
+4. 사내 시스템 연동 계층으로 운영하기 좋다.
+</code></pre></div>
+<hr />
+<h2 id="58-rag-mcp-server">58. RAG MCP Server 고도화</h2>
+<p>현재 실습 RAG는 키워드 검색이다.</p>
+<p>이후에는 Step2의 ChromaDB RAG와 연결한다.</p>
+<p>확장 구조:</p>
+<div class="highlight"><pre><span></span><code>search_docs Tool
+   ↓
+Embedding 생성
+   ↓
+ChromaDB 검색
+   ↓
+Document Chunk 반환
+   ↓
+Agent 답변
+</code></pre></div>
+<p>추가할 기능은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. Collection 목록 조회
+2. Chunk 검색
+3. 문서 메타데이터 반환
+4. 출처 정보 반환
+5. 검색 품질 평가
+</code></pre></div>
+<hr />
+<h2 id="59-db-mcp-server">59. DB MCP Server 고도화</h2>
+<p>현재 DB Tool은 SQLite와 SELECT만 다룬다.</p>
+<p>운영 확장 방향은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. PostgreSQL / Oracle 연결
+2. 사용자별 권한 적용
+3. 테이블 허용 목록
+4. SQL 생성과 SQL 실행 분리
+5. 실행 전 Preview
+6. 민감정보 마스킹
+7. Query Timeout
+8. 결과 건수 제한
+</code></pre></div>
+<hr />
+<h2 id="60-api-mcp-server">60. API MCP Server 고도화</h2>
+<p>Mock API를 실제 API로 바꾸려면 다음이 필요하다.</p>
+<div class="highlight"><pre><span></span><code>1. API Base URL 설정
+2. 인증 Token 관리
+3. Timeout 설정
+4. Retry 정책
+5. 오류 응답 처리
+6. Rate Limit 대응
+7. 쓰기 API 승인 절차
+8. 실행 로그
+</code></pre></div>
+<hr />
+<h2 id="61-agent-gateway">61. Agent Gateway와 통합</h2>
+<p>Enterprise 환경에서는 MCP Client를 Agent 코드에 직접 넣기보다 Agent Gateway 또는 Agent Runtime에서 관리하는 것이 좋다.</p>
+<p>구조는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>사용자
+  ↓
+Agent UI
+  ↓
+Agent Gateway
+  ↓
+LangGraph Agent Runtime
+  ↓
+MCP Client Layer
+  ↓
+MCP Server Layer
+  ↓
+External Systems
+</code></pre></div>
+<p>Agent Gateway의 역할은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. 사용자 인증
+2. 권한 확인
+3. Agent 라우팅
+4. Tool 사용 정책 적용
+5. 감사 로그
+6. 실행 추적
+</code></pre></div>
+<hr />
+<h2 id="62-open-webui">62. Open WebUI와 연결 방향</h2>
+<p>AI DATA Platform 프로젝트에서 Open WebUI를 사용하고 있다면 MCP 연결은 다음 순서로 검토하는 것이 좋다.</p>
+<div class="highlight"><pre><span></span><code>1. Python MCP Server 단독 실습
+2. MCP Inspector로 Tool 확인
+3. Python MCP Client에서 Tool 호출
+4. LangGraph Node에서 MCP Client 호출
+5. Open WebUI의 Tool 또는 Function 연동 구조 확인
+6. MCP Tool을 Open WebUI에서 사용할 수 있는 방식 검토
+</code></pre></div>
+<p>Open WebUI 버전에 따라 MCP 지원 방식이나 Tool 연결 방식이 달라질 수 있으므로, 먼저 Python 코드에서 MCP 구조를 확실히 이해하는 것이 좋다.</p>
+<hr />
+<h1 id="part-o">Part O. 핵심 정리</h1>
+<h2 id="63">63. 이번 문서의 핵심</h2>
+<p>이번 문서의 핵심은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. MCP Server는 외부 기능을 Tool로 제공한다.
+2. MCP Client는 Server에 연결하여 Tool 목록을 조회하고 Tool을 호출한다.
+3. FastMCP를 사용하면 Python 함수에 @mcp.tool()을 붙여 Tool로 노출할 수 있다.
+4. File 기능은 list_sample_docs, read_sample_doc Tool로 제공할 수 있다.
+5. RAG 기능은 search_docs Tool로 제공할 수 있다.
+6. DB 기능은 list_tables, describe_table, run_select_query Tool로 제공할 수 있다.
+7. API 기능은 get_platform_status 같은 Tool로 제공할 수 있다.
+8. 처음 실습은 stdio Transport가 적합하다.
+9. 운영 환경에서는 Streamable HTTP와 보안 통제를 검토해야 한다.
+10. LangGraph는 Workflow를 제어하고, MCP는 외부 시스템 연동을 담당한다.
+</code></pre></div>
+<p>한 문장으로 정리하면 다음과 같다.</p>
+<blockquote>
+<p><strong>MCP 실습의 핵심은 기존 Python 함수를 MCP Tool로 감싸고, Agent가 MCP Client를 통해 외부 시스템 기능을 표준 방식으로 호출하게 만드는 것이다.</strong></p>
+</blockquote>
+<hr />
+<h2 id="64">64. 다음 단계 예고</h2>
+<p>다음 문서는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Step3-9. Multi Agent 협업
+docs/study/step3/step3_9_multi_agent_collaboration_guide.md
+</code></pre></div>
+<p>다음 단계에서는 여러 Agent가 역할을 나누어 협업하는 구조를 학습한다.</p>
+<p>다음 문서에서 다룰 내용은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>1. Multi Agent가 필요한 이유
+2. Supervisor Agent
+3. Worker Agent
+4. Planner Agent
+5. Research Agent
+6. Writer Agent
+7. Reviewer Agent
+8. Agent 간 메시지 전달
+9. LangGraph 기반 Multi Agent
+10. MCP Tool을 여러 Agent가 공유하는 구조
+</code></pre></div>
+<hr />
+<h2 id="65">65. 참고 자료</h2>
+<p>아래 자료는 MCP 실습을 진행할 때 참고할 수 있는 공식 자료이다.</p>
+<div class="highlight"><pre><span></span><code>Model Context Protocol 공식 문서
+https://modelcontextprotocol.io/
+
+Model Context Protocol Specification
+https://modelcontextprotocol.io/specification/
+
+MCP Python SDK
+https://github.com/modelcontextprotocol/python-sdk
+
+MCP Python SDK PyPI
+https://pypi.org/project/mcp/
+
+Build an MCP Server
+https://modelcontextprotocol.io/docs/develop/build-server
+
+Build an MCP Client
+https://modelcontextprotocol.io/docs/develop/build-client
+</code></pre></div>
+<hr />
+<h2 id="66-mcp">66. 부록: MCP 실습 파일 작성 순서</h2>
+<p>처음부터 만든다면 아래 순서로 작성하는 것을 추천한다.</p>
+<div class="highlight"><pre><span></span><code>1. requirements.txt
+2. sample_docs/*.md
+3. sample_data/*.json
+4. database/create_sample_db.py
+5. servers/01_first_mcp_server.py
+6. servers/02_file_mcp_server.py
+7. servers/03_rag_mcp_server.py
+8. servers/04_database_mcp_server.py
+9. servers/05_api_mcp_server.py
+10. servers/06_all_tools_mcp_server.py
+11. clients/02_first_mcp_client.py
+12. clients/03_agent_with_mcp.py
+</code></pre></div>
+<hr />
+<h2 id="67-mcp">67. 부록: MCP 실습 명령어 모음</h2>
+<p>패키지 설치:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;mcp[cli]&quot;</span>
+</code></pre></div>
+<p>첫 번째 서버 확인:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>labs/mcp
+mcp<span class="w"> </span>dev<span class="w"> </span>servers/01_first_mcp_server.py
+</code></pre></div>
+<p>File 서버 확인:</p>
+<div class="highlight"><pre><span></span><code>mcp<span class="w"> </span>dev<span class="w"> </span>servers/02_file_mcp_server.py
+</code></pre></div>
+<p>RAG 서버 확인:</p>
+<div class="highlight"><pre><span></span><code>mcp<span class="w"> </span>dev<span class="w"> </span>servers/03_rag_mcp_server.py
+</code></pre></div>
+<p>DB 생성:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>database/create_sample_db.py
+</code></pre></div>
+<p>DB 서버 확인:</p>
+<div class="highlight"><pre><span></span><code>mcp<span class="w"> </span>dev<span class="w"> </span>servers/04_database_mcp_server.py
+</code></pre></div>
+<p>API 서버 확인:</p>
+<div class="highlight"><pre><span></span><code>mcp<span class="w"> </span>dev<span class="w"> </span>servers/05_api_mcp_server.py
+</code></pre></div>
+<p>통합 서버 확인:</p>
+<div class="highlight"><pre><span></span><code>mcp<span class="w"> </span>dev<span class="w"> </span>servers/06_all_tools_mcp_server.py
+</code></pre></div>
+<p>Client 실행:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>clients/02_first_mcp_client.py
+</code></pre></div>
+<p>Agent 실행:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>clients/03_agent_with_mcp.py
+</code></pre></div>
+<hr />
+<h2 id="68">68. 부록: 실습 완료 후 확인할 것</h2>
+<p>실습을 완료한 후 다음 질문에 답할 수 있어야 한다.</p>
+<div class="highlight"><pre><span></span><code>1. MCP Server는 무엇을 제공하는가?
+2. MCP Client는 어떤 역할을 하는가?
+3. @mcp.tool()은 어떤 의미인가?
+4. File Tool에서 경로 제한이 왜 필요한가?
+5. DB Tool에서 SELECT만 허용하는 이유는 무엇인가?
+6. RAG 기능을 MCP Tool로 감싸면 어떤 장점이 있는가?
+7. LangGraph와 MCP는 각각 어떤 역할을 하는가?
+8. stdio와 Streamable HTTP는 어떤 상황에서 사용하는가?
+9. Agent가 MCP Tool을 호출하는 흐름은 어떻게 되는가?
+10. Enterprise 환경에서 추가해야 할 보안 요소는 무엇인가?
+</code></pre></div>
+<hr />
+<h2 id="69">69. 마무리</h2>
+<p>Step3-8은 Part2의 마지막 실습이다.</p>
+<p>이제 AI Agent는 내부 Python 함수만 호출하는 수준을 넘어 외부 시스템과 연결될 수 있다.</p>
+<p>지금까지의 흐름을 정리하면 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Step3-3:
+Python 함수 기반 Tool Agent
+
+Step3-4:
+Memory와 상태 관리
+
+Step3-5:
+Planning Agent와 Workflow
+
+Step3-6:
+LangGraph 기반 Workflow Agent
+
+Step3-7:
+MCP 아키텍처 이해
+
+Step3-8:
+MCP 기반 File / RAG / DB / API 연동 실습
+</code></pre></div>
+<p>이 구조가 갖춰지면 다음 단계인 Multi Agent 협업과 Enterprise Agent Platform 설계로 확장할 수 있다.</p>
+<p>MCP는 단순한 실습 기술이 아니라, AI DATA Platform에서 외부 시스템 연동 계층을 표준화하기 위한 핵심 기반이다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.prune", "search.highlight", "search.share", "content.code.copy", "content.code.annotate"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

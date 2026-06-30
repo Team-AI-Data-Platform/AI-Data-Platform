@@ -14,51 +14,75 @@
     box-shadow: 0 2px 6px rgba(0,0,0,.08);
 }
 
-
-
 /* ==============================
-   좌측 메뉴 Depth 구분 강화
+   MkDocs 좌측 메뉴 Depth 조정
    ============================== */
 
-/* 전체 사이드 메뉴 글자 크기 */
-.md-nav {
+/* 전체 메뉴 글자 크기 */
+.md-sidebar--primary .md-nav {
   font-size: 14px;
 }
 
-/* 1 Depth: Step */
-.md-nav__item > .md-nav__link {
+/* 메뉴 링크 기본 padding 제거 */
+.md-sidebar--primary .md-nav__link {
+  padding-left: 0 !important;
+}
+
+/* 1뎁스: Step */
+.md-sidebar--primary .md-nav[data-md-level="1"] {
+  margin-left: 0 !important;
+}
+
+.md-sidebar--primary .md-nav[data-md-level="1"] > .md-nav__list > .md-nav__item > .md-nav__link {
   font-weight: 700;
+  color: #777777;
 }
 
-/* 2 Depth */
-.md-nav__item .md-nav .md-nav__item > .md-nav__link {
-  padding-left: 8px;
-  font-weight: 500;
+/* 2뎁스: 개념 이해 / 구축 실습 / Part */
+.md-sidebar--primary .md-nav[data-md-level="2"] {
+  margin-left: 5px !important;
+  padding-left: 0 !important;
 }
 
-/* 3 Depth */
-.md-nav__item .md-nav .md-nav .md-nav__item > .md-nav__link {
-  padding-left: 16px;
+.md-sidebar--primary .md-nav[data-md-level="2"] > .md-nav__list > .md-nav__item > .md-nav__link {
+  font-weight: 600;
+  color: #222222;
+}
+
+/* 3뎁스: 실제 문서 */
+.md-sidebar--primary .md-nav[data-md-level="3"] {
+  margin-left: 10px !important;
+  padding-left: 0 !important;
+}
+
+.md-sidebar--primary .md-nav[data-md-level="3"] > .md-nav__list > .md-nav__item > .md-nav__link {
   font-weight: 400;
+  color: #555555;
 }
 
-/* 4 Depth 이상 */
-.md-nav__item .md-nav .md-nav .md-nav .md-nav__item > .md-nav__link {
-  padding-left: 24px;
+/* 4뎁스 이상 */
+.md-sidebar--primary .md-nav[data-md-level="4"] {
+  margin-left: 15px !important;
+  padding-left: 0 !important;
+}
+
+.md-sidebar--primary .md-nav[data-md-level="4"] > .md-nav__list > .md-nav__item > .md-nav__link {
+  font-weight: 400;
+  color: #666666;
 }
 
 /* 현재 선택된 메뉴 */
-.md-nav__link--active {
-  font-weight: 700;
+.md-sidebar--primary .md-nav__link--active {
+  font-weight: 700 !important;
   color: #3f51b5 !important;
 }
 
-/* Step 제목처럼 보이는 상위 메뉴 간격 */
-.md-nav__item {
+/* 메뉴 항목 간격 */
+.md-sidebar--primary .md-nav__item {
   margin-top: 2px;
 }
 
-/* 접히는 메뉴 화살표 영역 정리 */
-.md-nav__toggle ~ .md-nav__link {
+/* 접히는 메뉴 화살표가 있는 항목 */
+.md-sidebar--primary .md-nav__toggle ~ .md-nav__link {
   font-weight: 600;
 }
