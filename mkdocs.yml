@@ -37,6 +37,8 @@ nav:
           setting/github_team_repository_practice_guide_revised.md
       - SourceTree 사용법:
           setting/sourcetree_github_usage_guide.md
+      - ollama python 가이드:
+          setting/ollama_python_guide.md
   - 개발환경:
       - Mac Mini AI LAB 구축:
           setting/macmini_ai_lab_guide.md
@@ -79,6 +81,8 @@ nav:
           
 
       - Step3. AI Agent:
+        - AI Agent 커리큘럼: 
+            study/step3/step3_ai_agent_curriculum_guide.md
         - Part1. AI Agent 기초:
             - Step3-1. AI Agent 개요:
                 study/step3/step3_1_ai_agent_overview_guide.md
