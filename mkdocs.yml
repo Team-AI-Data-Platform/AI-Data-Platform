@@ -107,8 +107,9 @@ nav:
             - Step3-10. Enterprise AI Agent Platform:
                 study/step3/step3_10_enterprise_ai_agent_platform_guide.md
 
-      - Step 4 AI Data Platform:
-          - AI Data Platform 개요: index.md
-      - Step 5 AI Serving Platform:
-          - AI Serving Platform 개요: index.md
+
+#      - Step 4 AI Data Platform:
+#          - AI Data Platform 개요: index.md
+#      - Step 5 AI Serving Platform:
+#          - AI Serving Platform 개요: index.md
 
