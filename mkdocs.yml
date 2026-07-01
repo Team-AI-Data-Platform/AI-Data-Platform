@@ -37,6 +37,8 @@ nav:
           setting/github_team_repository_practice_guide_revised.md
       - SourceTree 사용법:
           setting/sourcetree_github_usage_guide.md
+      - Python 핵심 가이드:
+          setting/python_core_guide_for_beginner.md
       - ollama python 가이드:
           setting/ollama_python_guide.md
   - 개발환경:
