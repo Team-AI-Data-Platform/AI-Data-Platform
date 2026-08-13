@@ -2750,15 +2750,26 @@ venv
 <p>PowerShell에서는 다음 명령으로 가상환경을 활성화한다.</p>
 <div class="highlight"><pre><span></span><code><span class="p">.\.</span><span class="n">venv</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">Activate</span><span class="p">.</span><span class="n">ps1</span>
 </code></pre></div>
-<p>성공하면 PowerShell 프롬프트 앞에 일반적으로 다음과 같이 가상환경 이름이 표시된다.</p>
-<div class="highlight"><pre><span></span><code>(.venv) PS C:\projects\AI-Data-Platform&gt;
+<p>PowerShell의 실행 정책에 따라 <code>Activate.ps1</code> 실행 시 <code>PSSecurityException</code> 또는 <code>UnauthorizedAccess</code> 오류가 발생할 수 있다.</p>
+<p>이 경우 다음 명령을 <strong>최초 1회만 실행</strong>하여 현재 사용자에 대한 PowerShell 스크립트 실행 권한을 설정한다.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">Set-ExecutionPolicy</span> <span class="n">-Scope</span> <span class="n">CurrentUser</span> <span class="n">-ExecutionPolicy</span> <span class="n">RemoteSigned</span>
 </code></pre></div>
+<p>설정 후 다시 가상환경 활성화 명령을 실행한다.</p>
+<div class="highlight"><pre><span></span><code><span class="p">.\.</span><span class="n">venv</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">Activate</span><span class="p">.</span><span class="n">ps1</span>
+</code></pre></div>
+<blockquote>
+<p><code>Set-ExecutionPolicy</code> 명령은 최초 1회만 설정하면 된다.<br />
+이후에는 PowerShell을 새로 실행할 때마다 가상환경 활성화 명령만 실행하면 된다.</p>
+</blockquote>
 <figure>
 <p><img alt="Architecture" src="../images/windows_python_venv_activate.png" width="90%" /></p>
 <figcaption>
 그림 3. Python 가상환경 활성화
 </figcaption>
 </figure>
+<p>성공하면 PowerShell 프롬프트 앞에 일반적으로 다음과 같이 가상환경 이름이 표시된다.</p>
+<div class="highlight"><pre><span></span><code>(.venv) PS C:\projects\AI-Data-Platform&gt;
+</code></pre></div>
 <p>앞의:</p>
 <div class="highlight"><pre><span></span><code>(.venv)
 </code></pre></div>
