@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../python_environment_setup_macos_guide/">
+        <link rel="prev" href="../mkdocs_install_macos_guide/">
       
       
-        <link rel="next" href="../ollama_install_macos_guide/">
+        <link rel="next" href="../git_project_source_management_guide/">
       
       
         
@@ -25,7 +25,7 @@
     
     
       
-        <title>MkDocs 설치 가이드 - AI Data Platform Study</title>
+        <title>Ollama 설치 및 기본 설정 - AI Data Platform Study</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#mkdocs-macos" class="md-skip">
+        <a href="#ollama-macos" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              MkDocs 설치 가이드
+              Ollama 설치 및 기본 설정
             
           </span>
         </div>
@@ -770,6 +770,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../mkdocs_install_macos_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MkDocs 설치 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -789,7 +817,7 @@
   <span class="md-ellipsis">
     
   
-    MkDocs 설치 가이드
+    Ollama 설치 및 기본 설정
   
 
     
@@ -807,7 +835,7 @@
   <span class="md-ellipsis">
     
   
-    MkDocs 설치 가이드
+    Ollama 설치 및 기본 설정
   
 
     
@@ -833,10 +861,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-mkdocs" class="md-nav__link">
+  <a href="#1-ollama" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. MkDocs란?
+        1. Ollama란?
       
     </span>
   </a>
@@ -847,7 +875,7 @@
   <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. 사전 준비사항
+        2. 설치 범위
       
     </span>
   </a>
@@ -855,10 +883,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-python-pip" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Python 및 pip 확인
+        3. 사전 확인
       
     </span>
   </a>
@@ -866,10 +894,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-pip" class="md-nav__link">
+  <a href="#4-ollama" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. pip 업그레이드
+        4. Ollama 다운로드
       
     </span>
   </a>
@@ -877,10 +905,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-mkdocs-material-for-mkdocs" class="md-nav__link">
+  <a href="#5-ollama" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. MkDocs 및 Material for MkDocs 설치
+        5. Ollama 설치
       
     </span>
   </a>
@@ -888,10 +916,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-mkdocs" class="md-nav__link">
+  <a href="#6-cli" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. MkDocs 설치 확인
+        6. CLI 등록 확인
       
     </span>
   </a>
@@ -899,10 +927,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#7" class="md-nav__link">
+  <a href="#7-ollama" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7. 설치된 패키지 상세 확인
+        7. Ollama 명령어 확인
       
     </span>
   </a>
@@ -910,10 +938,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#8-mkdocs-command-not-found" class="md-nav__link">
+  <a href="#8-ollama" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8. mkdocs: command not found 오류가 발생하는 경우
+        8. Ollama 실행 상태 확인
       
     </span>
   </a>
@@ -921,10 +949,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#9-path" class="md-nav__link">
+  <a href="#9" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9. 가상환경을 사용하지 않고 설치한 경우의 PATH 주의사항
+        9. 테스트 모델 다운로드
       
     </span>
   </a>
@@ -932,10 +960,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#10" class="md-nav__link">
+  <a href="#10-local-llm" class="md-nav__link">
     <span class="md-ellipsis">
       
-        10. 설치 완료 확인 체크리스트
+        10. Local LLM 실행
       
     </span>
   </a>
@@ -946,7 +974,123 @@
   <a href="#11" class="md-nav__link">
     <span class="md-ellipsis">
       
-        11. 이번 가이드의 범위
+        11. 모델 실행 상태 확인
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-ollama-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Ollama API 기본 주소
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-ollama-command-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. ollama: command not found 오류가 발생하는 경우
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. ollama: command not found 오류가 발생하는 경우">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-terminal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.1 Terminal 새로 실행
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.2 Ollama 앱 실행
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3 CLI 경로 확인
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Ollama가 실행되지 않는 경우
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-apple-silicon-unified-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Apple Silicon과 Unified Memory 참고
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. 모델 저장공간 참고
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. 설치 완료 확인 체크리스트
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. 다음 단계
       
     </span>
   </a>
@@ -957,34 +1101,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../ollama_install_macos_guide/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Ollama 설치 및 기본 설정
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -1309,10 +1425,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-mkdocs" class="md-nav__link">
+  <a href="#1-ollama" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. MkDocs란?
+        1. Ollama란?
       
     </span>
   </a>
@@ -1323,7 +1439,7 @@
   <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        2. 사전 준비사항
+        2. 설치 범위
       
     </span>
   </a>
@@ -1331,10 +1447,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-python-pip" class="md-nav__link">
+  <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
       
-        3. Python 및 pip 확인
+        3. 사전 확인
       
     </span>
   </a>
@@ -1342,10 +1458,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-pip" class="md-nav__link">
+  <a href="#4-ollama" class="md-nav__link">
     <span class="md-ellipsis">
       
-        4. pip 업그레이드
+        4. Ollama 다운로드
       
     </span>
   </a>
@@ -1353,10 +1469,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-mkdocs-material-for-mkdocs" class="md-nav__link">
+  <a href="#5-ollama" class="md-nav__link">
     <span class="md-ellipsis">
       
-        5. MkDocs 및 Material for MkDocs 설치
+        5. Ollama 설치
       
     </span>
   </a>
@@ -1364,10 +1480,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-mkdocs" class="md-nav__link">
+  <a href="#6-cli" class="md-nav__link">
     <span class="md-ellipsis">
       
-        6. MkDocs 설치 확인
+        6. CLI 등록 확인
       
     </span>
   </a>
@@ -1375,10 +1491,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#7" class="md-nav__link">
+  <a href="#7-ollama" class="md-nav__link">
     <span class="md-ellipsis">
       
-        7. 설치된 패키지 상세 확인
+        7. Ollama 명령어 확인
       
     </span>
   </a>
@@ -1386,10 +1502,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#8-mkdocs-command-not-found" class="md-nav__link">
+  <a href="#8-ollama" class="md-nav__link">
     <span class="md-ellipsis">
       
-        8. mkdocs: command not found 오류가 발생하는 경우
+        8. Ollama 실행 상태 확인
       
     </span>
   </a>
@@ -1397,10 +1513,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#9-path" class="md-nav__link">
+  <a href="#9" class="md-nav__link">
     <span class="md-ellipsis">
       
-        9. 가상환경을 사용하지 않고 설치한 경우의 PATH 주의사항
+        9. 테스트 모델 다운로드
       
     </span>
   </a>
@@ -1408,10 +1524,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#10" class="md-nav__link">
+  <a href="#10-local-llm" class="md-nav__link">
     <span class="md-ellipsis">
       
-        10. 설치 완료 확인 체크리스트
+        10. Local LLM 실행
       
     </span>
   </a>
@@ -1422,7 +1538,123 @@
   <a href="#11" class="md-nav__link">
     <span class="md-ellipsis">
       
-        11. 이번 가이드의 범위
+        11. 모델 실행 상태 확인
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-ollama-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Ollama API 기본 주소
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-ollama-command-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. ollama: command not found 오류가 발생하는 경우
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. ollama: command not found 오류가 발생하는 경우">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-terminal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.1 Terminal 새로 실행
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.2 Ollama 앱 실행
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13.3 CLI 경로 확인
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. Ollama가 실행되지 않는 경우
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-apple-silicon-unified-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Apple Silicon과 Unified Memory 참고
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. 모델 저장공간 참고
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. 설치 완료 확인 체크리스트
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. 다음 단계
       
     </span>
   </a>
@@ -1446,215 +1678,292 @@
 
 
 
-<h1 id="mkdocs-macos">MkDocs 설치 가이드 - macOS</h1>
+<h1 id="ollama-macos">Ollama 설치 및 기본 설정 가이드 - macOS</h1>
 <blockquote>
-<p>이 문서는 macOS 로컬 개발환경에서 MkDocs와 Material for MkDocs를 설치하는 방법을 설명한다.<br />
-Python 설치 및 <code>.venv</code> 가상환경 구성이 완료된 상태를 기준으로 하며, <strong>MkDocs 설치와 설치 확인까지만</strong> 다룬다.<br />
-MkDocs 프로젝트 신규 생성, <code>mkdocs.yml</code> 구성, GitHub Pages 연동 및 배포는 별도의 <strong>문서 관리 가이드</strong>에서 다룬다.</p>
+<p>이 문서는 macOS 로컬 개발환경에서 <strong>Ollama를 설치하고 Local LLM을 실행할 수 있는 상태까지 준비하는 방법</strong>을 설명한다.<br />
+본 가이드의 범위는 Ollama 설치, 실행 확인, 기본 명령어 확인, 테스트 모델 다운로드 및 실행까지이다.<br />
+Python에서 Ollama를 호출하는 방법, RAG, Agent 연동 등은 <code>AI Lab &gt; Step 1 Local LLM 구축</code>의 별도 학습 가이드에서 다룬다.</p>
 </blockquote>
 <hr />
-<h2 id="1-mkdocs">1. MkDocs란?</h2>
-<p>MkDocs는 Markdown 문서를 기반으로 정적 웹 문서 사이트를 생성하는 Python 기반 도구이다.</p>
-<p>프로젝트의 개발 가이드, 설치 가이드, 아키텍처 문서, 학습 자료 등을 Markdown으로 작성하고 웹 문서 형태로 관리할 때 사용할 수 있다.</p>
-<p>이번 환경에서는 기본 MkDocs와 함께 <strong>Material for MkDocs</strong> 테마를 설치한다.</p>
-<div class="highlight"><pre><span></span><code>Python
-  ↓
-Python 가상환경(.venv)
-  ↓
-MkDocs
-  ↓
-Material for MkDocs
-</code></pre></div>
-<hr />
-<h2 id="2">2. 사전 준비사항</h2>
-<p>MkDocs를 설치하기 전에 다음 환경 구성이 완료되어 있어야 한다.</p>
+<h2 id="1-ollama">1. Ollama란?</h2>
+<p>Ollama는 Local LLM 모델을 개인 Mac에서 다운로드하고 실행할 수 있도록 도와주는 도구이다.</p>
+<p>대표적으로 다음과 같은 모델을 실행할 수 있다.</p>
 <ul>
-<li>Python 설치</li>
-<li>pip 사용 가능</li>
-<li>프로젝트의 <code>.venv</code> 가상환경 생성</li>
-<li>Terminal에서 <code>.venv</code> 가상환경 활성화</li>
+<li>Gemma</li>
+<li>Qwen</li>
+<li>Llama</li>
+<li>Mistral</li>
 </ul>
-<p>프로젝트 루트 디렉터리로 이동한다.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/projects/AI-Data-Platform
+<p>기본 구조는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>사용자 / 애플리케이션
+        ↓
+      Ollama
+        ↓
+ Local LLM Model
+        ↓
+      Response
 </code></pre></div>
-<blockquote>
-<p>프로젝트 경로는 각 사용자의 로컬 환경에 따라 다를 수 있다.</p>
-</blockquote>
-<p>가상환경을 활성화한다.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
-</code></pre></div>
-<p>정상적으로 활성화되면 Terminal 프롬프트 앞에 일반적으로 <code>(.venv)</code>가 표시된다.</p>
-<div class="highlight"><pre><span></span><code>(.venv) user@Mac AI-Data-Platform %
-</code></pre></div>
-<blockquote>
-<p>MkDocs는 프로젝트의 Python 가상환경에 설치하여 관리하는 것이 좋다.<br />
-이렇게 하면 다른 Python 프로젝트의 패키지와 분리해서 관리할 수 있다.</p>
-</blockquote>
+<p>Ollama는 이후 Python, RAG, AI Agent, Open WebUI 등에서 Local LLM을 호출할 때 기반이 되는 실행 환경이다.</p>
 <hr />
-<h2 id="3-python-pip">3. Python 및 pip 확인</h2>
-<p>가상환경이 활성화된 상태에서 Python 버전을 확인한다.</p>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>--version
+<h2 id="2">2. 설치 범위</h2>
+<p>이번 환경 구성 단계에서는 다음까지만 진행한다.</p>
+<div class="highlight"><pre><span></span><code>Ollama 설치
+    ↓
+설치 확인
+    ↓
+Ollama 실행 확인
+    ↓
+테스트 모델 다운로드
+    ↓
+모델 실행 확인
+    ↓
+완료
 </code></pre></div>
-<p>환경에 따라 다음 명령으로 확인할 수도 있다.</p>
-<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>--version
+<p>다음 내용은 별도의 AI Lab 학습 가이드에서 다룬다.</p>
+<ul>
+<li>Ollama Python Library 연동</li>
+<li>Python에서 Ollama API 호출</li>
+<li>여러 Local LLM 모델 비교</li>
+<li>RAG 연동</li>
+<li>AI Agent 연동</li>
+<li>Open WebUI 연동</li>
+</ul>
+<hr />
+<h2 id="3">3. 사전 확인</h2>
+<p>Ollama 공식 문서 기준 macOS용 Ollama는 <strong>macOS 14 Sonoma 이상</strong>을 요구한다.</p>
+<p>현재 macOS 버전은 다음 경로에서 확인할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>Apple 메뉴()
+ → 이 Mac에 관하여
 </code></pre></div>
-<p>pip가 정상적으로 연결되어 있는지 확인한다.</p>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>--version
+<p>터미널에서는 다음 명령으로 확인할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>sw_vers
 </code></pre></div>
+<hr />
+<h2 id="4-ollama">4. Ollama 다운로드</h2>
+<p>macOS에서는 Ollama 공식 문서에서 안내하는 <strong>DMG 설치 방식</strong>을 사용하는 것이 가장 일반적이다.</p>
+<p>Ollama 공식 다운로드 페이지에서 macOS용 설치 파일을 다운로드한다.</p>
+<div class="highlight"><pre><span></span><code>https://ollama.com/download/mac
+</code></pre></div>
+<hr />
+<h2 id="5-ollama">5. Ollama 설치</h2>
+<p>다운로드한 <code>ollama.dmg</code> 파일을 연다.</p>
+<p>설치 화면에서 Ollama 애플리케이션을 <code>Applications</code> 폴더로 이동한다.</p>
+<div class="highlight"><pre><span></span><code>ollama.dmg
+    ↓
+Ollama.app
+    ↓
+Applications
+</code></pre></div>
+<p>설치 후 <code>Applications</code> 폴더에서 Ollama를 실행한다.</p>
+<div class="highlight"><pre><span></span><code>응용 프로그램
+   ↓
+Ollama
+   ↓
+실행
+</code></pre></div>
+<hr />
+<h2 id="6-cli">6. CLI 등록 확인</h2>
+<p>Ollama 앱을 처음 실행하면 <code>ollama</code> CLI가 PATH에서 사용 가능한지 확인한다.</p>
+<p>필요한 경우 <code>/usr/local/bin</code>에 CLI 링크를 생성하기 위한 권한을 요청할 수 있다.</p>
+<p>허용 후 Terminal을 새로 열어 다음 명령을 실행한다.</p>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>--version
+</code></pre></div>
+<p>정상적으로 설치되었다면 Ollama 버전이 출력된다.</p>
 <p>예시:</p>
-<div class="highlight"><pre><span></span><code>pip 26.x.x from /Users/사용자명/projects/AI-Data-Platform/.venv/lib/python3.x/site-packages/pip
+<div class="highlight"><pre><span></span><code>ollama version x.x.x
 </code></pre></div>
-<p>출력 경로에 프로젝트의 <code>.venv</code>가 포함되어 있다면 현재 프로젝트 가상환경의 pip를 사용하고 있는 것이다.</p>
-<p>필요한 경우 현재 사용 중인 Python 실행 파일의 위치도 확인할 수 있다.</p>
-<div class="highlight"><pre><span></span><code>which<span class="w"> </span>python
+<p>현재 Ollama 실행 파일 위치는 다음 명령으로 확인할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>which<span class="w"> </span>ollama
 </code></pre></div>
-<p>정상적인 경우 다음과 같이 <code>.venv/bin/python</code> 경로가 표시된다.</p>
-<div class="highlight"><pre><span></span><code>/Users/사용자명/projects/AI-Data-Platform/.venv/bin/python
-</code></pre></div>
-<hr />
-<h2 id="4-pip">4. pip 업그레이드</h2>
-<p>필수 단계는 아니지만 패키지 설치 전에 pip를 최신 상태로 업데이트할 수 있다.</p>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
-</code></pre></div>
-<p>이미 최신 버전이라면 다음과 비슷한 메시지가 표시될 수 있다.</p>
-<div class="highlight"><pre><span></span><code>Requirement already satisfied: pip ...
+<p>정상적인 경우 다음과 비슷한 경로가 출력될 수 있다.</p>
+<div class="highlight"><pre><span></span><code>/usr/local/bin/ollama
 </code></pre></div>
 <hr />
-<h2 id="5-mkdocs-material-for-mkdocs">5. MkDocs 및 Material for MkDocs 설치</h2>
-<p>가상환경이 활성화된 상태에서 다음 명령을 실행한다.</p>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>mkdocs<span class="w"> </span>mkdocs-material
+<h2 id="7-ollama">7. Ollama 명령어 확인</h2>
+<p>다음 명령을 실행한다.</p>
+<div class="highlight"><pre><span></span><code>ollama
 </code></pre></div>
-<p>이 명령으로 다음 패키지를 설치한다.</p>
+<p>정상적으로 설치되어 있다면 사용할 수 있는 Ollama 명령어 목록이 표시된다.</p>
+<p>주요 명령어는 다음과 같다.</p>
 <table>
 <thead>
 <tr>
-<th>패키지</th>
+<th>명령어</th>
 <th>설명</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>mkdocs</code></td>
-<td>Markdown 기반 정적 문서 사이트 생성 도구</td>
+<td><code>ollama run</code></td>
+<td>모델 실행</td>
 </tr>
 <tr>
-<td><code>mkdocs-material</code></td>
-<td>MkDocs에서 사용하는 Material 테마</td>
+<td><code>ollama pull</code></td>
+<td>모델 다운로드</td>
+</tr>
+<tr>
+<td><code>ollama list</code></td>
+<td>로컬에 설치된 모델 목록 확인</td>
+</tr>
+<tr>
+<td><code>ollama ps</code></td>
+<td>현재 실행 중인 모델 확인</td>
+</tr>
+<tr>
+<td><code>ollama rm</code></td>
+<td>설치된 모델 삭제</td>
 </tr>
 </tbody>
 </table>
-<p><code>python -m pip</code> 형식을 사용하면 현재 활성화된 Python 환경의 pip를 명확하게 사용하여 패키지를 설치할 수 있다.</p>
 <hr />
-<h2 id="6-mkdocs">6. MkDocs 설치 확인</h2>
-<p>설치가 완료되면 다음 명령으로 MkDocs 버전을 확인한다.</p>
-<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>--version
+<h2 id="8-ollama">8. Ollama 실행 상태 확인</h2>
+<p>다음 명령으로 현재 로컬에 설치되어 있는 모델 목록을 확인한다.</p>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>list
 </code></pre></div>
-<p>정상적으로 설치되었다면 다음과 비슷한 결과가 출력된다.</p>
-<div class="highlight"><pre><span></span><code>mkdocs, version 1.6.x from /Users/사용자명/projects/AI-Data-Platform/.venv/lib/python3.x/site-packages/mkdocs
+<p>처음 설치한 경우 모델이 없어서 목록이 비어 있을 수 있다.</p>
+<p>이는 정상이다.</p>
+<div class="highlight"><pre><span></span><code>NAME    ID    SIZE    MODIFIED
 </code></pre></div>
-<p>현재 사용 중인 MkDocs 실행 파일의 위치도 확인할 수 있다.</p>
-<div class="highlight"><pre><span></span><code>which<span class="w"> </span>mkdocs
+<p><code>ollama list</code> 명령이 정상적으로 실행된다면 Ollama CLI를 사용할 수 있는 상태이다.</p>
+<hr />
+<h2 id="9">9. 테스트 모델 다운로드</h2>
+<p>Ollama가 정상적으로 동작하는지 확인하기 위해 테스트용 Local LLM 모델을 하나 다운로드한다.</p>
+<p>본 프로젝트에서는 비교적 가벼운 실습 모델의 예로 <code>gemma3:4b</code>를 사용할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>pull<span class="w"> </span>gemma3:4b
 </code></pre></div>
-<p>정상적인 경우 다음과 같이 프로젝트의 <code>.venv/bin</code> 아래 경로가 표시된다.</p>
-<div class="highlight"><pre><span></span><code>/Users/사용자명/projects/AI-Data-Platform/.venv/bin/mkdocs
+<p>Local LLM 모델은 수 GB 이상의 저장공간을 사용할 수 있으므로 다운로드 전에 디스크 여유 공간을 확인한다.</p>
+<p>다운로드가 완료되면 다음 명령으로 확인한다.</p>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>list
 </code></pre></div>
-<p>즉 다음 두 항목이 확인되면 가상환경에 MkDocs가 정상적으로 설치된 것이다.</p>
-<div class="highlight"><pre><span></span><code>mkdocs --version
-→ MkDocs 버전이 정상 출력됨
+<p>예시:</p>
+<div class="highlight"><pre><span></span><code>NAME          ID              SIZE
+gemma3:4b     ........        ...
+</code></pre></div>
+<blockquote>
+<p>실제 모델 크기와 사용 메모리는 모델 종류, Quantization 방식 등에 따라 달라질 수 있다.</p>
+</blockquote>
+<hr />
+<h2 id="10-local-llm">10. Local LLM 실행</h2>
+<p>다운로드한 모델을 실행한다.</p>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>run<span class="w"> </span>gemma3:4b
+</code></pre></div>
+<p>정상적으로 실행되면 터미널에서 질문을 입력할 수 있다.</p>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>&gt;&gt;&gt; Local LLM이 무엇인지 간단하게 설명해줘.
+</code></pre></div>
+<p>모델의 답변이 출력되면 Ollama와 Local LLM이 정상적으로 동작하는 것이다.</p>
+<p>대화를 종료할 때는 다음 명령을 입력할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>/bye
+</code></pre></div>
+<hr />
+<h2 id="11">11. 모델 실행 상태 확인</h2>
+<p>다른 Terminal 창에서 다음 명령을 실행하면 현재 메모리에 올라가 있는 모델을 확인할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>ps
+</code></pre></div>
+<p>모델이 실행 중이면 모델명과 관련 정보가 표시된다.</p>
+<hr />
+<h2 id="12-ollama-api">12. Ollama API 기본 주소</h2>
+<p>Ollama는 로컬에서 API Server 역할도 수행한다.</p>
+<p>기본 API 주소는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>http://localhost:11434
+</code></pre></div>
+<p>이 주소는 이후 Python 프로그램이나 RAG, Agent 애플리케이션에서 Ollama를 호출할 때 사용된다.</p>
+<p>이번 가이드에서는 API를 직접 호출하지 않는다.</p>
+<p>연동 방법은 이후 AI Lab 학습 단계에서 다룬다.</p>
+<hr />
+<h2 id="13-ollama-command-not-found">13. <code>ollama: command not found</code> 오류가 발생하는 경우</h2>
+<p>다음과 같은 오류가 발생할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>zsh: command not found: ollama
+</code></pre></div>
+<p>먼저 다음 항목을 확인한다.</p>
+<h3 id="131-terminal">13.1 Terminal 새로 실행</h3>
+<p>Ollama 설치 이전부터 열려 있던 Terminal이라면 종료 후 다시 실행한다.</p>
+<h3 id="132-ollama">13.2 Ollama 앱 실행</h3>
+<p><code>Applications</code> 폴더에서 Ollama 앱을 실행한다.</p>
+<h3 id="133-cli">13.3 CLI 경로 확인</h3>
+<p>다음 명령을 실행한다.</p>
+<div class="highlight"><pre><span></span><code>which<span class="w"> </span>ollama
+</code></pre></div>
+<p>경로가 출력되지 않는 경우 Ollama 앱을 다시 실행하여 CLI 링크 생성 안내가 나타나는지 확인한다.</p>
+<p>Ollama 공식 macOS 앱은 CLI가 PATH에서 발견되지 않을 경우 <code>/usr/local/bin</code>에 링크를 생성할 수 있도록 안내한다.</p>
+<hr />
+<h2 id="14-ollama">14. Ollama가 실행되지 않는 경우</h2>
+<p>Ollama CLI가 설치되어 있어도 Ollama 앱 또는 서버가 실행되지 않은 경우 API 호출이 실패할 수 있다.</p>
+<p>Applications에서 Ollama를 실행한다.</p>
+<div class="highlight"><pre><span></span><code>Applications
+ → Ollama
+ → 실행
+</code></pre></div>
+<p>필요한 경우 터미널에서 직접 서버를 실행할 수도 있다.</p>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>serve
+</code></pre></div>
+<blockquote>
+<p>macOS용 Ollama 앱을 일반적인 방식으로 실행하는 경우 백그라운드에서 Ollama Server가 동작하므로 <code>ollama serve</code>를 매번 직접 실행할 필요는 없다.</p>
+</blockquote>
+<hr />
+<h2 id="15-apple-silicon-unified-memory">15. Apple Silicon과 Unified Memory 참고</h2>
+<p>Apple Silicon 기반 Mac은 CPU와 GPU가 Unified Memory를 공유한다.</p>
+<p>Local LLM을 실행할 때는 Mac의 전체 Unified Memory 용량이 중요한 기준이 된다.</p>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>16GB
+→ 소형 모델 및 기본 실습
 
-which mkdocs
-→ 프로젝트의 .venv/bin/mkdocs 경로가 출력됨
-</code></pre></div>
-<hr />
-<h2 id="7">7. 설치된 패키지 상세 확인</h2>
-<p>필요한 경우 다음 명령으로 MkDocs 설치 정보를 확인할 수 있다.</p>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>show<span class="w"> </span>mkdocs
-</code></pre></div>
-<p>Material for MkDocs도 확인할 수 있다.</p>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>show<span class="w"> </span>mkdocs-material
-</code></pre></div>
-<p>설치되어 있다면 패키지 이름, 버전, 설치 위치 등의 정보가 출력된다.</p>
-<hr />
-<h2 id="8-mkdocs-command-not-found">8. <code>mkdocs: command not found</code> 오류가 발생하는 경우</h2>
-<p>MkDocs를 설치했는데 다음과 같은 오류가 발생할 수 있다.</p>
-<div class="highlight"><pre><span></span><code>zsh: command not found: mkdocs
-</code></pre></div>
-<p>먼저 가상환경이 활성화되어 있는지 확인한다.</p>
-<div class="highlight"><pre><span></span><code>which<span class="w"> </span>python
-</code></pre></div>
-<p>정상적인 경우 프로젝트의 <code>.venv/bin/python</code>이 표시되어야 한다.</p>
-<p>가상환경이 활성화되어 있지 않다면 프로젝트 루트에서 다시 활성화한다.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
-</code></pre></div>
-<p>그 다음 MkDocs가 현재 가상환경에 설치되어 있는지 확인한다.</p>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>show<span class="w"> </span>mkdocs
-</code></pre></div>
-<p>설치 정보가 나오지 않는다면 다시 설치한다.</p>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>mkdocs<span class="w"> </span>mkdocs-material
-</code></pre></div>
-<p>설치 후 다시 확인한다.</p>
-<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>--version
-</code></pre></div>
-<hr />
-<h2 id="9-path">9. 가상환경을 사용하지 않고 설치한 경우의 PATH 주의사항</h2>
-<p>가상환경을 사용하지 않고 사용자 영역에 MkDocs를 설치한 경우에는 설치 위치가 <code>PATH</code>에 포함되지 않아 <code>mkdocs: command not found</code> 오류가 발생할 수 있다.</p>
-<p>예를 들어 다음과 같은 경고가 표시될 수 있다.</p>
-<div class="highlight"><pre><span></span><code>WARNING: The script mkdocs is installed in
-&#39;/Users/사용자명/Library/Python/3.x/bin&#39;
-which is not on PATH.
-</code></pre></div>
-<p>이 경우 해당 경로를 <code>PATH</code>에 추가해야 할 수 있다.</p>
-<p>다만 이 프로젝트에서는 패키지 충돌과 환경 차이를 줄이기 위해 <strong>프로젝트의 <code>.venv</code> 가상환경에 MkDocs를 설치하는 방식</strong>을 권장한다.</p>
-<div class="highlight"><pre><span></span><code>권장
+24GB
+→ 7B ~ 8B급 모델 중심 실습
 
-프로젝트 이동
-    ↓
-.venv 활성화
-    ↓
-python -m pip install mkdocs mkdocs-material
+32GB 이상
+→ 8B ~ 14B급 모델 및 RAG / Agent 병행에 유리
 </code></pre></div>
-<p>이 방식으로 설치하면 별도의 사용자 전역 PATH 설정 없이 <code>.venv/bin/mkdocs</code>를 사용할 수 있다.</p>
+<blockquote>
+<p>위 구분은 학습 환경을 이해하기 위한 일반적인 참고 기준이며, 실제 사용 가능 모델 크기는 Quantization, Context Window, 동시에 실행 중인 프로그램 등에 따라 달라진다.</p>
+</blockquote>
 <hr />
-<h2 id="10">10. 설치 완료 확인 체크리스트</h2>
-<p>다음 항목이 모두 확인되면 macOS에서 MkDocs 설치가 완료된 것이다.</p>
+<h2 id="16">16. 모델 저장공간 참고</h2>
+<p>Ollama 모델은 수 GB에서 수십 GB 이상의 저장공간을 사용할 수 있다.</p>
+<p>Ollama 공식 macOS 문서에서도 Local LLM 모델 저장을 위해 추가적인 디스크 공간이 필요할 수 있음을 안내한다.</p>
+<p>따라서 다음 항목을 고려한다.</p>
+<div class="highlight"><pre><span></span><code>SSD 여유공간 확인
+      ↓
+필요한 모델 중심으로 다운로드
+      ↓
+사용하지 않는 모델은 필요 시 삭제
+</code></pre></div>
+<p>설치된 모델은 다음 명령으로 확인한다.</p>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>list
+</code></pre></div>
+<p>필요 없는 모델은 다음과 같이 삭제할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>rm<span class="w"> </span>&lt;모델명&gt;
+</code></pre></div>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>rm<span class="w"> </span>gemma3:4b
+</code></pre></div>
+<hr />
+<h2 id="17">17. 설치 완료 확인 체크리스트</h2>
+<p>다음 항목이 모두 확인되면 macOS용 Ollama 환경 구성이 완료된 것이다.</p>
 <ul>
-<li>[ ] 프로젝트 루트에 <code>.venv</code> 가상환경이 존재한다.</li>
-<li>[ ] <code>source .venv/bin/activate</code> 명령으로 가상환경이 활성화된다.</li>
-<li>[ ] <code>python --version</code> 명령이 정상 실행된다.</li>
-<li>[ ] <code>python -m pip --version</code> 명령이 정상 실행된다.</li>
-<li>[ ] <code>which python</code> 결과가 프로젝트의 <code>.venv/bin/python</code>을 가리킨다.</li>
-<li>[ ] <code>python -m pip install mkdocs mkdocs-material</code> 설치가 완료되었다.</li>
-<li>[ ] <code>mkdocs --version</code> 명령이 정상 실행된다.</li>
-<li>[ ] <code>which mkdocs</code> 결과가 프로젝트의 <code>.venv/bin/mkdocs</code>를 가리킨다.</li>
+<li>[ ] macOS에서 Ollama 설치 완료</li>
+<li>[ ] Ollama 앱 실행 완료</li>
+<li>[ ] <code>ollama --version</code> 정상 출력</li>
+<li>[ ] <code>which ollama</code> 경로 확인</li>
+<li>[ ] <code>ollama list</code> 정상 실행</li>
+<li>[ ] 테스트 모델 다운로드 완료</li>
+<li>[ ] <code>ollama run gemma3:4b</code> 정상 실행</li>
+<li>[ ] Local LLM 응답 확인</li>
 </ul>
 <hr />
-<h2 id="11">11. 이번 가이드의 범위</h2>
-<p>이 가이드에서는 <strong>macOS 로컬 개발환경에 MkDocs를 설치하는 단계까지만</strong> 진행한다.</p>
-<div class="highlight"><pre><span></span><code>Python 설치
-    ↓
-가상환경 생성 및 활성화
-    ↓
-MkDocs 설치
-    ↓
-Material for MkDocs 설치
-    ↓
-설치 확인
-    ↓
-완료
+<h2 id="18">18. 다음 단계</h2>
+<p>Ollama 설치가 완료되면 이후 AI Lab 학습 과정에서 다음 내용을 진행할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>Ollama 설치 완료
+      ↓
+Local LLM 기본 학습
+      ↓
+Python에서 Ollama 호출
+      ↓
+RAG 구축
+      ↓
+AI Agent 구축
 </code></pre></div>
-<p>다음 내용은 별도의 <strong>MkDocs 문서 관리 가이드</strong>에서 다룬다.</p>
-<ul>
-<li>MkDocs 문서 사이트 신규 생성</li>
-<li><code>docs/</code> 디렉터리 구성</li>
-<li><code>mkdocs.yml</code> 설정</li>
-<li>메뉴(<code>nav</code>) 구성</li>
-<li>Material 테마 상세 설정</li>
-<li>로컬 문서 사이트 실행 및 확인</li>
-<li>GitHub Repository 연동</li>
-<li><code>gh-pages</code> 브랜치 구성</li>
-<li>GitHub Pages 배포 및 운영</li>
-</ul>
-<p>따라서 로컬 환경 구성 단계에서는 <code>mkdocs --version</code> 및 <code>which mkdocs</code> 명령이 정상적으로 실행되는 것까지 확인하면 된다.</p>
+<p>환경 구성 단계에서는 <strong>Ollama 설치와 테스트 모델 실행이 정상적으로 되는 것까지 확인하면 완료</strong>이다.</p>
 
 
 

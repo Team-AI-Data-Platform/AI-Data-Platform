@@ -25,7 +25,7 @@
     
     
       
-        <title>Python 가상환경과 Ollama 연동 - AI Data Platform Study</title>
+        <title>Ollama Python API 연동 - AI Data Platform Study</title>
       
     
     
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Python 가상환경과 Ollama 연동
+              Ollama Python API 연동
             
           </span>
         </div>
@@ -250,11 +250,11 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../setting/github_team_repository_practice_guide_revised/" class="md-tabs__link">
+        <a href="../../../basic/git_core_guide/" class="md-tabs__link">
           
   
   
-  시작하기
+  기초 학습
 
         </a>
       </li>
@@ -270,11 +270,11 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../setting/mkdocs_github_pages_guide/" class="md-tabs__link">
+        <a href="../../../mkdocs/mkdocs_site_build_guide/" class="md-tabs__link">
           
   
   
-  문서관리
+  MkDocs 문서 관리
 
         </a>
       </li>
@@ -497,14 +497,14 @@
   
   
   
-    <a href="../../../setting/github_team_repository_practice_guide_revised/" class="md-nav__link">
+    <a href="../../../basic/git_core_guide/" class="md-nav__link">
       
   
   
   <span class="md-ellipsis">
     
   
-    시작하기
+    기초 학습
   
 
     
@@ -548,14 +548,14 @@
   
   
   
-    <a href="../../../setting/mkdocs_github_pages_guide/" class="md-nav__link">
+    <a href="../../../mkdocs/mkdocs_site_build_guide/" class="md-nav__link">
       
   
   
   <span class="md-ellipsis">
     
   
-    문서관리
+    MkDocs 문서 관리
   
 
     
@@ -807,6 +807,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ollama Python API 연동
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -814,7 +832,7 @@
   <span class="md-ellipsis">
     
   
-    Python 가상환경과 Ollama 연동
+    Ollama Python API 연동
   
 
     
@@ -823,6 +841,357 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 학습 목표
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 사전 준비사항
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 프로젝트 가상환경 활성화
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 프로젝트 가상환경 활성화">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        macOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows PowerShell
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ollama-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Ollama Python 라이브러리란?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-ollama-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Ollama Python 라이브러리 설치
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 설치 확인
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-ollama-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Ollama Server 실행 상태 확인
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-python-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Python과 Ollama의 내부 연결 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 첫 번째 Python 호출 예제
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 코드 이해하기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. 코드 이해하기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-chat-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 chat 함수 import
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 모델 지정
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 메시지 전달
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 응답 출력
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-mermaid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Mermaid로 보는 처리 흐름
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 자주 발생하는 오류
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. 자주 발생하는 오류">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-modulenotfounderror-no-module-named-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.1 ModuleNotFoundError: No module named 'ollama'
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-ollama-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2 Ollama Server 연결 오류
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3 모델을 찾을 수 없는 경우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.4 다른 Python 환경에 패키지가 설치된 경우
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 이번 실습에서 중요한 개념
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. 이후 학습과의 연결
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. 이후 학습과의 연결">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-local-llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1. Local LLM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2. RAG
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-ai-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3. AI Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. 정리
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1038,6 +1407,346 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 학습 목표
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 사전 준비사항
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 프로젝트 가상환경 활성화
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 프로젝트 가상환경 활성화">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        macOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows PowerShell
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ollama-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Ollama Python 라이브러리란?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-ollama-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Ollama Python 라이브러리 설치
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 설치 확인
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-ollama-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Ollama Server 실행 상태 확인
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-python-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Python과 Ollama의 내부 연결 구조
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 첫 번째 Python 호출 예제
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 코드 이해하기
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. 코드 이해하기">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-chat-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 chat 함수 import
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 모델 지정
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 메시지 전달
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 응답 출력
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-mermaid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Mermaid로 보는 처리 흐름
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 자주 발생하는 오류
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="12. 자주 발생하는 오류">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-modulenotfounderror-no-module-named-ollama" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.1 ModuleNotFoundError: No module named 'ollama'
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-ollama-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.2 Ollama Server 연결 오류
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.3 모델을 찾을 수 없는 경우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12.4 다른 Python 환경에 패키지가 설치된 경우
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 이번 실습에서 중요한 개념
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. 이후 학습과의 연결
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. 이후 학습과의 연결">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-local-llm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1. Local LLM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-rag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2. RAG
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-ai-agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3. AI Agent
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. 정리
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1053,309 +1762,387 @@
 
 
 
-<h1 id="step1-3-python-ollama">Step1-3 Python 가상환경과 Ollama 연동 가이드</h1>
-<h1 id="_1">개요</h1>
-<p>본 문서는 Local LLM 구축 과정에서 Python 가상환경(Virtual Environment)을 이해하고,
-Ollama와 연동하는 방법을 설명합니다.</p>
-<p>대상 독자:</p>
-<ul>
-<li>Python 초보자</li>
-<li>Local LLM 입문자</li>
-<li>RAG 구축 예정자</li>
-<li>Agent 구축 예정자</li>
-</ul>
+<h1 id="step1-3-python-ollama">Step1-3. Python에서 Ollama 연동하기</h1>
+<blockquote>
+<p>본 문서는 Local LLM 구축 과정에서 <strong>Python 프로그램으로 Ollama를 호출하는 방법</strong>을 설명한다.<br />
+Python 설치, 가상환경 생성 및 기본 설정은 이미 완료된 상태를 기준으로 하며, 본 문서에서는 <strong>Ollama Python 라이브러리 설치 → 연결 구조 이해 → 첫 번째 호출 실습</strong>에 집중한다.</p>
+</blockquote>
 <hr />
-<h1 id="1-python">1. 왜 Python 가상환경을 사용하는가?</h1>
-<p>예를 들어 하나의 PC에서 여러 프로젝트를 수행한다고 가정합니다.</p>
-<p>Project-A</p>
+<h2 id="1">1. 학습 목표</h2>
+<p>이번 단계에서는 다음 내용을 학습한다.</p>
 <ul>
-<li>Django 4.2</li>
+<li>Python 프로그램에서 Ollama를 호출하는 방법</li>
+<li>Ollama Python 라이브러리의 역할</li>
+<li>Ollama Server와 Python 프로그램의 연결 구조</li>
+<li>Local LLM 모델을 Python 코드에서 호출하는 기본 방법</li>
+<li>이후 RAG 및 AI Agent 구현을 위한 Python 연동 기반 마련</li>
 </ul>
-<p>Project-B</p>
-<ul>
-<li>Django 5.0</li>
-</ul>
-<p>Project-C</p>
-<ul>
-<li>Flask</li>
-</ul>
-<p>만약 모든 라이브러리를 전역(Global)으로 설치하면</p>
-<p>Project-A를 위해 설치한 라이브러리가
-Project-B에 영향을 줄 수 있습니다.</p>
-<p>즉</p>
-<p>Project-A 수정
-↓
-라이브러리 버전 변경
-↓
-Project-B 장애 발생</p>
-<p>상황이 생길 수 있습니다.</p>
-<p>그래서 Python은 프로젝트별 독립 환경을 제공하는
-Virtual Environment(가상환경)을 제공합니다.</p>
-<hr />
-<h1 id="2-virtual-environment">2. Virtual Environment란?</h1>
-<p>Virtual Environment는</p>
-<p>프로젝트 전용 Python 실행 환경입니다.</p>
-<p>쉽게 말하면</p>
-<p>하나의 Mac 안에</p>
-<ul>
-<li>Python-A</li>
-<li>Python-B</li>
-<li>Python-C</li>
-</ul>
-<p>를 별도로 만드는 것과 같습니다.</p>
-<p>장점</p>
-<ul>
-<li>프로젝트별 라이브러리 분리</li>
-<li>버전 충돌 방지</li>
-<li>운영 환경 재현 가능</li>
-<li>AI 프로젝트 관리 용이</li>
-</ul>
-<hr />
-<h1 id="3-venv">3. venv란?</h1>
-<p>venv는 Python이 기본 제공하는
-가상환경 생성 모듈입니다.</p>
-<p>명령어</p>
-<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
-</code></pre></div>
-<p>명령어 분석</p>
-<p>python3</p>
-<ul>
-<li>Python3 실행</li>
-</ul>
-<p>-m</p>
-<ul>
-<li>Python 모듈 실행</li>
-</ul>
-<p>venv</p>
-<ul>
-<li>가상환경 생성 모듈</li>
-</ul>
-<p>.venv</p>
-<ul>
-<li>생성될 가상환경 폴더명</li>
-</ul>
-<hr />
-<h1 id="4-venv">4. .venv는 무슨 의미인가?</h1>
-<p>사실 아래 모두 가능합니다.</p>
-<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>aaa
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>my-python
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>python-env
-</code></pre></div>
-<p>하지만 업계에서는</p>
-<div class="highlight"><pre><span></span><code>.venv
-</code></pre></div>
-<p>를 표준처럼 사용합니다.</p>
-<p>여기서</p>
-<div class="highlight"><pre><span></span><code>.
-</code></pre></div>
-<p>은 숨김(Hidden) 폴더 의미입니다.</p>
-<p>즉</p>
-<div class="highlight"><pre><span></span><code>.venv
-</code></pre></div>
-<p>는</p>
-<p>"숨김 처리된 Python 가상환경"</p>
-<p>이라는 의미입니다.</p>
-<hr />
-<h1 id="5">5. 가상환경 생성</h1>
-<p>명령어</p>
-<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
-</code></pre></div>
-<p>실행 후</p>
-<div class="highlight"><pre><span></span><code>AI-Data-Platform
- ├── docs
- ├── mkdocs.yml
- └── .venv
-</code></pre></div>
-<p>생성됩니다.</p>
-<p>내부 구조</p>
-<div class="highlight"><pre><span></span><code>.venv
- ├── bin
- ├── include
- ├── lib
- └── pyvenv.cfg
+<p>전체 흐름은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Python Program
+      ↓
+Ollama Python Library
+      ↓
+Ollama Server
+      ↓
+Local LLM Model
+      ↓
+Response
 </code></pre></div>
 <hr />
-<h1 id="6-source-venvbinactivate">6. source .venv/bin/activate 의미</h1>
-<p>명령어</p>
+<h2 id="2">2. 사전 준비사항</h2>
+<p>본 실습을 진행하기 전에 다음 환경이 준비되어 있어야 한다.</p>
+<ul>
+<li>Python 설치 완료</li>
+<li>프로젝트 Python 가상환경(<code>.venv</code>) 생성 완료</li>
+<li>가상환경 활성화 가능</li>
+<li>Ollama 설치 완료</li>
+<li>사용할 Local LLM 모델 다운로드 완료</li>
+</ul>
+<p>Python 설치와 가상환경 구성 방법은 다음 메뉴의 별도 가이드를 참고한다.</p>
+<div class="highlight"><pre><span></span><code>프로젝트 환경 구성
+ ├─ 로컬 환경(Windows) 세팅하기
+ │   └─ Python 설치 및 환경 설정
+ │
+ └─ 로컬 환경(macOS) 세팅하기
+     └─ Python 설치 및 환경 설정
+</code></pre></div>
+<blockquote>
+<p>본 문서에서는 Python 가상환경의 개념이나 생성 방법을 다시 상세히 설명하지 않는다.<br />
+프로젝트 공통 개발환경 구성과 AI 실습 내용을 분리하여 관리하기 위함이다.</p>
+</blockquote>
+<hr />
+<h2 id="3">3. 프로젝트 가상환경 활성화</h2>
+<p>Python 패키지를 설치하거나 실습 코드를 실행하기 전에 프로젝트의 가상환경을 활성화한다.</p>
+<h3 id="macos">macOS</h3>
+<p>프로젝트 루트 디렉터리에서 다음 명령을 실행한다.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
 </code></pre></div>
-<p>이 명령이 가장 중요합니다.</p>
-<hr />
-<h2 id="source">source</h2>
-<p>현재 터미널 세션에 환경 설정을 반영합니다.</p>
-<hr />
-<h2 id="venvbinactivate">.venv/bin/activate</h2>
-<p>가상환경 활성화 스크립트입니다.</p>
-<hr />
-<p>실행 전</p>
-<div class="highlight"><pre><span></span><code>which<span class="w"> </span>python
-</code></pre></div>
-<p>예시</p>
-<div class="highlight"><pre><span></span><code>/opt/homebrew/bin/python3
-</code></pre></div>
-<hr />
-<p>실행 후</p>
-<div class="highlight"><pre><span></span><code>which<span class="w"> </span>python
-</code></pre></div>
-<p>결과</p>
-<div class="highlight"><pre><span></span><code>AI-Data-Platform/.venv/bin/python
-</code></pre></div>
-<p>즉</p>
-<p>Mac 기본 Python</p>
-<p>에서</p>
-<p>프로젝트 전용 Python</p>
-<p>으로 변경됩니다.</p>
-<hr />
-<h1 id="7-activate">7. 매번 activate 해야 하나?</h1>
-<p>답:</p>
-<p>예</p>
-<p>터미널을 새로 열 때마다 실행해야 합니다.</p>
-<p>예</p>
-<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>AI-Data-Platform
-
-<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
-</code></pre></div>
-<p>이유</p>
-<p>가상환경 활성화는</p>
-<p>현재 터미널 세션에만 적용되기 때문입니다.</p>
-<hr />
-<h1 id="8-deactivate">8. deactivate</h1>
-<p>가상환경 종료</p>
-<div class="highlight"><pre><span></span><code>deactivate
-</code></pre></div>
-<p>실행 전</p>
+<p>정상적으로 활성화되면 터미널 프롬프트 앞에 일반적으로 다음과 같이 표시된다.</p>
 <div class="highlight"><pre><span></span><code>(.venv)
 </code></pre></div>
-<p>실행 후</p>
-<div class="highlight"><pre><span></span><code>➜
+<p>현재 사용 중인 Python 경로를 확인하려면 다음 명령을 사용할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>which<span class="w"> </span>python
 </code></pre></div>
-<p>다시 Mac 기본 Python 사용</p>
+<p>예시:</p>
+<div class="highlight"><pre><span></span><code>/Users/사용자명/projects/AI-Data-Platform/.venv/bin/python
+</code></pre></div>
 <hr />
-<h1 id="9-pip">9. pip란?</h1>
-<p>pip는</p>
-<p>Python Package Manager</p>
-<p>입니다.</p>
-<p>Java의 Maven</p>
-<p>Node.js의 npm</p>
-<p>과 같은 역할입니다.</p>
-<p>예</p>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ollama
+<h3 id="windows-powershell">Windows PowerShell</h3>
+<p>Windows에서는 다음 명령으로 가상환경을 활성화한다.</p>
+<div class="highlight"><pre><span></span><code><span class="p">.\.</span><span class="n">venv</span><span class="p">\</span><span class="n">Scripts</span><span class="p">\</span><span class="n">Activate</span><span class="p">.</span><span class="n">ps1</span>
 </code></pre></div>
-<p>의 의미는</p>
-<p>ollama 라이브러리를 설치하라는 의미입니다.</p>
+<p>정상적으로 활성화되면 다음과 같이 표시된다.</p>
+<div class="highlight"><pre><span></span><code>(.venv) PS C:\projects\AI-Data-Platform&gt;
+</code></pre></div>
 <hr />
-<h1 id="10-pip-python-m-pip">10. 왜 pip 대신 python -m pip 를 사용하는가?</h1>
-<p>권장</p>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ollama
-</code></pre></div>
-<p>비권장</p>
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>ollama
-</code></pre></div>
-<p>이유</p>
-<p>현재 활성화된 Python 환경의 pip를 사용하기 때문입니다.</p>
-<p>AI 프로젝트에서는</p>
-<p>python -m pip</p>
-<p>사용을 권장합니다.</p>
-<hr />
-<h1 id="11-ollama-python">11. Ollama Python 라이브러리 설치</h1>
-<p>명령어</p>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ollama
-</code></pre></div>
-<p>주의</p>
-<p>Ollama 서버 설치가 아닙니다.</p>
-<p>Python 프로그램에서 Ollama API를 호출하기 위한 라이브러리 설치입니다.</p>
-<p>구조</p>
-<p>Python Program
-↓
-Ollama Library
-↓
+<h2 id="4-ollama-python">4. Ollama Python 라이브러리란?</h2>
+<p>Ollama는 Local LLM 모델을 로컬 환경에서 실행할 수 있게 해주는 도구이다.</p>
+<p>하지만 Python 프로그램에서 Ollama를 호출하려면 Ollama Server와 통신할 수 있는 Python 라이브러리가 필요하다.</p>
+<p>이번 실습에서는 <code>ollama</code> Python 패키지를 사용한다.</p>
+<div class="highlight"><pre><span></span><code>Python Program
+      ↓
+ollama Python Library
+      ↓
 Ollama Server
-↓
-Gemma / Qwen</p>
+      ↓
+Gemma / Qwen / Llama
+</code></pre></div>
+<p>여기서 중요한 점은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Ollama Application
+→ Local LLM 모델을 실행하는 서버
+
+ollama Python Library
+→ Python 프로그램에서 Ollama Server를 호출하기 위한 라이브러리
+</code></pre></div>
+<p>즉 다음 명령은 Ollama Server 자체를 설치하는 명령이 아니다.</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ollama
+</code></pre></div>
 <hr />
-<h1 id="12">12. 설치 확인</h1>
+<h2 id="5-ollama-python">5. Ollama Python 라이브러리 설치</h2>
+<p>가상환경이 활성화된 상태에서 다음 명령을 실행한다.</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ollama
+</code></pre></div>
+<p><code>pip</code> 명령을 직접 실행하는 대신 다음 형식을 사용하는 것을 권장한다.</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip
+</code></pre></div>
+<p>이 방식은 현재 활성화된 Python 환경의 pip를 명확하게 사용하기 때문에, 여러 Python 환경이 설치되어 있는 경우 패키지가 잘못된 위치에 설치되는 문제를 줄이는 데 도움이 된다.</p>
+<hr />
+<h2 id="6">6. 설치 확인</h2>
+<p>설치가 완료되면 다음 명령으로 <code>ollama</code> 라이브러리를 정상적으로 import할 수 있는지 확인한다.</p>
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import ollama; print(&#39;ollama python library ok&#39;)&quot;</span>
 </code></pre></div>
-<p>결과</p>
+<p>정상적인 경우 다음과 같이 출력된다.</p>
 <div class="highlight"><pre><span></span><code>ollama python library ok
 </code></pre></div>
+<p>오류가 발생한다면 먼저 다음 명령으로 현재 가상환경에 패키지가 설치되어 있는지 확인한다.</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>show<span class="w"> </span>ollama
+</code></pre></div>
 <hr />
-<h1 id="13-python">13. 첫 번째 Python 예제</h1>
-<p>파일명</p>
-<p>test_ollama.py</p>
+<h2 id="7-ollama-server">7. Ollama Server 실행 상태 확인</h2>
+<p>Python 라이브러리가 설치되어 있어도 Ollama Server가 실행되고 있지 않으면 Local LLM을 호출할 수 없다.</p>
+<p>Ollama가 정상적으로 실행 중인지 확인한다.</p>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>list
+</code></pre></div>
+<p>설치된 모델 목록이 정상적으로 출력되면 Ollama가 동작 중인 상태이다.</p>
+<p>예시:</p>
+<div class="highlight"><pre><span></span><code>NAME          ID              SIZE
+gemma3:4b     ........        ...
+qwen3:8b      ........        ...
+</code></pre></div>
+<p>사용하려는 모델이 목록에 없다면 먼저 모델을 다운로드해야 한다.</p>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>pull<span class="w"> </span>gemma3:4b
+</code></pre></div>
+<p>또는</p>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>pull<span class="w"> </span>qwen3:8b
+</code></pre></div>
+<hr />
+<h2 id="8-python-ollama">8. Python과 Ollama의 내부 연결 구조</h2>
+<p>Ollama는 기본적으로 로컬 환경에서 API Server 역할을 한다.</p>
+<p>Python 프로그램에서 <code>ollama</code> 라이브러리를 호출하면 내부적으로 Ollama Server와 통신하고, Ollama Server가 Local LLM 모델을 실행한다.</p>
+<div class="highlight"><pre><span></span><code>Python Program
+      ↓
+Ollama Python Library
+      ↓
+localhost:11434
+      ↓
+Ollama Server
+      ↓
+Local LLM Model
+      ↓
+Response
+</code></pre></div>
+<p>구조를 조금 더 풀어보면 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>사용자 질문
+    ↓
+Python 코드
+    ↓
+ollama.chat()
+    ↓
+Ollama API
+    ↓
+Local LLM
+    ↓
+응답 생성
+    ↓
+Python 프로그램
+</code></pre></div>
+<hr />
+<h2 id="9-python">9. 첫 번째 Python 호출 예제</h2>
+<p>프로젝트의 실습 디렉터리에 다음 파일을 생성한다.</p>
+<div class="highlight"><pre><span></span><code>test_ollama.py
+</code></pre></div>
+<p>예제 코드는 다음과 같다.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ollama</span><span class="w"> </span><span class="kn">import</span> <span class="n">chat</span>
 
 <span class="n">response</span> <span class="o">=</span> <span class="n">chat</span><span class="p">(</span>
-    <span class="n">model</span><span class="o">=</span><span class="s1">&#39;gemma3:4b&#39;</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gemma3:4b&quot;</span><span class="p">,</span>
     <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
         <span class="p">{</span>
-            <span class="s1">&#39;role&#39;</span><span class="p">:</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="s1">&#39;Local LLM이 무엇인지 설명해줘&#39;</span>
+            <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Local LLM이 무엇인지 설명해줘&quot;</span><span class="p">,</span>
         <span class="p">}</span>
-    <span class="p">]</span>
+    <span class="p">],</span>
 <span class="p">)</span>
 
-<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="s1">&#39;content&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">][</span><span class="s2">&quot;content&quot;</span><span class="p">])</span>
 </code></pre></div>
-<p>실행</p>
+<p>실행한다.</p>
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>test_ollama.py
 </code></pre></div>
+<p>정상적으로 동작하면 Local LLM이 생성한 답변이 터미널에 출력된다.</p>
 <hr />
-<h1 id="14">14. 내부 동작 구조</h1>
-<pre class="mermaid"><code>
-flowchart TD
-
-A[Python Program]
-
---&gt; B[Ollama Python Library]
-
-B --&gt; C[localhost:11434]
-
-C --&gt; D[Ollama Server]
-
-D --&gt; E[Gemma3 4B]
-
-E --&gt; F[Response]
-</code></pre>
+<h2 id="10">10. 코드 이해하기</h2>
+<p>예제 코드를 단계별로 살펴본다.</p>
+<h3 id="101-chat-import">10.1 <code>chat</code> 함수 import</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">ollama</span><span class="w"> </span><span class="kn">import</span> <span class="n">chat</span>
+</code></pre></div>
+<p><code>ollama</code> 라이브러리에서 채팅 형태로 모델을 호출하기 위한 <code>chat</code> 함수를 가져온다.</p>
 <hr />
-<h1 id="15">15. 향후 활용</h1>
-<p>이후 단계에서 모두 사용됩니다.</p>
-<p>Step1</p>
-<ul>
-<li>Local LLM</li>
-</ul>
-<p>Step2</p>
-<ul>
-<li>Open WebUI</li>
-</ul>
-<p>Step3</p>
-<ul>
-<li>RAG</li>
-</ul>
-<p>Step4</p>
-<ul>
-<li>Agent</li>
-</ul>
-<p>Step5</p>
-<ul>
-<li>AI Data Platform</li>
-</ul>
+<h3 id="102">10.2 모델 지정</h3>
+<div class="highlight"><pre><span></span><code><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gemma3:4b&quot;</span>
+</code></pre></div>
+<p>호출할 Local LLM 모델을 지정한다.</p>
+<p>Ollama에 설치되어 있는 다른 모델을 사용할 수도 있다.</p>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code><span class="n">model</span><span class="o">=</span><span class="s2">&quot;qwen3:8b&quot;</span>
+</code></pre></div>
+<p>단, 해당 모델이 Ollama에 미리 설치되어 있어야 한다.</p>
 <hr />
-<h1 id="_2">정리</h1>
-<p>필수 명령어</p>
-<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<h3 id="103">10.3 메시지 전달</h3>
+<div class="highlight"><pre><span></span><code><span class="n">messages</span><span class="o">=</span><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Local LLM이 무엇인지 설명해줘&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">]</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+<p>모델에게 전달할 대화 메시지를 정의한다.</p>
+<p>주요 항목은 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>role</code></td>
+<td>메시지를 작성한 역할</td>
+</tr>
+<tr>
+<td><code>content</code></td>
+<td>실제 전달할 메시지 내용</td>
+</tr>
+</tbody>
+</table>
+<p>이번 예제에서는 사용자의 질문을 전달하므로 <code>role</code>에 <code>user</code>를 사용한다.</p>
+<hr />
+<h3 id="104">10.4 응답 출력</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">][</span><span class="s2">&quot;content&quot;</span><span class="p">])</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+<p>Ollama에서 반환된 응답 중 실제 모델 답변 내용을 출력한다.</p>
+<p>기본적인 응답 구조는 다음과 같이 이해할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>response
+  └─ message
+       └─ content
+            └─ 실제 LLM 응답
 </code></pre></div>
+<hr />
+<h2 id="11-mermaid">11. Mermaid로 보는 처리 흐름</h2>
+<pre class="mermaid"><code>flowchart TD
+    A[사용자 질문] --&gt; B[Python Program]
+    B --&gt; C[Ollama Python Library]
+    C --&gt; D[localhost:11434]
+    D --&gt; E[Ollama Server]
+    E --&gt; F[Local LLM Model]
+    F --&gt; G[Response]
+    G --&gt; B</code></pre>
+<hr />
+<h2 id="12">12. 자주 발생하는 오류</h2>
+<h3 id="121-modulenotfounderror-no-module-named-ollama">12.1 <code>ModuleNotFoundError: No module named 'ollama'</code></h3>
+<p>원인:</p>
+<div class="highlight"><pre><span></span><code>현재 Python 환경에 ollama 패키지가 설치되지 않음
+</code></pre></div>
+<p>확인:</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>show<span class="w"> </span>ollama
+</code></pre></div>
+<p>설치:</p>
 <div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ollama
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import ollama&quot;</span>
+<p>가상환경이 활성화되어 있는지도 함께 확인한다.</p>
+<hr />
+<h3 id="122-ollama-server">12.2 Ollama Server 연결 오류</h3>
+<p>Python 라이브러리는 설치되어 있지만 Ollama Server가 실행되지 않은 경우 발생할 수 있다.</p>
+<p>확인:</p>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>list
 </code></pre></div>
-<p>Local LLM 학습에서 Python 가상환경은 선택이 아니라 필수입니다.</p>
+<p>Ollama Server가 정상적으로 실행 중인지 확인한다.</p>
+<hr />
+<h3 id="123">12.3 모델을 찾을 수 없는 경우</h3>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>model &#39;gemma3:4b&#39; not found
+</code></pre></div>
+<p>현재 설치된 모델을 확인한다.</p>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>list
+</code></pre></div>
+<p>필요한 모델을 다운로드한다.</p>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>pull<span class="w"> </span>gemma3:4b
+</code></pre></div>
+<hr />
+<h3 id="124-python">12.4 다른 Python 환경에 패키지가 설치된 경우</h3>
+<p>다음 명령으로 현재 Python 경로를 확인한다.</p>
+<p>macOS:</p>
+<div class="highlight"><pre><span></span><code>which<span class="w"> </span>python
+</code></pre></div>
+<p>Windows:</p>
+<div class="highlight"><pre><span></span><code><span class="n">where</span><span class="p">.</span><span class="n">exe</span> <span class="n">python</span>
+</code></pre></div>
+<p>현재 프로젝트의 <code>.venv</code> 경로를 사용하고 있는지 확인한다.</p>
+<hr />
+<h2 id="13">13. 이번 실습에서 중요한 개념</h2>
+<p>이번 단계에서 기억해야 할 핵심은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Ollama Server
+≠
+Ollama Python Library
+</code></pre></div>
+<p>Ollama Server는 Local LLM을 실제로 실행한다.</p>
+<div class="highlight"><pre><span></span><code>Ollama Server
+      ↓
+Gemma / Qwen / Llama
+</code></pre></div>
+<p>Ollama Python Library는 Python 프로그램과 Ollama Server 사이를 연결한다.</p>
+<div class="highlight"><pre><span></span><code>Python
+   ↓
+Ollama Library
+   ↓
+Ollama Server
+   ↓
+Local LLM
+</code></pre></div>
+<p>따라서 Python 기반 AI 애플리케이션을 구현하려면 이 연결 구조를 이해하는 것이 중요하다.</p>
+<hr />
+<h2 id="14">14. 이후 학습과의 연결</h2>
+<p>이번에 구성한 Python ↔ Ollama 연동 방식은 이후 학습 과정의 기본 기반이 된다.</p>
+<h3 id="step-1-local-llm">Step 1. Local LLM</h3>
+<div class="highlight"><pre><span></span><code>Python
+  ↓
+Ollama
+  ↓
+Local LLM
+</code></pre></div>
+<h3 id="step-2-rag">Step 2. RAG</h3>
+<div class="highlight"><pre><span></span><code>사용자 질문
+    ↓
+Python
+    ↓
+Vector DB 검색
+    ↓
+검색 문서
+    ↓
+Ollama
+    ↓
+답변 생성
+</code></pre></div>
+<h3 id="step-3-ai-agent">Step 3. AI Agent</h3>
+<div class="highlight"><pre><span></span><code>사용자 요청
+    ↓
+Agent
+    ↓
+Tool / RAG / API
+    ↓
+Ollama
+    ↓
+최종 응답
+</code></pre></div>
+<p>즉 이번 실습은 단순한 Python 예제가 아니라, 이후 RAG와 AI Agent를 구현하기 위한 가장 기본적인 연결 구조를 확인하는 단계이다.</p>
+<hr />
+<h2 id="15">15. 정리</h2>
+<p>이번 단계에서는 Python 개발환경을 새로 구성하는 것이 아니라, 이미 준비된 프로젝트 가상환경 위에서 Ollama Python 라이브러리를 설치하고 Local LLM을 호출하는 방법을 학습했다.</p>
+<p>핵심 흐름은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>프로젝트 가상환경 활성화
+        ↓
+ollama Python 라이브러리 설치
+        ↓
+Ollama Server 실행 확인
+        ↓
+Local LLM 모델 확인
+        ↓
+Python 코드에서 ollama.chat() 호출
+        ↓
+Local LLM 응답 확인
+</code></pre></div>
+<p>핵심 명령어는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ollama
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import ollama; print(&#39;ollama python library ok&#39;)&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>ollama<span class="w"> </span>list
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>test_ollama.py
+</code></pre></div>
+<p>이번 단계가 완료되면 Python 프로그램에서 Local LLM을 직접 호출할 수 있으며, 이후 RAG와 AI Agent 구현으로 확장할 수 있다.</p>
 
 
 

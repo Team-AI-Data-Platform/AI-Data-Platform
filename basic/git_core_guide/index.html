@@ -1,0 +1,2226 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Data Platform & Local LLM Study">
+      
+      
+      
+      
+        <link rel="prev" href="../../project_setup/sourcetree_github_usage_guide/">
+      
+      
+        <link rel="next" href="../python_core_guide_for_beginner/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Git 핵심 가이드 - AI Data Platform Study</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../study/css/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#git" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AI Data Platform Study" class="md-header__button md-logo" aria-label="AI Data Platform Study" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Data Platform Study
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Git 핵심 가이드
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../roadmap/study-roadmap/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Roadmap
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../project_setup/project_environment_setup_overview_guide/" class="md-tabs__link">
+          
+  
+  
+  프로젝트 환경 구성
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  기초 학습
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../mkdocs/mkdocs_site_build_guide/" class="md-tabs__link">
+          
+  
+  
+  MkDocs 문서 관리
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../study/step1/step1_local_llm_setup_guide/" class="md-tabs__link">
+          
+  
+  
+  AI Lab
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AI Data Platform Study" class="md-nav__button md-logo" aria-label="AI Data Platform Study" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AI Data Platform Study
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roadmap/study-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../project_setup/project_environment_setup_overview_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    프로젝트 환경 구성
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    기초 학습
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    기초 학습
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 핵심 가이드
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Git 핵심 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Git이란?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Git을 사용하는 이유
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Git을 사용하는 이유">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        변경 이력 관리
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        이전 버전 확인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        팀 협업
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        작업 분리
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        장애 복구
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-git-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Git과 GitHub의 차이
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Repository란?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-local-repository-remote-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Local Repository와 Remote Repository
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Local Repository와 Remote Repository">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Repository
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remote-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote Repository
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Git의 핵심 작업 영역
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-working-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Working Directory란?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-staging-area" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Staging Area란?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Commit이란?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Git 기본 흐름 한 번에 이해하기
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python_core_guide_for_beginner/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Python 핵심 가이드
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../mkdocs/mkdocs_site_build_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MkDocs 문서 관리
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../study/step1/step1_local_llm_setup_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Git이란?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Git을 사용하는 이유
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Git을 사용하는 이유">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        변경 이력 관리
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        이전 버전 확인
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        팀 협업
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        작업 분리
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        장애 복구
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-git-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Git과 GitHub의 차이
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Repository란?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-local-repository-remote-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Local Repository와 Remote Repository
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Local Repository와 Remote Repository">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Repository
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remote-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote Repository
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Git의 핵심 작업 영역
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-working-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Working Directory란?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-staging-area" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Staging Area란?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Commit이란?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Git 기본 흐름 한 번에 이해하기
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="git">Git 핵심 가이드</h1>
+<blockquote>
+<p>이 문서는 Git을 처음 접하는 사용자가 <strong>Git의 핵심 개념과 기본 명령어를 이해하고, 실제 프로젝트에서 소스를 안전하게 관리할 수 있도록</strong> 정리한 기초 학습 가이드이다.<br />
+단순히 명령어를 나열하기보다 <code>왜 사용하는지</code>, <code>각 명령이 Git의 어느 영역에 영향을 주는지</code>, <code>팀 프로젝트에서는 어떤 순서로 사용하는지</code>를 중심으로 설명한다.</p>
+</blockquote>
+<hr />
+<h2 id="1-git">1. Git이란?</h2>
+<p>Git은 소스 코드와 문서의 변경 이력을 관리하는 <strong>분산 버전 관리 시스템(Distributed Version Control System)</strong> 이다.</p>
+<p>개발을 하다 보면 파일이 계속 변경된다.</p>
+<p>예를 들어 하나의 Python 파일을 다음처럼 수정한다고 가정한다.</p>
+<div class="highlight"><pre><span></span><code>app.py
+  ↓
+기능 추가
+  ↓
+버그 수정
+  ↓
+리팩토링
+  ↓
+새로운 기능 추가
+</code></pre></div>
+<p>파일을 단순히 저장하기만 하면 이전 상태를 추적하기 어렵다.</p>
+<p>Git을 사용하면 변경 내용을 하나의 이력으로 관리할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>Version 1
+   ↓
+Version 2
+   ↓
+Version 3
+   ↓
+Version 4
+</code></pre></div>
+<p>필요한 경우 과거 변경 내용을 확인하거나 특정 시점으로 돌아갈 수도 있다.</p>
+<hr />
+<h2 id="2-git">2. Git을 사용하는 이유</h2>
+<p>Git의 주요 목적은 다음과 같다.</p>
+<h3 id="_1">변경 이력 관리</h3>
+<p>누가, 언제, 어떤 파일을 수정했는지 기록할 수 있다.</p>
+<h3 id="_2">이전 버전 확인</h3>
+<p>프로젝트의 과거 상태와 현재 상태를 비교할 수 있다.</p>
+<h3 id="_3">팀 협업</h3>
+<p>여러 명이 동일한 프로젝트를 함께 개발할 수 있다.</p>
+<h3 id="_4">작업 분리</h3>
+<p>Branch를 사용하여 새로운 기능이나 실험 작업을 기존 소스와 분리할 수 있다.</p>
+<h3 id="_5">장애 복구</h3>
+<p>문제가 발생한 변경 사항을 추적하고 이전 상태를 참고할 수 있다.</p>
+<hr />
+<h2 id="3-git-github">3. Git과 GitHub의 차이</h2>
+<p>처음 Git을 공부할 때 가장 많이 혼동하는 부분이다.</p>
+<p>Git과 GitHub는 같은 것이 아니다.</p>
+<div class="highlight"><pre><span></span><code>Git
+→ 내 PC에서 소스의 변경 이력을 관리하는 도구
+
+GitHub
+→ Git Repository를 인터넷에서 저장하고 공유하는 서비스
+</code></pre></div>
+<p>구조로 보면 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>개발자 PC
+   │
+   │ Git
+   ▼
+Local Repository
+   │
+   │ push / pull
+   ▼
+GitHub
+Remote Repository
+</code></pre></div>
+<p>Git만으로도 로컬 PC에서 버전 관리를 할 수 있다.</p>
+<p>GitHub를 함께 사용하면 다른 개발자와 Repository를 공유할 수 있다.</p>
+<hr />
+<h2 id="4-repository">4. Repository란?</h2>
+<p>Repository는 Git이 관리하는 프로젝트 저장소이다.</p>
+<p>일반적인 프로젝트 폴더를 Git Repository로 만들면 Git이 파일의 변경 이력을 관리하기 시작한다.</p>
+<div class="highlight"><pre><span></span><code>AI-Data-Platform/
+├─ docs/
+├─ labs/
+├─ mkdocs.yml
+├─ README.md
+└─ .git/
+</code></pre></div>
+<p>여기서 <code>.git/</code> 디렉터리는 Git Repository의 핵심 영역이다.</p>
+<p>Git은 이 디렉터리에 다음과 같은 정보를 관리한다.</p>
+<ul>
+<li>Commit 이력</li>
+<li>Branch 정보</li>
+<li>Remote Repository 정보</li>
+<li>파일 추적 상태</li>
+<li>Git 설정 정보</li>
+</ul>
+<blockquote>
+<p><code>.git/</code> 디렉터리를 임의로 삭제하면 해당 프로젝트는 더 이상 기존 Git Repository로 동작하지 않는다.</p>
+</blockquote>
+<hr />
+<h2 id="5-local-repository-remote-repository">5. Local Repository와 Remote Repository</h2>
+<p>Git 프로젝트에서는 두 종류의 Repository를 이해하는 것이 중요하다.</p>
+<h3 id="local-repository">Local Repository</h3>
+<p>현재 사용자의 PC에 존재하는 Repository이다.</p>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>C:\projects\AI-Data-Platform
+</code></pre></div>
+<p>macOS에서는 다음과 같은 형태가 될 수 있다.</p>
+<div class="highlight"><pre><span></span><code>~/projects/AI-Data-Platform
+</code></pre></div>
+<h3 id="remote-repository">Remote Repository</h3>
+<p>GitHub처럼 네트워크에 존재하는 원격 Repository이다.</p>
+<div class="highlight"><pre><span></span><code>Local Repository
+      │
+      │ git push
+      ▼
+Remote Repository
+      │
+      │ git pull
+      ▼
+Local Repository
+</code></pre></div>
+<p>팀 프로젝트에서는 일반적으로 GitHub Repository를 Remote Repository로 사용한다.</p>
+<hr />
+<h2 id="6-git">6. Git의 핵심 작업 영역</h2>
+<p>Git을 이해할 때 가장 중요한 개념 중 하나이다.</p>
+<p>Git에는 크게 다음 세 영역이 있다.</p>
+<div class="highlight"><pre><span></span><code>Working Directory
+       ↓
+    git add
+       ↓
+Staging Area
+       ↓
+  git commit
+       ↓
+Local Repository
+</code></pre></div>
+<p>GitHub까지 포함하면 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Working Directory
+       ↓
+    git add
+       ↓
+Staging Area
+       ↓
+  git commit
+       ↓
+Local Repository
+       ↓
+   git push
+       ↓
+Remote Repository
+</code></pre></div>
+<hr />
+<h2 id="7-working-directory">7. Working Directory란?</h2>
+<p>Working Directory는 실제로 파일을 만들고 수정하는 프로젝트 폴더이다.</p>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>AI-Data-Platform/
+├─ docs/
+├─ labs/
+├─ mkdocs.yml
+└─ README.md
+</code></pre></div>
+<p>사용자가 <code>README.md</code>를 수정했다면 그 변경은 우선 Working Directory에 존재한다.</p>
+<p>아직 Commit된 것은 아니다.</p>
+<hr />
+<h2 id="8-staging-area">8. Staging Area란?</h2>
+<p>Staging Area는 <strong>다음 Commit에 포함할 변경 사항을 선택해 놓는 영역</strong>이다.</p>
+<p>예를 들어 다음 세 파일을 수정했다고 가정한다.</p>
+<div class="highlight"><pre><span></span><code>README.md
+mkdocs.yml
+test.py
+</code></pre></div>
+<p>이 중 <code>README.md</code>와 <code>mkdocs.yml</code>만 Commit하고 싶다면 다음과 같이 선택할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>README.md
+git<span class="w"> </span>add<span class="w"> </span>mkdocs.yml
+</code></pre></div>
+<p>그러면 두 파일만 Staging Area에 올라간다.</p>
+<div class="highlight"><pre><span></span><code>Working Directory
+├─ README.md  ─────┐
+├─ mkdocs.yml ─────┼──→ Staging Area
+└─ test.py          │
+                    └─ test.py는 아직 제외
+</code></pre></div>
+<hr />
+<h2 id="9-commit">9. Commit이란?</h2>
+<p>Commit은 Staging Area에 준비된 변경 내용을 <strong>하나의 변경 이력으로 저장하는 작업</strong>이다.</p>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add project setup guide&quot;</span>
+</code></pre></div>
+<p>Commit은 일종의 프로젝트 저장 지점이라고 이해하면 쉽다.</p>
+<div class="highlight"><pre><span></span><code>Commit A
+   ↓
+Commit B
+   ↓
+Commit C
+   ↓
+Commit D
+</code></pre></div>
+<p>각 Commit에는 다음 정보가 포함된다.</p>
+<ul>
+<li>변경된 파일</li>
+<li>변경 내용</li>
+<li>작성자</li>
+<li>작성 시간</li>
+<li>Commit 메시지</li>
+<li>고유 Commit ID</li>
+</ul>
+<hr />
+<h2 id="10-git">10. Git 기본 흐름 한 번에 이해하기</h2>
+<p>다음 흐름을 먼저 기억하면 Git의 기본 구조를 이해하기 쉽다.</p>
+<div class="highlight"><pre><span></span><code>파일 수정
+   ↓
+git status
+   ↓
+git add
+   ↓
+git commit
+   ↓
+git push
+</code></pre></div>
+<p>팀 프로젝트에서는 작업 시작 전에 <code>pull</code>이 추가된다.</p>
+<div class="highlight"><pre><span></span><code>git pull
+   ↓
+파일 수정
+   ↓
+git status
+   ↓
+git add
+   ↓
+git commit
+   ↓
+git push
+</code></pre></div>
+<hr />
+<h1 id="part-1-git">Part 1. Git 기본 명령어</h1>
+<hr />
+<h2 id="11-git-version">11. <code>git --version</code></h2>
+<p>Git 설치 여부와 버전을 확인한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>--version
+</code></pre></div>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>git version 2.x.x
+</code></pre></div>
+<p>Git 명령을 사용할 수 없다면 Git 설치 또는 PATH 설정을 확인해야 한다.</p>
+<hr />
+<h2 id="12-git-status">12. <code>git status</code></h2>
+<p>현재 Repository의 상태를 확인한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>status
+</code></pre></div>
+<p>Git을 사용할 때 가장 자주 사용하는 명령어 중 하나이다.</p>
+<p>다음 정보를 확인할 수 있다.</p>
+<ul>
+<li>현재 Branch</li>
+<li>수정된 파일</li>
+<li>새 파일</li>
+<li>삭제된 파일</li>
+<li>Staging Area에 올라간 파일</li>
+<li>아직 Stage되지 않은 파일</li>
+</ul>
+<p>정상적인 예:</p>
+<div class="highlight"><pre><span></span><code>On branch main
+Your branch is up to date with &#39;origin/main&#39;.
+
+nothing to commit, working tree clean
+</code></pre></div>
+<p><code>working tree clean</code>은 현재 Commit하지 않은 변경 사항이 없다는 의미이다.</p>
+<hr />
+<h2 id="13-git-add">13. <code>git add</code></h2>
+<p>변경된 파일을 Staging Area에 추가한다.</p>
+<p>특정 파일:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>README.md
+</code></pre></div>
+<p>여러 파일:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>README.md<span class="w"> </span>mkdocs.yml
+</code></pre></div>
+<p>현재 디렉터리의 변경 사항 전체:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.
+</code></pre></div>
+<p><code>git add .</code>는 편리하지만, 원하지 않는 파일까지 Stage할 수 있다.</p>
+<p>따라서 먼저 다음 명령을 실행하는 습관이 좋다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>status
+</code></pre></div>
+<hr />
+<h2 id="14-git-commit">14. <code>git commit</code></h2>
+<p>Staging Area의 내용을 Local Repository에 저장한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add Git study guide&quot;</span>
+</code></pre></div>
+<p><code>-m</code>은 Commit 메시지를 명령어에서 바로 지정하는 옵션이다.</p>
+<p>좋은 Commit 메시지:</p>
+<div class="highlight"><pre><span></span><code>Add Git core guide
+Update Python setup document
+Fix MkDocs navigation
+Add Ollama Windows setup guide
+</code></pre></div>
+<p>좋지 않은 예:</p>
+<div class="highlight"><pre><span></span><code>update
+test
+aaa
+수정
+</code></pre></div>
+<p>Commit 메시지만 보고도 어떤 작업인지 이해할 수 있도록 작성하는 것이 좋다.</p>
+<hr />
+<h2 id="15-git-log">15. <code>git log</code></h2>
+<p>Commit 이력을 확인한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>log
+</code></pre></div>
+<p>간단한 형태:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>log<span class="w"> </span>--oneline
+</code></pre></div>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>9d31abc Add Git core guide
+72af251 Update project navigation
+13bc482 Add Ollama setup guide
+</code></pre></div>
+<p>앞의 값은 Commit ID의 축약형이다.</p>
+<hr />
+<h2 id="16-git-diff">16. <code>git diff</code></h2>
+<p>아직 Stage하지 않은 변경 내용을 확인한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>diff
+</code></pre></div>
+<p>특정 파일:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>diff<span class="w"> </span>mkdocs.yml
+</code></pre></div>
+<p>Commit하기 전에 실제 수정 내용을 다시 확인할 때 유용하다.</p>
+<p>Stage된 변경 사항은 다음 명령으로 확인한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>diff<span class="w"> </span>--staged
+</code></pre></div>
+<hr />
+<h1 id="part-2-github">Part 2. GitHub와 소스 주고받기</h1>
+<hr />
+<h2 id="17-git-clone">17. <code>git clone</code></h2>
+<p>Remote Repository를 로컬 PC에 처음 내려받는다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Team-AI-Data-Platform/AI-Data-Platform.git
+</code></pre></div>
+<p>구조:</p>
+<div class="highlight"><pre><span></span><code>GitHub Repository
+       ↓
+    git clone
+       ↓
+Local Repository 생성
+</code></pre></div>
+<p><code>clone</code>은 일반적으로 프로젝트를 처음 받을 때 한 번 사용한다.</p>
+<hr />
+<h2 id="18-git-remote">18. <code>git remote</code></h2>
+<p>현재 Local Repository와 연결된 Remote Repository 정보를 확인한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>remote<span class="w"> </span>-v
+</code></pre></div>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>origin  https://github.com/Team-AI-Data-Platform/AI-Data-Platform.git (fetch)
+origin  https://github.com/Team-AI-Data-Platform/AI-Data-Platform.git (push)
+</code></pre></div>
+<p>여기서 <code>origin</code>은 기본 Remote Repository 이름으로 많이 사용된다.</p>
+<hr />
+<h2 id="19-git-pull">19. <code>git pull</code></h2>
+<p>Remote Repository의 최신 변경 사항을 Local Repository로 가져온다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>pull
+</code></pre></div>
+<p>또는:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div>
+<p>구조:</p>
+<div class="highlight"><pre><span></span><code>GitHub
+   ↓
+git pull
+   ↓
+내 PC
+</code></pre></div>
+<p>작업을 시작하기 전에 팀원의 최신 변경 사항을 받기 위해 자주 사용한다.</p>
+<hr />
+<h2 id="20-git-push">20. <code>git push</code></h2>
+<p>Local Repository의 Commit을 Remote Repository에 올린다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push
+</code></pre></div>
+<p>또는:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div>
+<p>구조:</p>
+<div class="highlight"><pre><span></span><code>내 PC
+   ↓
+git push
+   ↓
+GitHub
+</code></pre></div>
+<p>주의할 점은 <strong>파일을 수정했다고 바로 Push되는 것은 아니라는 것</strong>이다.</p>
+<div class="highlight"><pre><span></span><code>파일 수정
+   ↓
+git add
+   ↓
+git commit
+   ↓
+git push
+</code></pre></div>
+<p>이 순서가 필요하다.</p>
+<hr />
+<h2 id="21-clone-pull">21. Clone과 Pull의 차이</h2>
+<p>처음 Git을 학습할 때 많이 헷갈리는 부분이다.</p>
+<h3 id="clone">Clone</h3>
+<p>프로젝트 자체가 로컬에 없을 때 처음 내려받는다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>&lt;repository-url&gt;
+</code></pre></div>
+<h3 id="pull">Pull</h3>
+<p>이미 Clone되어 있는 프로젝트의 최신 내용을 받는다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>pull
+</code></pre></div>
+<p>한 문장으로 정리하면 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>Clone
+→ 처음 한 번 프로젝트 전체를 받는다.
+
+Pull
+→ 기존 프로젝트를 최신 상태로 갱신한다.
+</code></pre></div>
+<hr />
+<h2 id="22-fetch-pull">22. Fetch와 Pull의 차이</h2>
+<p><code>git fetch</code>도 Remote Repository의 정보를 가져온다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>fetch
+</code></pre></div>
+<p>차이는 Remote 변경 사항을 현재 Branch에 바로 반영하느냐이다.</p>
+<div class="highlight"><pre><span></span><code>git fetch
+→ Remote의 변경 정보를 가져옴
+→ 현재 작업 파일에는 바로 합치지 않음
+
+git pull
+→ Remote의 변경 정보를 가져옴
+→ 현재 Branch에 반영
+</code></pre></div>
+<p>Git을 처음 사용할 때는 보통 <code>git pull</code>을 먼저 익히면 된다.</p>
+<hr />
+<h1 id="part-3-branch">Part 3. Branch 이해하기</h1>
+<hr />
+<h2 id="23-branch">23. Branch란?</h2>
+<p>Branch는 하나의 Repository에서 작업 흐름을 분리하는 기능이다.</p>
+<p>예를 들어 운영 중인 <code>main</code> Branch에서 새로운 기능을 바로 개발하면 작업 중 오류가 기존 코드에 영향을 줄 수 있다.</p>
+<p>그래서 새로운 Branch를 만들 수 있다.</p>
+<div class="highlight"><pre><span></span><code>main
+ │
+ ├──────── feature/login
+ │
+ └──────── feature/rag
+</code></pre></div>
+<p>각 Branch에서는 독립적으로 작업한 뒤 필요할 때 다시 합칠 수 있다.</p>
+<hr />
+<h2 id="24-branch">24. 현재 Branch 확인</h2>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>branch
+</code></pre></div>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>* main
+</code></pre></div>
+<p><code>*</code> 표시는 현재 사용 중인 Branch를 의미한다.</p>
+<hr />
+<h2 id="25-branch">25. 새 Branch 생성</h2>
+<p>새 Branch를 생성하면서 이동한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>switch<span class="w"> </span>-c<span class="w"> </span>feature/git-guide
+</code></pre></div>
+<p>의미:</p>
+<div class="highlight"><pre><span></span><code>git switch
+→ Branch 이동
+
+-c
+→ 새로운 Branch 생성
+
+feature/git-guide
+→ 생성할 Branch 이름
+</code></pre></div>
+<hr />
+<h2 id="26-branch">26. Branch 이동</h2>
+<p>기존 Branch로 이동한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>switch<span class="w"> </span>main
+</code></pre></div>
+<p>다시 작업 Branch로 이동:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>switch<span class="w"> </span>feature/git-guide
+</code></pre></div>
+<hr />
+<h2 id="27-branch">27. Branch를 사용하는 이유</h2>
+<p>Branch를 사용하면 다음과 같은 장점이 있다.</p>
+<div class="highlight"><pre><span></span><code>main
+→ 안정된 소스
+
+feature/rag
+→ RAG 기능 개발
+
+feature/agent
+→ Agent 기능 개발
+
+docs/update
+→ 문서 수정
+</code></pre></div>
+<p>여러 작업을 서로 분리할 수 있기 때문에 팀 협업에서 매우 중요하다.</p>
+<hr />
+<h1 id="part-4-conflict">Part 4. Conflict 이해하기</h1>
+<hr />
+<h2 id="28-conflict">28. Conflict란?</h2>
+<p>여러 사용자가 같은 파일의 같은 부분을 서로 다르게 수정하면 Git이 어떤 내용을 유지해야 할지 자동으로 결정하지 못할 수 있다.</p>
+<p>이를 Conflict라고 한다.</p>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>사용자 A
+mkdocs.yml 20번째 줄 수정
+        ↓
+Push
+
+사용자 B
+mkdocs.yml 같은 부분 수정
+        ↓
+Pull
+        ↓
+Conflict
+</code></pre></div>
+<hr />
+<h2 id="29-conflict">29. Conflict 표시</h2>
+<p>Conflict가 발생하면 파일에 다음과 같은 표시가 나타날 수 있다.</p>
+<div class="highlight"><pre><span></span><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+
+내가 수정한 내용
+
+=======
+
+Remote Repository에서 내려온 내용
+
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/main
+</code></pre></div>
+<p>Git은 어느 내용을 사용할지 개발자에게 결정하도록 맡긴다.</p>
+<hr />
+<h2 id="30-conflict">30. Conflict 해결 기본 흐름</h2>
+<p>먼저 상태를 확인한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>status
+</code></pre></div>
+<p>충돌된 파일을 열어 유지할 내용을 결정한다.</p>
+<p>다음 표시를 제거한다.</p>
+<div class="highlight"><pre><span></span><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;
+=======
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+</code></pre></div>
+<p>최종 내용만 남긴 뒤:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>&lt;파일명&gt;
+</code></pre></div>
+<p>Commit한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>commit
+</code></pre></div>
+<blockquote>
+<p>Git을 처음 사용하는 경우 Conflict가 발생했다고 해서 파일을 바로 삭제하거나 <code>git reset --hard</code>, <code>git push --force</code>부터 실행하지 않는 것이 중요하다.</p>
+</blockquote>
+<hr />
+<h1 id="part-5">Part 5. 작업 임시 보관</h1>
+<hr />
+<h2 id="31-git-stash">31. <code>git stash</code></h2>
+<p>현재 작업 중인 변경 사항을 잠시 보관할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>stash
+</code></pre></div>
+<p>예를 들어 작업 중인데 최신 소스를 먼저 받아야 하는 경우 사용할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>작업 중
+   ↓
+git stash
+   ↓
+git pull
+   ↓
+git stash pop
+   ↓
+작업 계속
+</code></pre></div>
+<p>보관한 내용을 다시 적용:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>stash<span class="w"> </span>pop
+</code></pre></div>
+<p>Stash도 Conflict가 발생할 수 있으므로 기본 개념을 이해하고 사용하는 것이 좋다.</p>
+<hr />
+<h1 id="part-6-git">Part 6. 팀 프로젝트에서의 Git 사용</h1>
+<hr />
+<h2 id="32">32. 작업 시작 전 권장 흐름</h2>
+<p>프로젝트 작업을 시작할 때 다음 순서를 권장한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>status
+git<span class="w"> </span>pull
+</code></pre></div>
+<p>의미:</p>
+<div class="highlight"><pre><span></span><code>git status
+→ 내 로컬에 수정 중인 파일이 있는지 확인
+
+git pull
+→ Remote Repository의 최신 변경 내용 반영
+</code></pre></div>
+<hr />
+<h2 id="33">33. 작업 종료 시 권장 흐름</h2>
+<p>작업 완료 후:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>status
+git<span class="w"> </span>diff
+git<span class="w"> </span>add<span class="w"> </span>&lt;파일명&gt;
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;작업 내용&quot;</span>
+git<span class="w"> </span>push
+</code></pre></div>
+<p>전체 흐름:</p>
+<div class="highlight"><pre><span></span><code>작업 시작
+   ↓
+git status
+   ↓
+git pull
+   ↓
+파일 수정
+   ↓
+git status
+   ↓
+git diff
+   ↓
+git add
+   ↓
+git commit
+   ↓
+git push
+</code></pre></div>
+<hr />
+<h2 id="34-git-status">34. 왜 <code>git status</code>가 중요한가?</h2>
+<p>Git 명령을 외우는 것보다 <code>git status</code>를 자주 확인하는 습관이 더 중요하다.</p>
+<p>다음 상황에서 항상 확인하는 것이 좋다.</p>
+<div class="highlight"><pre><span></span><code>작업 시작 전
+Pull 전
+Commit 전
+Push 전
+Conflict 발생 후
+Branch 이동 전
+</code></pre></div>
+<p>현재 Git 상태를 모른 채 명령을 실행하면 의도하지 않은 변경이 발생할 수 있기 때문이다.</p>
+<hr />
+<h2 id="35-git-add">35. <code>git add .</code> 사용 시 주의</h2>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.
+</code></pre></div>
+<p>현재 위치의 많은 변경 사항을 한 번에 Stage할 수 있어 편리하다.</p>
+<p>하지만 다음과 같은 파일까지 포함될 수 있다.</p>
+<div class="highlight"><pre><span></span><code>테스트 파일
+임시 파일
+로그
+IDE 설정
+생성 결과
+민감한 설정 파일
+</code></pre></div>
+<p>따라서 먼저:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>status
+</code></pre></div>
+<p>를 확인하는 것이 좋다.</p>
+<p>기초 단계에서는 가능하면 필요한 파일을 명시적으로 Stage하는 습관도 도움이 된다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>README.md
+git<span class="w"> </span>add<span class="w"> </span>mkdocs.yml
+</code></pre></div>
+<hr />
+<h2 id="36-commit">36. Commit 단위를 작게 유지하는 이유</h2>
+<p>다음 두 작업을 동시에 했다고 가정한다.</p>
+<div class="highlight"><pre><span></span><code>1. Python 코드 수정
+2. MkDocs 메뉴 변경
+</code></pre></div>
+<p>하나의 Commit으로 묶는 것보다 작업 목적에 따라 분리하면 이력을 이해하기 쉽다.</p>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>Commit 1
+Fix RAG search logic
+
+Commit 2
+Update MkDocs navigation
+</code></pre></div>
+<p>Commit은 가능한 한 <strong>하나의 의미 있는 변경 단위</strong>로 만드는 것이 좋다.</p>
+<hr />
+<h1 id="part-7-git">Part 7. 위험한 Git 명령어 주의</h1>
+<hr />
+<h2 id="37-git-push-force">37. <code>git push --force</code></h2>
+<p>다음 명령은 Remote Repository의 이력을 강제로 덮어쓸 수 있다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>--force
+</code></pre></div>
+<p>또는:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push<span class="w"> </span>-f
+</code></pre></div>
+<p>특히 여러 사람이 사용하는 <code>main</code> Branch에서는 신중해야 한다.</p>
+<p>Git을 처음 사용하는 단계에서는 문제가 발생했다고 해서 강제 Push부터 사용하는 것은 피한다.</p>
+<hr />
+<h2 id="38-git-reset-hard">38. <code>git reset --hard</code></h2>
+<p>다음 명령 역시 주의가 필요하다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>reset<span class="w"> </span>--hard
+</code></pre></div>
+<p>현재 작업 중인 변경 사항이 사라질 수 있다.</p>
+<p>중요한 변경 사항이 있는지 먼저 확인한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>status
+</code></pre></div>
+<p>Git 명령을 잘 모르는 상태라면 프로젝트 담당자와 확인한 후 사용하는 것이 안전하다.</p>
+<hr />
+<h1 id="part-8-git-gitignore">Part 8. Git과 <code>.gitignore</code></h1>
+<hr />
+<h2 id="39-gitignore">39. <code>.gitignore</code> 기본 개념</h2>
+<p><code>.gitignore</code>는 Git이 추적하지 않을 파일과 디렉터리를 지정하는 파일이다.</p>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>.venv/
+site/
+__pycache__/
+*.pyc
+.env
+</code></pre></div>
+<p>다음과 같은 파일은 Git에 관리할 필요가 없는 경우가 많다.</p>
+<div class="highlight"><pre><span></span><code>Python 가상환경
+빌드 결과
+Cache
+Log
+IDE 설정
+Secret
+실습 실행 결과
+</code></pre></div>
+<p><code>.gitignore</code> 상세 구성과 AI-Data-Platform 프로젝트의 권장 설정은 별도의 프로젝트 환경 구성 가이드에서 다룬다.</p>
+<hr />
+<h2 id="40-gitignore">40. <code>.gitignore</code>가 필요한 이유</h2>
+<p>예를 들어 Python 가상환경 <code>.venv</code>를 Git에 올리면 많은 패키지 파일이 Repository에 포함될 수 있다.</p>
+<div class="highlight"><pre><span></span><code>.venv/
+ ├─ Scripts 또는 bin
+ ├─ Lib 또는 lib
+ └─ 수많은 Python 패키지
+</code></pre></div>
+<p>이 파일들은 각 개발자가 다시 생성할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+</code></pre></div>
+<p>따라서 Git에는 실제 프로젝트 소스와 설정 중심으로 관리하는 것이 좋다.</p>
+<hr />
+<h1 id="part-9-ai-data-platform">Part 9. AI-Data-Platform에서의 예제</h1>
+<hr />
+<h2 id="41-mkdocs">41. MkDocs 문서를 수정하는 경우</h2>
+<p>예를 들어 다음 파일을 수정했다고 가정한다.</p>
+<div class="highlight"><pre><span></span><code>docs/basic/git_core_guide.md
+</code></pre></div>
+<p>작업 시작:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>status
+git<span class="w"> </span>pull
+</code></pre></div>
+<p>문서 수정 후:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>status
+</code></pre></div>
+<p>변경 내용 확인:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>diff<span class="w"> </span>docs/basic/git_core_guide.md
+</code></pre></div>
+<p>Stage:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>docs/basic/git_core_guide.md
+</code></pre></div>
+<p>Commit:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add Git core guide&quot;</span>
+</code></pre></div>
+<p>Push:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push
+</code></pre></div>
+<hr />
+<h2 id="42">42. 여러 파일을 함께 수정한 경우</h2>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>docs/basic/git_core_guide.md
+mkdocs.yml
+</code></pre></div>
+<p>확인:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>status
+</code></pre></div>
+<p>Stage:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>docs/basic/git_core_guide.md
+git<span class="w"> </span>add<span class="w"> </span>mkdocs.yml
+</code></pre></div>
+<p>Commit:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Add Git core guide to navigation&quot;</span>
+</code></pre></div>
+<p>Push:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push
+</code></pre></div>
+<hr />
+<h2 id="43-clone">43. 이미 Clone한 프로젝트를 최신화하는 경우</h2>
+<p>프로젝트 폴더로 이동한다.</p>
+<h3 id="windows">Windows</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">projects</span><span class="p">\</span><span class="n">AI-Data-Platform</span>
+</code></pre></div>
+<h3 id="macos">macOS</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/projects/AI-Data-Platform
+</code></pre></div>
+<p>상태 확인:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>status
+</code></pre></div>
+<p>최신 소스:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>pull
+</code></pre></div>
+<p>이 과정은 프로젝트를 다시 Clone하는 것이 아니다.</p>
+<hr />
+<h1 id="part-10-git">Part 10. Git 명령어 빠른 정리</h1>
+<hr />
+<h2 id="44">44. 자주 사용하는 명령어</h2>
+<table>
+<thead>
+<tr>
+<th>명령어</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>git --version</code></td>
+<td>Git 버전 확인</td>
+</tr>
+<tr>
+<td><code>git status</code></td>
+<td>현재 작업 상태 확인</td>
+</tr>
+<tr>
+<td><code>git clone</code></td>
+<td>Repository 최초 복제</td>
+</tr>
+<tr>
+<td><code>git pull</code></td>
+<td>Remote 최신 변경 내용 반영</td>
+</tr>
+<tr>
+<td><code>git fetch</code></td>
+<td>Remote 변경 정보만 가져오기</td>
+</tr>
+<tr>
+<td><code>git add</code></td>
+<td>Staging Area에 추가</td>
+</tr>
+<tr>
+<td><code>git commit</code></td>
+<td>Local Repository에 변경 이력 저장</td>
+</tr>
+<tr>
+<td><code>git push</code></td>
+<td>Commit을 Remote Repository에 반영</td>
+</tr>
+<tr>
+<td><code>git diff</code></td>
+<td>변경 내용 확인</td>
+</tr>
+<tr>
+<td><code>git log</code></td>
+<td>Commit 이력 확인</td>
+</tr>
+<tr>
+<td><code>git branch</code></td>
+<td>Branch 목록 및 현재 Branch 확인</td>
+</tr>
+<tr>
+<td><code>git switch</code></td>
+<td>Branch 이동</td>
+</tr>
+<tr>
+<td><code>git stash</code></td>
+<td>작업 내용을 임시 보관</td>
+</tr>
+<tr>
+<td><code>git remote -v</code></td>
+<td>Remote Repository 주소 확인</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="45">45. 가장 먼저 익힐 핵심 명령어</h2>
+<p>Git을 처음 공부한다면 모든 명령어를 한 번에 외울 필요는 없다.</p>
+<p>우선 다음 여섯 개를 정확히 이해하는 것이 중요하다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>status
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>pull
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>commit
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>push
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>log<span class="w"> </span>--oneline
+</code></pre></div>
+<p>그리고 다음 흐름을 기억한다.</p>
+<div class="highlight"><pre><span></span><code>Pull
+ ↓
+수정
+ ↓
+Status
+ ↓
+Add
+ ↓
+Commit
+ ↓
+Push
+</code></pre></div>
+<hr />
+<h2 id="46-git">46. Git 기본 용어 정리</h2>
+<table>
+<thead>
+<tr>
+<th>용어</th>
+<th>의미</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Repository</td>
+<td>Git으로 관리되는 저장소</td>
+</tr>
+<tr>
+<td>Local Repository</td>
+<td>내 PC의 Git Repository</td>
+</tr>
+<tr>
+<td>Remote Repository</td>
+<td>GitHub 등의 원격 Repository</td>
+</tr>
+<tr>
+<td>Working Directory</td>
+<td>실제 파일을 수정하는 영역</td>
+</tr>
+<tr>
+<td>Staging Area</td>
+<td>다음 Commit에 넣을 변경 사항 준비 영역</td>
+</tr>
+<tr>
+<td>Commit</td>
+<td>하나의 변경 이력</td>
+</tr>
+<tr>
+<td>Branch</td>
+<td>독립적인 작업 흐름</td>
+</tr>
+<tr>
+<td>Clone</td>
+<td>Remote Repository를 최초로 복사</td>
+</tr>
+<tr>
+<td>Pull</td>
+<td>Remote 변경 내용을 Local에 반영</td>
+</tr>
+<tr>
+<td>Push</td>
+<td>Local Commit을 Remote에 반영</td>
+</tr>
+<tr>
+<td>Conflict</td>
+<td>서로 다른 변경 사항이 충돌한 상태</td>
+</tr>
+<tr>
+<td>HEAD</td>
+<td>현재 Checkout되어 있는 Commit 또는 Branch 위치</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="47">47. 학습 체크리스트</h2>
+<p>다음 내용을 이해하면 Git 기초 학습의 기본 목표를 달성한 것이다.</p>
+<ul>
+<li>[ ] Git과 GitHub의 차이를 설명할 수 있다.</li>
+<li>[ ] Repository가 무엇인지 설명할 수 있다.</li>
+<li>[ ] Local Repository와 Remote Repository의 차이를 안다.</li>
+<li>[ ] Working Directory와 Staging Area를 이해한다.</li>
+<li>[ ] Commit이 무엇인지 이해한다.</li>
+<li>[ ] <code>git status</code> 결과를 기본적으로 읽을 수 있다.</li>
+<li>[ ] <code>git pull</code>의 역할을 안다.</li>
+<li>[ ] <code>git add</code>의 역할을 안다.</li>
+<li>[ ] <code>git commit</code>의 역할을 안다.</li>
+<li>[ ] <code>git push</code>의 역할을 안다.</li>
+<li>[ ] Clone과 Pull의 차이를 설명할 수 있다.</li>
+<li>[ ] Branch의 목적을 이해한다.</li>
+<li>[ ] Conflict가 왜 발생하는지 이해한다.</li>
+<li>[ ] <code>.gitignore</code>의 기본 목적을 이해한다.</li>
+<li>[ ] <code>git push --force</code>, <code>git reset --hard</code>가 주의가 필요한 명령임을 안다.</li>
+</ul>
+<hr />
+<h2 id="48">48. 최종 정리</h2>
+<p>Git에서 가장 중요한 것은 명령어를 많이 외우는 것이 아니라 <strong>변경 내용이 어느 단계에 있는지를 이해하는 것</strong>이다.</p>
+<div class="highlight"><pre><span></span><code>Working Directory
+        ↓ git add
+Staging Area
+        ↓ git commit
+Local Repository
+        ↓ git push
+Remote Repository
+</code></pre></div>
+<p>그리고 팀 프로젝트에서는 다음 흐름을 기본 습관으로 만든다.</p>
+<div class="highlight"><pre><span></span><code>작업 시작
+   ↓
+git status
+   ↓
+git pull
+   ↓
+파일 수정
+   ↓
+git status / git diff
+   ↓
+git add
+   ↓
+git commit
+   ↓
+git push
+</code></pre></div>
+<p>Git의 기본 흐름을 이해하면 SourceTree 같은 GUI 도구를 사용할 때도 각 버튼이 어떤 Git 명령을 수행하는지 쉽게 이해할 수 있다.</p>
+<p>AI-Data-Platform 프로젝트에서도 Git은 단순한 소스 다운로드 도구가 아니라 <strong>팀원이 동일한 문서, Python 코드, RAG 및 Agent 실습 자산을 함께 관리하기 위한 기본 협업 도구</strong>로 사용한다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.top", "navigation.prune", "search.highlight", "search.share", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

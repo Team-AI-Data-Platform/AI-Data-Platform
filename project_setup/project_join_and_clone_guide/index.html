@@ -1,0 +1,2690 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AI Data Platform & Local LLM Study">
+      
+      
+      
+      
+        <link rel="prev" href="../development_device_guide/">
+      
+      
+        <link rel="next" href="../git_install_basic_setup_windows_guide/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>2. 프로젝트 참여 및 소스 받기 - AI Data Platform Study</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../study/css/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AI Data Platform Study" class="md-header__button md-logo" aria-label="AI Data Platform Study" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI Data Platform Study
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2. 프로젝트 참여 및 소스 받기
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../roadmap/study-roadmap/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Roadmap
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../project_environment_setup_overview_guide/" class="md-tabs__link">
+          
+  
+  
+  프로젝트 환경 구성
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../basic/git_core_guide/" class="md-tabs__link">
+          
+  
+  
+  기초 학습
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../mkdocs/mkdocs_site_build_guide/" class="md-tabs__link">
+          
+  
+  
+  MkDocs 문서 관리
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../study/step1/step1_local_llm_setup_guide/" class="md-tabs__link">
+          
+  
+  
+  AI Lab
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AI Data Platform Study" class="md-nav__button md-logo" aria-label="AI Data Platform Study" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    AI Data Platform Study
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roadmap/study-roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    프로젝트 환경 구성
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    프로젝트 환경 구성
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../project_environment_setup_overview_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. 환경 구성
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. 프로젝트 참여 및 소스 받기
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. 프로젝트 참여 및 소스 받기
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 문서 작성 목적
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 대상 독자
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 전체 진행 흐름
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. GitHub 계정 준비
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 프로젝트 참여 요청
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 프로젝트 참여 요청 메일 예시
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 저장소 관리자 작업 - 팀원 초대
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Repository 권한 이해
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 팀원 작업 - GitHub 초대 수락
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 저장소 접근 확인
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Git 설치 여부 확인
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Git 설치 여부 확인">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        macOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-clone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Clone이란?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-https-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. HTTPS와 SSH 방식
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. HTTPS와 SSH 방식">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#https" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTTPS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSH
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. 작업 디렉터리 준비
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. 작업 디렉터리 준비">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 예시
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        macOS 예시
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-repository-clone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Repository Clone
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15. Repository Clone">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows PowerShell
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        macOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-clone-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Clone 후 Repository 확인
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. 프로젝트 디렉터리 구조 확인
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-clone-pull" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Clone과 Pull의 차이
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18. Clone과 Pull의 차이">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clone
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pull
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. 최신 소스 내려받기
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-github-https" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. GitHub HTTPS 인증 참고
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. 자주 발생하는 문제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="21. 자주 발생하는 문제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.1 초대 메일이 오지 않는 경우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.2 Repository가 보이지 않는 경우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213-repository-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.3 Repository not found
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214-authentication-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.4 Authentication failed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.5 git 명령을 찾을 수 없음
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216-clone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.6 Clone할 폴더가 이미 존재하는 경우
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-sourcetree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. SourceTree를 사용하는 경우
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. 소스를 받은 뒤 다음 단계
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="23. 소스를 받은 뒤 다음 단계">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 사용자
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        macOS 사용자
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. 완료 체크리스트
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. 최종 정리
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    <a href="../git_install_basic_setup_windows_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3.개발 환경 세팅
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../git_project_source_management_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. 프로젝트 설정
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../sourcetree_github_usage_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. 개발 유틸리티
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../basic/git_core_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    기초 학습
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    <a href="../../mkdocs/mkdocs_site_build_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MkDocs 문서 관리
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+  
+    
+  
+  
+  
+    
+  
+  
+  
+    <a href="../../study/step1/step1_local_llm_setup_guide/" class="md-nav__link">
+      
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI Lab
+  
+
+    
+  </span>
+  
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 문서 작성 목적
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 대상 독자
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 전체 진행 흐름
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. GitHub 계정 준비
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 프로젝트 참여 요청
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 프로젝트 참여 요청 메일 예시
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 저장소 관리자 작업 - 팀원 초대
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Repository 권한 이해
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 팀원 작업 - GitHub 초대 수락
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 저장소 접근 확인
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Git 설치 여부 확인
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="11. Git 설치 여부 확인">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        macOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-clone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Clone이란?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-https-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. HTTPS와 SSH 방식
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="13. HTTPS와 SSH 방식">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#https" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTTPS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSH
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. 작업 디렉터리 준비
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="14. 작업 디렉터리 준비">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 예시
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        macOS 예시
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-repository-clone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. Repository Clone
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="15. Repository Clone">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows PowerShell
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        macOS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-clone-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        16. Clone 후 Repository 확인
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        17. 프로젝트 디렉터리 구조 확인
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-clone-pull" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        18. Clone과 Pull의 차이
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="18. Clone과 Pull의 차이">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clone
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pull
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. 최신 소스 내려받기
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-github-https" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. GitHub HTTPS 인증 참고
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21. 자주 발생하는 문제
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="21. 자주 발생하는 문제">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.1 초대 메일이 오지 않는 경우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.2 Repository가 보이지 않는 경우
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213-repository-not-found" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.3 Repository not found
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214-authentication-failed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.4 Authentication failed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.5 git 명령을 찾을 수 없음
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216-clone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        21.6 Clone할 폴더가 이미 존재하는 경우
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-sourcetree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. SourceTree를 사용하는 경우
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23. 소스를 받은 뒤 다음 단계
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="23. 소스를 받은 뒤 다음 단계">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#windows_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 사용자
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#macos_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        macOS 사용자
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        24. 완료 체크리스트
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25. 최종 정리
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">프로젝트 참여 및 소스 받기 가이드</h1>
+<blockquote>
+<p>이 문서는 <strong>AI-Data-Platform 프로젝트에 새로 참여하는 팀원</strong>이 프로젝트 참여를 요청하고, GitHub 저장소 초대를 수락한 뒤, 프로젝트 소스를 로컬 PC로 내려받는 방법을 설명한다.<br />
+본 가이드에서는 <strong>프로젝트 참여 → GitHub 권한 확인 → 저장소 Clone → 최신 소스 Pull</strong>까지를 다룬다.<br />
+Python, MkDocs, Ollama 등의 상세 설치 및 환경 설정은 운영체제별 별도 가이드를 참고한다.</p>
+</blockquote>
+<hr />
+<h2 id="1">1. 문서 작성 목적</h2>
+<p>AI-Data-Platform 프로젝트의 문서와 실습 코드는 GitHub Repository에서 통합 관리한다.</p>
+<p>저장소에는 다음과 같은 프로젝트 자산이 포함될 수 있다.</p>
+<div class="highlight"><pre><span></span><code>AI-Data-Platform Repository
+
+├─ MkDocs 기반 프로젝트 문서
+├─ AI 학습 가이드
+├─ Python 실습 코드
+├─ RAG / Agent 실습 코드
+├─ 실습용 샘플 문서
+└─ 프로젝트 설정 파일
+</code></pre></div>
+<p>따라서 신규 팀원이 프로젝트에 참여하려면 먼저 GitHub 저장소에 접근할 수 있는 권한을 받아야 한다.</p>
+<p>특히 저장소가 <strong>Private Repository</strong>인 경우 저장소 주소를 알고 있더라도 접근 권한이 없으면 내용을 조회하거나 Clone할 수 없다.</p>
+<p>본 문서의 목표는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>프로젝트 참여 요청
+        ↓
+GitHub 저장소 초대
+        ↓
+초대 수락
+        ↓
+저장소 접근 확인
+        ↓
+프로젝트 Clone
+        ↓
+최신 소스 확인
+        ↓
+로컬 환경 구성 단계로 이동
+</code></pre></div>
+<hr />
+<h2 id="2">2. 대상 독자</h2>
+<p>이 문서는 다음 사용자를 대상으로 한다.</p>
+<ul>
+<li>AI-Data-Platform 프로젝트에 새로 참여하는 팀원</li>
+<li>GitHub 저장소 접근 권한을 처음 요청하는 사용자</li>
+<li>관리자로부터 GitHub 초대를 받아야 하는 사용자</li>
+<li>프로젝트 문서와 실습 코드를 로컬 PC로 내려받으려는 사용자</li>
+<li>GitHub Repository를 처음 Clone하는 사용자</li>
+</ul>
+<hr />
+<h2 id="3">3. 전체 진행 흐름</h2>
+<p>프로젝트 참여부터 로컬 소스 확보까지의 전체 흐름은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>GitHub 계정 준비
+       ↓
+프로젝트 참여 요청
+       ↓
+관리자가 GitHub 계정 확인
+       ↓
+GitHub 저장소 초대 발송
+       ↓
+팀원이 초대 수락
+       ↓
+저장소 접근 가능 여부 확인
+       ↓
+Git 설치 여부 확인
+       ↓
+저장소 Clone
+       ↓
+프로젝트 구조 확인
+       ↓
+최신 소스 Pull 방법 확인
+       ↓
+운영체제별 로컬 환경 구성
+</code></pre></div>
+<blockquote>
+<p>메뉴상으로는 <code>프로젝트 참여 및 소스 받기</code>가 운영체제별 로컬 환경 구성보다 앞에 위치한다.<br />
+다만 실제 <code>git clone</code> 명령을 사용하려면 Git이 설치되어 있어야 한다.<br />
+Git이 설치되어 있지 않은 경우 운영체제별 <strong>Git 설치 가이드</strong>를 먼저 진행한 뒤 다시 본 문서로 돌아온다.</p>
+</blockquote>
+<hr />
+<h2 id="4-github">4. GitHub 계정 준비</h2>
+<p>프로젝트에 참여하려면 GitHub 계정이 필요하다.</p>
+<p>GitHub 계정이 없다면 먼저 GitHub에서 계정을 생성한다.</p>
+<p>일반적인 가입 흐름은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>GitHub 접속
+   ↓
+Sign up
+   ↓
+이메일 입력
+   ↓
+사용자명 생성
+   ↓
+비밀번호 설정
+   ↓
+이메일 인증
+   ↓
+GitHub 계정 생성 완료
+</code></pre></div>
+<p>이미 개인 또는 회사 GitHub 계정을 사용하고 있다면 프로젝트 운영 정책에 따라 기존 계정을 사용할 수 있다.</p>
+<p>프로젝트 참여 요청 전에 다음 정보를 확인해 둔다.</p>
+<div class="highlight"><pre><span></span><code>GitHub ID
+GitHub 가입 이메일
+사용자 이름
+</code></pre></div>
+<p>예시:</p>
+<div class="highlight"><pre><span></span><code>GitHub ID : honggildong
+Email     : hong@example.com
+Name      : 홍길동
+</code></pre></div>
+<p>GitHub ID를 잘못 전달하면 관리자가 다른 계정을 초대하거나 초대를 정상적으로 발송하지 못할 수 있으므로 정확하게 확인한다.</p>
+<hr />
+<h2 id="5">5. 프로젝트 참여 요청</h2>
+<p>AI-Data-Platform 프로젝트에 참여하려는 팀원은 프로젝트 관리자에게 참여를 요청한다.</p>
+<p>현재 프로젝트에서는 별도의 가입 게시판을 운영하지 않고 <strong>이메일을 통해 참여 요청을 접수</strong>하는 방식으로 관리한다.</p>
+<p>관리자 이메일:</p>
+<div class="highlight"><pre><span></span><code>minis24@gmail.com
+</code></pre></div>
+<p>메일 제목은 다음 형식을 권장한다.</p>
+<div class="highlight"><pre><span></span><code>[AI-Data-Platform] 프로젝트 참여 희망
+</code></pre></div>
+<p>메일 본문에는 다음 정보를 포함한다.</p>
+<div class="highlight"><pre><span></span><code>1. 이름
+2. 연락처 및 이메일
+3. GitHub 계정
+4. 간단한 소개말
+</code></pre></div>
+<hr />
+<h2 id="6">6. 프로젝트 참여 요청 메일 예시</h2>
+<p>다음 형식을 참고하여 참여 요청 메일을 작성한다.</p>
+<div class="highlight"><pre><span></span><code>제목: [AI-Data-Platform] 프로젝트 참여 희망
+
+안녕하세요.
+AI-Data-Platform 프로젝트에 참여하고 싶어 메일드립니다.
+
+아래와 같이 참여 요청 정보를 전달드립니다.
+
+1. 이름
+   - 홍길동
+
+2. 연락처 및 이메일
+   - 연락처: 010-0000-0000
+   - 이메일: hong@example.com
+
+3. GitHub 계정
+   - GitHub ID: honggildong
+   - GitHub 가입 이메일: hong@example.com
+
+4. 간단한 소개말
+   - Local LLM, RAG, AI Agent 및 AI Data Platform 학습에 관심이 있습니다.
+   - 프로젝트 문서와 실습 코드를 기반으로 함께 학습하고 싶습니다.
+
+확인 후 GitHub 저장소 초대 부탁드립니다.
+
+감사합니다.
+</code></pre></div>
+<p>참여 요청 메일을 보내기 전에 GitHub ID와 이메일 주소를 다시 확인한다.</p>
+<hr />
+<h2 id="7-">7. 저장소 관리자 작업 - 팀원 초대</h2>
+<p>관리자는 참여 요청에 포함된 GitHub 계정을 확인한 뒤 프로젝트 Repository에 팀원을 초대한다.</p>
+<p>일반적인 흐름은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>GitHub Repository 접속
+        ↓
+Settings
+        ↓
+Collaborators / Collaborators and teams
+        ↓
+Add people
+        ↓
+GitHub ID 또는 이메일 검색
+        ↓
+권한 설정
+        ↓
+Invitation 발송
+</code></pre></div>
+<p>GitHub 조직 또는 Repository 설정에 따라 메뉴 명칭과 권한 관리 방식은 일부 다를 수 있다.</p>
+<hr />
+<h2 id="8-repository">8. Repository 권한 이해</h2>
+<p>팀원에게 부여하는 권한은 프로젝트에서 수행할 역할에 따라 달라질 수 있다.</p>
+<p>대표적인 권한은 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>권한</th>
+<th>주요 용도</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read</td>
+<td>저장소 조회 및 Clone</td>
+</tr>
+<tr>
+<td>Triage</td>
+<td>Issue 및 Pull Request 관리 보조</td>
+</tr>
+<tr>
+<td>Write</td>
+<td>소스 및 문서 Push</td>
+</tr>
+<tr>
+<td>Maintain</td>
+<td>Repository 운영 관리</td>
+</tr>
+<tr>
+<td>Admin</td>
+<td>전체 Repository 설정 관리</td>
+</tr>
+</tbody>
+</table>
+<p>프로젝트 문서와 실습 코드를 단순 조회하고 내려받는 목적이라면 Read 권한으로 시작할 수 있다.</p>
+<p>팀원이 문서나 실습 코드를 직접 수정하여 Repository에 반영해야 한다면 프로젝트 운영 정책에 따라 Write 이상의 권한이 필요할 수 있다.</p>
+<hr />
+<h2 id="9-github">9. 팀원 작업 - GitHub 초대 수락</h2>
+<p>관리자가 저장소 초대를 발송하면 팀원은 GitHub에서 초대를 확인한다.</p>
+<p>일반적인 흐름은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>GitHub 초대 확인
+      ↓
+GitHub 로그인
+      ↓
+Invitation 확인
+      ↓
+Accept invitation
+      ↓
+Repository 접근
+</code></pre></div>
+<p>초대 메일이 발송된 경우 이메일의 초대 링크를 통해 이동할 수도 있다.</p>
+<blockquote>
+<p>관리자가 초대를 발송했더라도 팀원이 초대를 수락하지 않으면 저장소 접근 권한이 정상적으로 활성화되지 않을 수 있다.</p>
+</blockquote>
+<hr />
+<h2 id="10">10. 저장소 접근 확인</h2>
+<p>초대를 수락한 뒤 브라우저에서 AI-Data-Platform 저장소에 접속한다.</p>
+<p>다음 항목을 확인한다.</p>
+<div class="highlight"><pre><span></span><code>1. Repository 메인 화면이 정상적으로 열리는가?
+2. README.md가 보이는가?
+3. docs/ 디렉터리가 보이는가?
+4. labs/ 디렉터리가 보이는가?
+5. Code 버튼을 사용할 수 있는가?
+</code></pre></div>
+<p>정상적으로 보인다면 Repository 접근 권한이 부여된 상태이다.</p>
+<p>접근 권한에 문제가 있는 경우 다음과 같은 메시지를 볼 수 있다.</p>
+<div class="highlight"><pre><span></span><code>404 Not Found
+Repository not found
+Permission denied
+Authentication failed
+</code></pre></div>
+<p>이 경우 다음 사항을 확인한다.</p>
+<div class="highlight"><pre><span></span><code>GitHub 로그인 계정
+GitHub 초대 수락 여부
+Repository 접근 권한
+Repository 주소
+</code></pre></div>
+<hr />
+<h2 id="11-git">11. Git 설치 여부 확인</h2>
+<p>프로젝트 소스를 Clone하려면 로컬 PC에 Git이 설치되어 있어야 한다.</p>
+<p>터미널 또는 PowerShell에서 다음 명령을 실행한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>--version
+</code></pre></div>
+<p>정상적으로 설치되어 있으면 다음과 비슷하게 표시된다.</p>
+<div class="highlight"><pre><span></span><code>git version 2.x.x
+</code></pre></div>
+<p>Git이 설치되어 있지 않다면 본 문서에서 Git 설치를 진행하지 않고 운영체제별 별도 가이드를 참고한다.</p>
+<h3 id="windows">Windows</h3>
+<div class="highlight"><pre><span></span><code>프로젝트 환경 구성
+ └─ 로컬 환경(Windows) 세팅하기
+      └─ Git 설치 및 기본 설정
+</code></pre></div>
+<h3 id="macos">macOS</h3>
+<div class="highlight"><pre><span></span><code>프로젝트 환경 구성
+ └─ 로컬 환경(macOS) 세팅하기
+      └─ Git 설치 및 GitHub 설정
+</code></pre></div>
+<p>Git 설치를 완료한 뒤 다시 본 문서의 Clone 단계로 돌아온다.</p>
+<hr />
+<h2 id="12-clone">12. Clone이란?</h2>
+<p><code>Clone</code>은 GitHub의 원격 Repository를 자신의 로컬 PC로 처음 내려받는 작업이다.</p>
+<div class="highlight"><pre><span></span><code>GitHub Repository
+       ↓
+    git clone
+       ↓
+Local PC
+</code></pre></div>
+<p>Clone을 수행하면 Repository의 파일뿐 아니라 Git이 프로젝트의 변경 이력을 관리하는 데 필요한 정보도 함께 생성된다.</p>
+<p>예를 들어 다음과 같은 프로젝트가 생성된다.</p>
+<div class="highlight"><pre><span></span><code>AI-Data-Platform/
+├─ .git/
+├─ docs/
+├─ labs/
+├─ mkdocs.yml
+├─ README.md
+└─ .gitignore
+</code></pre></div>
+<p><code>.git</code> 디렉터리는 Git이 Repository의 상태와 이력을 관리하기 위해 사용하는 영역이다.</p>
+<hr />
+<h2 id="13-https-ssh">13. HTTPS와 SSH 방식</h2>
+<p>GitHub Repository를 Clone하는 대표적인 방식은 다음 두 가지이다.</p>
+<div class="highlight"><pre><span></span><code>HTTPS
+SSH
+</code></pre></div>
+<h3 id="https">HTTPS</h3>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>https://github.com/Team-AI-Data-Platform/AI-Data-Platform.git
+</code></pre></div>
+<p>Clone 명령:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Team-AI-Data-Platform/AI-Data-Platform.git
+</code></pre></div>
+<p>처음 프로젝트에 참여하는 경우 비교적 이해하기 쉬운 방식이다.</p>
+<h3 id="ssh">SSH</h3>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>git@github.com:Team-AI-Data-Platform/AI-Data-Platform.git
+</code></pre></div>
+<p>Clone 명령:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:Team-AI-Data-Platform/AI-Data-Platform.git
+</code></pre></div>
+<p>SSH 방식은 사전에 GitHub 계정에 SSH Key를 등록해야 한다.</p>
+<p>본 프로젝트의 기본 가이드에서는 HTTPS 방식을 중심으로 설명한다.</p>
+<hr />
+<h2 id="14">14. 작업 디렉터리 준비</h2>
+<p>소스 코드를 저장할 상위 디렉터리를 준비한다.</p>
+<h3 id="windows_1">Windows 예시</h3>
+<div class="highlight"><pre><span></span><code><span class="n">C</span><span class="p">:\</span><span class="n">projects</span>
+</code></pre></div>
+<p>해당 디렉터리가 없다면 생성할 수 있다.</p>
+<div class="highlight"><pre><span></span><code><span class="n">mkdir</span> <span class="n">C</span><span class="p">:\</span><span class="n">projects</span>
+</code></pre></div>
+<p>이동한다.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">projects</span>
+</code></pre></div>
+<h3 id="macos_1">macOS 예시</h3>
+<div class="highlight"><pre><span></span><code>~/projects
+</code></pre></div>
+<p>디렉터리를 생성한다.</p>
+<div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>~/projects
+</code></pre></div>
+<p>이동한다.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/projects
+</code></pre></div>
+<hr />
+<h2 id="15-repository-clone">15. Repository Clone</h2>
+<p>프로젝트 Repository를 Clone한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Team-AI-Data-Platform/AI-Data-Platform.git
+</code></pre></div>
+<p>정상적으로 진행되면 Git이 프로젝트 파일을 내려받는다.</p>
+<p>완료 후 프로젝트 디렉터리로 이동한다.</p>
+<h3 id="windows-powershell">Windows PowerShell</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">projects</span><span class="p">\</span><span class="n">AI-Data-Platform</span>
+</code></pre></div>
+<h3 id="macos_2">macOS</h3>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/projects/AI-Data-Platform
+</code></pre></div>
+<hr />
+<h2 id="16-clone-repository">16. Clone 후 Repository 확인</h2>
+<p>프로젝트 디렉터리에서 Git 상태를 확인한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>status
+</code></pre></div>
+<p>정상적인 경우 현재 브랜치와 Working Tree 상태가 표시된다.</p>
+<p>현재 브랜치도 확인한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>branch
+</code></pre></div>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>* main
+</code></pre></div>
+<p>원격 Repository 연결 정보는 다음 명령으로 확인한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>remote<span class="w"> </span>-v
+</code></pre></div>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>origin  https://github.com/Team-AI-Data-Platform/AI-Data-Platform.git (fetch)
+origin  https://github.com/Team-AI-Data-Platform/AI-Data-Platform.git (push)
+</code></pre></div>
+<hr />
+<h2 id="17">17. 프로젝트 디렉터리 구조 확인</h2>
+<p>Clone 후 프로젝트의 기본 구조를 확인한다.</p>
+<p>프로젝트가 진행되면서 디렉터리 구조는 변경될 수 있지만 대표적인 구조는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>AI-Data-Platform/
+│
+├─ docs/
+│  ├─ project_setup/
+│  ├─ roadmap/
+│  ├─ setting/
+│  └─ study/
+│
+├─ labs/
+│
+├─ mkdocs.yml
+├─ README.md
+└─ .gitignore
+</code></pre></div>
+<p>주요 항목의 역할은 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docs/</code></td>
+<td>MkDocs 문서 원본</td>
+</tr>
+<tr>
+<td><code>docs/project_setup/</code></td>
+<td>프로젝트 환경 구성 가이드</td>
+</tr>
+<tr>
+<td><code>docs/study/</code></td>
+<td>AI 학습 가이드</td>
+</tr>
+<tr>
+<td><code>labs/</code></td>
+<td>Python 및 AI 실습 코드</td>
+</tr>
+<tr>
+<td><code>mkdocs.yml</code></td>
+<td>MkDocs 사이트 설정 및 메뉴 구성</td>
+</tr>
+<tr>
+<td><code>README.md</code></td>
+<td>Repository 기본 안내</td>
+</tr>
+<tr>
+<td><code>.gitignore</code></td>
+<td>Git 관리 제외 대상 정의</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="18-clone-pull">18. Clone과 Pull의 차이</h2>
+<p>신규 팀원이 자주 혼동하는 개념이 <code>Clone</code>과 <code>Pull</code>이다.</p>
+<h3 id="clone">Clone</h3>
+<p>Repository를 처음 로컬 PC로 내려받을 때 사용한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>&lt;repository-url&gt;
+</code></pre></div>
+<p>보통 <strong>최초 1회</strong> 실행한다.</p>
+<h3 id="pull">Pull</h3>
+<p>이미 Clone되어 있는 프로젝트에서 GitHub의 최신 변경 내용을 내려받을 때 사용한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>pull
+</code></pre></div>
+<p>또는 브랜치를 명시할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div>
+<p>정리하면 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>처음 프로젝트를 받을 때
+→ git clone
+
+이미 프로젝트가 있는 상태에서 최신화할 때
+→ git pull
+</code></pre></div>
+<hr />
+<h2 id="19">19. 최신 소스 내려받기</h2>
+<p>프로젝트를 이미 Clone한 뒤 다른 팀원이 문서나 소스를 변경했다면 작업을 시작하기 전에 최신 내용을 내려받는 습관이 좋다.</p>
+<p>프로젝트 루트에서 실행한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div>
+<p>변경 사항이 없다면 다음과 비슷하게 표시될 수 있다.</p>
+<div class="highlight"><pre><span></span><code>Already up to date.
+</code></pre></div>
+<p>새로운 변경 사항이 있다면 해당 파일들이 로컬로 내려온다.</p>
+<blockquote>
+<p>로컬에서 이미 수정한 파일이 있는 상태에서 Pull하면 충돌(Conflict)이 발생할 수 있다.<br />
+Git 사용이 익숙하지 않은 경우 임의로 파일을 삭제하거나 덮어쓰기보다 프로젝트 담당자와 확인한 뒤 처리한다.</p>
+</blockquote>
+<hr />
+<h2 id="20-github-https">20. GitHub HTTPS 인증 참고</h2>
+<p>Private Repository를 HTTPS 방식으로 Clone하거나 Push하는 경우 GitHub 인증이 필요할 수 있다.</p>
+<p>Windows에서는 Git for Windows에 포함된 Git Credential Manager 등을 통해 브라우저 기반 인증이 진행될 수 있다.</p>
+<p>인증 화면이 나타난다면 프로젝트 권한을 부여받은 <strong>올바른 GitHub 계정</strong>으로 로그인한다.</p>
+<p>현재 Repository 주소는 다음 명령으로 확인할 수 있다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>remote<span class="w"> </span>-v
+</code></pre></div>
+<p>GitHub 계정 인증과 Repository 접근 권한은 서로 다른 개념이다.</p>
+<div class="highlight"><pre><span></span><code>GitHub 로그인 성공
+        +
+Repository 접근 권한 존재
+        ↓
+Private Repository 사용 가능
+</code></pre></div>
+<hr />
+<h2 id="21">21. 자주 발생하는 문제</h2>
+<h3 id="211">21.1 초대 메일이 오지 않는 경우</h3>
+<p>확인 사항:</p>
+<div class="highlight"><pre><span></span><code>GitHub ID가 정확한가?
+GitHub 가입 이메일이 정확한가?
+스팸 메일함에 들어가 있지 않은가?
+관리자가 실제 초대를 발송했는가?
+</code></pre></div>
+<p>필요하면 관리자에게 초대 상태를 확인한다.</p>
+<hr />
+<h3 id="212-repository">21.2 Repository가 보이지 않는 경우</h3>
+<p>다음 사항을 확인한다.</p>
+<div class="highlight"><pre><span></span><code>현재 로그인한 GitHub 계정
+초대 수락 여부
+Repository 권한
+Repository URL
+</code></pre></div>
+<p>Private Repository는 권한이 없는 계정으로 접근하면 정상적으로 표시되지 않을 수 있다.</p>
+<hr />
+<h3 id="213-repository-not-found">21.3 <code>Repository not found</code></h3>
+<p>가능한 원인:</p>
+<div class="highlight"><pre><span></span><code>Repository URL 오류
+GitHub 로그인 계정 오류
+Repository 접근 권한 없음
+초대 미수락
+</code></pre></div>
+<p>먼저 브라우저에서 해당 GitHub 계정으로 Repository가 정상적으로 열리는지 확인한다.</p>
+<hr />
+<h3 id="214-authentication-failed">21.4 <code>Authentication failed</code></h3>
+<p>Git 인증 정보 또는 로그인 계정에 문제가 있을 수 있다.</p>
+<p>확인한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>remote<span class="w"> </span>-v
+</code></pre></div>
+<p>Windows에서 Git Credential Manager를 사용하는 경우 현재 GitHub 인증 계정을 확인하거나 다시 로그인해야 할 수 있다.</p>
+<hr />
+<h3 id="215-git">21.5 <code>git</code> 명령을 찾을 수 없음</h3>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>git: command not found
+</code></pre></div>
+<p>또는 Windows에서:</p>
+<div class="highlight"><pre><span></span><code>&#39;git&#39;은(는) 내부 또는 외부 명령...
+</code></pre></div>
+<p>Git이 설치되지 않았거나 PATH에 정상적으로 등록되지 않은 상태일 수 있다.</p>
+<p>운영체제별 Git 설치 가이드를 진행한 후 다시 확인한다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>--version
+</code></pre></div>
+<hr />
+<h3 id="216-clone">21.6 Clone할 폴더가 이미 존재하는 경우</h3>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>fatal: destination path &#39;AI-Data-Platform&#39; already exists
+</code></pre></div>
+<p>이미 해당 디렉터리가 존재한다는 의미이다.</p>
+<p>기존 프로젝트가 이미 Clone되어 있는 경우 다시 Clone하지 않고 프로젝트 디렉터리로 이동하여 Pull한다.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>AI-Data-Platform
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div>
+<p>기존 디렉터리가 Git 프로젝트인지 확실하지 않다면 임의로 삭제하지 말고 내용을 먼저 확인한다.</p>
+<hr />
+<h2 id="22-sourcetree">22. SourceTree를 사용하는 경우</h2>
+<p>Git 명령어가 익숙하지 않은 사용자는 SourceTree와 같은 GUI 도구를 사용할 수도 있다.</p>
+<p>SourceTree를 통한 Clone의 기본 흐름은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>SourceTree 실행
+      ↓
+Clone 선택
+      ↓
+Repository URL 입력
+      ↓
+로컬 저장 위치 지정
+      ↓
+Clone 실행
+</code></pre></div>
+<p>다만 SourceTree 설치 및 상세 사용 방법은 본 문서에서 다루지 않는다.</p>
+<p>별도의 <code>개발 유틸리티 &gt; SourceTree 설치 및 사용</code> 가이드에서 관리하는 것을 권장한다.</p>
+<hr />
+<h2 id="23">23. 소스를 받은 뒤 다음 단계</h2>
+<p>Repository Clone이 완료되었다면 프로젝트 참여 및 소스 받기 단계는 완료된 것이다.</p>
+<p>이후 자신의 운영체제에 맞게 로컬 개발환경을 구성한다.</p>
+<h3 id="windows_2">Windows 사용자</h3>
+<div class="highlight"><pre><span></span><code>프로젝트 환경 구성
+ └─ 로컬 환경(Windows) 세팅하기
+      ├─ Git 설치 및 기본 설정
+      ├─ Python 설치 및 환경 설정
+      ├─ MkDocs 설치 가이드
+      └─ Ollama 설치 및 기본 설정
+</code></pre></div>
+<h3 id="macos_3">macOS 사용자</h3>
+<div class="highlight"><pre><span></span><code>프로젝트 환경 구성
+ └─ 로컬 환경(macOS) 세팅하기
+      ├─ Git 설치 및 GitHub 설정
+      ├─ Python 설치 및 환경 설정
+      ├─ MkDocs 설치 가이드
+      └─ Ollama 설치 및 기본 설정
+</code></pre></div>
+<p>이미 Git 설치를 먼저 진행했다면 Git 항목은 확인만 하고 다음 단계로 진행하면 된다.</p>
+<hr />
+<h2 id="24">24. 완료 체크리스트</h2>
+<p>다음 항목이 모두 확인되면 프로젝트 참여 및 소스 받기가 완료된 것이다.</p>
+<ul>
+<li>[ ] GitHub 계정 준비 완료</li>
+<li>[ ] 프로젝트 참여 요청 완료</li>
+<li>[ ] 관리자 GitHub Repository 초대 완료</li>
+<li>[ ] GitHub 초대 수락 완료</li>
+<li>[ ] 브라우저에서 Repository 접근 확인</li>
+<li>[ ] Git 설치 확인</li>
+<li>[ ] AI-Data-Platform Repository Clone 완료</li>
+<li>[ ] 프로젝트 디렉터리 이동 완료</li>
+<li>[ ] <code>git status</code> 정상 실행</li>
+<li>[ ] <code>git remote -v</code> 원격 저장소 확인</li>
+<li>[ ] <code>git pull origin main</code> 사용 방법 확인</li>
+</ul>
+<hr />
+<h2 id="25">25. 최종 정리</h2>
+<p>프로젝트 신규 참여자가 기억해야 할 핵심 흐름은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>GitHub 계정 준비
+       ↓
+프로젝트 참여 요청
+       ↓
+관리자 초대
+       ↓
+초대 수락
+       ↓
+Repository 접근 확인
+       ↓
+Git 설치 확인
+       ↓
+git clone
+       ↓
+프로젝트 확인
+       ↓
+git pull
+       ↓
+운영체제별 로컬 환경 구성
+</code></pre></div>
+<p>핵심 Git 명령어는 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>--version
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Team-AI-Data-Platform/AI-Data-Platform.git
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>status
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>remote<span class="w"> </span>-v
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div>
+<p>본 가이드는 <strong>프로젝트 참여와 소스 확보까지</strong>를 담당한다.</p>
+<p>Python 가상환경, MkDocs, Ollama, RAG 및 AI Agent 실습은 각각의 전용 가이드에서 이어서 진행한다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.top", "navigation.prune", "search.highlight", "search.share", "content.code.copy", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
