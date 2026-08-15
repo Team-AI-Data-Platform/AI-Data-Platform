@@ -64,9 +64,9 @@ nav:
           setting/python_core_guide_for_beginner.md
       - ollama python 가이드:
           setting/ollama_python_guide.md
-  - 개발환경:
-      - Mac Mini AI LAB 구축:
-          setting/macmini_ai_lab_guide.md
+#  - 개발환경:
+#      - Mac Mini AI LAB 구축:
+#          setting/macmini_ai_lab_guide.md
   - 문서관리:
       - MkDocs 구축:
           setting/mkdocs_github_pages_guide.md
