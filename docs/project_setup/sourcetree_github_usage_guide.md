@@ -17,7 +17,7 @@ Git은 터미널 명령으로도 충분히 사용할 수 있지만, 커밋 이�
 
 SourceTree 화면은 크게 다음 영역으로 나뉜다.
 <figure markdown>
-![Architecture](images/settings/sourcetree_01_main_screen.png){ width="90%" }
+![Architecture](images/sourcetree/sourcetree_01_main_screen.png){ width="90%" }
 <figcaption>
 그림 1. SourceTree 화면 구조
 </figcaption>
@@ -26,7 +26,7 @@ SourceTree 화면은 크게 다음 영역으로 나뉜다.
 
 왼쪽 사이드바는 저장소의 주요 상태를 보여준다.
 <figure markdown>
-![Architecture](images/settings/sourcetree_01_left_screen.png){ width="90%" }
+![Architecture](images/sourcetree/sourcetree_01_left_screen.png){ width="90%" }
 <figcaption>
 그림 1. SourceTree 왼쪽 사이드바 구조
 </figcaption>
@@ -42,7 +42,7 @@ SourceTree 화면은 크게 다음 영역으로 나뉜다.
 
 상단 버튼은 Git에서 자주 쓰는 작업을 실행하는 영역이다.
 <figure markdown>
-![Architecture](images/settings/sourcetree_01_top_screen.png){ width="90%" }
+![Architecture](images/sourcetree/sourcetree_01_top_screen.png){ width="90%" }
 <figcaption>
 그림 1. SourceTree 상단 버튼 영역 구조
 </figcaption>
@@ -62,7 +62,7 @@ SourceTree 화면은 크게 다음 영역으로 나뉜다.
 
 중앙의 그래프는 커밋 이력과 브랜치 흐름을 보여준다.
 <figure markdown>
-![Architecture](images/settings/sourcetree_01_center_screen.png){ width="90%" }
+![Architecture](images/sourcetree/sourcetree_01_center_screen.png){ width="90%" }
 <figcaption>
 그림 1. SourceTree 중앙 그래프 영역 구조
 </figcaption>

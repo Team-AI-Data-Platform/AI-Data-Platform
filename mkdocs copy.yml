@@ -5,7 +5,7 @@ theme:
 
   features:
     - navigation.tabs
-#    - navigation.sections
+    - navigation.sections
     - navigation.top
     - navigation.prune
     - search.highlight
@@ -32,34 +32,11 @@ nav:
 
   - Roadmap: roadmap/study-roadmap.md
 
-  - 프로젝트 환경 구성:
-    - 환경 구성 :
-      - 환경 구성 개요: project_setup/project_environment_setup_overview_guide.md
-      - 개발 장비 구성 참고: project_setup/development_device_guide.md 
-    - Windows 세팅하기 :
-        - Git 설치 및 기본 설정: project_setup/git_install_basic_setup_windows_guide.md
-        - Python 설치 및 환경 설정: project_setup/python_environment_setup_windows_guide.md
-        - MkDocs 설치 가이드: project_setup/mkdocs_install_windows_guide.md
-
-    - macOS 세팅하기:
-        - Git 설치 및 GitHub 설정: project_setup/git_github_setup_macos_guide.md
-        - Python 설치 및 환경 설정: project_setup/python_environment_setup_macos_guide.md
-        - MkDocs 설치 가이드: project_setup/mkdocs_install_macos_guide.md
-
- #   - 프로젝트 참여 및 소스받기 : 
-    - 개발 유틸리티:
-        - SourceTree 설치 및 사용: project_setup/sourcetree_github_usage_guide.md
-
-
-
-  
-      
-
   - 시작하기:
       - GitHub 참여 및 소스받기:
           setting/github_team_repository_practice_guide_revised.md
- #     - SourceTree 사용법:
- #         setting/sourcetree_github_usage_guide.md
+      - SourceTree 사용법:
+          setting/sourcetree_github_usage_guide.md
       - Python 핵심 가이드:
           setting/python_core_guide_for_beginner.md
       - ollama python 가이드:
