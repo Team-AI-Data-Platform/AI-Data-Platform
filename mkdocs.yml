@@ -33,47 +33,45 @@ nav:
   - Roadmap: roadmap/study-roadmap.md
 
   - 프로젝트 환경 구성:
-    - 환경 구성 :
+    - 1. 환경 구성 :
       - 환경 구성 개요: project_setup/project_environment_setup_overview_guide.md
       - 개발 장비 구성 참고: project_setup/development_device_guide.md 
-    - Windows 세팅하기 :
+
+    - 2. 프로젝트 참여 및 소스 받기: project_setup/project_join_and_clone_guide.md  
+
+    - 3.개발 환경 세팅:
+      - 3.1 Windows 세팅하기 :
         - Git 설치 및 기본 설정: project_setup/git_install_basic_setup_windows_guide.md
         - Python 설치 및 환경 설정: project_setup/python_environment_setup_windows_guide.md
         - MkDocs 설치 가이드: project_setup/mkdocs_install_windows_guide.md
+        - Ollama 설치 및 기본 설정: project_setup/ollama_install_windows_guide.md
 
-    - macOS 세팅하기:
+      - 3.2 macOS 세팅하기:
         - Git 설치 및 GitHub 설정: project_setup/git_github_setup_macos_guide.md
         - Python 설치 및 환경 설정: project_setup/python_environment_setup_macos_guide.md
         - MkDocs 설치 가이드: project_setup/mkdocs_install_macos_guide.md
+        - Ollama 설치 및 기본 설정: project_setup/ollama_install_macos_guide.md
 
- #   - 프로젝트 참여 및 소스받기 : 
-    - 개발 유틸리티:
+    - 4. 프로젝트 설정 : 
+      - Git 제외(.gitignore)설정 : project_setup/git_project_source_management_guide.md
+
+    - 5. 개발 유틸리티:
         - SourceTree 설치 및 사용: project_setup/sourcetree_github_usage_guide.md
 
 
 
   
       
+  - 기초 학습:
+      - Git 핵심 가이드 : basic/git_core_guide.md
+      - Python 핵심 가이드: basic/python_core_guide_for_beginner.md
 
-  - 시작하기:
-      - GitHub 참여 및 소스받기:
-          setting/github_team_repository_practice_guide_revised.md
- #     - SourceTree 사용법:
- #         setting/sourcetree_github_usage_guide.md
-      - Python 핵심 가이드:
-          setting/python_core_guide_for_beginner.md
-      - ollama python 가이드:
-          setting/ollama_python_guide.md
-#  - 개발환경:
-#      - Mac Mini AI LAB 구축:
-#          setting/macmini_ai_lab_guide.md
-  - 문서관리:
-      - MkDocs 구축:
-          setting/mkdocs_github_pages_guide.md
-      - MkDocs 구축(Windows):
-          setting/mkdocs_github_pages_guide_windows.md
-      - MkDocs 배포:
-          setting/mkdocs_github_pages_guide_deploy.md
+
+  - MkDocs 문서 관리:
+      - MkDocs 문서 사이트 구축:
+          mkdocs/mkdocs_site_build_guide.md
+      - GitHub Pages 배포 및 운영:
+          mkdocs/mkdocs_github_pages_deploy_guide.md
 
   - AI Lab:
 
@@ -83,7 +81,7 @@ nav:
               - LLM 모델 크기 이해: study/step1/local_llm_model_size_guide.md
               - LLM 모델 크기 완전 이해: study/step1/local_llm_model_size_guide_detail.md
           - 구축 실습:
-              - Python 가상환경과 Ollama 연동: study/step1/Step1-3_Python_Virtual_Environment_and_Ollama_Guide.md
+              - Ollama Python API 연동: study/step1/Step1-3_Python_Virtual_Environment_and_Ollama_Guide.md
               - Open WebUI 구축 및 Docker 이해: study/step1/Step1-4_Open_WebUI_Docker_Guide.md
               - Prompt 실습: study/step1/Step1-5_Prompt_Practice_Guide.md
 
